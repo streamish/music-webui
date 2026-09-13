@@ -6,9 +6,10 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 type QueueContextValue = {
   currentIndex: number;
   currentTime: number;
-  currentTrack: TrackWithContent | null;
   duration: number;
   isPlaying: boolean;
+  isRepeating: boolean;
+  isShuffling: boolean;
   queue: TrackWithContent[];
   volume: number;
   next: () => void;
@@ -16,6 +17,8 @@ type QueueContextValue = {
   previous: () => void;
   seek: (seconds: number) => void;
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+  setIsRepeating: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsShuffling: React.Dispatch<React.SetStateAction<boolean>>;
   setQueue: React.Dispatch<React.SetStateAction<TrackWithContent[]>>;
   setVolume: React.Dispatch<React.SetStateAction<number>>;
   togglePlay: (playing?: boolean) => void;
@@ -26,20 +29,22 @@ const QueueContext = createContext<QueueContextValue | null>(null);
 export function QueueProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [queue, setQueue] = useState<TrackWithContent[]>([]);
+  const [queueShuffled, setQueueShuffled] = useState<TrackWithContent[]>([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
+  const [shuffleIndex, setShuffleIndex] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isRepeating, setIsRepeating] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
-
-  const currentTrack = currentIndex >= 0 && currentIndex < queue.length ? queue[currentIndex] : null;
 
   // Select the first item when items are added to an empty queue.
   useEffect(() => {
     if (queue.length > 0 && currentIndex === -1) {
       setCurrentIndex(0);
+      setShuffleIndex(0);
     }
-
     // Keep the index valid if the queue is replaced or shortened.
     if (queue.length === 0) {
       setCurrentIndex(-1);
@@ -49,10 +54,15 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     }
   }, [queue.length, currentIndex]);
 
+  useEffect(() => {
+    const shuffled = [...queue].sort(() => (Math.random() < 0.5 ? 1 : -1));
+    setQueueShuffled(shuffled);
+  }, [queue]);
+
   const playTrack = useCallback((track: TrackWithContent, tracks: TrackWithContent[] = [track]) => {
-    const index = tracks.findIndex((item) => item.id === track.id);
+    const queueIndex = tracks.findIndex((item) => item.id === track.id);
     setQueue(tracks);
-    setCurrentIndex(index >= 0 ? index : 0);
+    setCurrentIndex(queueIndex >= 0 ? queueIndex : 0);
     setIsPlaying(true);
   }, []);
 
@@ -69,18 +79,64 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     [queue.length, currentIndex],
   );
 
+  const prevShuffledTrack = useCallback(() => {
+    let newIndex = shuffleIndex;
+    if (newIndex > 0) {
+      newIndex -= 1;
+    } else if (isRepeating) {
+      newIndex = queueShuffled.length - 1;
+    }
+    setShuffleIndex(newIndex);
+    return queue.indexOf(queueShuffled[newIndex]);
+  }, [currentIndex]);
+
+  const nextShuffledTrack = useCallback(() => {
+    let newIndex = shuffleIndex;
+    if (newIndex < queueShuffled.length - 1) {
+      newIndex += 1;
+    } else if (isRepeating) {
+      newIndex = 0;
+    }
+    setShuffleIndex(newIndex);
+    return queue.indexOf(queueShuffled[newIndex]);
+  }, [currentIndex]);
+
   const next = useCallback(() => {
-    setCurrentIndex((index) => (index < queue.length - 1 ? index + 1 : index));
-  }, [queue.length]);
+    if (isShuffling) {
+      const newIndex = nextShuffledTrack();
+      if (newIndex !== undefined) {
+        setCurrentIndex(newIndex);
+      }
+    } else {
+      const nextIndex = currentIndex + 1;
+      if (nextIndex < queue.length) {
+        setCurrentIndex(nextIndex);
+      } else if (isRepeating) {
+        setCurrentIndex(0);
+      }
+    }
+  }, [queue.length, currentIndex]);
 
   const previous = useCallback(() => {
-    setCurrentIndex((index) => Math.max(index - 1, 0));
-  }, []);
+    if (isShuffling) {
+      const newIndex = prevShuffledTrack();
+      if (newIndex !== undefined) {
+        setCurrentIndex(newIndex);
+      }
+    } else {
+      const previousIndex = currentIndex - 1;
+      if (previousIndex > -1) {
+        setCurrentIndex(previousIndex);
+      } else if (isRepeating) {
+        setCurrentIndex(queue.length - 1);
+      }
+    }
+  }, [currentIndex]);
 
   // Fetch and load the current track.
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !currentTrack) {
+    if (!audio || currentIndex < 0) {
       return;
     }
     async function loadTrack(id: number) {
@@ -100,13 +156,13 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
         }
       }
     }
-    loadTrack(currentTrack.id);
-  }, [currentTrack?.id]); // Deliberately load only when the track changes
+    loadTrack(queue[currentIndex]?.id);
+  }, [currentIndex, queue]); // Deliberately load only when the track changes
 
   // Play or pause an already-loaded track.
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !currentTrack) {
+    if (!audio || currentIndex < 0) {
       return;
     }
     if (isPlaying) {
@@ -114,7 +170,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     } else {
       audio.pause();
     }
-  }, [isPlaying, currentTrack]);
+  }, [isPlaying, currentIndex, queue]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -157,9 +213,10 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
   const value = {
     currentIndex,
     currentTime,
-    currentTrack,
     duration,
     isPlaying,
+    isRepeating,
+    isShuffling,
     queue,
     volume,
     next,
@@ -167,6 +224,8 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     previous,
     seek,
     setCurrentIndex,
+    setIsRepeating,
+    setIsShuffling,
     setQueue,
     setVolume,
     togglePlay,

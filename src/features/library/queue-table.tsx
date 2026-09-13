@@ -51,7 +51,7 @@ export default function QueueTable() {
                 `w-full p-2 border-b last-of-type:border-0 bg-foreground/1 cursor-pointer`,
                 index === currentIndex ? 'bg-foreground/10' : '',
               ].join(' ')}
-              key={item.id}
+              key={`queue-track-${item.id}`}
               onClick={() => selectItem(index)}
               onDoubleClick={() => selectItem(index, true)}
             >

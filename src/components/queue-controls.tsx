@@ -9,11 +9,24 @@ import QueueTable from '@/features/library/queue-table';
 import useLockBodyScroll from '@/hooks/use-lock-body-scroll';
 
 export function QueueControls() {
-  const { queue, currentIndex, currentTime, isPlaying, next, previous, togglePlay, seek } = useQueue();
-  const [showQueue, setShowQueue] = useState(false);
-  useLockBodyScroll(showQueue);
+  const {
+    queue,
+    currentIndex,
+    currentTime,
+    isPlaying,
+    isRepeating,
+    isShuffling,
+    next,
+    previous,
+    togglePlay,
+    seek,
+    setIsRepeating,
+    setIsShuffling,
+  } = useQueue();
+  const [isShowingQueue, setIsShowingQueue] = useState(false);
+  useLockBodyScroll(isShowingQueue);
 
-  const toggleQueue = () => setShowQueue((prev) => !prev);
+  const toggleQueue = () => setIsShowingQueue((prev) => !prev);
 
   const stopPlaying = () => {
     togglePlay(false);
@@ -26,9 +39,11 @@ export function QueueControls() {
     seek(position);
   };
 
+  const currentItem = queue[currentIndex];
+
   return (
     <>
-      {showQueue && (
+      {isShowingQueue && (
         <div className="fixed overflow-y-scroll bg-muted h-full w-full top-0 left-0 pb-22 z-9999">
           <QueueTable />
         </div>
@@ -36,13 +51,10 @@ export function QueueControls() {
       <div className="fixed inset-x-0 bottom-0 z-9999 h-22 bg-muted/95">
         {/* Seek bar */}
         <div className="relative h-2 w-full bg-muted-foreground/40 cursor-pointer" onClick={setPosition}>
-          <div
-            className="h-2 bg-primary"
-            style={{ width: `${(currentTime / (queue[currentIndex]?.duration || 1)) * 100}%` }}
-          />
+          <div className="h-2 bg-primary" style={{ width: `${(currentTime / (currentItem?.duration || 1)) * 100}%` }} />
           <Circle
             className="absolute -top-1 left-0 h-4 w-4 bg-primary rounded-full"
-            style={{ left: `${(currentTime / (queue[currentIndex]?.duration || 1)) * 100}%` }}
+            style={{ left: `${(currentTime / (currentItem?.duration || 1)) * 100}%` }}
           />
         </div>
         <div className="flex h-20 bg-muted/95">
@@ -96,20 +108,18 @@ export function QueueControls() {
               <>
                 <div className="m-1 h-18 w-18 flex-none">
                   <AlbumIconImage
-                    albumId={queue[currentIndex].album.id}
+                    albumId={currentItem?.album.id}
                     size={100}
                     className="h-18 w-18 border-4 border-muted-foreground"
                   />
                 </div>
                 <div className="flex min-w-0 flex-col justify-center gap-1 ml-2">
-                  <span className="truncate text-md font-medium">{queue[currentIndex].title}</span>
+                  <span className="truncate text-md font-medium">{currentItem?.title}</span>
                   <span className="truncate text-sm text-muted-foreground">
-                    {queue[currentIndex].album.title} —{' '}
-                    {queue[currentIndex].album.artists.map((artist) => artist.name).join(', ')}
+                    {currentItem?.album.title} — {currentItem?.album.artists.map((artist) => artist.name).join(', ')}
                   </span>
                   <span className="text-sm text-muted-foreground">
-                    {secondsToMinutesAndSeconds(currentTime)} /{' '}
-                    {secondsToMinutesAndSeconds(queue[currentIndex].duration)}
+                    {secondsToMinutesAndSeconds(currentTime)} / {secondsToMinutesAndSeconds(currentItem?.duration)}
                   </span>
                 </div>
               </>
@@ -124,17 +134,32 @@ export function QueueControls() {
               <Button
                 variant="ghost"
                 size="icon-lg"
-                className={[`m-2 h-16 w-16 p-2 hover:bg-foreground/20!`, showQueue ? 'bg-foreground/10!' : ''].join(
-                  ' ',
-                )}
+                className={[
+                  `m-2 h-16 w-16 p-2 hover:bg-foreground/20!`,
+                  isShowingQueue ? 'bg-foreground/10!' : '',
+                ].join(' ')}
                 onClick={toggleQueue}
               >
                 <Logs className="h-8! w-8!" strokeWidth={1} />
               </Button>
-              <Button variant="ghost" size="icon-lg" className="m-2 h-16 w-16 p-2 hover:bg-foreground/20!">
+              <Button
+                variant="ghost"
+                size="icon-lg"
+                className={['m-2 h-16 w-16 p-2 hover:bg-foreground/20!', isRepeating ? 'bg-foreground/10!' : ''].join(
+                  ' ',
+                )}
+                onClick={() => setIsRepeating((prev) => !prev)}
+              >
                 <Repeat className="h-8! w-8!" strokeWidth={1} />
               </Button>
-              <Button variant="ghost" size="icon-lg" className="m-2 h-16 w-16 p-2 hover:bg-foreground/20!">
+              <Button
+                variant="ghost"
+                size="icon-lg"
+                className={['m-2 h-16 w-16 p-2 hover:bg-foreground/20!', isShuffling ? 'bg-foreground/10!' : ''].join(
+                  ' ',
+                )}
+                onClick={() => setIsShuffling((prev) => !prev)}
+              >
                 <Shuffle className="h-8! w-8!" strokeWidth={1} />
               </Button>
             </div>
