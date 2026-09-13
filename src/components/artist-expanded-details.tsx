@@ -2,7 +2,7 @@ import { AlbumExpandedDetails } from './album-expanded-details';
 import { PlaybackControls } from './playback-controls';
 import type { ArtistWithContents } from '@/features/library/library';
 
-export function ArtistExpandedDetails({ artist }: { artist: ArtistWithContents }) {
+export function ArtistExpandedDetails({ artist, artistOnly }: { artist: ArtistWithContents; artistOnly?: boolean }) {
   const contrastingColor = artist.albums[0].coverImageDarkMuted || '#000000';
   return (
     <div
@@ -23,7 +23,14 @@ export function ArtistExpandedDetails({ artist }: { artist: ArtistWithContents }
         {artist.albums.length > 1 && <PlaybackControls artist={artist} textLabels={true} />}
       </div>
       {artist.albums.map((album, index) => {
-        return <AlbumExpandedDetails key={`album-${album.id}-${index}`} album={album} autoScroll={index === 0} />;
+        return (
+          <AlbumExpandedDetails
+            key={`album-${album.id}-${index}`}
+            album={album}
+            artist={artistOnly ? artist : undefined}
+            autoScroll={index === 0}
+          />
+        );
       })}
     </div>
   );

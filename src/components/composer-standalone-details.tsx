@@ -14,7 +14,7 @@ export function ComposerStandaloneDetails({
       <h3 className="text-foreground/80">{composer.name}</h3>
       <PlaybackControls composer={composer} textLabels={true} />
       {composer.albums.map((album) => {
-        return <AlbumStandaloneDetails album={album} onClose={onClose} />;
+        return <AlbumStandaloneDetails album={album} composer={composer} onClose={onClose} />;
       })}
     </>
   );

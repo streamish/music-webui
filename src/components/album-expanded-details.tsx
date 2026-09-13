@@ -1,4 +1,4 @@
-import { type Album, createTrackGroups } from '@/features/library/library';
+import { type Album, type Artist, type Composer, type Track, createTrackGroups } from '@/features/library/library';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { PlaybackControls } from './playback-controls';
@@ -7,17 +7,29 @@ import { useRef } from 'react';
 
 export function AlbumExpandedDetails({
   album,
-  showArtistHeader,
+  artist,
   autoScroll,
+  composer,
+  showArtistHeader,
 }: {
   album: Album;
-  showArtistHeader?: boolean;
+  artist?: Artist;
   autoScroll?: boolean;
+  composer?: Composer;
+  showArtistHeader?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const selectedColor = album.coverImageMuted || '#000000';
   const contrastingColor = album.coverImageDarkMuted || '#000000';
-  const trackGroups = createTrackGroups(album.tracks);
+  let tracks: Track[];
+  if (artist) {
+    tracks = album.tracks.filter((track) => track.artists.some((a) => a.id === artist.id));
+  } else if (composer) {
+    tracks = album.tracks.filter((track) => track.composers.some((c) => c.id === composer.id));
+  } else {
+    tracks = album.tracks;
+  }
+  const trackGroups = createTrackGroups(tracks);
   const showDiscTitle = trackGroups[0]?.[0]?.discNumber !== trackGroups[trackGroups.length - 1]?.[0]?.discNumber;
 
   if (autoScroll && containerRef) {
@@ -45,7 +57,7 @@ export function AlbumExpandedDetails({
           }}
         >
           <h3 className="text-3xl ml-2 text-foreground/80" style={{ color: contrastingColor, mixBlendMode: 'screen' }}>
-            {album.artists.map((artist) => artist.name).join(', ')}
+            {album.artists.map((item) => item.name).join(', ')}
           </h3>
         </div>
       )}

@@ -1,4 +1,10 @@
-import { type Album, createTrackGroups } from '@/features/library/library';
+import {
+  type Album,
+  type ArtistWithContents,
+  type ComposerWithContents,
+  type Track,
+  createTrackGroups,
+} from '@/features/library/library';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { ArrowLeftCircle } from 'lucide-react';
@@ -8,16 +14,28 @@ import { getContrastingTextColor } from '@/utils/color';
 
 export function AlbumStandaloneDetails({
   album,
+  artist,
+  composer,
   showArtistHeader,
   onClose,
 }: {
   album: Album;
+  artist?: ArtistWithContents;
+  composer?: ComposerWithContents;
   showArtistHeader?: boolean;
   onClose: () => void;
 }) {
   const selectedColor = album.coverImageMuted || '#000000';
   const contrastingColor = album.coverImageDarkMuted || '#000000';
-  const trackGroups = createTrackGroups(album.tracks);
+  let tracks: Track[];
+  if (artist) {
+    tracks = album.tracks.filter((track) => track.artists.some((a) => a.id === artist.id));
+  } else if (composer) {
+    tracks = album.tracks.filter((track) => track.composers.some((c) => c.id === composer.id));
+  } else {
+    tracks = album.tracks;
+  }
+  const trackGroups = createTrackGroups(tracks);
   const showDiscTitle = trackGroups[0][0]?.discNumber !== trackGroups[trackGroups.length - 1][0]?.discNumber;
 
   return (
@@ -30,7 +48,7 @@ export function AlbumStandaloneDetails({
       <div className="flex flex-row justify-between items-center">
         {showArtistHeader && (
           <h3 className="text-3xl ml-2 text-foreground/80" style={{ color: selectedColor, mixBlendMode: 'screen' }}>
-            {album.artists.map((artist) => artist.name).join(', ')}
+            {album.artists.map((item) => item.name).join(', ')}
           </h3>
         )}
         <menu className="opacity-75 w-full text-right">
