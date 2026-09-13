@@ -2,7 +2,13 @@ import { AlbumExpandedDetails } from './album-expanded-details';
 import { PlaybackControls } from './playback-controls';
 import type { ComposerWithContents } from '@/features/library/library';
 
-export function ComposerExpandedDetails({ composer }: { composer: ComposerWithContents }) {
+export function ComposerExpandedDetails({
+  composer,
+  composerOnly,
+}: {
+  composer: ComposerWithContents;
+  composerOnly?: boolean;
+}) {
   const contrastingColor = composer.albums[0].coverImageDarkMuted || '#000000';
   return (
     <div
@@ -21,7 +27,7 @@ export function ComposerExpandedDetails({ composer }: { composer: ComposerWithCo
         {composer.albums.length > 1 && <PlaybackControls composer={composer} textLabels={true} />}
       </div>
       {composer.albums.map((album) => {
-        return <AlbumExpandedDetails album={album} />;
+        return <AlbumExpandedDetails album={album} composer={composerOnly ? composer : undefined} />;
       })}
     </div>
   );

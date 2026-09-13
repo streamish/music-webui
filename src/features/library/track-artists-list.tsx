@@ -123,7 +123,11 @@ export default function ArtistsList() {
           {insertingArtist && (
             <li className="album-details col-span-full flex flex-col grow  -mx-4">
               {expandedArtist && (
-                <AlbumArtistStandaloneDetails artist={expandedArtist} onClose={() => toggleArtist(expandedArtist.id)} />
+                <AlbumArtistStandaloneDetails
+                  artist={expandedArtist}
+                  artistOnly={true}
+                  onClose={() => toggleArtist(expandedArtist.id)}
+                />
               )}
             </li>
           )}
@@ -161,7 +165,7 @@ export default function ArtistsList() {
                 </li>
                 {shouldInsertDetails && (
                   <li className="album-details col-span-full -mx-4">
-                    {expandedArtist && <ArtistExpandedDetails artist={expandedArtist} />}
+                    {expandedArtist && <ArtistExpandedDetails artist={expandedArtist} artistOnly={true} />}
                   </li>
                 )}
               </Fragment>

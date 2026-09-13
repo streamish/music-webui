@@ -164,7 +164,7 @@ export default function TrackComposersList() {
                 </li>
                 {shouldInsertDetails && (
                   <li className="album-details col-span-full -mx-4">
-                    {expandedComposer && <ComposerExpandedDetails composer={expandedComposer} />}
+                    {expandedComposer && <ComposerExpandedDetails composer={expandedComposer} composerOnly={true} />}
                   </li>
                 )}
               </Fragment>
