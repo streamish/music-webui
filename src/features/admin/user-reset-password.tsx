@@ -106,10 +106,10 @@ export function UserResetPasswordForm({ user, className }: { user: AccountDto; c
               case 'invalid-new-password-length-error':
                 setError('newPassword', { type: 'manual', message: 'The new account password length is invalid.' });
                 break;
-              case 'invalid-password-error':
+              case 'invalid-admin-password-error':
                 setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
                 break;
-              case 'invalid-password-length-error':
+              case 'invalid-admin-password-length-error':
                 setError('adminPassword', { type: 'manual', message: 'The admin password length is invalid.' });
                 break;
               default:

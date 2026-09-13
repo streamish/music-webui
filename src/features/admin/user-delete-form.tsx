@@ -41,6 +41,7 @@ export function UserDeleteForm({ user, className }: { user: AccountDto; classNam
   const {
     handleSubmit,
     register,
+    setError,
     formState: { errors },
   } = useForm<DeleteAccountBodyDto>({
     resolver: zodResolver(schema),
@@ -65,6 +66,12 @@ export function UserDeleteForm({ user, className }: { user: AccountDto; classNam
                 break;
               case 'account-only-admin-error':
                 toast.error('You must create a new admin account before deleting this one.');
+                break;
+              case 'invalid-admin-password-error':
+                setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
+                break;
+              case 'invalid-admin-password-length-error':
+                setError('adminPassword', { type: 'manual', message: 'Admin password length is invalid.' });
                 break;
               default:
                 // eslint-disable-next-line no-console
