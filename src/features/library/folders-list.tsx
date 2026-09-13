@@ -60,6 +60,14 @@ export default function FoldersList() {
     }
   }
 
+  function clickCrumb(item: TreeItemDto) {
+    if (item.id === 0) {
+      navigate('/folders');
+    } else {
+      navigate(`/folders/${item.id}/${item.fullPath}`);
+    }
+  }
+
   return (
     <>
       <title>Folders</title>
@@ -69,7 +77,7 @@ export default function FoldersList() {
             return (
               <Fragment key={`breadcrumb-${index}`}>
                 <BreadcrumbItem className="gap-0">
-                  <BreadcrumbLink onClick={() => toggleFolder(crumb)} className="text-xs py-0 px-2">
+                  <BreadcrumbLink onClick={() => clickCrumb(crumb)} className="text-xs py-0 px-2 cursor-pointer">
                     {crumb.folder}
                   </BreadcrumbLink>
                 </BreadcrumbItem>

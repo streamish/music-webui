@@ -9,7 +9,6 @@ type AlbumsResponse = AlbumsRequest['responses'];
 type AlbumsData = AlbumsResponse['200']['content']['application/json'];
 type FoldersRequest = paths['/api/user/folder-structure']['get'];
 type FoldersResponse = FoldersRequest['responses'];
-type FoldersData = FoldersResponse['200']['content']['application/json'];
 
 export type Album = AlbumsData['albums'][number];
 export type Artist = Album['artists'][number];
@@ -255,21 +254,6 @@ async function fetchAlbums(query?: AlbumsRequest['parameters']['query']): Promis
   return data;
 }
 
-async function fetchFolders(): Promise<FoldersData> {
-  const { data, error } = await api.get('/api/user/folder-structure', {
-    params: {
-      header: api.authHeader(),
-    },
-  });
-  if (error) {
-    throw new Error(error);
-  }
-  if (!data) {
-    throw new Error('No data received');
-  }
-  return data;
-}
-
 async function fetchAlbumsThroughCache(query?: AlbumsRequest['parameters']['query']) {
   const cachedData = await nanoStorage.getItem<AlbumsData>('library');
   if (cachedData) {
@@ -279,16 +263,6 @@ async function fetchAlbumsThroughCache(query?: AlbumsRequest['parameters']['quer
   const data = await fetchAlbums(query);
   indexAlbumsData(data);
   await nanoStorage.setItem('library', data);
-  return data;
-}
-
-async function fetchFoldersThroughCache() {
-  const cachedData = await nanoStorage.getItem<FoldersData>('folders');
-  if (cachedData) {
-    return cachedData;
-  }
-  const data = await fetchFolders();
-  await nanoStorage.setItem('folders', data);
   return data;
 }
 
@@ -354,14 +328,6 @@ export function useAlbumData(query?: AlbumsRequest['parameters']['query']) {
   });
 }
 
-export function useFoldersData() {
-  return useQuery({
-    queryKey: ['folders'],
-    queryFn: () => fetchFoldersThroughCache(),
-    staleTime: Infinity,
-  });
-}
-
 export type LibraryContextValue = {
   albums: Album[];
   albumArtists: ArtistWithContents[];
@@ -376,7 +342,6 @@ const LibraryContext = createContext<LibraryContextValue | null>(null);
 
 export function LibraryProvider({ children }: { children: React.ReactNode }) {
   const { data: albumsData } = useAlbumData({});
-  const { data: foldersData } = useFoldersData();
 
   const listAlbums = (): Album[] =>
     Object.values(albumIndex)
@@ -442,12 +407,58 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
       .map((track) => rebuilder.mapTrack(track.id, 2))
       .sort((a, b) => a.title.localeCompare(b.title));
 
+  const buildTree = (tracks: TrackWithContent[]): TreeItemDto[] => {
+    const root: TreeItemDto = {
+      folder: '',
+      file: '',
+      fullPath: '',
+      id: 0,
+      children: [],
+    };
+    let folderId = 0;
+    const directoryMap = new Map([['', root]]);
+    for (let i = 0, len = tracks?.length; i < len; i += 1) {
+      const track = tracks[i];
+      const { filePath } = track;
+      const parts = filePath.split('/').filter(Boolean);
+      let currentPath = '';
+      let parent = root;
+      for (let j = 0, jLen = parts.length; j < jLen; j += 1) {
+        const part = parts[j];
+        currentPath += `/${part}`;
+        let node = directoryMap.get(currentPath);
+        if (!node) {
+          const isFile = j === parts.length - 1;
+          if (!isFile) {
+            folderId += 1;
+          }
+          node = {
+            folder: isFile ? '' : part,
+            file: isFile ? part : '',
+            fullPath: currentPath,
+            ...(isFile ? track : { children: [], id: folderId }),
+          };
+          parent.children?.push(node);
+          directoryMap.set(currentPath, node);
+        }
+        parent = node;
+      }
+    }
+    function sortChildren(node: TreeItemDto) {
+      node.children?.sort((a, b) => (a.folder || a.file || '').localeCompare(b.folder || b.file || ''));
+      node.children?.forEach(sortChildren);
+    }
+    sortChildren(root);
+    return root.children || [];
+  };
+
   const albums = useMemo(() => listAlbums(), [albumsData]);
   const albumArtists = useMemo(() => listAlbumArtists(), [albumsData]);
   const artists = useMemo(() => listArtists(), [albumsData]);
   const composers = useMemo(() => listComposers(), [albumsData]);
   const genres = useMemo(() => listGenres(), [albumsData]);
   const tracks = useMemo(() => listTracks(), [albumsData]);
+  const folders = useMemo(() => buildTree(tracks), [tracks]);
 
   return (
     <LibraryContext.Provider
@@ -456,7 +467,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
         albumArtists,
         artists,
         composers,
-        folders: foldersData?.items ?? [],
+        folders,
         genres,
         tracks,
       }}
