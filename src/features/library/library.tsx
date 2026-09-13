@@ -436,8 +436,7 @@ export function LibraryProvider({ children }: { children: React.ReactNode }) {
             folder: isFile ? '' : part,
             file: isFile ? part : '',
             fullPath: currentPath,
-            id: isFile ? 0 : folderId,
-            ...(isFile ? track : { children: [] }),
+            ...(isFile ? track : { children: [], id: folderId }),
           };
           parent.children?.push(node);
           directoryMap.set(currentPath, node);
