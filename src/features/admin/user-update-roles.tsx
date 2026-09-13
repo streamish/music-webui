@@ -91,10 +91,10 @@ export function UserUpdateRolesForm({ user, className }: { user: AccountDto; cla
                   message: 'An invalid role was specified.',
                 });
                 break;
-              case 'invalid-password-error':
+              case 'invalid-admin-password-error':
                 setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
                 break;
-              case 'invalid-password-length-error':
+              case 'invalid-admin-password-length-error':
                 setError('adminPassword', { type: 'manual', message: 'The admin password length is invalid.' });
                 break;
               default:

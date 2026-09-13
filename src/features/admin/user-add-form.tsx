@@ -114,16 +114,16 @@ export function UserAddForm({ className }: { className?: string }) {
               case 'invalid-user-role-error':
                 setError('roles', { type: 'manual', message: 'At least one role must be selected.' });
                 break;
-              case 'invalid-new-password-error':
+              case 'invalid-password-error':
                 setError('password', { type: 'manual', message: 'Invalid user password specified.' });
                 break;
-              case 'invalid-new-password-length-error':
+              case 'invalid-password-length-error':
                 setError('password', { type: 'manual', message: 'User password length is invalid.' });
                 break;
-              case 'invalid-password-error':
+              case 'invalid-admin-password-error':
                 setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
                 break;
-              case 'invalid-password-length-error':
+              case 'invalid-admin-password-length-error':
                 setError('adminPassword', { type: 'manual', message: 'Admin password length is invalid.' });
                 break;
               default:
