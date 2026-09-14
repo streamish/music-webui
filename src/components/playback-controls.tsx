@@ -1,8 +1,8 @@
 import { Button } from './ui/button';
 import { ListEnd, ListStart, Play } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLibrary } from '@/features/library/library';
-import { useQueue } from '@/features/library/queue';
+import { useQueueActions } from '@/features/library/queue';
 import type {
   Album,
   ArtistWithContents,
@@ -32,11 +32,11 @@ export function PlaybackControls({
   track?: Track;
   className?: string;
 }) {
-  const { queue, setQueue, togglePlay } = useQueue();
-  const { tracks } = useLibrary();
+  const { addToQueue, togglePlay } = useQueueActions();
+  const { albums, tracks } = useLibrary();
   const [autoPlay, setAutoPlay] = useState(false);
 
-  const getTracks = (): TrackWithContent[] => {
+  const items = useMemo(() => {
     if (album) {
       return album.tracks as TrackWithContent[];
     }
@@ -56,29 +56,31 @@ export function PlaybackControls({
       return tracks.filter((t: TrackWithContent) => t.id === file.id) as TrackWithContent[];
     }
     return [];
-  };
+  }, [album, artist, composer, file, genre, track, tracks]);
 
-  const addTracksToQueue = (start = true) => {
-    const items = getTracks();
-    if (start) {
-      setQueue([...items, ...queue]);
-    } else {
-      setQueue([...queue, ...items]);
-    }
+  const addTracksToQueue = (atStart = true) => {
+    const newQueueItems = items.map((item) => ({
+      ...item,
+      album: albums.find((a) => a.id === item.album.id),
+    })) as TrackWithContent[];
+    addToQueue(newQueueItems, atStart);
   };
 
   const replaceQueue = () => {
-    const items = getTracks();
-    setQueue(items);
+    const newQueueItems = items.map((item) => ({
+      ...item,
+      album: albums.find((a) => a.id === item.album.id),
+    })) as TrackWithContent[];
+    addToQueue(newQueueItems, false);
     setAutoPlay(true);
   };
 
   useEffect(() => {
-    if (autoPlay && queue.length > 0) {
+    if (autoPlay) {
       togglePlay(true);
       setAutoPlay(false);
     }
-  }, [autoPlay, queue]);
+  }, [autoPlay]);
 
   return (
     <menu className={`opacity-75 flex flex-row ${className || ''}`}>

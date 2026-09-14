@@ -27,6 +27,15 @@ body {
   font-style: normal;
 }
 
+@keyframes fade-in-gradient {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: 'Inter Variable', sans-serif;

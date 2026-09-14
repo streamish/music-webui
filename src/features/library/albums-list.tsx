@@ -169,8 +169,14 @@ export default function AlbumsList() {
                     <AlbumCard album={item} isExpanded={isExpanded} onToggle={() => toggleAlbum(item.id)} />
                   </li>
                   {shouldInsertDetails && (
-                    <li className="album-details col-span-full -mx-4 mt-4">
-                      {expandedAlbum && <AlbumExpandedDetails album={expandedAlbum} showArtistHeader={true} />}
+                    <li key={`album-details-${item.id}-${index}`} className="album-details col-span-full -mx-4 mt-4">
+                      {expandedAlbum && (
+                        <AlbumExpandedDetails
+                          key={`album-detailsz${item.id}-${index}`}
+                          album={expandedAlbum}
+                          showArtistHeader={true}
+                        />
+                      )}
                     </li>
                   )}
                 </Fragment>

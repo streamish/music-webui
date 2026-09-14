@@ -3,30 +3,18 @@ import { Button } from './ui/button';
 import { ChevronLast, Circle, Logs, Pause, Play, Repeat, Shuffle, Square, Tally1 } from 'lucide-react';
 import { VolumeControl } from './volume-control';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
-import { useQueue } from '@/features/library/queue';
+import { useQueueActions, useQueueData, useQueuePlayback } from '@/features/library/queue';
 import { useState } from 'react';
 import QueueTable from '@/features/library/queue-table';
 import useLockBodyScroll from '@/hooks/use-lock-body-scroll';
 
 export function QueueControls() {
-  const {
-    queue,
-    currentIndex,
-    currentTime,
-    isPlaying,
-    isRepeating,
-    isShuffling,
-    next,
-    previous,
-    togglePlay,
-    seek,
-    setIsRepeating,
-    setIsShuffling,
-  } = useQueue();
+  const { queue, currentIndex } = useQueueData();
+  const { currentTime, isPlaying, isRepeating, isShuffling } = useQueuePlayback();
+  const { nextTrack, previousTrack, seek, setIsRepeating, setIsShuffling, togglePlay } = useQueueActions();
   const [isShowingQueue, setIsShowingQueue] = useState(false);
-  useLockBodyScroll(isShowingQueue);
-
   const toggleQueue = () => setIsShowingQueue((prev) => !prev);
+  useLockBodyScroll(isShowingQueue);
 
   const stopPlaying = () => {
     togglePlay(false);
@@ -65,7 +53,7 @@ export function QueueControls() {
                 variant="ghost"
                 size="icon-lg"
                 className="m-2 h-16 w-16 p-2 hover:bg-foreground/20!"
-                onClick={previous}
+                onClick={previousTrack}
               >
                 <ChevronLast className="h-10! w-10! -scale-x-100" strokeWidth={1} />
               </Button>
@@ -85,7 +73,7 @@ export function QueueControls() {
                 variant="ghost"
                 size="icon-lg"
                 className="m-2 h-16 w-16 p-2 hover:bg-foreground/20!"
-                onClick={next}
+                onClick={nextTrack}
               >
                 <ChevronLast className="h-10! w-10!" strokeWidth={1} />
               </Button>

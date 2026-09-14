@@ -1,11 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Volume, Volume1, Volume2, VolumeX } from 'lucide-react';
-import { useQueue } from '@/features/library/queue';
+import { useQueueActions, useQueuePlayback } from '@/features/library/queue';
 import { useState } from 'react';
 
 export function VolumeControl() {
-  const { volume, setVolume } = useQueue();
+  const { volume } = useQueuePlayback();
+  const { setVolume } = useQueueActions();
   const [showSlider, setShowSlider] = useState(false);
   const [isMute, setIsMute] = useState(volume === 0);
 
