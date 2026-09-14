@@ -2,8 +2,7 @@ import { type Album, type Artist, type Composer, type Track, createTrackGroups }
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { PlaybackControls } from './playback-controls';
-import { getContrastingTextColor } from '@/utils/color';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 
 export function AlbumExpandedDetails({
   album,
@@ -21,15 +20,16 @@ export function AlbumExpandedDetails({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const selectedColor = album.coverImageMuted || '#000000';
   const contrastingColor = album.coverImageDarkMuted || '#000000';
-  let tracks: Track[];
-  if (artist) {
-    tracks = album.tracks.filter((track) => track.artists.some((a) => a.id === artist.id));
-  } else if (composer) {
-    tracks = album.tracks.filter((track) => track.composers.some((c) => c.id === composer.id));
-  } else {
-    tracks = album.tracks;
-  }
-  const trackGroups = createTrackGroups(tracks);
+  const tracks: Track[] = useMemo(() => {
+    if (artist) {
+      return album.tracks.filter((track) => track.artists.some((a) => a.id === artist.id));
+    }
+    if (composer) {
+      return album.tracks.filter((track) => track.composers.some((c) => c.id === composer.id));
+    }
+    return album.tracks;
+  }, [album.id, artist?.id, composer?.id]);
+  const trackGroups = useMemo(() => createTrackGroups(tracks), [tracks]);
   const showDiscTitle = trackGroups[0]?.[0]?.discNumber !== trackGroups[trackGroups.length - 1]?.[0]?.discNumber;
 
   if (autoScroll && containerRef) {
@@ -48,10 +48,10 @@ export function AlbumExpandedDetails({
   }
 
   return (
-    <>
+    <div key={`expanded-details-${album.id}`}>
       {showArtistHeader && (
         <div
-          className="p-2 bg-muted/50"
+          className="p-2"
           style={{
             backgroundColor: contrastingColor,
           }}
@@ -62,7 +62,7 @@ export function AlbumExpandedDetails({
         </div>
       )}
       <div
-        className="relative w-full min-h-120 bg-muted/50"
+        className="relative w-full min-h-120"
         style={{
           backgroundColor: selectedColor,
         }}
@@ -112,18 +112,13 @@ export function AlbumExpandedDetails({
           }}
         ></div>
         {/* Album data */}
-        <div
-          style={{ color: `${getContrastingTextColor(contrastingColor)}`, mixBlendMode: 'screen' }}
-          aria-hidden="true"
-        >
+        <div className="relative z-3">
           {/* Physical filler */}
           <div className="p-4 lg:pl-8 mr-120 2xl:mr-140">
-            <div className="mb-2">
-              <h3 className="font-semibold text-2xl">
-                {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
-              </h3>
-              <PlaybackControls album={album} textLabels={true} />
-            </div>
+            <h3 className="font-semibold text-foreground/50 text-2xl">
+              {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
+            </h3>
+            <PlaybackControls album={album} textLabels={true} className="mb-2 text-foreground/50" />
             <div className="lg:grid lg:grid-rows-2 2xl:grid-rows-none 2xl:grid-cols-2 gap-0 2xl:gap-20 max-w-400">
               {trackGroups.map((trackGroup, index) => {
                 return (
@@ -138,28 +133,7 @@ export function AlbumExpandedDetails({
             </div>
           </div>
         </div>
-        {/* Stacked overlay */}
-        <div className="w-full absolute z-3 top-0">
-          <div className="p-4 lg:pl-8 mr-120 2xl:mr-140 opacity-75" ref={containerRef}>
-            <div className="mb-2">
-              <h3 className="font-semibold text-2xl">
-                {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
-              </h3>
-              <PlaybackControls album={album} textLabels={true} />
-            </div>
-            <div className="lg:grid lg:grid-rows-2 2xl:grid-rows-none 2xl:grid-cols-2 gap-0 2xl:gap-20 max-w-400">
-              {trackGroups.map((trackGroup, index) => (
-                <div key={index}>
-                  {showDiscTitle && (
-                    <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>
-                  )}
-                  <AlbumTrackList tracks={trackGroup} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
-    </>
+    </div>
   );
 }

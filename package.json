@@ -75,7 +75,7 @@
     ]
   },
   "scripts": {
-    "build:dev": "tsc -b && vite build --watch",
+    "build:dev": "npx dotenv -e .env tsc -b && vite build --watch",
     "build:prod": "tsc -b && vite build --mode production",
     "build:test": "tsc --noEmit -p tsconfig.app.json && npx dotenv -e .env.test -- vite build --mode test",
     "lint": "eslint . --fix",
