@@ -360,8 +360,8 @@ export const AssociationsPage = memo(() => {
             );
           })}
         </ul>
-        <div className="w-full">
-          <div className="pb-4 flex flex-row">
+        <div className="w-full overflow-y-scroll h-[calc(100vh-11rem)]">
+          <div className="flex flex-row">
             <h2 className="text-lg font-semibold">{expandedAssociation?.name || 'Loading...'}</h2>
             {expandedAssociation && (
               <AssociationEditForm
@@ -373,7 +373,7 @@ export const AssociationsPage = memo(() => {
           </div>
           {viewingGroup !== 'track-genres' && (
             <>
-              <ul className="mb-4 p-1 bg-foreground/10 inline-block rounded-lg">
+              <ul className="p-1 bg-foreground/10 inline-block rounded-lg">
                 {tabButtons.map((button, index) => (
                   <li key={`button-${index}`} className="inline-block mr-4 last-of-type:mr-0">
                     {button}
@@ -393,7 +393,6 @@ export const AssociationsPage = memo(() => {
                     'auto-rows-max',
                     'justify-start',
                     'gap-4',
-                    'overflow-y-scroll h-[calc(100vh-11rem)]',
                   ].join(' ')}
                 >
                   {albums.map((item, index) => {
@@ -415,22 +414,14 @@ export const AssociationsPage = memo(() => {
                 </ul>
               )}
               {viewingGroup !== 'album-artists' && (
-                <div
-                  ref={listRef}
-                  className={['w-full', 'overflow-y-scroll h-[calc(100vh-11rem)]'].join(' ')}
-                  key={expandedAssociationId}
-                >
+                <div ref={listRef} className="w-full" key={expandedAssociationId}>
                   <TrackTable albums={albums} />
                 </div>
               )}
             </>
           )}
           {viewingGroup === 'track-genres' && (
-            <div
-              ref={listRef}
-              className={['w-full', 'overflow-y-scroll h-[calc(100vh-11rem)]'].join(' ')}
-              key={expandedAssociationId}
-            >
+            <div ref={listRef} className="w-full" key={expandedAssociationId}>
               <TrackTable albums={expandedAssociation?.genreCredits || []} />
             </div>
           )}

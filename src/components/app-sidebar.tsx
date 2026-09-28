@@ -98,8 +98,8 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-3 px-2 py-2">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary">
-            <span className="text-xs font-semibold text-background">MLIB</span>
+          <div>
+            <img src="/public/images/logo.png" className="w-12 h-12" />
           </div>
           <span className="font-semibold">Music Player</span>
         </div>

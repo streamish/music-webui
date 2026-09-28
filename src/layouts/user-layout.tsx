@@ -40,7 +40,6 @@ export default function UserLayout() {
   if (!user) {
     return null;
   }
-
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -61,7 +60,7 @@ export default function UserLayout() {
               <div ref={setHeaderContainer} className="ml-auto flex items-center gap-2" />
             </header>
           </div>
-          <main className="flex flex-col min-h-screen mt-4">
+          <main className="flex flex-col min-h-screen mt-4 bg-background">
             <HeaderPortalContext.Provider value={headerContainer}>
               <Outlet />
             </HeaderPortalContext.Provider>

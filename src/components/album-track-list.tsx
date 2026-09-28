@@ -11,12 +11,16 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
             className={[
               `flex flex-row text-sm justify-between`,
               `border-dotted border-b border-background/25`,
-              `hover:bg-background/10 hover:rounded-md hover:border-transparent not-first:0 px-2 py-2 cursor-pointer`,
+              `hover:bg-background/10 hover:rounded-md not-first:0 px-2 py-2 cursor-pointer`,
             ].join(' ')}
+            style={{
+              color: track.albumCoverImageLightMuted,
+              mixBlendMode: 'difference',
+            }}
           >
-            <span className="text-foreground/25 w-8 text-right inline-block">{track.trackNumber}.</span>{' '}
-            <span className="text-foreground/90 text-left w-full px-4">
-              {track.title}
+            <span className="p-1 opacity-50 w-8 text-right inline-block">{track.trackNumber}.</span>{' '}
+            <span className="text-left w-full px-4 flex flex-row">
+              <span className="p-1">{track.title}</span>
               <PlaybackControls
                 tracks={[track]}
                 hideQueueButtons={true}
@@ -24,7 +28,7 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
                 className="inline-block"
               />
             </span>
-            <span className="opacity-50 pt-0.5">{secondsToMinutesAndSeconds(track.duration)}</span>
+            <span className="opacity-50 p-1">{secondsToMinutesAndSeconds(track.duration)}</span>
           </div>
         </li>
       ))}

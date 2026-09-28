@@ -40,11 +40,14 @@ export function QueueControls() {
         {/* Seek bar */}
         <div className="relative h-2 w-full bg-muted-foreground/40 cursor-pointer" onClick={setPosition}>
           <div
-            className="h-2 bg-primary"
+            className="h-2 bg-muted-foreground"
             style={{ width: `${((currentTime + 1) / (currentItem?.duration || 1)) * 100}%` }}
           />
           <Circle
-            className="absolute -top-1 left-0 h-4 w-4 bg-primary rounded-full"
+            className={[
+              'absolute -top-1 left-0 h-4 w-4',
+              'bg-muted-foreground rounded-full fill-muted-foreground stroke-muted/25',
+            ].join(' ')}
             style={{ left: `${(currentTime / (currentItem?.duration || 1)) * 100}%` }}
           />
         </div>

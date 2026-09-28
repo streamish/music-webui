@@ -1,6 +1,5 @@
 import { FormValidationError } from './form-validation-error';
 import { Input } from './ui/input';
-import { Link } from 'react-router-dom';
 
 export function EntryForm({ ...rest }) {
   return (
@@ -84,25 +83,6 @@ export function EntryFormLabel({ text, htmlFor }: { text: string; htmlFor: strin
     <label className="text-xs font-semibold cursor-pointer" htmlFor={htmlFor}>
       {text}
     </label>
-  );
-}
-
-export function EntryFormLink({
-  text,
-  to,
-  ...rest
-}: {
-  text: string;
-  to: string;
-} & React.ComponentProps<typeof Link>) {
-  return (
-    <Link
-      to={to}
-      {...rest}
-      className={`${rest.className || ''} text-slate-600 text-sm font-light hover:underline cursor-pointer`}
-    >
-      {text}
-    </Link>
   );
 }
 

@@ -100,11 +100,17 @@ export function AlbumExpandedDetails({
         {/* Album data */}
         <div className="relative z-3">
           {/* Physical filler */}
-          <div className="p-4 lg:pl-8 mr-120 2xl:mr-140">
-            <h3 className="font-semibold text-foreground/50 text-2xl">
+          <div
+            className="p-4 lg:pl-8 mr-120 2xl:mr-140"
+            style={{
+              color: album.coverImageLightMuted,
+              mixBlendMode: 'difference',
+            }}
+          >
+            <h3 className="font-semibold text-2xl">
               {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
             </h3>
-            <PlaybackControls tracks={album.tracks} textLabels={true} className="mb-2 text-foreground/50" />
+            <PlaybackControls tracks={album.tracks} textLabels={true} className="mb-2" />
             <div className="lg:grid lg:grid-rows-2 2xl:grid-rows-none 2xl:grid-cols-2 gap-0 2xl:gap-20">
               {trackGroups.map((trackGroup, index) => {
                 return (
