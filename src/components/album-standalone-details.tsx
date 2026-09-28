@@ -1,30 +1,31 @@
-import {
-  type Album,
-  type ArtistWithContents,
-  type ComposerWithContents,
-  type Track,
-  createTrackGroups,
-} from '@/features/library/library';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { ArrowLeftCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { PlaybackControls } from './playback-controls';
+import { createTrackGroups } from '@/utils/tracks';
 import { getContrastingTextColor } from '@/utils/color';
+import { useAlbum } from '@/hooks/user/use-albums';
+import type { Association } from '@/hooks/user/use-associations';
+import type { Track } from '@/hooks/user/use-tracks';
 
 export function AlbumStandaloneDetails({
-  album,
+  albumId,
   artist,
   composer,
   showArtistHeader,
   onClose,
 }: {
-  album: Album;
-  artist?: ArtistWithContents;
-  composer?: ComposerWithContents;
+  albumId: number;
+  artist?: Association;
+  composer?: Association;
   showArtistHeader?: boolean;
   onClose: () => void;
 }) {
+  const { album } = useAlbum({ id: albumId });
+  if (!album) {
+    return null;
+  }
   const selectedColor = album.coverImageMuted || '#000000';
   const contrastingColor = album.coverImageDarkMuted || '#000000';
   let tracks: Track[];
@@ -67,7 +68,7 @@ export function AlbumStandaloneDetails({
           <h3 className="font-semibold text-2xl mb-2">
             {album.title} <span className="text-xs">{album.year}</span>
           </h3>
-          <PlaybackControls album={album} textLabels={true} />
+          <PlaybackControls tracks={album.tracks} textLabels={true} />
           {trackGroups.map((trackGroup, index) => (
             <div key={index}>
               {showDiscTitle && <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>}

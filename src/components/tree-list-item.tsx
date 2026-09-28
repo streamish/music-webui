@@ -1,9 +1,10 @@
 import { Folder, Music } from 'lucide-react';
 import { PlaybackControls } from './playback-controls';
-import type { TreeItemDto } from '@/features/library/library';
+import type { TreeItemDto } from '@/hooks/user/use-folders';
 
 export function TreeListItem({ item, onToggle }: { item: TreeItemDto; onToggle: () => void }) {
   const Icon = item.folder ? Folder : Music;
+
   return (
     <>
       <div
@@ -26,9 +27,7 @@ export function TreeListItem({ item, onToggle }: { item: TreeItemDto; onToggle: 
           />
           <div className="flex flex-col justify-between">
             <h3 className="text-sm text-foreground/80">{item.folder || item.file}</h3>
-            <div className="text-right">
-              <PlaybackControls file={item} />
-            </div>
+            <div className="text-right">{item.track && <PlaybackControls tracks={[item.track]} />}</div>
           </div>
         </div>
       </div>

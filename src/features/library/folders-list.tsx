@@ -9,7 +9,7 @@ import { Fragment, useRef } from 'react';
 import { Music } from 'lucide-react';
 import { PlaybackControls } from '@/components/playback-controls';
 import { TreeCard } from '@/components/tree-card';
-import { type TreeItemDto, useLibrary } from './library';
+import { type TreeItemDto, useFolders } from '@/hooks/user/use-folders';
 import { TreeListItem } from '@/components/tree-list-item';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -34,7 +34,7 @@ function findBreadCrumb(id: number, items: TreeItemDto[], path: TreeItemDto[] = 
 
 export default function FoldersList() {
   const navigate = useNavigate();
-  const { folders } = useLibrary();
+  const { folders } = useFolders();
   const isMobile = useIsMobile();
   const listRef = useRef(null);
   const { folderId } = useParams<{ folderId: string }>();
@@ -90,7 +90,7 @@ export default function FoldersList() {
       {isMobile && (
         <ul className="flex flex-col grow">
           {items.length > 0 &&
-            items.map((item) => {
+            items.map((item: TreeItemDto) => {
               return (
                 <li className="w-full p-2" key={`mobile-album ${item.fullPath}`}>
                   <TreeListItem item={item} onToggle={() => toggleFolder(item)} />
@@ -111,7 +111,7 @@ export default function FoldersList() {
             ].join(' ')}
           >
             {items
-              .filter((item) => item.folder)
+              .filter((item: TreeItemDto) => item.folder)
               .map((item) => {
                 return (
                   <li className="w-full h-full inline-flex align-middle justify-center" key={`folder ${item.id}`}>
@@ -122,11 +122,13 @@ export default function FoldersList() {
           </ul>
           <ol className="p-4">
             {items
-              .filter((item) => item.file)
-              .map((item) => {
+              .filter((item: TreeItemDto) => item.file)
+              .map((item: TreeItemDto) => {
+                const { track } = item;
+                if (!track) return null;
                 return (
                   <li
-                    key={`filler-${item.id}`}
+                    key={track.id}
                     className="align-middle flex justify-between border-dotted border-b border-foreground/25"
                   >
                     <div>
@@ -135,12 +137,12 @@ export default function FoldersList() {
                         strokeWidth={1}
                         absoluteStrokeWidth={true}
                         opacity={0.5}
-                        aria-label={`${item.fullPath}`}
+                        aria-label={`${track.filePath}`}
                       />
-                      <span className="py-1.5 align-middle text-sm text-foreground/90">{item.file}</span>
+                      <span className="py-1.5 align-middle text-sm text-foreground/90">{track.filePath}</span>
                     </div>
                     <div>
-                      <PlaybackControls file={item} />
+                      <PlaybackControls tracks={[track]} />
                     </div>
                   </li>
                 );

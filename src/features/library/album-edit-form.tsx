@@ -1,0 +1,146 @@
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { FormValidationError } from '@/components/form-validation-error';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { SquarePen } from 'lucide-react';
+import { toast } from 'sonner';
+import { useCustomFileData } from '@/hooks/user/use-custom-file-data';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import z from 'zod/v3';
+import type { Album } from '@/hooks/user/use-albums';
+
+type FormData = {
+  title: string;
+  artists: string;
+  year: number;
+};
+
+const schema = z.object({
+  title: z
+    .string()
+    .refine((value) => value.length > 0, {
+      message: 'Name is required',
+    })
+    .refine((value) => value.length >= 1, {
+      message: 'Name is too short',
+    })
+    .refine((value) => value.length <= 1024, {
+      message: 'Name is too long',
+    }),
+  artists: z
+    .string()
+    .refine((value) => value.length > 0, {
+      message: 'At least one artist is required',
+    })
+    .refine((value) => value.length >= 1, {
+      message: 'Artist is too short',
+    })
+    .refine((value) => value.length <= 1024, {
+      message: 'Artist is too long',
+    }),
+  year: z.number().optional(),
+});
+
+export function AlbumEditForm({ album }: { album: Album }) {
+  const [open, setOpen] = useState(false);
+  const { setAlbumCustomData } = useCustomFileData();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    reset,
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      title: '',
+      artists: '',
+      year: 1999,
+    },
+  });
+
+  useEffect(() => {
+    reset({
+      title: album.title,
+      artists: album.artists.map((artist) => artist.name).join(', '),
+      year: album.year,
+    });
+  }, [album, reset]);
+
+  const onSubmit = handleSubmit(async (formData: FormData) => {
+    await setAlbumCustomData(
+      {
+        query: { id: album.id },
+        body: {
+          title: formData.title,
+          artists: formData.artists,
+          year: formData.year,
+        },
+      },
+      {
+        onSuccess: () => {
+          setOpen(false);
+          toast.success('Album updated successfully.');
+        },
+        onError: (error) => {
+          for (let i = 0; i < error.messages.length; i += 1) {
+            const message = error.messages[i];
+            switch (message) {
+              default:
+                // eslint-disable-next-line no-console
+                console.error('Unexpected error occurred while updating the album:', error);
+                toast.error('An internal server error occurred. Please try again later.');
+                break;
+            }
+          }
+        },
+      },
+    );
+  });
+
+  return (
+    <>
+      <Button
+        className="px-2 mb-4 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80"
+        onClick={() => setOpen(true)}
+        variant="ghost"
+        aria-label="Edit album"
+        title="Edit album"
+      >
+        <SquarePen />
+      </Button>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="sm:max-w-106.25">
+          <DialogHeader>
+            <DialogTitle>Edit Album</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={onSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Title</Label>
+              <Input id="title" {...register('title', { required: true })} placeholder="Person 1, Person 2" />
+              <FormValidationError text={errors.title?.message} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="year">Year</Label>
+              <Input id="year" {...register('year', { required: true })} placeholder="1999" />
+              <FormValidationError text={errors.year?.message} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="artists">Artists (comma-delimited)</Label>
+              <Input id="artists" {...register('artists', { required: true })} placeholder="Person 1, Person 2" />
+              <FormValidationError text={errors.artists?.message} />
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}

@@ -1,17 +1,17 @@
 import { ArtistIconImage } from './artist-icon-image';
-import type { ArtistWithContents } from '@/features/library/library';
+import type { Artist } from '@/hooks/user/use-associations';
 
 export function ArtistCard({
   artist,
   isExpanded,
   onToggle,
 }: {
-  artist: ArtistWithContents;
+  artist: Artist;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
-  const selectedColor = artist.albums[0]?.coverImageMuted || '#000000';
-  const contrastingColor = artist.albums[0]?.coverImageDarkMuted || '#000000';
+  const selectedColor = artist.albumArtistCredits?.[0]?.coverImageMuted || '#000000';
+  const contrastingColor = artist.albumArtistCredits?.[0]?.coverImageDarkMuted || '#000000';
   return (
     <>
       <button

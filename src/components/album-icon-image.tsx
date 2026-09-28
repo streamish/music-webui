@@ -43,7 +43,7 @@ export function AlbumIconImage({ albumId, size, style, ...props }: AlbumImagePro
       setImageUrl(null);
       return undefined;
     }
-    const nextUrl = `${baseUrl}/api/guest/album-cover?id=${albumId}&size=${size}`;
+    const nextUrl = `${baseUrl}/api/user/album-cover-image?id=${albumId}&size=${size}`;
     objectUrlRef.current = nextUrl;
     setImageUrl(nextUrl);
     return () => {
@@ -59,6 +59,7 @@ export function AlbumIconImage({ albumId, size, style, ...props }: AlbumImagePro
     <div
       ref={containerRef}
       {...props}
+      className={`animate-[fade-in_300ms_ease-out] ${props.className ?? ''}`}
       style={{
         ...style,
         backgroundImage: imageUrl ? `url("${imageUrl}")` : undefined,

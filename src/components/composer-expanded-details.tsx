@@ -1,18 +1,23 @@
 import { AlbumExpandedDetails } from './album-expanded-details';
+import { ComposerEditForm } from '../features/library/composer-edit-form';
 import { PlaybackControls } from './playback-controls';
-import type { ComposerWithContents } from '@/features/library/library';
+import { useAssociation } from '@/hooks/user/use-associations';
 
-export function ComposerExpandedDetails({
-  composer,
-  composerOnly,
-}: {
-  composer: ComposerWithContents;
-  composerOnly?: boolean;
-}) {
-  const contrastingColor = composer.albums[0].coverImageDarkMuted || '#000000';
+export function ComposerExpandedDetails({ composerId, composerOnly }: { composerId: number; composerOnly?: boolean }) {
+  const { association: composer } = useAssociation({ id: composerId });
+  if (!composer) {
+    return null;
+  }
+  const tracks = composer.albumArtistCredits.flatMap((album) => {
+    if (!composerOnly) {
+      return album.tracks;
+    }
+    return album.tracks.filter((track) => track.composers.some((artist) => artist.id === composerId));
+  });
+  const contrastingColor = composer.albumArtistCredits?.[0]?.coverImageDarkMuted || '#000000';
   return (
     <div
-      className="relative w-full min-h-120 bg-muted/50"
+      className="relative w-full min-h-120 bg-muted/50 animate-[details-in_300ms_ease-out]"
       style={{
         backgroundColor: contrastingColor,
       }}
@@ -23,11 +28,14 @@ export function ComposerExpandedDetails({
           backgroundColor: contrastingColor,
         }}
       >
-        <h3 className="text-xl ml-2 text-foreground/80">{composer.name}</h3>
-        {composer.albums.length > 1 && <PlaybackControls composer={composer} textLabels={true} />}
+        <div className="flex flex-row justify-between">
+          <h3 className="text-xl ml-2 text-foreground/80">{composer.name}</h3>
+          <ComposerEditForm composer={composer} />
+        </div>
+        {composer.albumArtistCredits.length > 1 && <PlaybackControls tracks={tracks} textLabels={true} />}
       </div>
-      {composer.albums.map((album) => {
-        return <AlbumExpandedDetails album={album} composer={composerOnly ? composer : undefined} />;
+      {composer.albumArtistCredits.map((album) => {
+        return <AlbumExpandedDetails key={album.id} album={album} composer={composerOnly ? composer : undefined} />;
       })}
     </div>
   );

@@ -1,25 +1,28 @@
 import { AlbumStandaloneDetails } from './album-standalone-details';
-import type { ArtistWithContents } from '@/features/library/library';
+import { useAssociation } from '@/hooks/user/use-associations';
 
-export function AlbumArtistStandaloneDetails({
-  artist,
+export function ArtistStandaloneDetails({
+  artistId,
   artistOnly,
   onClose,
 }: {
-  artist: ArtistWithContents;
+  artistId: number;
   artistOnly?: boolean;
   onClose: () => void;
 }) {
-  return artist.albums.map((album, index) => {
+  const { association: artist } = useAssociation({ id: artistId });
+  if (!artist) {
+    return null;
+  }
+  return artist.albumArtistCredits.map((album, index) => {
     return (
-      <>
-        <AlbumStandaloneDetails
-          album={album}
-          artist={artistOnly ? artist : undefined}
-          showArtistHeader={index === 0}
-          onClose={onClose}
-        />
-      </>
+      <AlbumStandaloneDetails
+        key={album.id}
+        albumId={album.id}
+        artist={artistOnly ? artist : undefined}
+        showArtistHeader={index === 0}
+        onClose={onClose}
+      />
     );
   });
 }

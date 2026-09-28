@@ -1,0 +1,441 @@
+import { AlbumCard } from '@/components/album-card';
+import { AlbumExpandedDetails } from '@/components/album-expanded-details';
+import { ArtistListItem } from '@/components/artist-list-item';
+import { AssociationEditForm } from '@/features/library/association-edit-form';
+import { AssociationTypeEnum } from '@/types/api-schema';
+import { Button } from '@/components/ui/button';
+import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { TrackTable } from '@/components/track-table';
+import { formatSlug } from '@/utils/format';
+import { useAlbumAssociations, useAssociation, useTrackAssociations } from '@/hooks/user/use-associations';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+
+type ViewingGroup = 'album-artists' | 'track-artists' | 'track-composers' | 'track-genres';
+
+function getIsAlbumArtists(pathname: string) {
+  return pathname.includes('album-artists');
+}
+
+function getAssociationType(pathname: string) {
+  if (pathname.includes('album-artists')) {
+    return AssociationTypeEnum.artist;
+  }
+  if (pathname.includes('track-artists')) {
+    return AssociationTypeEnum.artist;
+  }
+  if (pathname.includes('track-composers')) {
+    return AssociationTypeEnum.composer;
+  }
+  if (pathname.includes('track-genres')) {
+    return AssociationTypeEnum.genre;
+  }
+  throw new Error('Unknown association type');
+}
+
+function getGroupUrl(associationType: AssociationTypeEnum, isAlbumArtists: boolean) {
+  switch (associationType) {
+    case AssociationTypeEnum.artist:
+      return isAlbumArtists ? 'album-artists' : 'track-artists';
+    case AssociationTypeEnum.composer:
+      return 'track-composers';
+    case AssociationTypeEnum.genre:
+      return 'track-genres';
+    default:
+      return '';
+  }
+}
+
+function getViewingGroup(associationType: AssociationTypeEnum, isAlbumArtists: boolean): ViewingGroup {
+  switch (associationType) {
+    case AssociationTypeEnum.artist:
+      return isAlbumArtists ? 'album-artists' : 'track-artists';
+    case AssociationTypeEnum.composer:
+      return 'track-composers';
+    case AssociationTypeEnum.genre:
+      return 'track-genres';
+    default:
+      throw new Error('Unknown viewing group');
+  }
+}
+
+function usePageAssociations({
+  isAlbumArtists,
+  associationType,
+}: {
+  isAlbumArtists: boolean;
+  associationType: AssociationTypeEnum;
+}) {
+  const options = {
+    limit: 100_000,
+    offset: 0,
+    associationType,
+  };
+
+  const albumResult = useAlbumAssociations({
+    ...options,
+    enabled: isAlbumArtists,
+  });
+
+  const trackResult = useTrackAssociations({
+    ...options,
+    enabled: !isAlbumArtists,
+  });
+
+  return isAlbumArtists ? albumResult : trackResult;
+}
+
+export const AssociationsPage = memo(() => {
+  const { pathname } = useLocation();
+  const associationType = getAssociationType(pathname);
+  const isAlbumArtists = getIsAlbumArtists(pathname);
+  const groupUrl = getGroupUrl(associationType, isAlbumArtists);
+  const navigate = useNavigate();
+  const { associationId, albumId } = useParams<{ associationId: string; albumId?: string }>();
+  const [searchParams] = useSearchParams();
+  const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
+  const [columnSize, setColumnSize] = useState(0);
+  const { associations, refetch: refetchAssociations } = usePageAssociations({
+    isAlbumArtists,
+    associationType,
+  });
+  const expandedAssociationId = associationId ? Number(associationId) : associations[0]?.id;
+  const { association: expandedAssociation, refetch: refetchAssociation } = useAssociation({
+    id: expandedAssociationId,
+  });
+  const [viewingGroup, setViewingGroup] = useState<ViewingGroup>(getViewingGroup(associationType, isAlbumArtists));
+  const listRef = useRef(null);
+  const expandedAlbumId = albumId ? Number(albumId) : null;
+  const expandedAlbum =
+    expandedAlbumId !== null
+      ? (expandedAssociation?.albumArtistCredits.find((album) => album.id === expandedAlbumId) ?? null)
+      : null;
+  const clickedIndex = expandedAssociation?.albumArtistCredits.findIndex((item) => item.id === expandedAlbumId) ?? -1;
+  let detailsInsertIndex = clickedIndex >= 0 ? Math.ceil((clickedIndex + 1) / columnSize) * columnSize - 1 : -1;
+  if (expandedAssociation?.albumArtistCredits.length) {
+    if (detailsInsertIndex >= expandedAssociation.albumArtistCredits.length) {
+      detailsInsertIndex = expandedAssociation.albumArtistCredits.length - 1;
+    }
+  }
+  const getAssociationUrl = useCallback(
+    (id: number) => {
+      const association = associations.find((item) => item.id === id);
+
+      return `/${groupUrl}/${id}/${formatSlug(association?.name ?? '')}`;
+    },
+    [associations, groupUrl],
+  );
+
+  const getAlbumUrl = useCallback(
+    (id: number) => {
+      const album = expandedAssociation?.albumArtistCredits.find((a) => a.id === id);
+      const associationUrl = getAssociationUrl(expandedAssociationId!);
+      return `${associationUrl}/${id}/${formatSlug(album?.title ?? '')}`;
+    },
+    [expandedAssociation, expandedAssociationId, getAssociationUrl],
+  );
+
+  const refresh = useCallback(() => {
+    refetchAssociations();
+    refetchAssociation();
+  }, [refetchAssociations, refetchAssociation]);
+
+  const toggleArtist = useCallback(
+    (id: number) => {
+      const newUrl = getAssociationUrl(id);
+      navigate(newUrl);
+    },
+    [getAssociationUrl, navigate],
+  );
+
+  const toggleAlbum = useCallback(
+    (id: number) => {
+      const newUrl = id === expandedAlbumId ? getAssociationUrl(expandedAssociationId) : getAlbumUrl(id);
+      navigate(newUrl);
+    },
+    [expandedAlbumId, expandedAssociationId, getAlbumUrl, navigate],
+  );
+
+  useLayoutEffect(() => {
+    const list = listRef.current as HTMLElement | null;
+    if (list) {
+      const measureColumns = () => {
+        const items = Array.from(list.querySelectorAll<HTMLElement>('li')) as HTMLElement[];
+        if (items.length > 0) {
+          const firstItem = items[0];
+          let interruptedByExpandedAlbum = -1;
+          for (let i = 1; i < items.length; i += 1) {
+            const item = items[i];
+            if (item.classList.contains('album-details')) {
+              interruptedByExpandedAlbum = i;
+              break;
+            }
+            if (item.offsetTop > firstItem.offsetTop) {
+              setColumnSize(i);
+              break;
+            }
+          }
+          // find the first row-starting element after the expanded album details
+          if (interruptedByExpandedAlbum > -1) {
+            let newFirstItem = -1;
+            for (let i = interruptedByExpandedAlbum + 1; i < items.length; i += 1) {
+              const item = items[i];
+              if (item.offsetLeft === firstItem.offsetLeft) {
+                newFirstItem = i;
+                break;
+              }
+            }
+            // measure the column size starting from the new first item
+            if (newFirstItem > -1) {
+              const newFirst = items[newFirstItem];
+              for (let i = newFirstItem + 1; i < items.length; i += 1) {
+                const item = items[i];
+                if (item.offsetTop > newFirst.offsetTop) {
+                  const newColumnSize = i - newFirstItem;
+                  if (newColumnSize > 0) {
+                    setColumnSize(newColumnSize);
+                  }
+                  break;
+                }
+              }
+            }
+          }
+        }
+      };
+      measureColumns();
+      const observer = new ResizeObserver(measureColumns);
+      observer.observe(list);
+      return () => {
+        observer.disconnect();
+      };
+    }
+    return undefined;
+  }, [associationType, expandedAssociation?.albumArtistCredits, expandedAlbum]);
+
+  useEffect(() => {
+    if (!expandedAssociation || expandedAssociationId === null) {
+      return;
+    }
+    let nextPath = expandedAssociationId === null ? `/${groupUrl}` : getAssociationUrl(expandedAssociationId);
+    if (expandedAlbumId !== null) {
+      nextPath = getAlbumUrl(expandedAlbumId);
+    }
+    if (pageNumber > 1) {
+      nextPath += `?page=${pageNumber}`;
+    }
+    const currentPath = window.location.pathname;
+    if (currentPath !== nextPath) {
+      navigate(nextPath, { replace: true });
+    }
+  }, [associationType, expandedAssociation, expandedAlbum, navigate]);
+
+  useEffect(() => {
+    setViewingGroup(() => {
+      return getViewingGroup(associationType, isAlbumArtists);
+    });
+  }, [expandedAssociationId]);
+
+  useEffect(() => {
+    let stem = '';
+    switch (associationType) {
+      case AssociationTypeEnum.artist:
+        stem = isAlbumArtists ? 'Album Artists' : 'Artists';
+        break;
+      case AssociationTypeEnum.composer:
+        stem = 'Composers';
+        break;
+      case AssociationTypeEnum.genre:
+        stem = 'Genres';
+        break;
+      default:
+        stem = '';
+    }
+    if (stem && expandedAssociation?.name) {
+      document.title = `${stem}: ${expandedAssociation?.name}`;
+    } else {
+      document.title = 'Loading...';
+    }
+  }, [associationType, expandedAssociation?.name, isAlbumArtists]);
+
+  const tabButtons = (() => {
+    if (associationType === AssociationTypeEnum.genre) {
+      return [];
+    }
+    const composerCredits =
+      expandedAssociation?.composerCredits.reduce((acc, curr) => acc + (curr?.tracks.length ?? 0), 0) ?? 0;
+    const composer =
+      composerCredits > 0 ? (
+        <Button
+          value="composer"
+          className={[
+            `px-4 hover:bg-muted/50`,
+            viewingGroup === 'track-composers' ? 'bg-background/90! border-transparent' : '',
+          ].join(' ')}
+          variant={viewingGroup === 'track-composers' ? 'outline' : 'ghost'}
+          onClick={() => setViewingGroup('track-composers')}
+        >
+          Composer credits ({composerCredits})
+        </Button>
+      ) : (
+        <></>
+      );
+    const trackCredits =
+      expandedAssociation?.artistCredits.reduce((acc, curr) => acc + (curr?.tracks.length ?? 0), 0) ?? 0;
+    const track =
+      trackCredits > 0 ? (
+        <Button
+          value="track"
+          className={[
+            `px-4 hover:bg-muted/50`,
+            viewingGroup === 'track-artists' ? 'bg-background/90! border-transparent' : '',
+          ].join(' ')}
+          variant={viewingGroup === 'track-artists' ? 'outline' : 'ghost'}
+          onClick={() => setViewingGroup('track-artists')}
+        >
+          Track credits ({trackCredits})
+        </Button>
+      ) : (
+        <></>
+      );
+    const albumCredits = expandedAssociation?.albumArtistCredits.length ?? 0;
+    const album =
+      albumCredits > 0 ? (
+        <Button
+          value="album"
+          className={[
+            `px-4 hover:bg-muted/50`,
+            viewingGroup === 'album-artists' ? 'bg-background/90! border-transparent' : '',
+          ].join(' ')}
+          variant={viewingGroup === 'album-artists' ? 'outline' : 'ghost'}
+          onClick={() => setViewingGroup('album-artists')}
+        >
+          Album credits ({albumCredits})
+        </Button>
+      ) : (
+        <></>
+      );
+    switch (associationType) {
+      case AssociationTypeEnum.artist:
+        return isAlbumArtists ? [album, track, composer] : [album, track, composer];
+      case AssociationTypeEnum.composer:
+        return [composer, track, album];
+      default:
+        return [];
+    }
+  })();
+
+  if (!associations.length) {
+    return <></>;
+  }
+
+  let albums;
+  switch (viewingGroup) {
+    case 'album-artists':
+      albums = expandedAssociation?.albumArtistCredits || [];
+      break;
+    case 'track-artists':
+      albums = expandedAssociation?.artistCredits || [];
+      break;
+    case 'track-composers':
+      albums = expandedAssociation?.composerCredits || [];
+      break;
+    case 'track-genres':
+    default:
+      albums = expandedAssociation?.genreCredits || [];
+      break;
+  }
+
+  return (
+    <div className="relative">
+      <div className="flex flex-row">
+        <ul className="flex flex-col overflow-y-scroll pb-2 h-[calc(100vh-12rem)] max-w-100 mr-2">
+          {associations.map((item) => {
+            return (
+              <li className="w-full px-2" key={`association-${item.id}`}>
+                <ArtistListItem
+                  artist={item}
+                  isExpanded={expandedAssociationId === item.id}
+                  onToggle={() => toggleArtist(item.id)}
+                />
+              </li>
+            );
+          })}
+        </ul>
+        <div className="w-full">
+          <div className="pb-4 flex flex-row">
+            <h2 className="text-lg font-semibold">{expandedAssociation?.name || 'Loading...'}</h2>
+            {expandedAssociation && (
+              <AssociationEditForm
+                association={expandedAssociation}
+                associationType={associationType}
+                onSave={refresh}
+              />
+            )}
+          </div>
+          {viewingGroup !== 'track-genres' && (
+            <>
+              <ul className="mb-4 p-1 bg-foreground/10 inline-block rounded-lg">
+                {tabButtons.map((button, index) => (
+                  <li key={`button-${index}`} className="inline-block mr-4 last-of-type:mr-0">
+                    {button}
+                  </li>
+                ))}
+              </ul>
+              {viewingGroup === 'album-artists' && (
+                <ul
+                  ref={listRef}
+                  className={[
+                    'w-full',
+                    'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
+                    'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
+                    'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
+                    'items-start',
+                    'content-start',
+                    'auto-rows-max',
+                    'justify-start',
+                    'gap-4',
+                    'overflow-y-scroll h-[calc(100vh-11rem)]',
+                  ].join(' ')}
+                >
+                  {albums.map((item, index) => {
+                    const isExpanded = expandedAssociationId === item.id;
+                    const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
+                    return (
+                      <Fragment key={`albums-${item.id}`}>
+                        <li className="w-full inline-flex align-middle justify-center">
+                          <AlbumCard album={item} isExpanded={isExpanded} onToggle={() => toggleAlbum(item.id)} />
+                        </li>
+                        {shouldInsertDetails && (
+                          <li className="album-details col-span-full pt-4">
+                            <AlbumExpandedDetails albumId={expandedAlbumId} albumPreloaded={expandedAlbum} />
+                          </li>
+                        )}
+                      </Fragment>
+                    );
+                  })}
+                </ul>
+              )}
+              {viewingGroup !== 'album-artists' && (
+                <div
+                  ref={listRef}
+                  className={['w-full', 'overflow-y-scroll h-[calc(100vh-11rem)]'].join(' ')}
+                  key={expandedAssociationId}
+                >
+                  <TrackTable albums={albums} />
+                </div>
+              )}
+            </>
+          )}
+          {viewingGroup === 'track-genres' && (
+            <div
+              ref={listRef}
+              className={['w-full', 'overflow-y-scroll h-[calc(100vh-11rem)]'].join(' ')}
+              key={expandedAssociationId}
+            >
+              <TrackTable albums={expandedAssociation?.genreCredits || []} />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+});

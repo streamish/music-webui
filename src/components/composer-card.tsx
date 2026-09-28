@@ -1,17 +1,17 @@
 import { ComposerIconImage } from './composer-icon-image';
-import type { ComposerWithContents } from '@/features/library/library';
+import type { Association } from '@/hooks/user/use-associations';
 
 export function ComposerCard({
   composer,
   isExpanded,
   onToggle,
 }: {
-  composer: ComposerWithContents;
+  composer: Association;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
-  const selectedColor = composer.albums[0]?.coverImageMuted || '#000000';
-  const contrastingColor = composer.albums[0]?.coverImageDarkMuted || '#000000';
+  const selectedColor = composer.albumArtistCredits?.[0]?.coverImageMuted || '#000000';
+  const contrastingColor = composer.albumArtistCredits?.[0]?.coverImageDarkMuted || '#000000';
   return (
     <>
       <button

@@ -1,12 +1,12 @@
 import { ArtistIconImage } from './artist-icon-image';
-import type { ArtistWithContents } from '@/features/library/library';
+import type { Artist } from '@/hooks/user/use-associations';
 
-export function AlbumArtistListItem({
+export function ArtistListItem({
   artist,
   isExpanded,
   onToggle,
 }: {
-  artist: ArtistWithContents;
+  artist: Artist;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
@@ -21,14 +21,14 @@ export function AlbumArtistListItem({
         <div
           className={[
             'flex flex-row',
-            'bg-accent rounded-lg p-2 shadow-sm shadow-foreground/50 dark:shadow-background',
-            'hover:bg-muted-foreground/50 transition-colors',
-            isExpanded ? 'bg-muted-foreground/80 transition-colors' : '',
+            'rounded-lg p-1',
+            'hover:bg-muted-foreground/25 transition-colors',
+            isExpanded ? 'bg-muted-foreground/20 transition-colors' : '',
           ].join(' ')}
         >
-          <ArtistIconImage artistId={artist.id} aria-label={`${artist.name}`} className="w-30 h-30 mr-2" size={100} />
+          <ArtistIconImage artistId={artist.id} aria-label={`${artist.name}`} className="w-8 h-8 mr-2" size={100} />
           <div>
-            <h3 className="text-foreground/80">{artist.name}</h3>
+            <h3 className="text-foreground/80 py-1">{artist.name}</h3>
           </div>
         </div>
       </button>

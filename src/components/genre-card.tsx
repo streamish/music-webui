@@ -1,17 +1,17 @@
 import { GenreIconImage } from './genre-icon-image';
-import type { GenreWithContents } from '@/features/library/library';
+import type { Association } from '@/hooks/user/use-associations';
 
 export function GenreCard({
   genre,
   isExpanded,
   onToggle,
 }: {
-  genre: GenreWithContents;
+  genre: Association;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
-  const selectedColor = genre.albums[0]?.coverImageMuted || '#000000';
-  const contrastingColor = genre.albums[0]?.coverImageDarkMuted || '#000000';
+  const selectedColor = genre.albumArtistCredits?.[0]?.coverImageMuted || '#000000';
+  const contrastingColor = genre.albumArtistCredits?.[0]?.coverImageDarkMuted || '#000000';
   return (
     <>
       <button

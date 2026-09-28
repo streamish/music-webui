@@ -44,7 +44,7 @@ export function GenreIconImage({ genreId, size, style, ...props }: GenreImagePro
       setImageUrl(null);
       return undefined;
     }
-    const nextUrl = `${baseUrl}/api/guest/genre-cover?id=${genreId}&size=${size}`;
+    const nextUrl = `${baseUrl}/api/user/association-cover-image?id=${genreId}&size=${size}`;
     objectUrlRef.current = nextUrl;
     setImageUrl(nextUrl);
     return () => {
@@ -60,6 +60,7 @@ export function GenreIconImage({ genreId, size, style, ...props }: GenreImagePro
     <div
       ref={containerRef}
       {...props}
+      className={`animate-[fade-in_300ms_ease-out] ${props.className ?? ''}`}
       style={{
         ...style,
         backgroundImage: imageUrl ? `url("${imageUrl}")` : undefined,

@@ -44,7 +44,7 @@ export function ArtistIconImage({ artistId, size, style, ...props }: ArtistImage
       setImageUrl(null);
       return undefined;
     }
-    const nextUrl = `${baseUrl}/api/guest/artist-cover?id=${artistId}&size=${size}`;
+    const nextUrl = `${baseUrl}/api/user/association-cover-image?id=${artistId}&size=${size}`;
     objectUrlRef.current = nextUrl;
     setImageUrl(nextUrl);
     return () => {
@@ -60,6 +60,7 @@ export function ArtistIconImage({ artistId, size, style, ...props }: ArtistImage
     <div
       ref={containerRef}
       {...props}
+      className={`animate-[fade-in_300ms_ease-out] ${props.className ?? ''}`}
       style={{
         ...style,
         backgroundImage: imageUrl ? `url("${imageUrl}")` : undefined,

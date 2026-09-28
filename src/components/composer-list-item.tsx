@@ -1,12 +1,12 @@
-import { AlbumIconImage } from './album-icon-image';
-import type { Composer } from '@/features/library/library';
+import { ComposerIconImage } from './composer-icon-image';
+import type { Association } from '@/hooks/user/use-associations';
 
 export function ComposerListItem({
   composer,
   isExpanded,
   onToggle,
 }: {
-  composer: Composer;
+  composer: Association;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
@@ -26,7 +26,12 @@ export function ComposerListItem({
             isExpanded ? 'bg-muted-foreground/80 transition-colors' : '',
           ].join(' ')}
         >
-          <AlbumIconImage albumId={composer.id} aria-label={`${composer.name}`} className="w-30 h-30 mr-2" size={100} />
+          <ComposerIconImage
+            composerId={composer.id}
+            aria-label={`${composer.name}`}
+            className="w-30 h-30 mr-2"
+            size={100}
+          />
           <div>
             <h3 className="text-foreground/80">{composer.name}</h3>
           </div>

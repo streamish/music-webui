@@ -39,7 +39,10 @@ export function QueueControls() {
       <div className="fixed inset-x-0 bottom-0 z-9999 h-22 bg-muted/95">
         {/* Seek bar */}
         <div className="relative h-2 w-full bg-muted-foreground/40 cursor-pointer" onClick={setPosition}>
-          <div className="h-2 bg-primary" style={{ width: `${(currentTime / (currentItem?.duration || 1)) * 100}%` }} />
+          <div
+            className="h-2 bg-primary"
+            style={{ width: `${((currentTime + 1) / (currentItem?.duration || 1)) * 100}%` }}
+          />
           <Circle
             className="absolute -top-1 left-0 h-4 w-4 bg-primary rounded-full"
             style={{ left: `${(currentTime / (currentItem?.duration || 1)) * 100}%` }}
@@ -96,7 +99,7 @@ export function QueueControls() {
               <>
                 <div className="m-1 h-18 w-18 flex-none">
                   <AlbumIconImage
-                    albumId={currentItem?.album.id}
+                    albumId={currentItem?.albumId}
                     size={100}
                     className="h-18 w-18 border-4 border-muted-foreground"
                   />
@@ -104,7 +107,7 @@ export function QueueControls() {
                 <div className="flex min-w-0 flex-col justify-center gap-1 ml-2">
                   <span className="truncate text-md font-medium">{currentItem?.title}</span>
                   <span className="truncate text-sm text-muted-foreground">
-                    {currentItem?.album.title} — {currentItem?.album.artists.map((artist) => artist.name).join(', ')}
+                    {currentItem?.albumTitle} — {currentItem?.albumArtists.map((artist) => artist.name).join(', ')}
                   </span>
                   <span className="text-sm text-muted-foreground">
                     {secondsToMinutesAndSeconds(currentTime)} / {secondsToMinutesAndSeconds(currentItem?.duration)}

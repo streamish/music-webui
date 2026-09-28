@@ -1,4 +1,4 @@
-import { Fragment } from 'react/jsx-runtime';
+import { Fragment, useCallback, useMemo } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -8,65 +8,70 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from './ui/pagination';
-import { useMemo } from 'react';
 import { usePreferences } from '@/hooks/use-preferences';
 
-export function PaginationControls({
-  page,
-  items,
-  setPage,
-}: {
+type PaginationControlsProps = {
   page: number;
   items: number;
   setPage: (nextPage: number) => void;
-}) {
+};
+
+export function PaginationControls({ page, items, setPage }: PaginationControlsProps) {
   const { preferences } = usePreferences();
   const { pageSize } = preferences;
+  const pageCount = Math.max(1, Math.ceil(items / pageSize));
 
   const pageNumbers = useMemo(() => {
-    const pageCount = Math.ceil(items / pageSize);
-    const pages = new Set<number>([1, page, page - 1, page + 1, pageCount]);
+    const pages = new Set([1, page - 1, page, page + 1, pageCount]);
     return [...pages].filter((pageNumber) => pageNumber >= 1 && pageNumber <= pageCount).sort((a, b) => a - b);
-  }, [page, pageSize, items]);
+  }, [page, pageCount]);
 
-  const goToPage = (nextPage: number) => {
-    setPage(Math.min(Math.max(nextPage, 1), Math.ceil(items / pageSize)));
-  };
+  const goToPage = useCallback((nextPage: number) => setPage(nextPage), [setPage]);
 
-  if (pageNumbers.length === 1) return <div className="m-4"></div>;
+  if (pageCount <= 1) {
+    return null;
+  }
+  const isFirstPage = page === 1;
+  const isLastPage = page === pageCount;
 
   return (
     <div className="my-10">
-      <Pagination>
+      <Pagination aria-label="Pagination">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
               href="#"
-              aria-disabled={page === 1}
-              className={page === 1 ? 'pointer-events-none opacity-50' : undefined}
+              aria-disabled={isFirstPage}
+              tabIndex={isFirstPage ? -1 : undefined}
+              className={isFirstPage ? 'pointer-events-none opacity-50' : undefined}
               onClick={(event) => {
                 event.preventDefault();
-                goToPage(page - 1);
+                if (!isFirstPage) {
+                  goToPage(page - 1);
+                }
               }}
             />
           </PaginationItem>
           {pageNumbers.map((pageNumber, index) => {
             const previousPage = pageNumbers[index - 1];
+            const hasGap = previousPage !== undefined && pageNumber - previousPage > 1;
             return (
               <Fragment key={pageNumber}>
-                {previousPage && pageNumber - previousPage > 1 && (
+                {hasGap && (
                   <PaginationItem>
                     <PaginationEllipsis />
                   </PaginationItem>
                 )}
-
                 <PaginationItem>
                   <PaginationLink
                     href="#"
                     isActive={pageNumber === page}
+                    aria-current={pageNumber === page ? 'page' : undefined}
                     onClick={(event) => {
                       event.preventDefault();
-                      goToPage(pageNumber);
+                      if (pageNumber !== page) {
+                        goToPage(pageNumber);
+                      }
                     }}
                   >
                     {pageNumber}
@@ -78,11 +83,14 @@ export function PaginationControls({
           <PaginationItem>
             <PaginationNext
               href="#"
-              aria-disabled={page === Math.ceil(items / pageSize)}
-              className={page === Math.ceil(items / pageSize) ? 'pointer-events-none opacity-50' : undefined}
+              aria-disabled={isLastPage}
+              tabIndex={isLastPage ? -1 : undefined}
+              className={isLastPage ? 'pointer-events-none opacity-50' : undefined}
               onClick={(event) => {
                 event.preventDefault();
-                goToPage(page + 1);
+                if (!isLastPage) {
+                  goToPage(page + 1);
+                }
               }}
             />
           </PaginationItem>

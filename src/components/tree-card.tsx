@@ -1,5 +1,5 @@
 import { Folder } from 'lucide-react';
-import type { TreeItemDto } from '@/features/library/library';
+import type { TreeItemDto } from '@/hooks/user/use-folders';
 
 export function TreeCard({ item, onToggle }: { item: TreeItemDto; onToggle: () => void }) {
   return (

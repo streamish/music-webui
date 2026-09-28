@@ -44,7 +44,7 @@ export function ComposerIconImage({ composerId, size, style, ...props }: Compose
       setImageUrl(null);
       return undefined;
     }
-    const nextUrl = `${baseUrl}/api/guest/composer-cover?id=${composerId}&size=${size}`;
+    const nextUrl = `${baseUrl}/api/user/association-cover-image?id=${composerId}&size=${size}`;
     objectUrlRef.current = nextUrl;
     setImageUrl(nextUrl);
     return () => {
@@ -60,6 +60,7 @@ export function ComposerIconImage({ composerId, size, style, ...props }: Compose
     <div
       ref={containerRef}
       {...props}
+      className={`animate-[fade-in_300ms_ease-out] ${props.className ?? ''}`}
       style={{
         ...style,
         backgroundImage: imageUrl ? `url("${imageUrl}")` : undefined,

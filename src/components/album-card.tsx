@@ -1,5 +1,5 @@
 import { AlbumIconImage } from './album-icon-image';
-import type { Album } from '@/features/library/library';
+import type { Album } from '@/hooks/user/use-albums';
 
 export function AlbumCard({
   album,

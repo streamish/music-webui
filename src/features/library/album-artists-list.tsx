@@ -1,28 +1,93 @@
-import { AlbumArtistListItem } from '@/components/artist-list-item';
-import { AlbumArtistStandaloneDetails } from '@/components/artist-standalone-details';
-import { ArtistCard } from '@/components/artist-card';
-import { ArtistExpandedDetails } from '@/components/artist-expanded-details';
-import { Fragment, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { AlbumCard } from '@/components/album-card';
+import { AlbumExpandedDetails } from '@/components/album-expanded-details';
+import { ArtistListItem } from '@/components/artist-list-item';
+import { AssociationTypeEnum } from '@/types/api-schema';
+import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { PageHeader } from '@/layouts/user-layout';
 import { PaginationControls } from '@/components/pagination-controls';
 import { formatSlug } from '@/utils/format';
+import { useAlbumAssociations, useAssociation } from '@/hooks/user/use-associations';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useLibrary } from './library';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { usePreferences } from '@/hooks/use-preferences';
 
-export default function AlbumArtistsList() {
+export default function AlbumArtistsList({ group }: { group: string }) {
   const navigate = useNavigate();
-  const { albumArtists } = useLibrary();
   const isMobile = useIsMobile();
-  const [columnSize, setColumnSize] = useState(0);
+  const { artistId, albumId } = useParams<{ artistId: string; albumId?: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
   const { preferences } = usePreferences();
   const { pageSize } = preferences;
-  const [page, setPage] = useState(1);
+  const [columnSize, setColumnSize] = useState(0);
+  const [query, setQuery] = useState({
+    limit: pageSize,
+    offset: (pageNumber - 1) * pageSize,
+    associationType: AssociationTypeEnum.artist,
+  });
+  const { associations, total } = useAlbumAssociations(query);
+  const expandedAssociationId = artistId ? Number(artistId) : associations[0]?.id;
+  const { association: expandedAssociation } = useAssociation({
+    id: expandedAssociationId,
+  });
   const listRef = useRef(null);
-  const { artistId } = useParams<{ artistId: string }>();
-  const expandedArtistId = artistId ? Number(artistId) : null;
-  const expandedArtist =
-    expandedArtistId !== null ? (albumArtists.find((artist) => artist.id === expandedArtistId) ?? null) : null;
+  const expandedAlbumId = albumId ? Number(albumId) : null;
+  const expandedAlbum =
+    expandedAlbumId !== null
+      ? (expandedAssociation?.albumArtistCredits.find((album) => album.id === expandedAlbumId) ?? null)
+      : null;
+  const clickedIndex = expandedAssociation?.albumArtistCredits.findIndex((item) => item.id === expandedAlbumId) ?? -1;
+  let detailsInsertIndex = clickedIndex >= 0 ? Math.ceil((clickedIndex + 1) / columnSize) * columnSize - 1 : -1;
+  if (expandedAssociation?.albumArtistCredits.length) {
+    if (detailsInsertIndex >= expandedAssociation.albumArtistCredits.length) {
+      detailsInsertIndex = expandedAssociation.albumArtistCredits.length - 1;
+    }
+  }
+
+  const getArtistUrl = (id: number) => {
+    const artist = associations.find((item) => item.id === id);
+    return `/${group}/${id}/${formatSlug(artist?.name ?? '')}`;
+  };
+
+  const getAlbumUrl = (id: number) => {
+    const album = expandedAssociation?.albumArtistCredits.find((a) => a.id === id);
+    const artistUrl = getArtistUrl(expandedAssociationId);
+    return `${artistUrl}/${id}/${formatSlug(album?.title ?? '')}`;
+  };
+
+  const toggleArtist = useCallback(
+    (id: number) => {
+      const newUrl = id === expandedAssociationId ? `/${group}` : getArtistUrl(id);
+      navigate(newUrl);
+    },
+    [associations, expandedAssociation, navigate],
+  );
+
+  const toggleAlbum = useCallback(
+    (id: number) => {
+      const newUrl = id === expandedAlbumId ? getArtistUrl(expandedAssociationId) : getAlbumUrl(id);
+      navigate(newUrl);
+    },
+    [associations, expandedAssociation, expandedAlbum, navigate],
+  );
+
+  const setPage = useCallback(
+    (nextPage: number) => {
+      setSearchParams((current) => {
+        const next = new URLSearchParams(current);
+        next.set('page', String(nextPage));
+        return next;
+      });
+      setQuery(() => {
+        return {
+          limit: pageSize,
+          offset: (nextPage - 1) * pageSize,
+          associationType: AssociationTypeEnum.artist,
+        };
+      });
+    },
+    [setSearchParams, pageSize],
+  );
 
   useLayoutEffect(() => {
     const list = listRef.current as HTMLElement | null;
@@ -73,105 +138,111 @@ export default function AlbumArtistsList() {
       measureColumns();
       const observer = new ResizeObserver(measureColumns);
       observer.observe(list);
-      window.addEventListener('resize', measureColumns);
       return () => {
         observer.disconnect();
-        window.removeEventListener('resize', measureColumns);
       };
     }
     return undefined;
-  }, [albumArtists.length]);
+  }, [expandedAssociation, expandedAssociation?.albumArtistCredits]);
 
-  function toggleArtist(id: number) {
-    if (expandedArtistId === id) {
-      navigate('/album-artists');
-    } else {
-      const artist = albumArtists.find((item) => item.id === id);
-      if (!artist) {
-        // eslint-disable-next-line no-console
-        console.error(`Artist with id ${id} not found`);
-        return;
-      }
-      navigate(`/album-artists/${id}/${formatSlug(artist.name)}`);
+  useEffect(() => {
+    if (!expandedAssociation || expandedAssociationId === null) {
+      return;
     }
+    let nextPath = expandedAssociationId === null ? '/track-associations' : getArtistUrl(expandedAssociationId);
+    if (expandedAlbumId !== null) {
+      nextPath = getAlbumUrl(expandedAlbumId);
+    }
+    if (pageNumber > 1) {
+      nextPath += `?page=${pageNumber}`;
+    }
+    const currentPath = window.location.pathname;
+    if (currentPath !== nextPath) {
+      navigate(nextPath, { replace: true });
+    }
+  }, [expandedAssociation, expandedAlbum, navigate]);
+
+  if (!associations.length) {
+    return <></>;
   }
 
-  const visibleData = useMemo(() => {
-    if (pageSize) {
-      const start = (page - 1) * pageSize;
-      const end = start + pageSize;
-      return albumArtists.slice(start, end) || [];
+  const title = (() => {
+    switch (group) {
+      case 'albumArtists':
+        return 'Album Associations';
+      case 'trackArtists':
+        return 'Track Associations';
+      case 'trackComposers':
+        return 'Track Composers';
+      case 'trackGenres':
+        return 'Track Genres';
+      default:
+        return '';
     }
-    return albumArtists;
-  }, [albumArtists, page, preferences.pageSize]);
-
-  const clickedArtistIndex = visibleData.findIndex((item) => item.id === expandedArtistId) ?? -1;
-  const insertingArtist = visibleData[clickedArtistIndex];
-  let detailsInsertIndex =
-    clickedArtistIndex >= 0 ? Math.ceil((clickedArtistIndex + 1) / columnSize) * columnSize - 1 : -1;
-  if (visibleData.length) {
-    if (detailsInsertIndex > visibleData.length) {
-      detailsInsertIndex = visibleData.length - 1;
-    }
-  }
+  })();
 
   return (
-    <>
-      <title>Album artists</title>
-      {isMobile && (
-        <ul className="flex flex-col grow">
-          {insertingArtist && (
-            <li className="album-details col-span-full flex flex-col grow  -mx-4">
-              {expandedArtist && (
-                <AlbumArtistStandaloneDetails artist={expandedArtist} onClose={() => toggleArtist(expandedArtist.id)} />
-              )}
-            </li>
-          )}
-          {!insertingArtist &&
-            visibleData.map((item, index) => {
-              return (
-                <li className="w-full p-2" key={`mobile-album-artist ${item.id}-${index}`}>
-                  <AlbumArtistListItem
-                    artist={item}
-                    isExpanded={expandedArtistId === item.id}
-                    onToggle={() => toggleArtist(item.id)}
-                  />
-                </li>
-              );
-            })}
-        </ul>
-      )}
-      {!isMobile && (
+    <div className="relative py-20">
+      <title>{title}</title>
+      {total == null ? (
+        <p className="text-white-500">Loading…</p>
+      ) : (
         <>
-          <ul
-            ref={listRef}
-            className={[
-              'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
-              'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
-              'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
-              'gap-4 mx-4',
-            ].join(' ')}
-          >
-            {visibleData.map((item, index) => {
-              const isExpanded = expandedArtistId === item.id;
-              const shouldInsertDetails = detailsInsertIndex === index;
-              return (
-                <Fragment key={`album-artist ${item.id}-${index}`}>
-                  <li className="w-full h-full inline-flex align-middle justify-center">
-                    <ArtistCard artist={item} isExpanded={isExpanded} onToggle={() => toggleArtist(item.id)} />
+          <PageHeader>
+            <PaginationControls page={pageNumber} setPage={setPage} items={total} />
+          </PageHeader>
+          <div className="flex flex-row">
+            <ul className="flex flex-col overflow-y-scroll pb-2 h-[calc(100vh-12rem)]">
+              {associations.map((item) => {
+                return (
+                  <li className="w-full px-2" key={item.id}>
+                    <ArtistListItem
+                      artist={item}
+                      isExpanded={expandedAssociationId === item.id}
+                      onToggle={() => toggleArtist(item.id)}
+                    />
                   </li>
-                  {shouldInsertDetails && (
-                    <li className="album-details col-span-full -mx-4">
-                      {expandedArtist && <ArtistExpandedDetails artist={expandedArtist} />}
-                    </li>
-                  )}
-                </Fragment>
-              );
-            })}
-          </ul>
-          <PaginationControls page={page} setPage={setPage} items={albumArtists?.length ?? 0} />
+                );
+              })}
+            </ul>
+            {!isMobile && (
+              <ul
+                ref={listRef}
+                className={[
+                  'w-full',
+                  'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
+                  'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
+                  'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
+                  'items-start',
+                  'content-start',
+                  'auto-rows-max',
+                  'justify-start',
+                  'gap-4',
+                  'overflow-y-scroll h-[calc(100vh-11rem)]',
+                ].join(' ')}
+                key={expandedAssociationId}
+              >
+                {expandedAssociation?.albumArtistCredits.map((item, index) => {
+                  const isExpanded = expandedAssociationId === item.id;
+                  const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
+                  return (
+                    <Fragment key={item.id}>
+                      <li className="w-full inline-flex align-middle justify-center">
+                        <AlbumCard album={item} isExpanded={isExpanded} onToggle={() => toggleAlbum(item.id)} />
+                      </li>
+                      {shouldInsertDetails && (
+                        <li className="album-details col-span-full">
+                          <AlbumExpandedDetails albumId={expandedAlbumId} albumPreloaded={expandedAlbum} />
+                        </li>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
         </>
       )}
-    </>
+    </div>
   );
 }

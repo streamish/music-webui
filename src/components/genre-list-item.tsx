@@ -1,12 +1,12 @@
-import { ArtistIconImage } from './artist-icon-image';
-import type { Genre } from '@/features/library/library';
+import { GenreIconImage } from './genre-icon-image';
+import type { Association } from '@/hooks/user/use-associations';
 
 export function GenreListItem({
   genre,
   isExpanded,
   onToggle,
 }: {
-  genre: Genre;
+  genre: Association;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
@@ -26,7 +26,7 @@ export function GenreListItem({
             isExpanded ? 'bg-muted-foreground/80 transition-colors' : '',
           ].join(' ')}
         >
-          <ArtistIconImage artistId={genre.id} aria-label={`${genre.name}`} className="w-30 h-30 mr-2" size={100} />
+          <GenreIconImage genreId={genre.id} aria-label={`${genre.name}`} className="w-30 h-30 mr-2" size={100} />
           <div>
             <h3 className="text-foreground/80">{genre.name}</h3>
           </div>
