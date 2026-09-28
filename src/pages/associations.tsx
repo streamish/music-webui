@@ -406,7 +406,7 @@ export const AssociationsPage = memo(() => {
                         </li>
                         {shouldInsertDetails && (
                           <li className="album-details col-span-full pt-4">
-                            <AlbumExpandedDetails albumId={expandedAlbumId} albumPreloaded={expandedAlbum} />
+                            <AlbumExpandedDetails albumId={expandedAlbumId} />
                           </li>
                         )}
                       </Fragment>

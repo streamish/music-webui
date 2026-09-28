@@ -14,13 +14,13 @@ import type { Track } from '@/hooks/user/use-tracks';
 
 type FormData = {
   title: string;
-  genres: string;
+  genres?: string;
   artists: string;
-  comment: string;
-  composers: string;
-  trackNumber: number;
-  discNumber: number;
-  year: number;
+  comment?: string;
+  composers?: string;
+  trackNumber?: number;
+  discNumber?: number;
+  year?: number;
 };
 
 const schema = z.object({
@@ -70,9 +70,9 @@ export function TrackEditForm({ track }: { track: Track }) {
       artists: '',
       comment: '',
       composers: '',
-      trackNumber: undefined,
-      discNumber: undefined,
-      year: undefined,
+      trackNumber: 0,
+      discNumber: 0,
+      year: 0,
     },
   });
 
@@ -97,17 +97,17 @@ export function TrackEditForm({ track }: { track: Track }) {
           artists: formData.artists,
           composers: formData.composers,
           comment: formData.comment,
-          discNumber: formData.discNumber,
+          discNumber: formData.discNumber || 0,
           genres: formData.genres,
           title: formData.title,
-          trackNumber: formData.trackNumber,
-          year: formData.year,
+          trackNumber: formData.trackNumber || 0,
+          year: formData.year || 0,
         },
       },
       {
         onSuccess: () => {
           setOpen(false);
-          toast.success('Album updated successfully.');
+          toast.success('Track updated successfully.');
         },
         onError: (error) => {
           for (let i = 0; i < error.messages.length; i += 1) {

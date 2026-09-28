@@ -20,7 +20,7 @@ type SetNameEndpointErrorMessage =
   | SetNameEndpoint['responses']['404']['content']['application/json']['message'][number];
 
 export type Album = ListEndpointResponse['albums'][number];
-export type AlbumWithTracks = RetrieveEndpointResponse['albums'][number];
+export type AlbumWithTracks = RetrieveEndpointResponse['album'];
 
 type SetNameVariables = {
   body: SetNameEndpoint['requestBody']['content']['application/json'];

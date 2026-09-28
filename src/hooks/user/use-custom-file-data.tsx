@@ -110,7 +110,7 @@ async function setGenreName({ query, body }: SetGenreNameVariables) {
 }
 
 async function setAlbumCustomData({ query, body }: SetAlbumCustomDataVariables) {
-  const { data, error } = await api.put('/api/user/set-album-custom-data', {
+  const { data, error } = await api.patch('/api/user/set-album-custom-data', {
     params: {
       query,
       header: api.authHeader(),

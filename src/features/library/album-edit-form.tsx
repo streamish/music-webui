@@ -15,7 +15,7 @@ import type { Album } from '@/hooks/user/use-albums';
 type FormData = {
   title: string;
   artists: string;
-  year: number;
+  year?: number;
 };
 
 const schema = z.object({
@@ -76,7 +76,7 @@ export function AlbumEditForm({ album }: { album: Album }) {
         body: {
           title: formData.title,
           artists: formData.artists,
-          year: formData.year,
+          year: formData.year || 0,
         },
       },
       {

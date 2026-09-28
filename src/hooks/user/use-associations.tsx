@@ -249,7 +249,7 @@ export function useAssociation(params: RetrieveEndpointQuery) {
 
   return {
     association: associationQuery.data?.association ?? null,
-    invalidate: async () => {
+    refetch: async () => {
       await associationQuery.refetch();
     },
     isLoading: associationQuery.isLoading,
