@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
-type ComposerImageProps = {
-  composerId: number;
+type ArtistImageProps = {
+  associationId: number;
   size: number;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export function ComposerIconImage({ composerId, size, style, ...props }: ComposerImageProps) {
+export function AssociationIconImage({ associationId, size, style, ...props }: ArtistImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const objectUrlRef = useRef<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -44,7 +44,7 @@ export function ComposerIconImage({ composerId, size, style, ...props }: Compose
       setImageUrl(null);
       return undefined;
     }
-    const nextUrl = `${baseUrl}/api/user/association-cover-image?id=${composerId}&size=${size}`;
+    const nextUrl = `${baseUrl}/api/user/association-cover-image?id=${associationId}&size=${size}`;
     objectUrlRef.current = nextUrl;
     setImageUrl(nextUrl);
     return () => {
@@ -54,7 +54,7 @@ export function ComposerIconImage({ composerId, size, style, ...props }: Compose
       }
       setImageUrl(null);
     };
-  }, [composerId, size, isVisible]);
+  }, [associationId, size, isVisible]);
 
   return (
     <div

@@ -1,12 +1,12 @@
-import { ArtistIconImage } from './artist-icon-image';
-import type { Artist } from '@/hooks/user/use-associations';
+import { AssociationIconImage } from './association-icon-image';
+import type { AssociationStub } from '@/hooks/user/use-associations';
 
-export function ArtistListItem({
-  artist,
+export function AssociationListItem({
+  association,
   isExpanded,
   onToggle,
 }: {
-  artist: Artist;
+  association: AssociationStub;
   isExpanded: boolean;
   onToggle: () => void;
 }) {
@@ -26,9 +26,14 @@ export function ArtistListItem({
             isExpanded ? 'bg-muted-foreground/20 transition-colors' : '',
           ].join(' ')}
         >
-          <ArtistIconImage artistId={artist.id} aria-label={`${artist.name}`} className="w-8 h-8 mr-2" size={100} />
+          <AssociationIconImage
+            associationId={association.id}
+            aria-label={`${association.name}`}
+            className="w-8 h-8 mr-2"
+            size={100}
+          />
           <div>
-            <h3 className="text-foreground/80 py-1">{artist.name}</h3>
+            <h3 className="text-foreground/80 py-1">{association.name}</h3>
           </div>
         </div>
       </button>

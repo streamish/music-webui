@@ -1,7 +1,7 @@
 import { AlbumCard } from '@/components/album-card';
 import { AlbumExpandedDetails } from '@/components/album-expanded-details';
-import { ArtistListItem } from '@/components/artist-list-item';
 import { AssociationEditForm } from '@/features/library/association-edit-form';
+import { AssociationListItem } from '@/components/association-list-item';
 import { AssociationTypeEnum } from '@/types/api-schema';
 import { Button } from '@/components/ui/button';
 import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -351,8 +351,8 @@ export const AssociationsPage = memo(() => {
           {associations.map((item) => {
             return (
               <li className="w-full px-2" key={`association-${item.id}`}>
-                <ArtistListItem
-                  artist={item}
+                <AssociationListItem
+                  association={item}
                   isExpanded={expandedAssociationId === item.id}
                   onToggle={() => toggleArtist(item.id)}
                 />

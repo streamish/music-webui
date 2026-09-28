@@ -33,6 +33,7 @@ type SetNameVariables = {
   query: SetNameEndpoint['parameters']['query'];
 };
 
+export type AssociationStub = ListAlbumAssociationsEndpointResponse['associations'][number];
 export type Association = RetrieveEndpointResponse['association'];
 
 async function fetchAlbumAssociations(
