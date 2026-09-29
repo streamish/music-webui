@@ -1,5 +1,7 @@
 import { AlbumCard } from '@/components/album-card';
 import { AlbumExpandedDetails } from '@/components/album-expanded-details';
+import { AlbumListItem } from '@/components/album-list-item';
+import { ArrowLeftCircle } from 'lucide-react';
 import { AssociationEditForm } from '@/features/library/association-edit-form';
 import { AssociationListItem } from '@/components/association-list-item';
 import { AssociationTypeEnum } from '@/types/api-schema';
@@ -8,6 +10,7 @@ import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useRef, useSta
 import { TrackTable } from '@/components/track-table';
 import { formatSlug } from '@/utils/format';
 import { useAlbumAssociations, useAssociation, useTrackAssociations } from '@/hooks/user/use-associations';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 type ViewingGroup = 'album-artists' | 'track-artists' | 'track-composers' | 'track-genres';
@@ -70,22 +73,20 @@ function usePageAssociations({
     offset: 0,
     associationType,
   };
-
   const albumResult = useAlbumAssociations({
     ...options,
     enabled: isAlbumArtists,
   });
-
   const trackResult = useTrackAssociations({
     ...options,
     enabled: !isAlbumArtists,
   });
-
   return isAlbumArtists ? albumResult : trackResult;
 }
 
 export const AssociationsPage = memo(() => {
   const { pathname } = useLocation();
+  const isMobile = useIsMobile();
   const associationType = getAssociationType(pathname);
   const isAlbumArtists = getIsAlbumArtists(pathname);
   const groupUrl = getGroupUrl(associationType, isAlbumArtists);
@@ -98,9 +99,9 @@ export const AssociationsPage = memo(() => {
     isAlbumArtists,
     associationType,
   });
-  const expandedAssociationId = associationId ? Number(associationId) : associations[0]?.id;
+  const expandedAssociationId = associationId ? Number(associationId) : undefined;
   const { association: expandedAssociation, refetch: refetchAssociation } = useAssociation({
-    id: expandedAssociationId,
+    id: expandedAssociationId || 0,
   });
   const [viewingGroup, setViewingGroup] = useState<ViewingGroup>(getViewingGroup(associationType, isAlbumArtists));
   const listRef = useRef(null);
@@ -119,7 +120,6 @@ export const AssociationsPage = memo(() => {
   const getAssociationUrl = useCallback(
     (id: number) => {
       const association = associations.find((item) => item.id === id);
-
       return `/${groupUrl}/${id}/${formatSlug(association?.name ?? '')}`;
     },
     [associations, groupUrl],
@@ -149,11 +149,28 @@ export const AssociationsPage = memo(() => {
 
   const toggleAlbum = useCallback(
     (id: number) => {
-      const newUrl = id === expandedAlbumId ? getAssociationUrl(expandedAssociationId) : getAlbumUrl(id);
+      const newUrl = id === expandedAssociationId ? getAssociationUrl(expandedAssociationId) : getAlbumUrl(id);
       navigate(newUrl);
     },
-    [expandedAlbumId, expandedAssociationId, getAlbumUrl, navigate],
+    [expandedAlbumId, expandedAssociationId, getAlbumUrl, getAssociationUrl, navigate],
   );
+
+  const onBack = useCallback(() => {
+    if (albumId && expandedAssociationId != null) {
+      // Album → association
+      navigate(getAssociationUrl(expandedAssociationId));
+      return;
+    }
+
+    if (expandedAssociationId != null) {
+      // Association → root list
+      navigate(`/${groupUrl}`);
+      return;
+    }
+
+    // Already at the root list
+    navigate(`/${groupUrl}`);
+  }, [albumId, expandedAssociationId, getAssociationUrl, groupUrl, navigate]);
 
   useLayoutEffect(() => {
     const list = listRef.current as HTMLElement | null;
@@ -215,7 +232,7 @@ export const AssociationsPage = memo(() => {
     if (!expandedAssociation || expandedAssociationId === null) {
       return;
     }
-    let nextPath = expandedAssociationId === null ? `/${groupUrl}` : getAssociationUrl(expandedAssociationId);
+    let nextPath = !expandedAssociationId ? `/${groupUrl}` : getAssociationUrl(expandedAssociationId);
     if (expandedAlbumId !== null) {
       nextPath = getAlbumUrl(expandedAlbumId);
     }
@@ -343,75 +360,122 @@ export const AssociationsPage = memo(() => {
       albums = expandedAssociation?.genreCredits || [];
       break;
   }
-
   return (
     <div className="relative">
-      <div className="flex flex-row">
-        <ul className="flex flex-col overflow-y-scroll pb-2 h-[calc(100vh-12rem)] max-w-100 mr-2">
-          {associations.map((item) => {
-            return (
-              <li className="w-full px-2" key={`association-${item.id}`}>
-                <AssociationListItem
-                  association={item}
-                  isExpanded={expandedAssociationId === item.id}
-                  onToggle={() => toggleArtist(item.id)}
-                />
-              </li>
-            );
-          })}
-        </ul>
+      <div className={['flex', isMobile ? 'flex-col' : 'flex-row'].join(' ')}>
+        {/* Associations list */}
+        {(!isMobile || !expandedAssociation) && (
+          <ul
+            className={['flex flex-col overflow-y-scroll pb-2 h-[calc(100vh-12rem)]', isMobile ? '' : 'max-w-100'].join(
+              ' ',
+            )}
+          >
+            {associations.map((item) => {
+              return (
+                <li className="w-full px-2" key={`association-${item.id}`}>
+                  <AssociationListItem
+                    association={item}
+                    isExpanded={expandedAssociationId === item.id}
+                    onToggle={() => toggleArtist(item.id)}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        {/* Association details */}
         <div className="w-full overflow-y-scroll h-[calc(100vh-11rem)]">
-          <div className="flex flex-row">
-            <h2 className="text-lg font-semibold">{expandedAssociation?.name || 'Loading...'}</h2>
-            {expandedAssociation && (
-              <AssociationEditForm
-                association={expandedAssociation}
-                associationType={associationType}
-                onSave={refresh}
-              />
+          <div className="flex flex-row justify-between items-center">
+            <div className="w-full flex flex-row px-4 md:px-0 lg:px-0">
+              <h2 className="text-lg font-semibold">{expandedAssociation?.name || 'Loading...'}</h2>
+              {expandedAssociation && (
+                <AssociationEditForm
+                  association={expandedAssociation}
+                  associationType={associationType}
+                  onSave={refresh}
+                />
+              )}
+            </div>
+            {isMobile && (
+              <menu className="opacity-75 w-full text-right">
+                <Button variant="ghost" onClick={onBack} className="inline-flex flex-row w-fit self-start m-2">
+                  <ArrowLeftCircle />
+                  Back
+                </Button>
+              </menu>
             )}
           </div>
           {viewingGroup !== 'track-genres' && (
             <>
-              <ul className="p-1 bg-foreground/10 inline-block rounded-lg">
+              {/* Group buttons */}
+              <menu className="p-1 bg-foreground/10 inline-block rounded-lg">
                 {tabButtons.map((button, index) => (
-                  <li key={`button-${index}`} className="inline-block mr-4 last-of-type:mr-0">
+                  <li key={`button-${index}`} className="inline-block">
                     {button}
                   </li>
                 ))}
-              </ul>
+              </menu>
               {viewingGroup === 'album-artists' && (
-                <ul
-                  ref={listRef}
-                  className={[
-                    'w-full',
-                    'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
-                    'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
-                    'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
-                    'items-start',
-                    'content-start',
-                    'auto-rows-max',
-                    'justify-start',
-                    'gap-4',
-                  ].join(' ')}
-                >
-                  {albums.map((item, index) => {
-                    const isExpanded = expandedAssociationId === item.id;
-                    const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
-                    return (
-                      <Fragment key={`albums-${item.id}`}>
-                        <li className="w-full inline-flex align-middle justify-center">
-                          <AlbumCard album={item} isExpanded={isExpanded} onToggle={() => toggleAlbum(item.id)} />
-                        </li>
-                        {shouldInsertDetails && (
-                          <li className="album-details col-span-full pt-4">
-                            <AlbumExpandedDetails albumId={expandedAlbumId} />
-                          </li>
-                        )}
-                      </Fragment>
-                    );
-                  })}
-                </ul>
+                <>
+                  {isMobile && (
+                    <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
+                      {albums.map((item, index) => {
+                        const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
+                        return (
+                          <>
+                            {!expandedAlbumId && (
+                              <li className="w-full p-2" key={item.id}>
+                                <AlbumListItem
+                                  album={item}
+                                  isExpanded={expandedAlbumId === item.id}
+                                  onToggle={() => toggleAlbum(item.id)}
+                                />
+                              </li>
+                            )}
+                            {shouldInsertDetails && (
+                              <li className="album-details col-span-full pt-4">
+                                <AlbumExpandedDetails albumId={expandedAlbumId} />
+                              </li>
+                            )}
+                          </>
+                        );
+                      })}
+                    </ul>
+                  )}
+                  {!isMobile && (
+                    <ul
+                      ref={listRef}
+                      className={[
+                        'w-full',
+                        'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
+                        'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
+                        'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
+                        'items-start',
+                        'content-start',
+                        'auto-rows-max',
+                        'justify-start',
+                        'gap-4',
+                      ].join(' ')}
+                    >
+                      {albums.map((item, index) => {
+                        const isExpanded = expandedAssociationId === item.id;
+                        const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
+                        return (
+                          <Fragment key={`albums-${item.id}`}>
+                            <li className="w-full inline-flex align-middle justify-center">
+                              <AlbumCard album={item} isExpanded={isExpanded} onToggle={() => toggleAlbum(item.id)} />
+                            </li>
+                            {shouldInsertDetails && (
+                              <li className="album-details col-span-full pt-4">
+                                <AlbumExpandedDetails albumId={expandedAlbumId} />
+                              </li>
+                            )}
+                          </Fragment>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </>
               )}
               {viewingGroup !== 'album-artists' && (
                 <div ref={listRef} className="w-full" key={expandedAssociationId}>

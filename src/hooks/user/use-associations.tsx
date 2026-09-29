@@ -245,6 +245,7 @@ export function useAssociation(params: RetrieveEndpointQuery) {
       const [, queryParams] = queryKey as ['association', RetrieveEndpointQuery];
       return fetchAssociation(queryParams);
     },
+    enabled: params.id != null,
   });
 
   return {

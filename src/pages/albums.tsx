@@ -144,11 +144,13 @@ export default function AlbumsPage() {
         <p className="text-white-500">Loading…</p>
       ) : (
         <>
-          <PageHeader>
-            <PaginationControls page={pageNumber} setPage={setPage} items={total} />
-          </PageHeader>
+          {!isMobile && (
+            <PageHeader>
+              <PaginationControls page={pageNumber} setPage={setPage} items={total} />
+            </PageHeader>
+          )}
           {isMobile && (
-            <ul className="flex flex-col grow">
+            <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
               {expandedAlbumId && (
                 <li className="album-details col-span-full flex flex-col grow  -mx-4">
                   {expandedAlbum && (
