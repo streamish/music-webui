@@ -4,7 +4,7 @@ import { Volume, Volume1, Volume2, VolumeX } from 'lucide-react';
 import { useQueueActions, useQueuePlayback } from '@/features/library/queue';
 import { useState } from 'react';
 
-export function VolumeControl() {
+export function VolumeControl({ className }: { className?: string }) {
   const { volume } = useQueuePlayback();
   const { setVolume } = useQueueActions();
   const [showSlider, setShowSlider] = useState(false);
@@ -33,7 +33,11 @@ export function VolumeControl() {
   };
 
   return (
-    <div className="relative" onMouseEnter={() => setShowSlider(true)} onMouseLeave={() => setShowSlider(false)}>
+    <div
+      className={`relative ${className ?? ''}`}
+      onMouseEnter={() => setShowSlider(true)}
+      onMouseLeave={() => setShowSlider(false)}
+    >
       <Button
         variant="ghost"
         size="icon-lg"

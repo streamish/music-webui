@@ -1,5 +1,5 @@
 import { AlbumIconImage } from './album-icon-image';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 import { ChevronLast, Circle, Logs, Pause, Play, Repeat, Shuffle, Square, Tally1 } from 'lucide-react';
 import { VolumeControl } from './volume-control';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
@@ -28,6 +28,11 @@ export function QueueControls() {
   };
 
   const currentItem = queue[currentIndex];
+  const isExtraSmall = window.innerWidth < 390;
+  const iconWithPaddingSize = isExtraSmall ? 16 : 20;
+  const iconSize = isExtraSmall ? 12 : 16;
+  const iconPadding = isExtraSmall ? 1 : 2;
+  const iconMargin = isExtraSmall ? 1 : 2;
 
   return (
     <>
@@ -58,7 +63,7 @@ export function QueueControls() {
               <Button
                 variant="ghost"
                 size="icon-lg"
-                className="m-2 h-16 w-16 p-2 hover:bg-foreground/20!"
+                className={`m-${iconMargin} h-${iconSize} w-${iconSize} p-${iconPadding} hover:bg-foreground/20!`}
                 onClick={previousTrack}
               >
                 <ChevronLast className="h-10! w-10! -scale-x-100" strokeWidth={1} />
@@ -66,7 +71,7 @@ export function QueueControls() {
               <Button
                 variant="ghost"
                 size="icon-lg"
-                className="m-2 h-16 w-16 p-2 hover:bg-foreground/20!"
+                className={`m-${iconMargin} h-${iconSize} w-${iconSize} p-${iconPadding} hover:bg-foreground/20!`}
                 onClick={() => togglePlay(!isPlaying)}
               >
                 {isPlaying ? (
@@ -78,7 +83,7 @@ export function QueueControls() {
               <Button
                 variant="ghost"
                 size="icon-lg"
-                className="m-2 h-16 w-16 p-2 hover:bg-foreground/20!"
+                className={`m-${iconMargin} h-${iconSize} w-${iconSize} p-${iconPadding} hover:bg-foreground/20!`}
                 onClick={nextTrack}
               >
                 <ChevronLast className="h-10! w-10!" strokeWidth={1} />
@@ -86,18 +91,18 @@ export function QueueControls() {
               <Button
                 variant="ghost"
                 size="icon-lg"
-                className="m-2 mr-0 h-16 w-16 p-2 hover:bg-foreground/20!"
+                className={`m-${iconMargin} mr-0 h-${iconSize} w-${iconSize} p-${iconPadding} hover:bg-foreground/20!`}
                 onClick={stopPlaying}
               >
                 <Square className="h-10! w-10!" strokeWidth={1} />
               </Button>
             </div>
-            <div className="h-20 w-6 flex-none overflow-hidden">
-              <Tally1 className="h-20! w-20!" strokeWidth="0.1" />
+            <div className={`h-${iconWithPaddingSize} w-6 flex-none overflow-hidden ${isExtraSmall ? 'hidden' : ''}`}>
+              <Tally1 className={`h-${iconWithPaddingSize} w-${iconWithPaddingSize}`} strokeWidth="0.1" />
             </div>
           </div>
-          {/* Current media: occupies all remaining space */}
-          <div className="flex min-w-0 flex-1 flex-row">
+          {/* Current media: occupies all remaining space, hidden in extra small */}
+          <div className={`flex min-w-0 flex-1 flex-row ${isExtraSmall ? 'hidden' : ''}`}>
             {queue.length > 0 && currentIndex > -1 && (
               <>
                 <div className="m-1 h-18 w-18 flex-none">
@@ -121,8 +126,8 @@ export function QueueControls() {
           </div>
           {/* Right-side controls: only take the space they need */}
           <div className="flex flex-none flex-row">
-            <div className="h-20 w-6 flex-none overflow-hidden">
-              <Tally1 className="h-20 w-20" strokeWidth="0.1" />
+            <div className={`h-20 w-6 flex-none overflow-hidden}`}>
+              <Tally1 className={`h-${iconWithPaddingSize} w-${iconWithPaddingSize}`} strokeWidth="0.1" />
             </div>
             <div className="flex flex-none flex-row">
               <Button
@@ -130,7 +135,7 @@ export function QueueControls() {
                 variant="ghost"
                 size="icon-lg"
                 className={[
-                  `m-2 h-16 w-16 p-2 hover:bg-foreground/20!`,
+                  `m-${iconMargin} h-${iconSize} w-${iconSize} p-${iconPadding} hover:bg-foreground/20!`,
                   isShowingQueue ? 'bg-foreground/10!' : '',
                 ].join(' ')}
                 onClick={toggleQueue}
@@ -141,9 +146,11 @@ export function QueueControls() {
                 aria-label="Repeat playback queue"
                 variant="ghost"
                 size="icon-lg"
-                className={['m-2 h-16 w-16 p-2 hover:bg-foreground/20!', isRepeating ? 'bg-foreground/10!' : ''].join(
-                  ' ',
-                )}
+                className={[
+                  `m-${iconMargin} h-${iconSize} w-${iconSize} p-${iconPadding} hover:bg-foreground/20!`,
+                  isRepeating ? 'bg-foreground/10!' : '',
+                  `${isExtraSmall ? 'hidden' : ''}`,
+                ].join(' ')}
                 onClick={() => setIsRepeating((prev) => !prev)}
               >
                 <Repeat className="h-8! w-8!" strokeWidth={1} />
@@ -152,18 +159,20 @@ export function QueueControls() {
                 aria-label="Shuffle playback queue"
                 variant="ghost"
                 size="icon-lg"
-                className={['m-2 h-16 w-16 p-2 hover:bg-foreground/20!', isShuffling ? 'bg-foreground/10!' : ''].join(
-                  ' ',
-                )}
+                className={[
+                  `m-${iconMargin} h-${iconSize} w-${iconSize} p-${iconPadding} hover:bg-foreground/20!`,
+                  isShuffling ? 'bg-foreground/10!' : '',
+                  `${isExtraSmall ? 'hidden' : ''}`,
+                ].join(' ')}
                 onClick={() => setIsShuffling((prev) => !prev)}
               >
                 <Shuffle className="h-8! w-8!" strokeWidth={1} />
               </Button>
             </div>
-            <div className="h-20 w-6 flex-none overflow-hidden">
-              <Tally1 className="h-20 w-20" strokeWidth="0.1" />
+            <div className={`h-${iconWithPaddingSize} w-6 flex-none overflow-hidden ${isExtraSmall ? 'hidden' : ''}`}>
+              <Tally1 className={`h-${iconWithPaddingSize} w-${iconWithPaddingSize}`} strokeWidth="0.1" />
             </div>
-            <VolumeControl />
+            <VolumeControl className={`${isExtraSmall ? 'hidden' : ''}`} />
           </div>
         </div>
       </div>
