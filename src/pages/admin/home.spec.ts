@@ -425,9 +425,12 @@ test.describe('admin home', () => {
           await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
           await page.click('button[type="submit"]');
           await page.waitForLoadState('networkidle');
-          const userRowNow = await page.getByRole('row', { name: `User account ${testUsername}` });
-          await expect(userRowNow.textContent()).not.toContain('admin');
-          await expect(userRowNow.textContent()).toContain('user');
+          await expect(
+            await page.getByRole('row', { name: `User account ${testUsername}` }).textContent(),
+          ).not.toContain('admin');
+          await expect(await page.getByRole('row', { name: `User account ${testUsername}` }).textContent()).toContain(
+            'user',
+          );
           await expect(page.getByRole('main').filter({ hasText: 'Roles updated successfully' })).toBeTruthy();
         });
       });
