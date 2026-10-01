@@ -1,5 +1,5 @@
 import { AlbumIconImage } from './album-icon-image';
-import type { Album } from '@/features/library/library';
+import type { Album } from '@/hooks/user/use-albums';
 
 export function AlbumCard({
   album,
@@ -18,6 +18,8 @@ export function AlbumCard({
         type="button"
         onClick={onToggle}
         aria-expanded={isExpanded}
+        aria-label={`${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
+        role="button"
         className={[
           'w-54 lg:w-68',
           'h-68 lg:h-82',
@@ -56,7 +58,7 @@ export function AlbumCard({
           >
             <AlbumIconImage
               albumId={album.id}
-              aria-label={`${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
+              aria-label={`Cover image for ${album.title}`}
               className="w-50 h-50 lg:w-64 lg:h-64"
               size={600}
             />

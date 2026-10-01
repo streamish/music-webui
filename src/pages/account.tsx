@@ -6,37 +6,35 @@ import UiPreferences from '@/features/account/ui-preferences';
 
 const AccountPreferencesPage = () => {
   return (
-    <>
+    <div className="px-4 overflow-y-scroll h-[calc(100vh-11rem)]">
       <title>Account preferences</title>
-      <div className="p-4">
-        {/* General preferences */}
-        <section className="mb-8">
-          <h2 className="font-semibold mb-2 text-foreground/60">General preferences</h2>
-          <UiPreferences />
-        </section>
-        {/* System management */}
-        <section className="mb-8">
-          <h2 className="font-semibold mb-2 text-foreground/60">System</h2>
-          <div className="flex flex-row space-x-2">
-            <div className="h-8">
-              <UserChangePasswordForm />
-              <UserRotateSessionKeyForm />
-            </div>
+      {/* General preferences */}
+      <section className="mb-8">
+        <h2 className="font-semibold mb-2 text-foreground/60">General preferences</h2>
+        <UiPreferences />
+      </section>
+      {/* System management */}
+      <section className="mb-8">
+        <h2 className="font-semibold mb-2 text-foreground/60">System</h2>
+        <div className="flex flex-row space-x-2">
+          <div className="h-8">
+            <UserChangePasswordForm />
+            <UserRotateSessionKeyForm />
           </div>
-        </section>
-        {/* Root path management */}
-        <section className="mb-8">
-          <h2 className="font-semibold mb-2 text-foreground/60">Library management</h2>
-          <RootPathAddForm />
-          <RootPathTable />
-        </section>
-        {/* Indexer logs */}
-        <section>
-          <h2 className="font-semibold mb-2 text-foreground/60">Indexer logs</h2>
-          <IndexerLogsTable />
-        </section>
-      </div>
-    </>
+        </div>
+      </section>
+      {/* Root path management */}
+      <section className="mb-8">
+        <h2 className="font-semibold mb-2 text-foreground/60">Library management</h2>
+        <RootPathAddForm />
+        <RootPathTable />
+      </section>
+      {/* Indexer logs */}
+      <section>
+        <h2 className="font-semibold mb-2 text-foreground/60">Indexer logs</h2>
+        <IndexerLogsTable />
+      </section>
+    </div>
   );
 };
 

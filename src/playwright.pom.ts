@@ -19,9 +19,22 @@ export class Pom {
       await this.page.getByRole('button', { name: 'Toggle Sidebar' }).click();
       await this.page.waitForTimeout(500);
       await this.page.locator(`a[aria-label="${name}"]`).last().waitFor({ state: 'visible' });
-      return this.page.getByRole('link', { name });
     }
-    return this.page.getByRole('link', { name }).first();
+    return this.page.locator(`a[aria-label="${name}"]`).first();
+  }
+
+  async toggleSideBar(): Promise<void> {
+    const currentState = await this.page.evaluate(() =>
+      document.querySelector('div[data-slot="sidebar"]')?.getAttribute('data-state'),
+    );
+    if (currentState === 'open') {
+      const trigger = await this.page.getByRole('button', { name: 'Close Sidebar' });
+      await trigger.click();
+    } else {
+      const trigger = await this.page.getByRole('button', { name: 'Toggle Sidebar' });
+      await trigger.click();
+    }
+    await this.page.waitForTimeout(500);
   }
 
   async toggleDarkMode(): Promise<void> {
@@ -51,6 +64,43 @@ export class Pom {
   async navigateToAdmin(): Promise<void> {
     await (await this.findNavigationLink('Admin')).click();
     await this.page.waitForURL('/admin');
+    await this.page.getByRole('list', { name: 'User accounts' });
+  }
+
+  async navigateToFolders(): Promise<void> {
+    await (await this.findNavigationLink('Folders')).click();
+    await this.page.waitForURL('/folders');
+    await this.page.getByLabel('Folder list').waitFor();
+  }
+
+  async navigateToTracks(): Promise<void> {
+    await (await this.findNavigationLink('Tracks')).click();
+    await this.page.waitForURL('/tracks');
+  }
+
+  async navigateToAlbums(): Promise<void> {
+    await (await this.findNavigationLink('Albums')).click();
+    await this.page.waitForURL('/albums');
+  }
+
+  async navigateToAlbumArtists(): Promise<void> {
+    await (await this.findNavigationLink('Album Artists')).click();
+    await this.page.waitForURL('/album-artists');
+  }
+
+  async navigateToArtists(): Promise<void> {
+    await (await this.findNavigationLink('Artists')).click();
+    await this.page.waitForURL('/track-artists');
+  }
+
+  async navigateToComposers(): Promise<void> {
+    await (await this.findNavigationLink('Composers')).click();
+    await this.page.waitForURL('/track-composers');
+  }
+
+  async navigateToGenres(): Promise<void> {
+    await (await this.findNavigationLink('Genres')).click();
+    await this.page.waitForURL('/track-genres');
   }
 
   async signIn(params?: CreateSessionBody, expectSuccess = true): Promise<void> {

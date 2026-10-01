@@ -98,6 +98,7 @@ export default function SignInPage() {
 
   return (
     <EntryForm onSubmit={onSubmit}>
+      <title>Sign in</title>
       <EntryFormHeading text="Sign in" />
       <EntryFormDescription>
         Administrators can reset passwords through the web interface or via command line.

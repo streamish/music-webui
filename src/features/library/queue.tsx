@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import type { TrackWithContent } from '@/features/library/library';
+import type { Track } from '@/hooks/user/use-tracks';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 type QueueDataValue = {
-  queue: TrackWithContent[];
+  queue: Track[];
   currentIndex: number;
 };
 
@@ -18,14 +18,15 @@ type QueuePlaybackValue = {
 };
 
 type QueueActionsValue = {
+  addToQueue: (tracks: Track[], atStart?: boolean) => void;
+  clearQueue: () => void;
   nextTrack: () => void;
-  playTrack: (track: TrackWithContent, tracks?: TrackWithContent[]) => void;
+  playTrack: (track: Track, tracks?: Track[]) => void;
   previousTrack: () => void;
   seek: (seconds: number) => void;
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
   setIsRepeating: React.Dispatch<React.SetStateAction<boolean>>;
   setIsShuffling: React.Dispatch<React.SetStateAction<boolean>>;
-  addToQueue: (tracks: TrackWithContent[], atStart?: boolean) => void;
   setVolume: React.Dispatch<React.SetStateAction<number>>;
   togglePlay: (playing?: boolean) => void;
 };
@@ -37,8 +38,8 @@ const QueueActionsContext = createContext<QueueActionsValue | null>(null);
 export function QueueProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const [queue, setQueue] = useState<TrackWithContent[]>([]);
-  const [queueShuffled, setQueueShuffled] = useState<TrackWithContent[]>([]);
+  const [queue, setQueue] = useState<Track[]>([]);
+  const [queueShuffled, setQueueShuffled] = useState<Track[]>([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [shuffleIndex, setShuffleIndex] = useState(-1);
 
@@ -69,7 +70,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     setQueueShuffled(shuffled);
   }, [queue]);
 
-  const playTrack = useCallback((track: TrackWithContent, tracks: TrackWithContent[] = [track]) => {
+  const playTrack = useCallback((track: Track, tracks: Track[] = [track]) => {
     const index = tracks.findIndex((item) => item.id === track.id);
     setQueue(tracks);
     setCurrentIndex(index >= 0 ? index : 0);
@@ -89,8 +90,19 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     [queue.length, currentIndex],
   );
 
-  const addToQueue = useCallback((tracks: TrackWithContent[], atStart = false) => {
+  const addToQueue = useCallback((tracks: Track[], atStart = false) => {
+    if (atStart) {
+      setCurrentIndex(-1);
+    }
     setQueue((prevQueue) => (atStart ? [...tracks, ...prevQueue] : [...prevQueue, ...tracks]));
+  }, []);
+
+  const clearQueue = useCallback(() => {
+    setQueue([]);
+    setQueueShuffled([]);
+    setCurrentIndex(-1);
+    setShuffleIndex(-1);
+    setIsPlaying(false);
   }, []);
 
   const nextShuffledTrack = useCallback(() => {
@@ -172,14 +184,14 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     audio.pause();
     setCurrentTime(0);
     setDuration(0);
-    audio.src = `${baseUrl}/api/guest/stream-file?id=${track.id}`;
+    audio.src = `${baseUrl}/api/user/stream-file?id=${track.id}`;
     audio.load();
     if (isPlaying) {
       audio.play().catch(() => {
         setIsPlaying(false);
       });
     }
-  }, [currentIndex, queue, isPlaying]);
+  }, [currentIndex]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -257,6 +269,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
   const actionsValue = useMemo(
     () => ({
       addToQueue,
+      clearQueue,
       nextTrack,
       playTrack,
       previousTrack,
@@ -269,6 +282,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     }),
     [
       addToQueue,
+      clearQueue,
       nextTrack,
       playTrack,
       previousTrack,
@@ -295,30 +309,24 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
 
 export function useQueueData() {
   const context = useContext(QueueDataContext);
-
   if (!context) {
     throw new Error('useQueueData must be used within QueueProvider');
   }
-
   return context;
 }
 
 export function useQueuePlayback() {
   const context = useContext(QueuePlaybackContext);
-
   if (!context) {
     throw new Error('useQueuePlayback must be used within QueueProvider');
   }
-
   return context;
 }
 
 export function useQueueActions() {
   const context = useContext(QueueActionsContext);
-
   if (!context) {
     throw new Error('useQueueActions must be used within QueueProvider');
   }
-
   return context;
 }

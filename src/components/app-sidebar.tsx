@@ -1,4 +1,5 @@
-import { Album, Folder, LogOut, type LucideIcon, Moon, Music, Settings, Tags, User, Users } from 'lucide-react';
+import { Album, Folder, LogOut, type LucideIcon, Moon, Music, Settings, Tags, User, Users, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { NavLink } from 'react-router-dom';
 
 import { DarkModeSwitch } from '@/features/dark-mode-switch';
@@ -97,11 +98,19 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="flex items-center gap-3 px-2 py-2">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary">
-            <span className="text-xs font-semibold text-background">MLIB</span>
+        <div className="flex items-center gap-3 px-2 py-2 cursor-default" onClick={closeMobileSidebar}>
+          <div>
+            <img src="/public/images/logo.png" className="w-12 h-12" />
           </div>
           <span className="font-semibold">Music Player</span>
+          <Button
+            variant="ghost"
+            onClick={closeMobileSidebar}
+            aria-label="Close Sidebar"
+            className="ml-auto cursor-pointer"
+          >
+            <X />
+          </Button>
         </div>
       </SidebarHeader>
       <SidebarContent>

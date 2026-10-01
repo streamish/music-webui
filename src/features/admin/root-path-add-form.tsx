@@ -27,7 +27,7 @@ type CreateBodyDto = CreateEndpoint['requestBody']['content']['application/json'
 type FormData = CreateQueryDto & CreateBodyDto;
 
 const schema = z.object({
-  id: z.number().refine((value) => value > 0, {
+  id: z.coerce.number().refine((value) => value > 0, {
     message: 'Account is required',
   }),
   rootPath: z

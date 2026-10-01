@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
-type GenreImageProps = {
-  genreId: number;
+type ArtistImageProps = {
+  associationId: number;
   size: number;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export function GenreIconImage({ genreId, size, style, ...props }: GenreImageProps) {
+export function AssociationIconImage({ associationId, size, style, ...props }: ArtistImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const objectUrlRef = useRef<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -44,7 +44,7 @@ export function GenreIconImage({ genreId, size, style, ...props }: GenreImagePro
       setImageUrl(null);
       return undefined;
     }
-    const nextUrl = `${baseUrl}/api/guest/genre-cover?id=${genreId}&size=${size}`;
+    const nextUrl = `${baseUrl}/api/user/association-cover-image?id=${associationId}&size=${size}`;
     objectUrlRef.current = nextUrl;
     setImageUrl(nextUrl);
     return () => {
@@ -54,12 +54,13 @@ export function GenreIconImage({ genreId, size, style, ...props }: GenreImagePro
       }
       setImageUrl(null);
     };
-  }, [genreId, size, isVisible]);
+  }, [associationId, size, isVisible]);
 
   return (
     <div
       ref={containerRef}
       {...props}
+      className={`animate-[fade-in_300ms_ease-out] ${props.className ?? ''}`}
       style={{
         ...style,
         backgroundImage: imageUrl ? `url("${imageUrl}")` : undefined,

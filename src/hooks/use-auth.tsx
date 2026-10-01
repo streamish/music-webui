@@ -66,10 +66,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const userData = decodeToken(token);
     if (userData) {
       setUser(userData);
+      const d = new Date();
       if (remember) {
+        const expiresTime = d.getTime() + 365 * 60 * 60 * 1000;
+        d.setTime(expiresTime);
+        const expires = `expires=${d.toUTCString()}`;
+        document.cookie = `token=${token}; ${expires}`;
         localStorage.setItem('jwt-token', token);
       } else {
+        const expiresTime = d.getTime() + 60 * 60 * 1000;
+        d.setTime(expiresTime);
         sessionStorage.setItem('jwt-token', token);
+        document.cookie = `token=${token}`;
       }
     }
   };
