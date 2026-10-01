@@ -95,7 +95,7 @@ export type paths = {
     patch?: never;
     trace?: never;
   };
-  '/api/user/delete-custom-file-data': {
+  '/api/user/delete-custom-data': {
     parameters: {
       query?: never;
       header?: never;
@@ -112,7 +112,7 @@ export type paths = {
      *
      *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
      */
-    delete: operations['UserDeleteCustomFileDataController_delete'];
+    delete: operations['UserDeleteCustomDataController_delete'];
     options?: never;
     head?: never;
     patch?: never;
@@ -567,7 +567,7 @@ export type paths = {
     patch: operations['UserSetComposerNameController_patch'];
     trace?: never;
   };
-  '/api/user/set-custom-file-data': {
+  '/api/user/set-custom-data': {
     parameters: {
       query?: never;
       header?: never;
@@ -576,13 +576,14 @@ export type paths = {
     };
     get?: never;
     /**
-     * Set custom data for a file in the user's account
-     * @description Assigns custom data to a file, overriding the embedded data within it.
-     *     The next indexing pass of the file will reflect the newly set custom data.
+     * Set custom data for a track in the user's account
+     * @description Assigns custom data to a track, overriding the embedded data within it.
+     *     This data is all-inclusive, compared to similar endpoints that set individual field(s).
+     *     The next indexing pass of the track will reflect the newly set custom data.
      *
      *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
      */
-    put: operations['UserSetCustomFileDataController_put'];
+    put: operations['UserSetCustomDataController_put'];
     post?: never;
     delete?: never;
     options?: never;
@@ -629,7 +630,7 @@ export type paths = {
     head?: never;
     /**
      * Set custom data for a track in the user's account
-     * @description Assigns custom data to a track file, overriding the embedded data within it.
+     * @description Assigns custom data to a track, overriding the embedded data within it.
      *     The next indexing pass of the file will reflect the newly set custom data.
      *
      *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
@@ -1727,7 +1728,7 @@ export type components = {
        */
       message: components['schemas']['UserCreateRootPathBadRequestErrorMessageEnum'][];
     };
-    UserDeleteCustomFileDataResponseDto: {
+    UserDeleteCustomDataResponseDto: {
       /**
        * Format: constant
        * @description The success being "true" indicates that the request completed.
@@ -1740,8 +1741,8 @@ export type components = {
      *     applied during the execution of the request
      * @enum {string}
      */
-    UserDeleteCustomFileDataNotFoundErrorMessage: UserDeleteCustomFileDataNotFoundErrorMessage;
-    UserDeleteCustomFileDataNotFoundResponseDto: {
+    UserDeleteCustomDataNotFoundErrorMessage: UserDeleteCustomDataNotFoundErrorMessage;
+    UserDeleteCustomDataNotFoundResponseDto: {
       /** @description General description of the error class */
       error: string;
       /**
@@ -1754,7 +1755,7 @@ export type components = {
        *     applied during the execution of the request
        * @default file-not-found-error
        */
-      message: components['schemas']['UserDeleteCustomFileDataNotFoundErrorMessage'][];
+      message: components['schemas']['UserDeleteCustomDataNotFoundErrorMessage'][];
     };
     UserDeleteRootPathResponseDto: {
       /**
@@ -2533,7 +2534,7 @@ export type components = {
        */
       name: string;
     };
-    UserSetCustomFileDataResponseDto: {
+    UserSetArtistNameResponseDto: {
       /**
        * Format: constant
        * @description The success being "true" indicates that the request completed.
@@ -2546,8 +2547,8 @@ export type components = {
      *     applied during the execution of the request
      * @enum {string}
      */
-    UserSetCustomFileDataBadRequestErrorMessage: UserSetCustomFileDataBadRequestErrorMessage;
-    UserSetCustomFileDataBadRequestResponseDto: {
+    UserSetArtistNameBadRequestErrorMessage: UserSetArtistNameBadRequestErrorMessage;
+    UserSetArtistNameBadRequestResponseDto: {
       /** @description General description of the error class */
       error: string;
       /**
@@ -2558,17 +2559,17 @@ export type components = {
       /**
        * @description The error message(s) that occurred during the validation of the request data or additional requirements
        *     applied during the execution of the request
-       * @default invalid-file-id-error
+       * @default invalid-artist-id-error
        */
-      message: components['schemas']['UserSetCustomFileDataBadRequestErrorMessage'][];
+      message: components['schemas']['UserSetArtistNameBadRequestErrorMessage'][];
     };
     /**
      * @description The error message(s) that occurred during the validation of the request data or additional requirements
      *     applied during the execution of the request
      * @enum {string}
      */
-    UserSetCustomFileDataNotFoundErrorMessage: UserSetCustomFileDataNotFoundErrorMessage;
-    UserSetCustomFileDataNotFoundResponseDto: {
+    UserSetArtistNameNotFoundErrorMessage: UserSetArtistNameNotFoundErrorMessage;
+    UserSetArtistNameNotFoundResponseDto: {
       /** @description General description of the error class */
       error: string;
       /**
@@ -2579,9 +2580,9 @@ export type components = {
       /**
        * @description The error message(s) that occurred during the validation of the request data or additional requirements
        *     applied during the execution of the request
-       * @default file-not-found-error
+       * @default artist-not-found-error
        */
-      message: components['schemas']['UserSetCustomFileDataNotFoundErrorMessage'][];
+      message: components['schemas']['UserSetArtistNameNotFoundErrorMessage'][];
     };
     UserSetComposerNameBodyDto: {
       /**
@@ -2590,7 +2591,57 @@ export type components = {
        */
       name: string;
     };
-    UserSetCustomFileDataBodyDto: {
+    UserSetComposerNameResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetComposerNameBadRequestErrorMessage: UserSetComposerNameBadRequestErrorMessage;
+    UserSetComposerNameBadRequestResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default invalid-association-id-error
+       */
+      message: components['schemas']['UserSetComposerNameBadRequestErrorMessage'][];
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetComposerNameNotFoundErrorMessage: UserSetComposerNameNotFoundErrorMessage;
+    UserSetComposerNameNotFoundResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default composer-not-found-error
+       */
+      message: components['schemas']['UserSetComposerNameNotFoundErrorMessage'][];
+    };
+    UserSetCustomDataBodyDto: {
       /**
        * @description Assigns a new value to the album artists if a value is provided.  If an empty
        *     string is provided it will erase the existing value.  If the field is not
@@ -2652,12 +2703,112 @@ export type components = {
        */
       year?: number;
     };
+    UserSetCustomDataResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetCustomDataBadRequestErrorMessage: UserSetCustomDataBadRequestErrorMessage;
+    UserSetCustomDataBadRequestResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default invalid-track-id-error
+       */
+      message: components['schemas']['UserSetCustomDataBadRequestErrorMessage'][];
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetCustomDataNotFoundErrorMessage: UserSetCustomDataNotFoundErrorMessage;
+    UserSetCustomDataNotFoundResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default file-not-found-error
+       */
+      message: components['schemas']['UserSetCustomDataNotFoundErrorMessage'][];
+    };
     UserSetGenreNameBodyDto: {
       /**
        * @description Assigns a new value to the genre name.  If an empty string is provided it will erase the
        *     custom value.
        */
       name: string;
+    };
+    UserSetGenreNameResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetGenreNameBadRequestErrorMessage: UserSetGenreNameBadRequestErrorMessage;
+    UserSetGenreNameBadRequestResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default invalid-genre-id-error
+       */
+      message: components['schemas']['UserSetGenreNameBadRequestErrorMessage'][];
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetGenreNameNotFoundErrorMessage: UserSetGenreNameNotFoundErrorMessage;
+    UserSetGenreNameNotFoundResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default genre-not-found-error
+       */
+      message: components['schemas']['UserSetGenreNameNotFoundErrorMessage'][];
     };
     UserSetTrackCustomDataBodyDto: {
       /**
@@ -2707,6 +2858,56 @@ export type components = {
        *     string is provided it will erase the custom value.
        */
       year?: number;
+    };
+    UserSetTrackCustomDataResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetTrackCustomDataBadRequestErrorMessage: UserSetTrackCustomDataBadRequestErrorMessage;
+    UserSetTrackCustomDataBadRequestResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default invalid-track-id-error
+       */
+      message: components['schemas']['UserSetTrackCustomDataBadRequestErrorMessage'][];
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetTrackCustomDataNotFoundErrorMessage: UserSetTrackCustomDataNotFoundErrorMessage;
+    UserSetTrackCustomDataNotFoundResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default file-not-found-error
+       */
+      message: components['schemas']['UserSetTrackCustomDataNotFoundErrorMessage'][];
     };
     /**
      * @description The error message(s) that occurred during the validation of the request data or additional requirements
@@ -7229,7 +7430,7 @@ export interface operations {
       };
     };
   };
-  UserDeleteCustomFileDataController_delete: {
+  UserDeleteCustomDataController_delete: {
     parameters: {
       query: {
         /** @description The ID of the file */
@@ -7250,7 +7451,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserDeleteCustomFileDataResponseDto'];
+          'application/json': components['schemas']['UserDeleteCustomDataResponseDto'];
         };
       };
       /** @description File not found */
@@ -7259,7 +7460,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserDeleteCustomFileDataNotFoundResponseDto'];
+          'application/json': components['schemas']['UserDeleteCustomDataNotFoundResponseDto'];
         };
       };
     };
@@ -8120,7 +8321,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataResponseDto'];
+          'application/json': components['schemas']['UserSetArtistNameResponseDto'];
         };
       };
       /** @description Request failed */
@@ -8129,16 +8330,16 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataBadRequestResponseDto'];
+          'application/json': components['schemas']['UserSetArtistNameBadRequestResponseDto'];
         };
       };
-      /** @description File not found */
+      /** @description Artist not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataNotFoundResponseDto'];
+          'application/json': components['schemas']['UserSetArtistNameNotFoundResponseDto'];
         };
       };
     };
@@ -8168,7 +8369,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataResponseDto'];
+          'application/json': components['schemas']['UserSetComposerNameResponseDto'];
         };
       };
       /** @description Request failed */
@@ -8177,24 +8378,24 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataBadRequestResponseDto'];
+          'application/json': components['schemas']['UserSetComposerNameBadRequestResponseDto'];
         };
       };
-      /** @description File not found */
+      /** @description Composer not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataNotFoundResponseDto'];
+          'application/json': components['schemas']['UserSetComposerNameNotFoundResponseDto'];
         };
       };
     };
   };
-  UserSetCustomFileDataController_put: {
+  UserSetCustomDataController_put: {
     parameters: {
       query: {
-        /** @description The ID of the file */
+        /** @description The ID of the track */
         id: number;
       };
       header: {
@@ -8206,7 +8407,7 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['UserSetCustomFileDataBodyDto'];
+        'application/json': components['schemas']['UserSetCustomDataBodyDto'];
       };
     };
     responses: {
@@ -8216,7 +8417,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataResponseDto'];
+          'application/json': components['schemas']['UserSetCustomDataResponseDto'];
         };
       };
       /** @description Request failed */
@@ -8225,7 +8426,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataBadRequestResponseDto'];
+          'application/json': components['schemas']['UserSetCustomDataBadRequestResponseDto'];
         };
       };
       /** @description File not found */
@@ -8234,7 +8435,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataNotFoundResponseDto'];
+          'application/json': components['schemas']['UserSetCustomDataNotFoundResponseDto'];
         };
       };
     };
@@ -8264,7 +8465,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataResponseDto'];
+          'application/json': components['schemas']['UserSetGenreNameResponseDto'];
         };
       };
       /** @description Request failed */
@@ -8273,16 +8474,16 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataBadRequestResponseDto'];
+          'application/json': components['schemas']['UserSetGenreNameBadRequestResponseDto'];
         };
       };
-      /** @description File not found */
+      /** @description Genre not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataNotFoundResponseDto'];
+          'application/json': components['schemas']['UserSetGenreNameNotFoundResponseDto'];
         };
       };
     };
@@ -8312,7 +8513,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataResponseDto'];
+          'application/json': components['schemas']['UserSetTrackCustomDataResponseDto'];
         };
       };
       /** @description Request failed */
@@ -8321,16 +8522,16 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataBadRequestResponseDto'];
+          'application/json': components['schemas']['UserSetTrackCustomDataBadRequestResponseDto'];
         };
       };
-      /** @description File not found */
+      /** @description Track not found */
       404: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserSetCustomFileDataNotFoundResponseDto'];
+          'application/json': components['schemas']['UserSetTrackCustomDataNotFoundResponseDto'];
         };
       };
     };
@@ -9776,7 +9977,7 @@ export enum UserCreateRootPathBadRequestErrorMessageEnum {
   root_path_does_not_exist_error = 'root-path-does-not-exist-error',
   duplicate_root_path_error = 'duplicate-root-path-error',
 }
-export enum UserDeleteCustomFileDataNotFoundErrorMessage {
+export enum UserDeleteCustomDataNotFoundErrorMessage {
   file_not_found_error = 'file-not-found-error',
 }
 export enum UserDeleteRootPathNotFoundErrorMessageEnum {
@@ -9946,8 +10147,24 @@ export enum UserSetAlbumCustomDataBadRequestErrorMessage {
 export enum UserSetAlbumCustomDataNotFoundErrorMessage {
   album_not_found_error = 'album-not-found-error',
 }
-export enum UserSetCustomFileDataBadRequestErrorMessage {
-  invalid_file_id_error = 'invalid-file-id-error',
+export enum UserSetArtistNameBadRequestErrorMessage {
+  invalid_artist_id_error = 'invalid-artist-id-error',
+  invalid_name_error = 'invalid-name-error',
+  invalid_name_length_error = 'invalid-name-length-error',
+}
+export enum UserSetArtistNameNotFoundErrorMessage {
+  artist_not_found_error = 'artist-not-found-error',
+}
+export enum UserSetComposerNameBadRequestErrorMessage {
+  invalid_association_id_error = 'invalid-association-id-error',
+  invalid_name_error = 'invalid-name-error',
+  invalid_name_length_error = 'invalid-name-length-error',
+}
+export enum UserSetComposerNameNotFoundErrorMessage {
+  composer_not_found_error = 'composer-not-found-error',
+}
+export enum UserSetCustomDataBadRequestErrorMessage {
+  invalid_track_id_error = 'invalid-track-id-error',
   invalid_album_artists_error = 'invalid-album-artists-error',
   invalid_album_artists_length_error = 'invalid-album-artists-length-error',
   invalid_album_title_error = 'invalid-album-title-error',
@@ -9969,7 +10186,37 @@ export enum UserSetCustomFileDataBadRequestErrorMessage {
   invalid_year_error = 'invalid-year-error',
   invalid_year_range_error = 'invalid-year-range-error',
 }
-export enum UserSetCustomFileDataNotFoundErrorMessage {
+export enum UserSetCustomDataNotFoundErrorMessage {
+  file_not_found_error = 'file-not-found-error',
+}
+export enum UserSetGenreNameBadRequestErrorMessage {
+  invalid_genre_id_error = 'invalid-genre-id-error',
+  invalid_name_error = 'invalid-name-error',
+  invalid_name_length_error = 'invalid-name-length-error',
+}
+export enum UserSetGenreNameNotFoundErrorMessage {
+  genre_not_found_error = 'genre-not-found-error',
+}
+export enum UserSetTrackCustomDataBadRequestErrorMessage {
+  invalid_track_id_error = 'invalid-track-id-error',
+  invalid_artists_error = 'invalid-artists-error',
+  invalid_artists_length_error = 'invalid-artists-length-error',
+  invalid_comment_error = 'invalid-comment-error',
+  invalid_comment_length_error = 'invalid-comment-length-error',
+  invalid_composers_error = 'invalid-composers-error',
+  invalid_composers_length_error = 'invalid-composers-length-error',
+  invalid_disc_number_error = 'invalid-disc-number-error',
+  invalid_disc_number_range_error = 'invalid-disc-number-range-error',
+  invalid_genres_error = 'invalid-genres-error',
+  invalid_genres_length_error = 'invalid-genres-length-error',
+  invalid_title_error = 'invalid-title-error',
+  invalid_title_length_error = 'invalid-title-length-error',
+  invalid_track_number_error = 'invalid-track-number-error',
+  invalid_track_number_range_error = 'invalid-track-number-range-error',
+  invalid_year_error = 'invalid-year-error',
+  invalid_year_range_error = 'invalid-year-range-error',
+}
+export enum UserSetTrackCustomDataNotFoundErrorMessage {
   file_not_found_error = 'file-not-found-error',
 }
 export enum UserStreamFileNotFoundErrorMessage {

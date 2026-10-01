@@ -7,7 +7,7 @@ import type { components } from '@/types/api-schema';
 type Album = components['schemas']['LibraryAlbumWithTracksDto'];
 type Track = components['schemas']['LibraryAlbumWithTracksDto']['tracks'][number];
 
-export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Track[] }) {
+export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; tracks?: Track[]; onEdit: () => void }) {
   const isMobile = useIsMobile();
   const trackList = tracks || (albums?.flatMap((album) => album.tracks) ?? []);
   return (
@@ -40,7 +40,7 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
                 <td className="px-2 py-1 text-left">
-                  <PlaybackControls tracks={[track]} hideEditButton={true} />
+                  <PlaybackControls tracks={[track]} hideEditButton={true} onEdit={onEdit} />
                 </td>
               </tr>
             ))}
@@ -105,7 +105,7 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
                   ))}
                 </td>
                 <td>
-                  <PlaybackControls tracks={[track]} />
+                  <PlaybackControls tracks={[track]} onEdit={onEdit} />
                 </td>
               </tr>
             ))}

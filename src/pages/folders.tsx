@@ -34,7 +34,7 @@ function findBreadCrumb(id: number, items: TreeItemDto[], path: TreeItemDto[] = 
 
 export default function FoldersPage() {
   const navigate = useNavigate();
-  const { folders } = useFolders();
+  const { folders, refetchFolders } = useFolders();
   const isMobile = useIsMobile();
   const listRef = useRef(null);
   const { folderId } = useParams<{ folderId: string }>();
@@ -77,7 +77,11 @@ export default function FoldersPage() {
             return (
               <Fragment key={`breadcrumb-${index}`}>
                 <BreadcrumbItem className="gap-0">
-                  <BreadcrumbLink onClick={() => clickCrumb(crumb)} className="text-xs py-0 px-2 cursor-pointer">
+                  <BreadcrumbLink
+                    onClick={() => clickCrumb(crumb)}
+                    aria-label={`Breadcrumb: ${crumb.folder}`}
+                    className="text-xs py-0 px-2 cursor-pointer"
+                  >
                     {crumb.folder}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -88,12 +92,12 @@ export default function FoldersPage() {
         </BreadcrumbList>
       </Breadcrumb>
       {isMobile && (
-        <ul className="flex flex-col grow">
+        <ul className="flex flex-col grow" aria-label="Folder list">
           {items.length > 0 &&
             items.map((item: TreeItemDto) => {
               return (
                 <li className="w-full p-2" key={`mobile-album ${item.fullPath}`}>
-                  <TreeListItem item={item} onToggle={() => toggleFolder(item)} />
+                  <TreeListItem item={item} onToggle={() => toggleFolder(item)} onEdit={refetchFolders} />
                 </li>
               );
             })}
@@ -109,6 +113,7 @@ export default function FoldersPage() {
               'lg:grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] ',
               'gap-4 mx-4',
             ].join(' ')}
+            aria-label="Folder list"
           >
             {items
               .filter((item: TreeItemDto) => item.folder)
@@ -123,13 +128,14 @@ export default function FoldersPage() {
           <ol className="p-4">
             {items
               .filter((item: TreeItemDto) => item.file)
-              .map((item: TreeItemDto) => {
+              .map((item: TreeItemDto, index) => {
                 const { track } = item;
                 if (!track) return null;
                 return (
                   <li
                     key={track.id}
                     className="align-middle flex justify-between border-dotted border-b border-foreground/25"
+                    aria-label={`Track item ${index + 1}`}
                   >
                     <div>
                       <Music
@@ -137,12 +143,11 @@ export default function FoldersPage() {
                         strokeWidth={1}
                         absoluteStrokeWidth={true}
                         opacity={0.5}
-                        aria-label={`${track.filePath}`}
                       />
                       <span className="py-1.5 align-middle text-sm text-foreground/90">{track.filePath}</span>
                     </div>
                     <div>
-                      <PlaybackControls tracks={[track]} />
+                      <PlaybackControls tracks={[track]} onEdit={refetchFolders} />
                     </div>
                   </li>
                 );

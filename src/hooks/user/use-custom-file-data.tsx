@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import api, { TypedApiError } from '@/lib/api';
 import type { paths } from 'src/types/api-schema';
 
-type SetCustomFileDataEndpoint = paths['/api/user/set-custom-file-data']['put'];
-type DeleteCustomDataEndpoint = paths['/api/user/delete-custom-file-data']['delete'];
+type SetCustomFileDataEndpoint = paths['/api/user/set-custom-data']['put'];
+type DeleteCustomDataEndpoint = paths['/api/user/delete-custom-data']['delete'];
 type SetArtistNameEndpoint = paths['/api/user/set-artist-name']['patch'];
 type SetComposerNameEndpoint = paths['/api/user/set-composer-name']['patch'];
 type SetGenreNameEndpoint = paths['/api/user/set-genre-name']['patch'];
@@ -156,7 +156,7 @@ async function setTrackCustomData({ query, body }: SetTrackCustomDataVariables) 
 }
 
 async function setCustomFileData({ query, body }: SetCustomFileDataVariables) {
-  const { data, error } = await api.put('/api/user/set-custom-file-data', {
+  const { data, error } = await api.put('/api/user/set-custom-data', {
     params: {
       query,
       header: api.authHeader(),
@@ -179,7 +179,7 @@ async function setCustomFileData({ query, body }: SetCustomFileDataVariables) {
 }
 
 async function deleteCustomFileData(query: DeleteCustomDataEndpoint['parameters']['query']) {
-  const { data, error } = await api.delete('/api/user/delete-custom-file-data', {
+  const { data, error } = await api.delete('/api/user/delete-custom-data', {
     params: {
       header: api.authHeader(),
       query,

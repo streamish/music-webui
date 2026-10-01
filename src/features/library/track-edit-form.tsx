@@ -48,13 +48,13 @@ const schema = z.object({
       message: 'Artist is too long',
     }),
   composers: z.string().optional(),
-  trackNumber: z.number().optional(),
-  discNumber: z.number().optional(),
+  trackNumber: z.coerce.number().optional(),
+  discNumber: z.coerce.number().optional(),
   comment: z.string().optional(),
-  year: z.number().optional(),
+  year: z.coerce.number().optional(),
 });
 
-export function TrackEditForm({ track }: { track: Track }) {
+export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => void }) {
   const { setTrackCustomData } = useCustomFileData();
   const [open, setOpen] = useState(false);
   const {
@@ -108,6 +108,7 @@ export function TrackEditForm({ track }: { track: Track }) {
         onSuccess: () => {
           setOpen(false);
           toast.success('Track updated successfully.');
+          onSave();
         },
         onError: (error) => {
           for (let i = 0; i < error.messages.length; i += 1) {
@@ -137,50 +138,52 @@ export function TrackEditForm({ track }: { track: Track }) {
         <SquarePen />
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-106.25">
+        <DialogContent className="flex max-h-[calc(100%-11rem)] flex-col gap-0 overflow-hidden p-4 sm:max-w-106.25">
           <DialogHeader>
             <DialogTitle>Edit Track</DialogTitle>
           </DialogHeader>
-          <form onSubmit={onSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Title</Label>
-              <Input id="title" {...register('title', { required: true })} placeholder="Person 1, Person 2" />
-              <FormValidationError text={errors.title?.message} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="year">Year</Label>
-              <Input id="year" {...register('year', { required: true })} placeholder="1999" />
-              <FormValidationError text={errors.year?.message} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="trackNumber">Track number</Label>
-              <Input id="trackNumber" {...register('trackNumber', { required: true })} placeholder="1" />
-              <FormValidationError text={errors.trackNumber?.message} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="discNumber">Disc number</Label>
-              <Input id="discNumber" {...register('discNumber', { required: true })} placeholder="1" />
-              <FormValidationError text={errors.discNumber?.message} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="genres">Genres (comma-delimited)</Label>
-              <Input id="genres" {...register('genres', { required: true })} placeholder="Rock, Acoustic" />
-              <FormValidationError text={errors.genres?.message} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="artists">Artists (comma-delimited)</Label>
-              <Input id="artists" {...register('artists', { required: true })} placeholder="Person 1, Person 2" />
-              <FormValidationError text={errors.artists?.message} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="composers">Composers (comma-delimited)</Label>
-              <Input id="composers" {...register('composers', { required: true })} placeholder="Person 1, Person 2" />
-              <FormValidationError text={errors.composers?.message} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="comment">Comment</Label>
-              <Input id="comment" {...register('comment')} placeholder="Your comment here" />
-              <FormValidationError text={errors.comment?.message} />
+          <form onSubmit={onSubmit} className="flex min-h-0 flex-1 flex-col">
+            <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-2">
+              <div className="space-y-2">
+                <Label htmlFor="name">Title</Label>
+                <Input id="title" {...register('title', { required: true })} placeholder="Person 1, Person 2" />
+                <FormValidationError text={errors.title?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="year">Year</Label>
+                <Input id="year" {...register('year', { required: true })} placeholder="1999" />
+                <FormValidationError text={errors.year?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="trackNumber">Track number</Label>
+                <Input id="trackNumber" {...register('trackNumber', { required: true })} placeholder="1" />
+                <FormValidationError text={errors.trackNumber?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="discNumber">Disc number</Label>
+                <Input id="discNumber" {...register('discNumber', { required: true })} placeholder="1" />
+                <FormValidationError text={errors.discNumber?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="genres">Genres (comma-delimited)</Label>
+                <Input id="genres" {...register('genres', { required: true })} placeholder="Rock, Acoustic" />
+                <FormValidationError text={errors.genres?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="artists">Artists (comma-delimited)</Label>
+                <Input id="artists" {...register('artists', { required: true })} placeholder="Person 1, Person 2" />
+                <FormValidationError text={errors.artists?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="composers">Composers (comma-delimited)</Label>
+                <Input id="composers" {...register('composers', { required: true })} placeholder="Person 1, Person 2" />
+                <FormValidationError text={errors.composers?.message} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="comment">Comment</Label>
+                <Input id="comment" {...register('comment')} placeholder="Your comment here" />
+                <FormValidationError text={errors.comment?.message} />
+              </div>
             </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setOpen(false)}>

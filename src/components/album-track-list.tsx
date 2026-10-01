@@ -2,7 +2,7 @@ import { PlaybackControls } from './playback-controls';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
 import type { Track } from '@/hooks/user/use-tracks';
 
-export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
+export function AlbumTrackList({ tracks, onEdit }: { tracks: Track[]; onEdit: () => void }) {
   return (
     <ol>
       {tracks.map((track) => (
@@ -26,6 +26,7 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
                 hideQueueButtons={true}
                 hideEditButton={true}
                 className="inline-block"
+                onEdit={onEdit}
               />
             </span>
             <span className="opacity-50 p-1">{secondsToMinutesAndSeconds(track.duration)}</span>

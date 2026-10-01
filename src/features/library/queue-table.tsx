@@ -92,6 +92,7 @@ export default function QueueTable() {
         <ul className="flex grow flex-col ml-4 h-full overflow-y-scroll">
           {queue.map((item, index) => (
             <li
+              aria-label={`Queue item ${index + 1}`}
               className={[
                 `w-full p-2 border-b last-of-type:border-0 bg-foreground/1 cursor-pointer`,
                 index === currentIndex ? 'bg-foreground/10' : '',

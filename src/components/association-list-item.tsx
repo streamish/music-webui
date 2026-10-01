@@ -16,6 +16,7 @@ export function AssociationListItem({
         type="button"
         onClick={onToggle}
         aria-expanded={isExpanded}
+        aria-label={`Browse ${association.name}`}
         className="w-full p-0 m-0 border-transparent rounded-lg text-left transition-colors"
       >
         <div
@@ -26,12 +27,7 @@ export function AssociationListItem({
             isExpanded ? 'bg-muted-foreground/20 transition-colors' : '',
           ].join(' ')}
         >
-          <AssociationIconImage
-            associationId={association.id}
-            aria-label={`${association.name}`}
-            className="w-8 h-8 mr-2"
-            size={100}
-          />
+          <AssociationIconImage associationId={association.id} className="w-8 h-8 mr-2" size={100} />
           <div>
             <h3 className="text-foreground/80 py-1">{association.name}</h3>
           </div>

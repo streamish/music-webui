@@ -116,3 +116,33 @@ export class AdminApi {
     return data.configuration;
   }
 }
+
+export class TestApi {
+  async deleteUser(accountId: number): Promise<void> {
+    const { error } = await api.DELETE('/api/test/delete-account', {
+      params: {
+        query: { id: accountId },
+      },
+    });
+    if (error) {
+      throw new Error(`Failed to delete user: ${JSON.stringify(error)}`);
+    }
+  }
+  async duplicateUser(
+    username: string,
+    userData: components['schemas']['TestDuplicateAccountBodyDto'],
+  ): Promise<number> {
+    const { data, error } = await api.POST('/api/test/duplicate-account', {
+      body: userData,
+      params: {
+        query: {
+          username,
+        },
+      },
+    });
+    if (error) {
+      throw new Error(`Failed to create user: ${JSON.stringify(error)}`);
+    }
+    return data.accountId;
+  }
+}

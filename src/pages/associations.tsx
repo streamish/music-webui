@@ -94,7 +94,7 @@ export const AssociationsPage = memo(() => {
   const { associationId, albumId } = useParams<{ associationId: string; albumId?: string }>();
   const [searchParams] = useSearchParams();
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
-  const [columnSize, setColumnSize] = useState(0);
+  const [columnSize, setColumnSize] = useState(1);
   const { associations, refetch: refetchAssociations } = usePageAssociations({
     isAlbumArtists,
     associationType,
@@ -117,6 +117,7 @@ export const AssociationsPage = memo(() => {
       detailsInsertIndex = expandedAssociation.albumArtistCredits.length - 1;
     }
   }
+
   const getAssociationUrl = useCallback(
     (id: number) => {
       const association = associations.find((item) => item.id === id);
@@ -149,7 +150,8 @@ export const AssociationsPage = memo(() => {
 
   const toggleAlbum = useCallback(
     (id: number) => {
-      const newUrl = id === expandedAssociationId ? getAssociationUrl(expandedAssociationId) : getAlbumUrl(id);
+      const newUrl =
+        expandedAssociationId && id === expandedAlbumId ? getAssociationUrl(expandedAssociationId) : getAlbumUrl(id);
       navigate(newUrl);
     },
     [expandedAlbumId, expandedAssociationId, getAlbumUrl, getAssociationUrl, navigate],
@@ -398,7 +400,12 @@ export const AssociationsPage = memo(() => {
             </div>
             {isMobile && (
               <menu className="opacity-75 w-full text-right">
-                <Button variant="ghost" onClick={onBack} className="inline-flex flex-row w-fit self-start m-2">
+                <Button
+                  variant="ghost"
+                  onClick={onBack}
+                  className="inline-flex flex-row w-fit self-start m-2"
+                  aria-label="Back button"
+                >
                   <ArrowLeftCircle />
                   Back
                 </Button>
@@ -434,7 +441,7 @@ export const AssociationsPage = memo(() => {
                             )}
                             {shouldInsertDetails && (
                               <li className="album-details col-span-full pt-4">
-                                <AlbumExpandedDetails albumId={expandedAlbumId} />
+                                <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refresh} />
                               </li>
                             )}
                           </>
@@ -467,7 +474,7 @@ export const AssociationsPage = memo(() => {
                             </li>
                             {shouldInsertDetails && (
                               <li className="album-details col-span-full pt-4">
-                                <AlbumExpandedDetails albumId={expandedAlbumId} />
+                                <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refresh} />
                               </li>
                             )}
                           </Fragment>
@@ -479,14 +486,14 @@ export const AssociationsPage = memo(() => {
               )}
               {viewingGroup !== 'album-artists' && (
                 <div ref={listRef} className="w-full" key={expandedAssociationId}>
-                  <TrackTable albums={albums} />
+                  <TrackTable albums={albums} onEdit={refresh} />
                 </div>
               )}
             </>
           )}
           {viewingGroup === 'track-genres' && (
             <div ref={listRef} className="w-full" key={expandedAssociationId}>
-              <TrackTable albums={expandedAssociation?.genreCredits || []} />
+              <TrackTable albums={expandedAssociation?.genreCredits || []} onEdit={refresh} />
             </div>
           )}
         </div>

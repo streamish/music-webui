@@ -16,6 +16,7 @@ export function AlbumListItem({
         type="button"
         onClick={onToggle}
         aria-expanded={isExpanded}
+        aria-label={`${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
         className="w-full p-0 m-0 border-transparent rounded-lg text-left transition-colors"
       >
         <div
@@ -28,13 +29,15 @@ export function AlbumListItem({
         >
           <AlbumIconImage
             albumId={album.id}
-            aria-label={`${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
+            aria-label={`Icon image for ${album.title}}`}
             className="w-30 h-30 mr-2"
             size={100}
           />
           <div>
             <h3 className="text-foreground/80">{album.title}</h3>
-            <p className="text-sm text-foreground/60">{album.artists.map((artist) => artist.name).join(', ')}</p>
+            <p className="text-sm text-foreground/60">
+              {album.artists.map((artist) => artist.name).join(', ')}- from album list item -
+            </p>
           </div>
         </div>
       </button>

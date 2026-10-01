@@ -41,10 +41,10 @@ const schema = z.object({
     .refine((value) => value.length <= 1024, {
       message: 'Artist is too long',
     }),
-  year: z.number().optional(),
+  year: z.coerce.number().optional(),
 });
 
-export function AlbumEditForm({ album }: { album: Album }) {
+export function AlbumEditForm({ album, onSave }: { album: Album; onSave: () => void }) {
   const [open, setOpen] = useState(false);
   const { setAlbumCustomData } = useCustomFileData();
   const {
@@ -83,6 +83,7 @@ export function AlbumEditForm({ album }: { album: Album }) {
         onSuccess: () => {
           setOpen(false);
           toast.success('Album updated successfully.');
+          onSave();
         },
         onError: (error) => {
           for (let i = 0; i < error.messages.length; i += 1) {

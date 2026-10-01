@@ -24,7 +24,7 @@ export default function AlbumsPage() {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
   });
-  const { albums, total } = useAlbums(query);
+  const { albums, refetchAlbums, total } = useAlbums(query);
   const listRef = useRef(null);
   const expandedAlbumId = albumId ? Number(albumId) : null;
   const expandedAlbum =
@@ -154,7 +154,11 @@ export default function AlbumsPage() {
               {expandedAlbumId && (
                 <li className="album-details col-span-full flex flex-col grow  -mx-4">
                   {expandedAlbum && (
-                    <AlbumStandaloneDetails albumId={expandedAlbumId} onClose={() => toggleAlbum(expandedAlbumId)} />
+                    <AlbumStandaloneDetails
+                      albumId={expandedAlbumId}
+                      onClose={() => toggleAlbum(expandedAlbumId)}
+                      onEdit={refetchAlbums}
+                    />
                   )}
                 </li>
               )}
@@ -185,7 +189,10 @@ export default function AlbumsPage() {
             >
               {albums.map((item, index) => {
                 const isExpanded = expandedAlbumId === item.id;
-                const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
+                const shouldInsertDetails =
+                  expandedAlbumId &&
+                  (detailsInsertIndex === index ||
+                    (index === albums.length - 1 && detailsInsertIndex === albums.length));
                 return (
                   <Fragment key={item.id}>
                     <li className="w-full h-full inline-flex align-middle justify-center">
@@ -193,7 +200,7 @@ export default function AlbumsPage() {
                     </li>
                     {shouldInsertDetails && (
                       <li className="album-details col-span-full -mx-4 pt-4">
-                        <AlbumExpandedDetails albumId={expandedAlbumId} />
+                        <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refetchAlbums} />
                       </li>
                     )}
                   </Fragment>

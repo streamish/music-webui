@@ -8,6 +8,7 @@ import type { Track } from '@/hooks/user/use-tracks';
 export function PlaybackControls({
   className,
   hideEditButton,
+  onEdit,
   hideQueueButtons,
   tracks,
   textLabels,
@@ -15,6 +16,7 @@ export function PlaybackControls({
   textLabels?: boolean;
   hideQueueButtons?: boolean;
   hideEditButton?: boolean;
+  onEdit: () => void;
   tracks: Track[];
   className?: string;
 }) {
@@ -47,7 +49,7 @@ export function PlaybackControls({
         <>
           <Button
             variant="ghost"
-            aria-label="Queue at end of queue"
+            aria-label="Add to start of queue"
             className="w-fit self-start p-1 mr-1 px-2"
             onClick={() => addTracksToQueue(true)}
           >
@@ -55,7 +57,7 @@ export function PlaybackControls({
           </Button>
           <Button
             variant="ghost"
-            aria-label="Queue at start of queue"
+            aria-label="Add to end of queue"
             className="w-fit self-start p-1 px-2"
             onClick={() => addTracksToQueue(false)}
           >
@@ -63,7 +65,7 @@ export function PlaybackControls({
           </Button>
         </>
       )}
-      {!hideEditButton && tracks[0] && <TrackEditForm track={tracks[0]} />}
+      {!hideEditButton && tracks[0] && <TrackEditForm track={tracks[0]} onSave={onEdit} />}
     </menu>
   );
 }

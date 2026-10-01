@@ -24,6 +24,20 @@ export class Pom {
     return this.page.getByRole('link', { name }).first();
   }
 
+  async toggleSideBar(): Promise<void> {
+    const currentState = await this.page.evaluate(() =>
+      document.querySelector('div[data-slot="sidebar"]')?.getAttribute('data-state'),
+    );
+    if (currentState === 'open') {
+      const trigger = await this.page.getByRole('button', { name: 'Close Sidebar' });
+      await trigger.click();
+    } else {
+      const trigger = await this.page.getByRole('button', { name: 'Toggle Sidebar' });
+      await trigger.click();
+    }
+    await this.page.waitForTimeout(500);
+  }
+
   async toggleDarkMode(): Promise<void> {
     const responsiveMode = await this.isResponsive();
     if (responsiveMode) {

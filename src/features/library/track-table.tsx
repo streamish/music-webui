@@ -18,7 +18,7 @@ export default function TracksTable() {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
   });
-  const { tracks, totalTracks } = useTracks(query);
+  const { tracks, refetchTracks, totalTracks } = useTracks(query);
 
   const setPage = useCallback(
     (nextPage: number) => {
@@ -51,7 +51,7 @@ export default function TracksTable() {
             <ul className="flex grow flex-col">
               {tracks.map((item) => (
                 <li className="w-full p-2" key={item.filePath}>
-                  <TrackListItem track={item} albumTitle={item.albumTitle} />
+                  <TrackListItem track={item} albumTitle={item.albumTitle} onEdit={refetchTracks} />
                 </li>
               ))}
             </ul>
@@ -59,7 +59,7 @@ export default function TracksTable() {
           {!isMobile && (
             <div className="p-4">
               <div className="flex flex-row max-w-full overflow-y-scroll h-[calc(100vh-11rem)]">
-                <TrackTable tracks={tracks} />
+                <TrackTable tracks={tracks} onEdit={refetchTracks} />
               </div>
             </div>
           )}

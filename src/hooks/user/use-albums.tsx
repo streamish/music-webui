@@ -117,6 +117,7 @@ export function useAlbum(params: RetrieveEndpointQuery) {
 
   return {
     album: albumQuery.data?.album ?? null,
+    refetch: albumQuery.refetch,
     isLoading: albumQuery.isLoading,
   };
 }

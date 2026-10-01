@@ -1,52 +1,36 @@
+import { AlbumEditForm } from '@/features/library/album-edit-form';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { PlaybackControls } from './playback-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { useAlbum } from '@/hooks/user/use-albums';
 import { useMemo, useRef } from 'react';
-import type { AlbumWithTracks } from '@/hooks/user/use-albums';
 
-export function AlbumExpandedDetails({
-  albumId,
-  albumPreloaded,
-  autoScroll,
-}: {
-  albumId: number;
-  albumPreloaded?: AlbumWithTracks;
-  autoScroll?: boolean;
-}) {
-  let album: AlbumWithTracks | null;
-  if (albumPreloaded) {
-    album = albumPreloaded;
-  } else {
-    const albumLoader = useAlbum({ id: albumId });
-    album = albumLoader.album;
-  }
+export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onEdit: () => void }) {
+  const { album, refetch } = useAlbum({ id: albumId });
   const containerRef = useRef<HTMLDivElement | null>(null);
   const selectedColor = album?.coverImageMuted || '#000000';
   const contrastingColor = album?.coverImageDarkMuted || '#000000';
   const trackGroups = useMemo(() => createTrackGroups(album?.tracks || []), [album?.tracks]);
   const showDiscTitle = trackGroups[0]?.[0]?.discNumber !== trackGroups[trackGroups.length - 1]?.[0]?.discNumber;
-
-  if (autoScroll && containerRef) {
+  if (containerRef) {
     const element = containerRef.current;
     if (element) {
-      const rect = element.getBoundingClientRect();
-      const isVisible =
-        rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth;
-      if (!isVisible) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-        });
-      }
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
     }
   }
+  const handleEdit = () => {
+    refetch();
+    onEdit();
+  };
   if (!album) {
     return null;
   }
   return (
-    <div>
+    <div aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}>
       <div
         className="relative w-full min-h-120"
         style={{
@@ -106,11 +90,13 @@ export function AlbumExpandedDetails({
               color: album.coverImageLightMuted,
               mixBlendMode: 'difference',
             }}
+            ref={containerRef}
           >
             <h3 className="font-semibold text-2xl">
               {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
+              <AlbumEditForm album={album} onSave={handleEdit} />
             </h3>
-            <PlaybackControls tracks={album.tracks} textLabels={true} className="mb-2" />
+            <PlaybackControls tracks={album.tracks} textLabels={true} className="mb-2" onEdit={handleEdit} />
             <div className="lg:grid lg:grid-rows-2 2xl:grid-rows-none 2xl:grid-cols-2 gap-0 2xl:gap-20">
               {trackGroups.map((trackGroup, index) => {
                 return (
@@ -118,7 +104,7 @@ export function AlbumExpandedDetails({
                     {showDiscTitle && (
                       <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>
                     )}
-                    <AlbumTrackList key={index} tracks={trackGroup} />
+                    <AlbumTrackList key={index} tracks={trackGroup} onEdit={handleEdit} />
                   </div>
                 );
               })}

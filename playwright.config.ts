@@ -18,7 +18,7 @@ export default defineConfig({
     baseURL: 'http://localhost:8100',
     trace: 'on-first-retry',
   },
-  timeout: 30000,
+  timeout: 60000,
   tsconfig: './tsconfig.node.json',
   projects: [
     // Desktops

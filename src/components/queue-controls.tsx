@@ -126,6 +126,7 @@ export function QueueControls() {
             </div>
             <div className="flex flex-none flex-row">
               <Button
+                aria-label="Show or hide playback queue"
                 variant="ghost"
                 size="icon-lg"
                 className={[
@@ -137,6 +138,7 @@ export function QueueControls() {
                 <Logs className="h-8! w-8!" strokeWidth={1} />
               </Button>
               <Button
+                aria-label="Repeat playback queue"
                 variant="ghost"
                 size="icon-lg"
                 className={['m-2 h-16 w-16 p-2 hover:bg-foreground/20!', isRepeating ? 'bg-foreground/10!' : ''].join(
@@ -147,6 +149,7 @@ export function QueueControls() {
                 <Repeat className="h-8! w-8!" strokeWidth={1} />
               </Button>
               <Button
+                aria-label="Shuffle playback queue"
                 variant="ghost"
                 size="icon-lg"
                 className={['m-2 h-16 w-16 p-2 hover:bg-foreground/20!', isShuffling ? 'bg-foreground/10!' : ''].join(
