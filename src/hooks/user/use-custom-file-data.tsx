@@ -155,7 +155,7 @@ async function setTrackCustomData({ query, body }: SetTrackCustomDataVariables) 
   return data;
 }
 
-async function setCustomFileData({ query, body }: SetCustomFileDataVariables) {
+async function setCustomData({ query, body }: SetCustomFileDataVariables) {
   const { data, error } = await api.put('/api/user/set-custom-data', {
     params: {
       query,
@@ -199,14 +199,14 @@ async function deleteCustomFileData(query: DeleteCustomDataEndpoint['parameters'
   return data;
 }
 
-export function useCustomFileData() {
-  const setCustomFileDataMutation = useMutation<
+export function useCustomData() {
+  const setCustomDataMutation = useMutation<
     SetCustomFileDataEndpoint['responses']['200']['content']['application/json'],
     | TypedApiError<SetCustomFileDataEndpoint['responses']['400']['content']['application/json']['message'][number]>
     | TypedApiError<SetCustomFileDataEndpoint['responses']['404']['content']['application/json']['message'][number]>,
     SetCustomFileDataVariables
   >({
-    mutationFn: setCustomFileData,
+    mutationFn: setCustomData,
   });
 
   const setAlbumCustomDataMutation = useMutation<
@@ -267,14 +267,14 @@ export function useCustomFileData() {
     setAlbumCustomData: setAlbumCustomDataMutation.mutateAsync,
     setArtistName: setArtistNameMutation.mutateAsync,
     setComposerName: setComposerNameMutation.mutateAsync,
-    setCustomFileData: setCustomFileDataMutation.mutateAsync,
+    setCustomData: setCustomDataMutation.mutateAsync,
     setGenreName: setGenreNameMutation.mutateAsync,
     setTrackCustomData: setTrackCustomDataMutation.mutateAsync,
     isDeletingCustomFileData: deleteCustomFileDataMutation.isPending,
     isSettingAlbumData: setAlbumCustomDataMutation.isPending,
     isSettingArtistName: setArtistNameMutation.isPending,
     isSettingComposerName: setComposerNameMutation.isPending,
-    isSettingCustomFileData: setCustomFileDataMutation.isPending,
+    isSettingCustomFileData: setCustomDataMutation.isPending,
     isSettingGenreName: setGenreNameMutation.isPending,
     isSettingTrackData: setTrackCustomDataMutation.isPending,
   };

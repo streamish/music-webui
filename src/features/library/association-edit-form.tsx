@@ -11,7 +11,7 @@ import { FormValidationError } from '@/components/form-validation-error';
 import { Input } from '@/components/ui/input';
 import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
-import { useCustomFileData } from '@/hooks/user/use-custom-file-data';
+import { useCustomData } from '@/hooks/user/use-custom-file-data';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -47,7 +47,7 @@ export function AssociationEditForm({
   onSave: () => void;
 }) {
   const [open, setOpen] = useState(false);
-  const { setArtistName, setComposerName, setGenreName } = useCustomFileData();
+  const { setArtistName, setComposerName, setGenreName } = useCustomData();
   const {
     formState: { errors },
     handleSubmit,

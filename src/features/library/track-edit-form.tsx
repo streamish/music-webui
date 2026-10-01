@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
-import { useCustomFileData } from '@/hooks/user/use-custom-file-data';
+import { useCustomData } from '@/hooks/user/use-custom-file-data';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -55,7 +55,7 @@ const schema = z.object({
 });
 
 export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => void }) {
-  const { setTrackCustomData } = useCustomFileData();
+  const { setTrackCustomData } = useCustomData();
   const [open, setOpen] = useState(false);
   const {
     formState: { errors },
