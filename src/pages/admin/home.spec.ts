@@ -425,6 +425,7 @@ test.describe('admin home', () => {
           await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
           await page.click('button[type="submit"]');
           await page.waitForLoadState('networkidle');
+          await expect(page.getByRole('main').filter({ hasText: 'Roles updated successfully' })).toBeTruthy();
           await expect(
             await page.getByRole('row', { name: `User account ${testUsername}` }).textContent(),
           ).not.toContain('admin');
