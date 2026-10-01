@@ -10,7 +10,7 @@ import {
 } from '../../components/data-table';
 import { Separator } from '@/components/ui/separator';
 import { UserDeleteForm } from './user-delete-form';
-import { UserResetPasswordForm } from './user-reset-password';
+import { UserResetPasswordForm } from './user-reset-password-form';
 import { UserRotateSessionKeyForm } from './user-rotate-session-key-form';
 import { UserUpdateRolesForm } from './user-update-roles';
 import { useAccounts } from '@/hooks/admin/use-accounts';

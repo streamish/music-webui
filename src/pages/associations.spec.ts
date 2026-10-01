@@ -2,7 +2,7 @@ import { ADMIN_PASSWORD, ADMIN_USERNAME, TestApi, USER_PASSWORD, USER_USERNAME }
 import { Pom } from '../playwright.pom';
 import { expect, test } from '@playwright/test';
 
-test.describe('albums', () => {
+test.describe('associations', () => {
   let jwtToken: string | undefined;
 
   test.describe('sidebar', () => {
@@ -10,7 +10,7 @@ test.describe('albums', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
-      await page.getByText('Album artists').click();
+      await pom.navigateToAlbumArtists();
       const isDark = await page.evaluate(() => document.body.classList.contains('dark'));
       expect(isDark).toBeDefined();
       await pom.toggleDarkMode();
@@ -23,7 +23,7 @@ test.describe('albums', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
-      await page.getByText('Album artists').click();
+      await pom.navigateToAlbumArtists();
       const firstState =
         (await page.evaluate(() => document.querySelector('div[data-slot="sidebar"]')?.getAttribute('data-state'))) ||
         'closed';
@@ -49,14 +49,13 @@ test.describe('albums', () => {
         jwtToken = jwtToken || pom.jwtToken;
         const albums = ['Album 1 by Artist 1', 'Album 2 by Artist 1'];
         const isResponsive = await pom.isResponsive();
-        await page.getByText('Album artists').click();
+        await pom.navigateToAlbumArtists();
         await page.getByLabel('Browse Artist 1').click();
         for (const album of albums) {
           await page.getByLabel(album).click();
           await page.waitForSelector(`div[aria-label="Album details:  ${album}"]`);
-          const details = await page.getByLabel(`Album details:  ${album}`);
-          expect(details).toBeDefined();
-          expect(details).toBeVisible();
+          await expect(page.getByLabel(`Album details:  ${album}`)).toBeDefined();
+          await expect(page.getByLabel(`Album details:  ${album}`)).toBeVisible();
           if (isResponsive) {
             await page.getByLabel('Back button').click();
           }
@@ -67,16 +66,15 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.getByText('Album artists').click();
+        await pom.navigateToAlbumArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Album 1 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
         await page.click('button[aria-label="Play now"]');
         await page.click('button[aria-label="Show or hide playback queue"]');
-        await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('01 First Track');
         expect(textContent).toContain('Album 1');
@@ -87,7 +85,7 @@ test.describe('albums', () => {
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
         const isResponsive = await pom.isResponsive();
-        await page.getByText('Album artists').click();
+        await pom.navigateToAlbumArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Album 1 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
@@ -109,11 +107,10 @@ test.describe('albums', () => {
           '03 Third Track',
         ];
         for (let i = 1; i < tracks.length; i += 1) {
-          await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-          const queueItem = await page.getByLabel(`Queue item ${i}`);
-          expect(queueItem).toBeDefined();
-          expect(queueItem).toBeVisible();
-          const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+          const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
+          const textContent: string[] = (await queueItem.allInnerTexts()).map((text) => text.trim().split('\n')).flat();
           expect(textContent).toContain(tracks[i - 1]);
           expect(textContent).toContain('Album 2');
         }
@@ -125,7 +122,7 @@ test.describe('albums', () => {
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
         const isResponsive = await pom.isResponsive();
-        await page.getByText('Album artists').click();
+        await pom.navigateToAlbumArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Album 1 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
@@ -147,21 +144,19 @@ test.describe('albums', () => {
           '03 Third Track',
         ];
         for (let i = 1; i < tracks.length; i += 1) {
-          await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-          const queueItem = await page.locator(`li[aria-label="Queue item ${i}"]`);
-          expect(queueItem).toBeDefined();
-          expect(queueItem).toBeVisible();
-          const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+          const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
+          const textContent: string[] = (await queueItem.allInnerTexts()).map((text) => text.trim().split('\n')).flat();
           expect(textContent).toContain(tracks[i - 1]);
           expect(textContent).toContain('Album 2');
         }
         const tracks2 = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track', '05 Fifth Track'];
         for (let i = tracks.length + 1; i < tracks.length + tracks2.length; i += 1) {
-          await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-          const queueItem = await page.getByLabel(`Queue item ${i}`);
-          expect(queueItem).toBeDefined();
-          expect(queueItem).toBeVisible();
-          const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+          const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
+          const textContent: string[] = (await queueItem.allInnerTexts()).map((text) => text.trim().split('\n')).flat();
           expect(textContent).toContain(tracks2[i - tracks.length - 1]);
           expect(textContent).toContain('Album 1');
         }
@@ -172,7 +167,7 @@ test.describe('albums', () => {
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
         const isResponsive = await pom.isResponsive();
-        await page.getByText('Album artists').click();
+        await pom.navigateToAlbumArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Album 1 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
@@ -186,11 +181,10 @@ test.describe('albums', () => {
         await page.click('button[aria-label="Show or hide playback queue"]');
         const tracks = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track', '05 Fifth Track'];
         for (let i = 1; i < tracks.length; i += 1) {
-          await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-          const queueItem = await page.locator(`li[aria-label="Queue item ${i}"]`);
-          expect(queueItem).toBeDefined();
-          expect(queueItem).toBeVisible();
-          const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+          const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
+          const textContent: string[] = (await queueItem.allInnerTexts()).map((text) => text.trim().split('\n')).flat();
           expect(textContent).toContain(tracks[i - 1]);
           expect(textContent).toContain('Album 1');
         }
@@ -204,11 +198,10 @@ test.describe('albums', () => {
           '03 Third Track',
         ];
         for (let i = tracks.length + 1; i < tracks.length + tracks2.length; i += 1) {
-          await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-          const queueItem = await page.locator(`li[aria-label="Queue item ${i}"]`);
-          expect(queueItem).toBeDefined();
-          expect(queueItem).toBeVisible();
-          const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+          await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+          const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
+          const textContent: string[] = (await queueItem.allInnerTexts()).map((text) => text.trim().split('\n')).flat();
           expect(textContent).toContain(tracks2[i - tracks.length - 1]);
           expect(textContent).toContain('Album 2');
         }
@@ -225,7 +218,7 @@ test.describe('albums', () => {
         expect(newAccountId).toBeGreaterThan(0);
         const pom = new Pom(page);
         await pom.signIn({ username: newUsername, password: USER_PASSWORD });
-        await page.getByText('Album artists').click();
+        await pom.navigateToAlbumArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Album 1 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
@@ -249,14 +242,14 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Artists"]').click();
+        await pom.navigateToArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Play now').first().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('01 First Track');
         expect(textContent).toContain('Album 1');
@@ -266,15 +259,15 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Artists"]').click();
+        await pom.navigateToArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Play now').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('03 Third Track');
         expect(textContent).toContain('Album 2');
@@ -284,21 +277,21 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Artists"]').click();
+        await pom.navigateToArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to start of queue').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('03 Third Track');
         expect(textContent).toContain('Album 2');
-        const queueItem2 = await page.getByLabel('Queue item 2');
-        expect(queueItem2).toBeDefined();
-        expect(queueItem2).toBeVisible();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeVisible();
+        const queueItem2 = await page.getByLabel('Queue item 2', { exact: true });
         const textContent2: string[] = (await queueItem2.allInnerTexts()).toString().split('\n');
         expect(textContent2).toContain('01 First Track');
         expect(textContent2).toContain('Album 1');
@@ -308,21 +301,21 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Artists"]').click();
+        await pom.navigateToArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to end of queue').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('01 First Track');
         expect(textContent).toContain('Album 1');
-        const queueItem2 = await page.getByLabel('Queue item 2');
-        expect(queueItem2).toBeDefined();
-        expect(queueItem2).toBeVisible();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeVisible();
+        const queueItem2 = await page.getByLabel('Queue item 2', { exact: true });
         const textContent2: string[] = (await queueItem2.allInnerTexts()).toString().split('\n');
         expect(textContent2).toContain('03 Third Track');
         expect(textContent2).toContain('Album 2');
@@ -339,7 +332,7 @@ test.describe('albums', () => {
         expect(newAccountId).toBeGreaterThan(0);
         const pom = new Pom(page);
         await pom.signIn({ username: newUsername, password: USER_PASSWORD });
-        await page.locator('a[aria-label="Artists"]').click();
+        await pom.navigateToArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Edit track').first().click();
         await page.fill('input[name="title"]', 'Playwright-associations Track 1');
@@ -351,8 +344,8 @@ test.describe('albums', () => {
         await page.fill('input[name="trackNumber"]', '123');
         await page.fill('input[name="discNumber"]', '45');
         await page.click('button[type="submit"]');
-        await page.click('button[type="submit"]');
         await page.waitForLoadState('networkidle');
+        await pom.navigateToTracks();
         await expect(
           page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
@@ -367,14 +360,14 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Composers"]').click();
+        await pom.navigateToComposers();
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Play now').first().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('01 First Track');
         expect(textContent).toContain('Album 1');
@@ -384,15 +377,15 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Composers"]').click();
+        await pom.navigateToComposers();
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Play now').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('02 Second Track');
         expect(textContent).toContain('Album 2');
@@ -402,21 +395,21 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Composers"]').click();
+        await pom.navigateToComposers();
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to start of queue').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('02 Second Track');
         expect(textContent).toContain('Album 2');
-        const queueItem2 = await page.getByLabel('Queue item 2');
-        expect(queueItem2).toBeDefined();
-        expect(queueItem2).toBeVisible();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeVisible();
+        const queueItem2 = await page.getByLabel('Queue item 2', { exact: true });
         const textContent2: string[] = (await queueItem2.allInnerTexts()).toString().split('\n');
         expect(textContent2).toContain('01 First Track');
         expect(textContent2).toContain('Album 1');
@@ -426,21 +419,21 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Composers"]').click();
+        await pom.navigateToComposers();
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to end of queue').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('01 First Track');
         expect(textContent).toContain('Album 1');
-        const queueItem2 = await page.getByLabel('Queue item 2');
-        expect(queueItem2).toBeDefined();
-        expect(queueItem2).toBeVisible();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeVisible();
+        const queueItem2 = await page.getByLabel('Queue item 2', { exact: true });
         const textContent2: string[] = (await queueItem2.allInnerTexts()).toString().split('\n');
         expect(textContent2).toContain('02 Second Track');
         expect(textContent2).toContain('Album 2');
@@ -457,7 +450,7 @@ test.describe('albums', () => {
         expect(newAccountId).toBeGreaterThan(0);
         const pom = new Pom(page);
         await pom.signIn({ username: newUsername, password: USER_PASSWORD });
-        await page.locator('a[aria-label="Composers"]').click();
+        await pom.navigateToComposers();
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Edit track').first().click();
         await page.fill('input[name="title"]', 'Playwright-associations Track 1');
@@ -469,8 +462,8 @@ test.describe('albums', () => {
         await page.fill('input[name="trackNumber"]', '123');
         await page.fill('input[name="discNumber"]', '45');
         await page.click('button[type="submit"]');
-        await page.click('button[type="submit"]');
         await page.waitForLoadState('networkidle');
+        await pom.navigateToTracks();
         await expect(
           page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
@@ -485,14 +478,14 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Genres"]').click();
+        await pom.navigateToGenres();
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('01 First Track');
         expect(textContent).toContain('Album 3');
@@ -502,15 +495,15 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Genres"]').click();
+        await pom.navigateToGenres();
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Play now').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('04 Fourth Track');
         expect(textContent).toContain('Album 3');
@@ -520,21 +513,21 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Genres"]').click();
+        await pom.navigateToGenres();
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to start of queue').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('04 Fourth Track');
         expect(textContent).toContain('Album 3');
-        const queueItem2 = await page.getByLabel('Queue item 2');
-        expect(queueItem2).toBeDefined();
-        expect(queueItem2).toBeVisible();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeVisible();
+        const queueItem2 = await page.getByLabel('Queue item 2', { exact: true });
         const textContent2: string[] = (await queueItem2.allInnerTexts()).toString().split('\n');
         expect(textContent2).toContain('01 First Track');
         expect(textContent2).toContain('Album 3');
@@ -544,21 +537,21 @@ test.describe('albums', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
-        await page.locator('a[aria-label="Genres"]').click();
+        await pom.navigateToGenres();
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to end of queue').last().click();
         await page.click('button[aria-label="Show or hide playback queue"]');
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
-        expect(queueItem1).toBeDefined();
-        expect(queueItem1).toBeVisible();
         const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain('01 First Track');
         expect(textContent).toContain('Album 3');
-        const queueItem2 = await page.getByLabel('Queue item 2');
-        expect(queueItem2).toBeDefined();
-        expect(queueItem2).toBeVisible();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeDefined();
+        await expect(page.getByLabel('Queue item 2', { exact: true })).toBeVisible();
+        const queueItem2 = await page.getByLabel('Queue item 2', { exact: true });
         const textContent2: string[] = (await queueItem2.allInnerTexts()).toString().split('\n');
         expect(textContent2).toContain('04 Fourth Track');
         expect(textContent2).toContain('Album 3');
@@ -575,7 +568,7 @@ test.describe('albums', () => {
         expect(newAccountId).toBeGreaterThan(0);
         const pom = new Pom(page);
         await pom.signIn({ username: newUsername, password: USER_PASSWORD });
-        await page.locator('a[aria-label="Genres"]').click();
+        await pom.navigateToGenres();
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Edit track').first().click();
         await page.fill('input[name="title"]', 'Playwright-associations Track 1');
@@ -587,8 +580,8 @@ test.describe('albums', () => {
         await page.fill('input[name="trackNumber"]', '123');
         await page.fill('input[name="discNumber"]', '45');
         await page.click('button[type="submit"]');
-        await page.click('button[type="submit"]');
         await page.waitForLoadState('networkidle');
+        await pom.navigateToTracks();
         await expect(
           page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
