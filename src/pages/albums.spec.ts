@@ -55,9 +55,8 @@ test.describe('albums', () => {
       for (const album of albums) {
         await page.getByLabel(album).click();
         await page.waitForSelector(`div[aria-label="Album details:  ${album}"]`);
-        const details = await page.getByLabel(`Album details:  ${album}`);
-        expect(details).toBeDefined();
-        expect(details).toBeVisible();
+        await expect(page.getByLabel(`Album details:  ${album}`)).toBeDefined();
+        await expect(page.getByLabel(`Album details:  ${album}`)).toBeVisible();
         if (isResponsive) {
           await page.getByLabel('Back button').click();
         }
@@ -73,9 +72,9 @@ test.describe('albums', () => {
       await page.click('button[aria-label="Play now"]');
       await page.click('button[aria-label="Show or hide playback queue"]');
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
+      await expect(page.getByLabel('Queue item 1')).toBeDefined();
+      await expect(page.getByLabel('Queue item 1')).toBeVisible();
       const queueItem1 = await page.getByLabel('Queue item 1');
-      expect(queueItem1).toBeDefined();
-      expect(queueItem1).toBeVisible();
       const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
       expect(textContent).toContain('01 First Track');
       expect(textContent).toContain('Album 1');
@@ -99,9 +98,9 @@ test.describe('albums', () => {
       const tracks = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track'];
       for (let i = 1; i < 5; i += 1) {
         await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-        const queueItem = await page.getByLabel(`Queue item ${i}`);
-        expect(queueItem).toBeDefined();
-        expect(queueItem).toBeVisible();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+        const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
         const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain(tracks[i - 1]);
         expect(textContent).toContain('Album 5');
@@ -127,9 +126,9 @@ test.describe('albums', () => {
       const tracks = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track'];
       for (let i = 1; i < 5; i += 1) {
         await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-        const queueItem = await page.getByLabel(`Queue item ${i}`);
-        expect(queueItem).toBeDefined();
-        expect(queueItem).toBeVisible();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+        const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
         const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain(tracks[i - 1]);
         expect(textContent).toContain('Album 5');
@@ -137,9 +136,9 @@ test.describe('albums', () => {
       const tracks2 = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track', '05 Fifth Track'];
       for (let i = 5; i < 10; i += 1) {
         await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-        const queueItem = await page.getByLabel(`Queue item ${i}`);
-        expect(queueItem).toBeDefined();
-        expect(queueItem).toBeVisible();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+        const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
         const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain(tracks2[i - 5]);
         expect(textContent).toContain('Album 1');
@@ -164,9 +163,9 @@ test.describe('albums', () => {
       const tracks = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track', '05 Fifth Track'];
       for (let i = 1; i < 6; i += 1) {
         await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-        const queueItem = await page.getByLabel(`Queue item ${i}`);
-        expect(queueItem).toBeDefined();
-        expect(queueItem).toBeVisible();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+        const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
         const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain(tracks[i - 1]);
         expect(textContent).toContain('Album 1');
@@ -174,9 +173,9 @@ test.describe('albums', () => {
       const tracks2 = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track'];
       for (let i = 6; i < 10; i += 1) {
         await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
-        const queueItem = await page.getByLabel(`Queue item ${i}`);
-        expect(queueItem).toBeDefined();
-        expect(queueItem).toBeVisible();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
+        await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeVisible();
+        const queueItem = await page.getByLabel(`Queue item ${i}`, { exact: true });
         const textContent: string[] = (await queueItem.allInnerTexts()).toString().split('\n');
         expect(textContent).toContain(tracks2[i - 6]);
         expect(textContent).toContain('Album 5');

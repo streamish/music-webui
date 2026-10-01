@@ -47,22 +47,24 @@ export default function TracksTable() {
           <PageHeader>
             <PaginationControls page={pageNumber} setPage={setPage} items={totalTracks} />
           </PageHeader>
-          {isMobile && (
-            <ul className="flex grow flex-col">
-              {tracks.map((item) => (
-                <li className="w-full p-2" key={item.filePath}>
-                  <TrackListItem track={item} albumTitle={item.albumTitle} onEdit={refetchTracks} />
-                </li>
-              ))}
-            </ul>
-          )}
-          {!isMobile && (
-            <div className="p-4">
-              <div className="flex flex-row max-w-full overflow-y-scroll h-[calc(100vh-11rem)]">
-                <TrackTable tracks={tracks} onEdit={refetchTracks} />
+          <div className="overflow-y-scroll h-[calc(100vh-11rem)]">
+            {isMobile && (
+              <ul className="flex grow flex-col">
+                {tracks.map((item) => (
+                  <li className="w-full p-2" key={item.filePath}>
+                    <TrackListItem track={item} albumTitle={item.albumTitle} onEdit={refetchTracks} />
+                  </li>
+                ))}
+              </ul>
+            )}
+            {!isMobile && (
+              <div className="p-4">
+                <div className="flex flex-row max-w-full">
+                  <TrackTable tracks={tracks} onEdit={refetchTracks} />
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </>
       )}
     </>

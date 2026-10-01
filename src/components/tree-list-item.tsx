@@ -8,13 +8,13 @@ export function TreeListItem({
   onEdit,
 }: {
   item: TreeItemDto;
-  onToggle: () => void;
+  onToggle?: () => void;
   onEdit: () => void;
 }) {
   const Icon = item.folder ? Folder : Music;
 
   return (
-    <div onDoubleClick={onToggle} className="w-full p-0 m-0 border-transparent rounded-lg text-left transition-colors">
+    <div onClick={onToggle} className="w-full p-0 m-0 border-transparent rounded-lg text-left transition-colors">
       <div
         className={[
           'flex flex-row',

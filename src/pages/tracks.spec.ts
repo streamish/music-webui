@@ -10,7 +10,7 @@ test.describe('tracks', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
-      await page.getByText('Tracks').click();
+      await pom.navigateToTracks();
       const isDark = await page.evaluate(() => document.body.classList.contains('dark'));
       expect(isDark).toBeDefined();
       await pom.toggleDarkMode();
@@ -23,7 +23,7 @@ test.describe('tracks', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
-      await page.getByText('Tracks').click();
+      await pom.navigateToTracks();
       const firstState =
         (await page.evaluate(() => document.querySelector('div[data-slot="sidebar"]')?.getAttribute('data-state'))) ||
         'closed';
@@ -46,13 +46,13 @@ test.describe('tracks', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
-      await page.locator('a[aria-label="Tracks"]').click();
+      await pom.navigateToTracks();
       await page.getByLabel('Play now').first().click();
       await page.click('button[aria-label="Show or hide playback queue"]');
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
-      expect(queueItem1).toBeDefined();
-      expect(queueItem1).toBeVisible();
+      await expect(page.getByLabel('Queue item 1')).toBeDefined();
+      await expect(page.getByLabel('Queue item 1')).toBeVisible();
       const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
       expect(textContent).toContain('01 First Track');
       expect(textContent).toContain('Album 1');
@@ -62,14 +62,14 @@ test.describe('tracks', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
-      await page.locator('a[aria-label="Tracks"]').click();
+      await pom.navigateToTracks();
       await page.getByLabel('Play now').first().click();
       await page.getByLabel('Play now').last().click();
       await page.click('button[aria-label="Show or hide playback queue"]');
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
-      expect(queueItem1).toBeDefined();
-      expect(queueItem1).toBeVisible();
+      await expect(page.getByLabel('Queue item 1')).toBeDefined();
+      await expect(page.getByLabel('Queue item 1')).toBeVisible();
       const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
       expect(textContent).toContain('06 Sixth Track');
       expect(textContent).toContain('Album 4');
@@ -79,18 +79,18 @@ test.describe('tracks', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
-      await page.locator('a[aria-label="Tracks"]').click();
+      await pom.navigateToTracks();
       await page.getByLabel('Play now').first().click();
       await page.getByLabel('Add to start of queue').last().click();
       await page.click('button[aria-label="Show or hide playback queue"]');
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
-      expect(queueItem1).toBeDefined();
-      expect(queueItem1).toBeVisible();
+      await expect(page.getByLabel('Queue item 1')).toBeDefined();
+      await expect(page.getByLabel('Queue item 1')).toBeVisible();
       const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
       expect(textContent).toContain('06 Sixth Track');
       expect(textContent).toContain('Album 4');
-      const queueItem2 = await page.getByLabel('Queue item 2');
+      const queueItem2 = await page.getByLabel('Queue item 2', { exact: true });
       expect(queueItem2).toBeDefined();
       expect(queueItem2).toBeVisible();
       const textContent2: string[] = (await queueItem2.allInnerTexts()).toString().split('\n');
@@ -102,18 +102,18 @@ test.describe('tracks', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
-      await page.locator('a[aria-label="Tracks"]').click();
+      await pom.navigateToTracks();
       await page.getByLabel('Play now').first().click();
       await page.getByLabel('Add to end of queue').last().click();
       await page.click('button[aria-label="Show or hide playback queue"]');
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
-      expect(queueItem1).toBeDefined();
-      expect(queueItem1).toBeVisible();
+      await expect(page.getByLabel('Queue item 1')).toBeDefined();
+      await expect(page.getByLabel('Queue item 1')).toBeVisible();
       const textContent: string[] = (await queueItem1.allInnerTexts()).toString().split('\n');
       expect(textContent).toContain('01 First Track');
       expect(textContent).toContain('Album 1');
-      const queueItem2 = await page.getByLabel('Queue item 2');
+      const queueItem2 = await page.getByLabel('Queue item 2', { exact: true });
       expect(queueItem2).toBeDefined();
       expect(queueItem2).toBeVisible();
       const textContent2: string[] = (await queueItem2.allInnerTexts()).toString().split('\n');
@@ -132,7 +132,7 @@ test.describe('tracks', () => {
       expect(newAccountId).toBeGreaterThan(0);
       const pom = new Pom(page);
       await pom.signIn({ username: newUsername, password: USER_PASSWORD });
-      await page.locator('a[aria-label="Tracks"]').click();
+      await pom.navigateToTracks();
       await page.getByLabel('Edit track').first().click();
       await page.fill('input[name="title"]', 'Playwright-associations Track 1');
       await page.fill('input[name="artists"]', 'Playwright-associations Artist 1');
@@ -142,7 +142,6 @@ test.describe('tracks', () => {
       await page.fill('input[name="year"]', '2000');
       await page.fill('input[name="trackNumber"]', '123');
       await page.fill('input[name="discNumber"]', '45');
-      await page.click('button[type="submit"]');
       await page.click('button[type="submit"]');
       await page.waitForLoadState('networkidle');
       await expect(

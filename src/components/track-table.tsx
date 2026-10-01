@@ -40,7 +40,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
                 <td className="px-2 py-1 text-left">
-                  <PlaybackControls tracks={[track]} hideEditButton={true} onEdit={onEdit} />
+                  <PlaybackControls tracks={[track]} onEdit={onEdit} />
                 </td>
               </tr>
             ))}

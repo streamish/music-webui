@@ -92,16 +92,40 @@ export default function FoldersPage() {
         </BreadcrumbList>
       </Breadcrumb>
       {isMobile && (
-        <ul className="flex flex-col grow" aria-label="Folder list">
-          {items.length > 0 &&
-            items.map((item: TreeItemDto) => {
-              return (
-                <li className="w-full p-2" key={`mobile-album ${item.fullPath}`}>
-                  <TreeListItem item={item} onToggle={() => toggleFolder(item)} onEdit={refetchFolders} />
-                </li>
-              );
-            })}
-        </ul>
+        <>
+          <ul className="flex flex-col grow" aria-label="Folder list">
+            {items.length > 0 &&
+              items
+                .filter((item: TreeItemDto) => item.folder)
+                .map((item: TreeItemDto, index) => {
+                  return (
+                    <li
+                      className="w-full p-2"
+                      key={`mobile-album ${item.fullPath}`}
+                      aria-label={`Track item ${index + 1}`}
+                    >
+                      <TreeListItem item={item} onToggle={() => toggleFolder(item)} onEdit={refetchFolders} />
+                    </li>
+                  );
+                })}
+          </ul>
+          <ol className="flex flex-col grow">
+            {items.length > 0 &&
+              items
+                .filter((item: TreeItemDto) => item.file)
+                .map((item: TreeItemDto, index) => {
+                  return (
+                    <li
+                      className="w-full p-2"
+                      key={`mobile-album ${item.fullPath}`}
+                      aria-label={`Track item ${index + 1}`}
+                    >
+                      <TreeListItem item={item} onEdit={refetchFolders} />
+                    </li>
+                  );
+                })}
+          </ol>
+        </>
       )}
       {!isMobile && (
         <>
