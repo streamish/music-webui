@@ -6,10 +6,11 @@ import { AssociationEditForm } from '@/features/library/association-edit-form';
 import { AssociationListItem } from '@/components/association-list-item';
 import { AssociationTypeEnum } from '@/types/api-schema';
 import { Button } from '@/components/ui/button';
-import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Fragment, memo, useCallback, useEffect, useState } from 'react';
 import { TrackTable } from '@/components/track-table';
 import { formatSlug } from '@/utils/format';
 import { useAlbumAssociations, useAssociation, useTrackAssociations } from '@/hooks/user/use-associations';
+import { useGridColumnCount } from '@/hooks/use-grid-column-count';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
@@ -94,7 +95,7 @@ export const AssociationsPage = memo(() => {
   const { associationId, albumId } = useParams<{ associationId: string; albumId?: string }>();
   const [searchParams] = useSearchParams();
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
-  const [columnSize, setColumnSize] = useState(1);
+  const { listRef, columnCount } = useGridColumnCount();
   const { associations, refetch: refetchAssociations } = usePageAssociations({
     isAlbumArtists,
     associationType,
@@ -105,14 +106,14 @@ export const AssociationsPage = memo(() => {
     enabled: expandedAssociationId !== undefined && expandedAssociationId > 0,
   });
   const [viewingGroup, setViewingGroup] = useState<ViewingGroup>(getViewingGroup(associationType, isAlbumArtists));
-  const listRef = useRef(null);
   const expandedAlbumId = albumId ? Number(albumId) : null;
   const expandedAlbum =
     expandedAlbumId !== null
       ? (expandedAssociation?.albumArtistCredits.find((album) => album.id === expandedAlbumId) ?? null)
       : null;
   const clickedIndex = expandedAssociation?.albumArtistCredits.findIndex((item) => item.id === expandedAlbumId) ?? -1;
-  let detailsInsertIndex = clickedIndex >= 0 ? Math.ceil((clickedIndex + 1) / columnSize) * columnSize - 1 : -1;
+  let detailsInsertIndex =
+    columnCount > 0 && clickedIndex >= 0 ? Math.ceil((clickedIndex + 1) / columnCount) * columnCount - 1 : -1;
   if (expandedAssociation?.albumArtistCredits.length) {
     if (detailsInsertIndex >= expandedAssociation.albumArtistCredits.length) {
       detailsInsertIndex = expandedAssociation.albumArtistCredits.length - 1;
@@ -160,76 +161,15 @@ export const AssociationsPage = memo(() => {
 
   const onBack = useCallback(() => {
     if (albumId && expandedAssociationId != null) {
-      // Album → association
       navigate(getAssociationUrl(expandedAssociationId));
       return;
     }
-
     if (expandedAssociationId != null) {
-      // Association → root list
       navigate(`/${groupUrl}`);
       return;
     }
-
-    // Already at the root list
     navigate(`/${groupUrl}`);
   }, [albumId, expandedAssociationId, getAssociationUrl, groupUrl, navigate]);
-
-  useLayoutEffect(() => {
-    const list = listRef.current as HTMLElement | null;
-    if (list) {
-      const measureColumns = () => {
-        const items = Array.from(list.querySelectorAll<HTMLElement>('li')) as HTMLElement[];
-        if (items.length > 0) {
-          const firstItem = items[0];
-          let interruptedByExpandedAlbum = -1;
-          for (let i = 1; i < items.length; i += 1) {
-            const item = items[i];
-            if (item.classList.contains('album-details')) {
-              interruptedByExpandedAlbum = i;
-              break;
-            }
-            if (item.offsetTop > firstItem.offsetTop) {
-              setColumnSize(i);
-              break;
-            }
-          }
-          // find the first row-starting element after the expanded album details
-          if (interruptedByExpandedAlbum > -1) {
-            let newFirstItem = -1;
-            for (let i = interruptedByExpandedAlbum + 1; i < items.length; i += 1) {
-              const item = items[i];
-              if (item.offsetLeft === firstItem.offsetLeft) {
-                newFirstItem = i;
-                break;
-              }
-            }
-            // measure the column size starting from the new first item
-            if (newFirstItem > -1) {
-              const newFirst = items[newFirstItem];
-              for (let i = newFirstItem + 1; i < items.length; i += 1) {
-                const item = items[i];
-                if (item.offsetTop > newFirst.offsetTop) {
-                  const newColumnSize = i - newFirstItem;
-                  if (newColumnSize > 0) {
-                    setColumnSize(newColumnSize);
-                  }
-                  break;
-                }
-              }
-            }
-          }
-        }
-      };
-      measureColumns();
-      const observer = new ResizeObserver(measureColumns);
-      observer.observe(list);
-      return () => {
-        observer.disconnect();
-      };
-    }
-    return undefined;
-  }, [associationType, expandedAssociation?.albumArtistCredits, expandedAlbum]);
 
   useEffect(() => {
     if (!expandedAssociation || expandedAssociationId === null) {
@@ -426,7 +366,7 @@ export const AssociationsPage = memo(() => {
               {viewingGroup === 'album-artists' && (
                 <>
                   {isMobile && (
-                    <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
+                    <ul ref={listRef} className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
                       {albums.map((item, index) => {
                         const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
                         return (
@@ -486,14 +426,14 @@ export const AssociationsPage = memo(() => {
                 </>
               )}
               {viewingGroup !== 'album-artists' && (
-                <div ref={listRef} className="w-full" key={expandedAssociationId}>
+                <div className="w-full" key={expandedAssociationId}>
                   <TrackTable albums={albums} onEdit={refresh} />
                 </div>
               )}
             </>
           )}
           {viewingGroup === 'track-genres' && (
-            <div ref={listRef} className="w-full" key={expandedAssociationId}>
+            <div className="w-full" key={expandedAssociationId}>
               <TrackTable albums={expandedAssociation?.genreCredits || []} onEdit={refresh} />
             </div>
           )}
