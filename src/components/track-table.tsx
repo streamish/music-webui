@@ -66,6 +66,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
               <tr
                 key={track.id}
                 className={[`py-1 ${index % 2 === 0 ? 'bg-foreground/5' : ''}`, `hover:bg-foreground/10`].join(' ')}
+                aria-label={`Track item ${index + 1}`}
               >
                 <td className="px-2 py-1 text-left text-foreground/70">{track.title}</td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
