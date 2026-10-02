@@ -309,9 +309,10 @@ export const AssociationsPage = memo(() => {
         {/* Associations list */}
         {(!isMobile || !expandedAssociation) && (
           <ul
-            className={['flex flex-col overflow-y-scroll pb-2 h-[calc(100vh-12rem)]', isMobile ? '' : 'max-w-100'].join(
-              ' ',
-            )}
+            className={[
+              'flex flex-col overflow-y-scroll pb-2 h-[calc(100vh-12rem)] mr-4',
+              isMobile ? '' : 'max-w-100',
+            ].join(' ')}
           >
             {associations.map((item) => {
               return (
