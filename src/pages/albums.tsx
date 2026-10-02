@@ -95,7 +95,7 @@ export default function AlbumsPage() {
             </PageHeader>
           )}
           {isMobile && (
-            <ul ref={listRef} className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
+            <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
               {expandedAlbumId && (
                 <li className="album-details col-span-full flex flex-col grow  -mx-4">
                   {expandedAlbum && (

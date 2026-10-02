@@ -365,7 +365,7 @@ export const AssociationsPage = memo(() => {
               {viewingGroup === 'album-artists' && (
                 <>
                   {isMobile && (
-                    <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
+                    <ul ref={listRef} className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
                       {albums.map((item, index) => {
                         const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
                         return (
@@ -425,14 +425,14 @@ export const AssociationsPage = memo(() => {
                 </>
               )}
               {viewingGroup !== 'album-artists' && (
-                <div ref={listRef} className="w-full" key={expandedAssociationId}>
+                <div className="w-full" key={expandedAssociationId}>
                   <TrackTable albums={albums} onEdit={refresh} />
                 </div>
               )}
             </>
           )}
           {viewingGroup === 'track-genres' && (
-            <div ref={listRef} className="w-full" key={expandedAssociationId}>
+            <div className="w-full" key={expandedAssociationId}>
               <TrackTable albums={expandedAssociation?.genreCredits || []} onEdit={refresh} />
             </div>
           )}
