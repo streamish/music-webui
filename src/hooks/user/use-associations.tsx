@@ -260,14 +260,14 @@ export function useTrackAssociations(params: ListTrackAssociationsEndpointQuery 
   };
 }
 
-export function useAssociation(params: RetrieveEndpointQuery) {
+export function useAssociation(params: RetrieveEndpointQuery & { enabled: boolean }) {
   const associationQuery = useQuery({
     queryKey: ['association', params],
     queryFn: ({ queryKey }) => {
       const [, queryParams] = queryKey as ['association', RetrieveEndpointQuery];
       return fetchAssociation(queryParams);
     },
-    enabled: params.id != null,
+    enabled: params.enabled,
   });
 
   return {
