@@ -2,11 +2,12 @@ import { AlbumCard } from '@/components/album-card';
 import { AlbumExpandedDetails } from '@/components/album-expanded-details';
 import { AlbumListItem } from '@/components/album-list-item';
 import { AlbumStandaloneDetails } from '@/components/album-standalone-details';
-import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { PageHeader } from '@/layouts/user-layout';
 import { PaginationControls } from '@/components/pagination-controls';
 import { formatSlug } from '@/utils/format';
 import { useAlbums } from '@/hooks/user/use-albums';
+import { useGridColumnCount } from '@/hooks/use-grid-column-count';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { usePreferences } from '@/hooks/use-preferences';
@@ -19,18 +20,18 @@ export default function AlbumsPage() {
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
   const { preferences } = usePreferences();
   const { pageSize } = preferences;
-  const [columnSize, setColumnSize] = useState(0);
+  const { listRef, columnCount } = useGridColumnCount();
   const [query, setQuery] = useState({
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
   });
   const { albums, refetchAlbums, total } = useAlbums(query);
-  const listRef = useRef(null);
   const expandedAlbumId = albumId ? Number(albumId) : null;
   const expandedAlbum =
     expandedAlbumId !== null ? (albums.find((album) => album.id === expandedAlbumId) ?? null) : null;
   const clickedIndex = albums.findIndex((item) => item.id === expandedAlbumId) ?? -1;
-  let detailsInsertIndex = clickedIndex >= 0 ? Math.ceil((clickedIndex + 1) / columnSize) * columnSize - 1 : -1;
+  let detailsInsertIndex =
+    columnCount > 0 && clickedIndex >= 0 ? Math.ceil((clickedIndex + 1) / columnCount) * columnCount - 1 : -1;
   if (albums.length) {
     if (detailsInsertIndex > albums.length) {
       detailsInsertIndex = albums.length - 1;
@@ -67,62 +68,6 @@ export default function AlbumsPage() {
     [setSearchParams],
   );
 
-  useLayoutEffect(() => {
-    const list = listRef.current as HTMLElement | null;
-    if (list) {
-      const measureColumns = () => {
-        const items = Array.from(list.querySelectorAll<HTMLElement>('li')) as HTMLElement[];
-        if (items.length > 0) {
-          const firstItem = items[0];
-          let interruptedByExpandedAlbum = -1;
-          for (let i = 1; i < items.length; i += 1) {
-            const item = items[i];
-            if (item.classList.contains('album-details')) {
-              interruptedByExpandedAlbum = i;
-              break;
-            }
-            if (item.offsetTop > firstItem.offsetTop) {
-              setColumnSize(i);
-              break;
-            }
-          }
-          // find the first row-starting element after the expanded album details
-          if (interruptedByExpandedAlbum > -1) {
-            let newFirstItem = -1;
-            for (let i = interruptedByExpandedAlbum + 1; i < items.length; i += 1) {
-              const item = items[i];
-              if (item.offsetLeft === firstItem.offsetLeft) {
-                newFirstItem = i;
-                break;
-              }
-            }
-            // measure the column size starting from the new first item
-            if (newFirstItem > -1) {
-              const newFirst = items[newFirstItem];
-              for (let i = newFirstItem + 1; i < items.length; i += 1) {
-                const item = items[i];
-                if (item.offsetTop > newFirst.offsetTop) {
-                  const newColumnSize = i - newFirstItem;
-                  if (newColumnSize > 0) {
-                    setColumnSize(newColumnSize);
-                  }
-                  break;
-                }
-              }
-            }
-          }
-        }
-      };
-      measureColumns();
-      const observer = new ResizeObserver(measureColumns);
-      observer.observe(list);
-      return () => {
-        observer.disconnect();
-      };
-    }
-    return undefined;
-  }, [albums.length]);
-
   useEffect(() => {
     if (!expandedAlbum || expandedAlbumId === null) {
       return;
@@ -150,7 +95,7 @@ export default function AlbumsPage() {
             </PageHeader>
           )}
           {isMobile && (
-            <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
+            <ul ref={listRef} className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
               {expandedAlbumId && (
                 <li className="album-details col-span-full flex flex-col grow  -mx-4">
                   {expandedAlbum && (
