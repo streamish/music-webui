@@ -6,7 +6,7 @@ import { AssociationEditForm } from '@/features/library/association-edit-form';
 import { AssociationListItem } from '@/components/association-list-item';
 import { AssociationTypeEnum } from '@/types/api-schema';
 import { Button } from '@/components/ui/button';
-import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Fragment, memo, useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { TrackTable } from '@/components/track-table';
 import { formatSlug } from '@/utils/format';
 import { useAlbumAssociations, useAssociation, useTrackAssociations } from '@/hooks/user/use-associations';
@@ -94,7 +94,7 @@ export const AssociationsPage = memo(() => {
   const { associationId, albumId } = useParams<{ associationId: string; albumId?: string }>();
   const [searchParams] = useSearchParams();
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
-  const [columnSize, setColumnSize] = useState(1);
+  const [columnSize, setColumnSize] = useState(0);
   const { associations, refetch: refetchAssociations } = usePageAssociations({
     isAlbumArtists,
     associationType,
@@ -104,14 +104,15 @@ export const AssociationsPage = memo(() => {
     id: expandedAssociationId || 0,
   });
   const [viewingGroup, setViewingGroup] = useState<ViewingGroup>(getViewingGroup(associationType, isAlbumArtists));
-  const listRef = useRef(null);
+  const [listElement, setListElement] = useState<HTMLElement | null>(null);
   const expandedAlbumId = albumId ? Number(albumId) : null;
   const expandedAlbum =
     expandedAlbumId !== null
       ? (expandedAssociation?.albumArtistCredits.find((album) => album.id === expandedAlbumId) ?? null)
       : null;
   const clickedIndex = expandedAssociation?.albumArtistCredits.findIndex((item) => item.id === expandedAlbumId) ?? -1;
-  let detailsInsertIndex = clickedIndex >= 0 ? Math.ceil((clickedIndex + 1) / columnSize) * columnSize - 1 : -1;
+  let detailsInsertIndex =
+    columnSize > 0 && clickedIndex >= 0 ? Math.ceil((clickedIndex + 1) / columnSize) * columnSize - 1 : -1;
   if (expandedAssociation?.albumArtistCredits.length) {
     if (detailsInsertIndex >= expandedAssociation.albumArtistCredits.length) {
       detailsInsertIndex = expandedAssociation.albumArtistCredits.length - 1;
@@ -174,61 +175,48 @@ export const AssociationsPage = memo(() => {
     navigate(`/${groupUrl}`);
   }, [albumId, expandedAssociationId, getAssociationUrl, groupUrl, navigate]);
 
-  useLayoutEffect(() => {
-    const list = listRef.current as HTMLElement | null;
-    if (list) {
-      const measureColumns = () => {
-        const items = Array.from(list.querySelectorAll<HTMLElement>('li')) as HTMLElement[];
-        if (items.length > 0) {
-          const firstItem = items[0];
-          let interruptedByExpandedAlbum = -1;
-          for (let i = 1; i < items.length; i += 1) {
-            const item = items[i];
-            if (item.classList.contains('album-details')) {
-              interruptedByExpandedAlbum = i;
-              break;
-            }
-            if (item.offsetTop > firstItem.offsetTop) {
-              setColumnSize(i);
-              break;
-            }
-          }
-          // find the first row-starting element after the expanded album details
-          if (interruptedByExpandedAlbum > -1) {
-            let newFirstItem = -1;
-            for (let i = interruptedByExpandedAlbum + 1; i < items.length; i += 1) {
-              const item = items[i];
-              if (item.offsetLeft === firstItem.offsetLeft) {
-                newFirstItem = i;
-                break;
-              }
-            }
-            // measure the column size starting from the new first item
-            if (newFirstItem > -1) {
-              const newFirst = items[newFirstItem];
-              for (let i = newFirstItem + 1; i < items.length; i += 1) {
-                const item = items[i];
-                if (item.offsetTop > newFirst.offsetTop) {
-                  const newColumnSize = i - newFirstItem;
-                  if (newColumnSize > 0) {
-                    setColumnSize(newColumnSize);
-                  }
-                  break;
-                }
-              }
-            }
-          }
-        }
-      };
-      measureColumns();
-      const observer = new ResizeObserver(measureColumns);
-      observer.observe(list);
-      return () => {
-        observer.disconnect();
-      };
+  const measureColumns = useCallback(() => {
+    const list = listElement;
+    if (!list) {
+      return;
     }
-    return undefined;
-  }, [associationType, expandedAssociation?.albumArtistCredits, expandedAlbum]);
+    const items = Array.from(list.children) as HTMLElement[];
+    if (items.length === 0) {
+      return;
+    }
+    const firstItem = items.find((item) => !item.classList.contains('album-details'));
+    if (!firstItem) {
+      return;
+    }
+    const firstRowTop = firstItem.offsetTop;
+    let columns = 0;
+    for (let i = 0; i < items.length; i += 1) {
+      const item = items[i];
+      if (item.offsetTop !== firstRowTop) {
+        break;
+      }
+      columns += 1;
+    }
+    if (columns > 0) {
+      setColumnSize((previous) => (previous === columns ? previous : columns));
+    }
+  }, [listElement]);
+
+  useLayoutEffect(() => {
+    if (!listElement) {
+      return undefined;
+    }
+    const resizeObserver = new ResizeObserver(() => {
+      measureColumns();
+    });
+    resizeObserver.observe(listElement);
+    window.addEventListener('resize', measureColumns);
+    measureColumns();
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', measureColumns);
+    };
+  }, [listElement, measureColumns]);
 
   useEffect(() => {
     if (!expandedAssociation || expandedAssociationId === null) {
@@ -451,7 +439,7 @@ export const AssociationsPage = memo(() => {
                   )}
                   {!isMobile && (
                     <ul
-                      ref={listRef}
+                      ref={setListElement}
                       className={[
                         'w-full',
                         'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
@@ -485,14 +473,14 @@ export const AssociationsPage = memo(() => {
                 </>
               )}
               {viewingGroup !== 'album-artists' && (
-                <div ref={listRef} className="w-full" key={expandedAssociationId}>
+                <div ref={setListElement} className="w-full" key={expandedAssociationId}>
                   <TrackTable albums={albums} onEdit={refresh} />
                 </div>
               )}
             </>
           )}
           {viewingGroup === 'track-genres' && (
-            <div ref={listRef} className="w-full" key={expandedAssociationId}>
+            <div ref={setListElement} className="w-full" key={expandedAssociationId}>
               <TrackTable albums={expandedAssociation?.genreCredits || []} onEdit={refresh} />
             </div>
           )}
