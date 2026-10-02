@@ -102,6 +102,7 @@ export const AssociationsPage = memo(() => {
   const expandedAssociationId = associationId ? Number(associationId) : undefined;
   const { association: expandedAssociation, refetch: refetchAssociation } = useAssociation({
     id: expandedAssociationId || 0,
+    enabled: expandedAssociationId !== undefined && expandedAssociationId > 0,
   });
   const [viewingGroup, setViewingGroup] = useState<ViewingGroup>(getViewingGroup(associationType, isAlbumArtists));
   const listRef = useRef(null);
