@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import api, { TypedApiError } from '@/lib/api';
 import type { paths } from 'src/types/api-schema';
 
-type SetCustomFileDataEndpoint = paths['/api/user/set-custom-data']['put'];
+type SetCustomDataEndpoint = paths['/api/user/set-custom-data']['put'];
 type DeleteCustomDataEndpoint = paths['/api/user/delete-custom-data']['delete'];
 type SetArtistNameEndpoint = paths['/api/user/set-artist-name']['patch'];
 type SetComposerNameEndpoint = paths['/api/user/set-composer-name']['patch'];
@@ -10,9 +10,9 @@ type SetGenreNameEndpoint = paths['/api/user/set-genre-name']['patch'];
 type SetAlbumCustomDataEndpoint = paths['/api/user/set-album-custom-data']['patch'];
 type SetTrackCustomDataEndpoint = paths['/api/user/set-track-custom-data']['patch'];
 
-type SetCustomFileDataVariables = {
-  query: SetCustomFileDataEndpoint['parameters']['query'];
-  body: SetCustomFileDataEndpoint['requestBody']['content']['application/json'];
+type SetCustomDataVariables = {
+  query: SetCustomDataEndpoint['parameters']['query'];
+  body: SetCustomDataEndpoint['requestBody']['content']['application/json'];
 };
 
 type SetArtistNameVariables = {
@@ -155,7 +155,7 @@ async function setTrackCustomData({ query, body }: SetTrackCustomDataVariables) 
   return data;
 }
 
-async function setCustomData({ query, body }: SetCustomFileDataVariables) {
+async function setCustomData({ query, body }: SetCustomDataVariables) {
   const { data, error } = await api.put('/api/user/set-custom-data', {
     params: {
       query,
@@ -165,8 +165,8 @@ async function setCustomData({ query, body }: SetCustomFileDataVariables) {
   });
   if (error) {
     throw new TypedApiError<
-      | SetCustomFileDataEndpoint['responses']['400']['content']['application/json']['message'][number]
-      | SetCustomFileDataEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | SetCustomDataEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | SetCustomDataEndpoint['responses']['404']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data) {
@@ -201,10 +201,10 @@ async function deleteCustomFileData(query: DeleteCustomDataEndpoint['parameters'
 
 export function useCustomData() {
   const setCustomDataMutation = useMutation<
-    SetCustomFileDataEndpoint['responses']['200']['content']['application/json'],
-    | TypedApiError<SetCustomFileDataEndpoint['responses']['400']['content']['application/json']['message'][number]>
-    | TypedApiError<SetCustomFileDataEndpoint['responses']['404']['content']['application/json']['message'][number]>,
-    SetCustomFileDataVariables
+    SetCustomDataEndpoint['responses']['200']['content']['application/json'],
+    | TypedApiError<SetCustomDataEndpoint['responses']['400']['content']['application/json']['message'][number]>
+    | TypedApiError<SetCustomDataEndpoint['responses']['404']['content']['application/json']['message'][number]>,
+    SetCustomDataVariables
   >({
     mutationFn: setCustomData,
   });
