@@ -13,19 +13,21 @@ type RetrieveEndpointResponse = RetrieveEndpoint['responses']['200']['content'][
 type RetrieveEndpointErrorMessage =
   RetrieveEndpoint['responses']['404']['content']['application/json']['message'][number];
 
-type SetNameEndpoint = paths['/api/user/set-album-custom-data']['patch'];
-type SetNameEndpointResponse = SetNameEndpoint['responses']['200']['content']['application/json'];
-type SetNameEndpointErrorMessage =
-  | SetNameEndpoint['responses']['400']['content']['application/json']['message'][number]
-  | SetNameEndpoint['responses']['404']['content']['application/json']['message'][number];
+type SetAlbumRatingEndpoint = paths['/api/user/set-album-rating']['put'];
+type SetAlbumRatingQuery = SetAlbumRatingEndpoint['parameters']['query'];
+type SetAlbumRatingBody = SetAlbumRatingEndpoint['requestBody']['content']['application/json'];
+type SetAlbumRatingEndpointResponse = SetAlbumRatingEndpoint['responses']['200']['content']['application/json'];
+type SetAlbumRatingEndpointErrorMessage =
+  | SetAlbumRatingEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | SetAlbumRatingEndpoint['responses']['404']['content']['application/json']['message'][number];
+
+type SetAlbumRatingVariables = {
+  body: SetAlbumRatingBody;
+  query: SetAlbumRatingQuery;
+};
 
 export type Album = ListEndpointResponse['albums'][number];
 export type AlbumWithTracks = RetrieveEndpointResponse['album'];
-
-type SetNameVariables = {
-  body: SetNameEndpoint['requestBody']['content']['application/json'];
-  query: SetNameEndpoint['parameters']['query'];
-};
 
 async function fetchAlbums(query: ListEndpointQuery): Promise<ListEndpointResponse> {
   const { data, error } = await api.get('/api/user/list-albums', {
@@ -53,8 +55,8 @@ async function fetchAlbum(query: RetrieveEndpointQuery): Promise<RetrieveEndpoin
   return data;
 }
 
-async function setAlbumCustomData({ body, query }: SetNameVariables): Promise<SetNameEndpointResponse> {
-  const { data, error } = await api.patch('/api/user/set-album-custom-data', {
+async function setAlbumRating({ body, query }: SetAlbumRatingVariables): Promise<SetAlbumRatingEndpointResponse> {
+  const { data, error } = await api.put('/api/user/set-album-rating', {
     params: {
       header: api.authHeader(),
       query,
@@ -62,13 +64,13 @@ async function setAlbumCustomData({ body, query }: SetNameVariables): Promise<Se
     body,
   });
   if (error) {
-    throw new TypedApiError<SetNameEndpointErrorMessage>(error.message, error.error);
+    throw new TypedApiError<SetAlbumRatingEndpointErrorMessage>(error.message, error.error);
   }
   if (!data) {
-    throw new Error('Failed to set album custom data');
+    throw new Error('Failed to set album rating');
   }
   if (!data.success) {
-    throw new Error('Failed to set album custom data');
+    throw new Error('Failed to set album rating');
   }
   return data;
 }
@@ -84,12 +86,12 @@ export function useAlbums(params: ListEndpointQuery) {
     },
   });
 
-  const setAlbumCustomDataMutation = useMutation<
-    SetNameEndpointResponse,
-    TypedApiError<SetNameEndpointErrorMessage>,
-    SetNameVariables
+  const setAlbumRatingMutation = useMutation<
+    SetAlbumRatingEndpointResponse,
+    TypedApiError<SetAlbumRatingEndpointErrorMessage>,
+    SetAlbumRatingVariables
   >({
-    mutationFn: setAlbumCustomData,
+    mutationFn: setAlbumRating,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ['albums'],
@@ -98,8 +100,8 @@ export function useAlbums(params: ListEndpointQuery) {
   });
 
   return {
-    setAlbumCustomData: setAlbumCustomDataMutation.mutateAsync,
     refetchAlbums: albumsQuery.refetch,
+    setAlbumRating: setAlbumRatingMutation.mutateAsync,
     albums: albumsQuery.data?.albums ?? [],
     isListing: albumsQuery.isLoading,
     total: albumsQuery.data?.total ?? 0,

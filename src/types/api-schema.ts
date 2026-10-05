@@ -615,6 +615,50 @@ export type paths = {
     patch: operations['UserSetGenreNameController_patch'];
     trace?: never;
   };
+  '/api/user/set-album-rating': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /**
+     * Sets or unsets ratings for an album
+     * @description Sets or unsets a 1-5 star rating for the tracks within an album.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     */
+    put: operations['UserSetAlbumRatingController_put'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/user/set-track-rating': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /**
+     * Sets or unsets rating for a track
+     * @description Sets or unsets a 1-5 star rating for a single track.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     */
+    put: operations['UserSetTrackRatingController_put'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/user/set-track-custom-data': {
     parameters: {
       query?: never;
@@ -2809,6 +2853,120 @@ export type components = {
        * @default genre-not-found-error
        */
       message: components['schemas']['UserSetGenreNameNotFoundErrorMessage'][];
+    };
+    UserSetAlbumRatingBodyDto: {
+      /**
+       * Format: int32
+       * @description The rating value to be set for the track.  If it is 0 the rating will be unset.
+       */
+      rating: number;
+    };
+    UserSetAlbumRatingResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetAlbumRatingBadRequestErrorMessage: UserSetAlbumRatingBadRequestErrorMessage;
+    UserSetAlbumRatingBadRequestResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default invalid-rating-error
+       */
+      message: components['schemas']['UserSetAlbumRatingBadRequestErrorMessage'][];
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetAlbumRatingNotFoundErrorMessage: UserSetAlbumRatingNotFoundErrorMessage;
+    UserSetAlbumRatingNotFoundResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default album-not-found-error
+       */
+      message: components['schemas']['UserSetAlbumRatingNotFoundErrorMessage'][];
+    };
+    UserSetTrackRatingBodyDto: {
+      /**
+       * Format: int32
+       * @description The rating value to be set for the track.  If it is 0 the rating will be unset.
+       */
+      rating: number;
+    };
+    UserSetTrackRatingResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetTrackRatingBadRequestErrorMessage: UserSetTrackRatingBadRequestErrorMessage;
+    UserSetTrackRatingBadRequestResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default invalid-rating-error
+       */
+      message: components['schemas']['UserSetTrackRatingBadRequestErrorMessage'][];
+    };
+    /**
+     * @description The error message(s) that occurred during the validation of the request data or additional requirements
+     *     applied during the execution of the request
+     * @enum {string}
+     */
+    UserSetTrackRatingNotFoundErrorMessage: UserSetTrackRatingNotFoundErrorMessage;
+    UserSetTrackRatingNotFoundResponseDto: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description The error message(s) that occurred during the validation of the request data or additional requirements
+       *     applied during the execution of the request
+       * @default track-not-found-error
+       */
+      message: components['schemas']['UserSetTrackRatingNotFoundErrorMessage'][];
     };
     UserSetTrackCustomDataBodyDto: {
       /**
@@ -8488,6 +8646,102 @@ export interface operations {
       };
     };
   };
+  UserSetAlbumRatingController_put: {
+    parameters: {
+      query: {
+        /** @description The ID of an album to rate, which will apply the rating to all tracks within it. */
+        id: number;
+      };
+      header: {
+        /** @description JWT token for authentication */
+        Authorization: string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UserSetAlbumRatingBodyDto'];
+      };
+    };
+    responses: {
+      /** @description Rating set successfully */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserSetAlbumRatingResponseDto'];
+        };
+      };
+      /** @description Request failed */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserSetAlbumRatingBadRequestResponseDto'];
+        };
+      };
+      /** @description Track or album not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserSetAlbumRatingNotFoundResponseDto'];
+        };
+      };
+    };
+  };
+  UserSetTrackRatingController_put: {
+    parameters: {
+      query: {
+        /** @description The ID of a track to rate */
+        id: number;
+      };
+      header: {
+        /** @description JWT token for authentication */
+        Authorization: string;
+      };
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UserSetTrackRatingBodyDto'];
+      };
+    };
+    responses: {
+      /** @description Rating set successfully */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserSetTrackRatingResponseDto'];
+        };
+      };
+      /** @description Request failed */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserSetTrackRatingBadRequestResponseDto'];
+        };
+      };
+      /** @description Track or album not found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UserSetTrackRatingNotFoundResponseDto'];
+        };
+      };
+    };
+  };
   UserSetTrackCustomDataController_patch: {
     parameters: {
       query: {
@@ -10196,6 +10450,26 @@ export enum UserSetGenreNameBadRequestErrorMessage {
 }
 export enum UserSetGenreNameNotFoundErrorMessage {
   genre_not_found_error = 'genre-not-found-error',
+}
+export enum UserSetAlbumRatingBadRequestErrorMessage {
+  invalid_album_id_error = 'invalid-album-id-error',
+  invalid_rating_error = 'invalid-rating-error',
+  invalid_min_rating_error = 'invalid-min-rating-error',
+  invalid_max_rating_error = 'invalid-max-rating-error',
+}
+export enum UserSetAlbumRatingNotFoundErrorMessage {
+  album_not_found_error = 'album-not-found-error',
+}
+export enum UserSetTrackRatingBadRequestErrorMessage {
+  invalid_track_id_error = 'invalid-track-id-error',
+  invalid_album_id_error = 'invalid-album-id-error',
+  invalid_rating_error = 'invalid-rating-error',
+  invalid_min_rating_error = 'invalid-min-rating-error',
+  invalid_max_rating_error = 'invalid-max-rating-error',
+}
+export enum UserSetTrackRatingNotFoundErrorMessage {
+  track_not_found_error = 'track-not-found-error',
+  album_not_found_error = 'album-not-found-error',
 }
 export enum UserSetTrackCustomDataBadRequestErrorMessage {
   invalid_track_id_error = 'invalid-track-id-error',

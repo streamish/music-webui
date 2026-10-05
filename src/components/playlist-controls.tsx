@@ -1,24 +1,32 @@
 import { Button } from './ui/button';
 import { ListEnd, ListStart, Play } from 'lucide-react';
+import { RatingControls } from './rating-controls';
 import { TrackEditForm } from '../features/library/track-edit-form';
 import { useEffect, useState } from 'react';
 import { useQueueActions } from '@/features/library/queue';
+import type { Album } from '@/hooks/user/use-albums';
 import type { Track } from '@/hooks/user/use-tracks';
 
 export function PlaylistControls({
+  album,
   className,
   hideEditButton,
-  onEdit,
+  hidePlayButton,
   hideQueueButtons,
-  tracks,
+  hideRatingButtons,
   textLabels,
+  tracks,
+  onEdit,
 }: {
-  textLabels?: boolean;
+  album?: Album;
+  className?: string;
   hideQueueButtons?: boolean;
   hideEditButton?: boolean;
-  onEdit: () => void;
+  hidePlayButton?: boolean;
+  hideRatingButtons?: boolean;
+  textLabels?: boolean;
   tracks: Track[];
-  className?: string;
+  onEdit: () => void;
 }) {
   const { addToQueue, clearQueue, togglePlay } = useQueueActions();
   const [autoPlay, setAutoPlay] = useState(false);
@@ -42,9 +50,11 @@ export function PlaylistControls({
 
   return (
     <menu className={`opacity-75 flex flex-row ${className || ''}`}>
-      <Button variant="ghost" className="w-fit self-start p-1 mx-1 px-2" aria-label="Play now" onClick={replaceQueue}>
-        <Play /> {textLabels ? <span>Play</span> : null}
-      </Button>
+      {!hidePlayButton && (
+        <Button variant="ghost" className="w-fit self-start p-1 mx-1 px-2" aria-label="Play now" onClick={replaceQueue}>
+          <Play /> {textLabels ? <span>Play</span> : null}
+        </Button>
+      )}
       {!hideQueueButtons && (
         <>
           <Button
@@ -66,6 +76,7 @@ export function PlaylistControls({
         </>
       )}
       {!hideEditButton && tracks[0] && <TrackEditForm track={tracks[0]} onSave={onEdit} />}
+      {!hideRatingButtons && <RatingControls track={tracks[0]} album={album} />}
     </menu>
   );
 }

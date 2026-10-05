@@ -234,6 +234,27 @@ test.describe('associations', () => {
         await testApi.deleteUser(newAccountId);
       });
     });
+
+    test.describe('rating albums', () => {
+      test('should rate album', async ({ page }) => {
+        const newUsername = `albums-rating-album-${Date.now()}`;
+        const testApi = new TestApi();
+        const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
+          newUsername,
+        });
+        expect(newAccountId).toBeGreaterThan(0);
+        const pom = new Pom(page);
+        await pom.signIn({ username: newUsername, password: USER_PASSWORD });
+        await pom.navigateToAlbumArtists();
+        await page.getByLabel('Browse Artist 1').click();
+        await page.getByLabel('Album 1 by Artist 1').click();
+        await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
+        await page.click('button[aria-label="Rate this album with 5 stars"]');
+        await page.waitForLoadState('networkidle');
+        await expect(page.getByLabel('Rate this album with 5 stars')).toBeDefined();
+        await testApi.deleteUser(newAccountId);
+      });
+    });
   });
 
   test.describe('track artists', () => {
@@ -349,6 +370,25 @@ test.describe('associations', () => {
         await expect(
           page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
+        await testApi.deleteUser(newAccountId);
+      });
+    });
+
+    test.describe('rating tracks', () => {
+      test('should rate track', async ({ page }) => {
+        const newUsername = `tracks-rating-track-${Date.now()}`;
+        const testApi = new TestApi();
+        const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
+          newUsername,
+        });
+        expect(newAccountId).toBeGreaterThan(0);
+        const pom = new Pom(page);
+        await pom.signIn({ username: newUsername, password: USER_PASSWORD });
+        await pom.navigateToArtists();
+        await page.getByLabel('Browse Artist 1').click();
+        await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
+        await page.waitForLoadState('networkidle');
+        await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
         await testApi.deleteUser(newAccountId);
       });
     });
@@ -470,6 +510,25 @@ test.describe('associations', () => {
         await testApi.deleteUser(newAccountId);
       });
     });
+
+    test.describe('rating tracks', () => {
+      test('should rate track', async ({ page }) => {
+        const newUsername = `tracks-rating-track-${Date.now()}`;
+        const testApi = new TestApi();
+        const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
+          newUsername,
+        });
+        expect(newAccountId).toBeGreaterThan(0);
+        const pom = new Pom(page);
+        await pom.signIn({ username: newUsername, password: USER_PASSWORD });
+        await pom.navigateToComposers();
+        await page.getByLabel('Browse Composer 1').click();
+        await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
+        await page.waitForLoadState('networkidle');
+        await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
+        await testApi.deleteUser(newAccountId);
+      });
+    });
   });
 
   test.describe('track genres', () => {
@@ -585,6 +644,25 @@ test.describe('associations', () => {
         await expect(
           page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
+        await testApi.deleteUser(newAccountId);
+      });
+    });
+
+    test.describe('rating tracks', () => {
+      test('should rate track', async ({ page }) => {
+        const newUsername = `tracks-rating-track-${Date.now()}`;
+        const testApi = new TestApi();
+        const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
+          newUsername,
+        });
+        expect(newAccountId).toBeGreaterThan(0);
+        const pom = new Pom(page);
+        await pom.signIn({ username: newUsername, password: USER_PASSWORD });
+        await pom.navigateToGenres();
+        await page.getByLabel('Browse Acoustic').click();
+        await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
+        await page.waitForLoadState('networkidle');
+        await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
         await testApi.deleteUser(newAccountId);
       });
     });

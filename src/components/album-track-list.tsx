@@ -25,6 +25,7 @@ export function AlbumTrackList({ tracks, onEdit }: { tracks: Track[]; onEdit: ()
                 tracks={[track]}
                 hideQueueButtons={true}
                 hideEditButton={true}
+                hideRatingButtons={true}
                 className="inline-block"
                 onEdit={onEdit}
               />

@@ -109,7 +109,23 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
               {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
               <AlbumEditForm album={album} onSave={handleEdit} />
             </h3>
-            <PlaylistControls tracks={album.tracks} textLabels={true} className="mb-2" onEdit={handleEdit} />
+            <PlaylistControls
+              tracks={album.tracks}
+              album={album}
+              textLabels={true}
+              hideRatingButtons={true}
+              onEdit={handleEdit}
+            />
+            <PlaylistControls
+              tracks={album.tracks}
+              album={album}
+              hidePlayButton={true}
+              hideEditButton={true}
+              hideQueueButtons={true}
+              textLabels={true}
+              className="mb-2"
+              onEdit={() => {}}
+            />
             <div className="lg:grid lg:grid-rows-2 2xl:grid-rows-none 2xl:grid-cols-2 gap-0 2xl:gap-20">
               {trackGroups.map((trackGroup, index) => {
                 return (

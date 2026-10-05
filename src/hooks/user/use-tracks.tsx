@@ -7,15 +7,17 @@ type ListEndpointQuery = ListEndpoint['parameters']['query'];
 type ListEndpointResponse = ListEndpoint['responses']['200']['content']['application/json'];
 type ListEndpointErrorMessage = ListEndpoint['responses']['400']['content']['application/json']['message'][number];
 
-type SetTrackCustomDataEndpoint = paths['/api/user/set-track-custom-data']['patch'];
-type SetTrackCustomDataEndpointResponse = SetTrackCustomDataEndpoint['responses']['200']['content']['application/json'];
-type SetTrackCustomDataEndpointErrorMessage =
-  | SetTrackCustomDataEndpoint['responses']['400']['content']['application/json']['message'][number]
-  | SetTrackCustomDataEndpoint['responses']['404']['content']['application/json']['message'][number];
+type SetTrackRatingEndpoint = paths['/api/user/set-track-rating']['put'];
+type SetTrackRatingQuery = SetTrackRatingEndpoint['parameters']['query'];
+type SetTrackRatingBody = SetTrackRatingEndpoint['requestBody']['content']['application/json'];
+type SetTrackRatingEndpointResponse = SetTrackRatingEndpoint['responses']['200']['content']['application/json'];
+type SetTrackRatingEndpointErrorMessage =
+  | SetTrackRatingEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | SetTrackRatingEndpoint['responses']['404']['content']['application/json']['message'][number];
 
-type SetTrackCustomDataVariables = {
-  body: SetTrackCustomDataEndpoint['requestBody']['content']['application/json'];
-  query: SetTrackCustomDataEndpoint['parameters']['query'];
+type SetTrackRatingVariables = {
+  body: SetTrackRatingBody;
+  query: SetTrackRatingQuery;
 };
 
 export type Track = ListEndpointResponse['tracks'][number];
@@ -33,8 +35,8 @@ async function fetchTracks(query: ListEndpointQuery): Promise<ListEndpointRespon
   return data;
 }
 
-async function setTrackName({ body, query }: SetTrackCustomDataVariables): Promise<SetTrackCustomDataEndpointResponse> {
-  const { data, error } = await api.patch('/api/user/set-track-custom-data', {
+async function setTrackRating({ body, query }: SetTrackRatingVariables): Promise<SetTrackRatingEndpointResponse> {
+  const { data, error } = await api.put('/api/user/set-track-rating', {
     params: {
       header: api.authHeader(),
       query,
@@ -42,13 +44,13 @@ async function setTrackName({ body, query }: SetTrackCustomDataVariables): Promi
     body,
   });
   if (error) {
-    throw new TypedApiError<SetTrackCustomDataEndpointErrorMessage>(error.message, error.error);
+    throw new TypedApiError<SetTrackRatingEndpointErrorMessage>(error.message, error.error);
   }
   if (!data) {
-    throw new Error('Failed to set track custom data');
+    throw new Error('Failed to set track rating');
   }
   if (!data.success) {
-    throw new Error('Failed to set track custom data');
+    throw new Error('Failed to set track rating');
   }
   return data;
 }
@@ -64,12 +66,12 @@ export function useTracks(params: ListEndpointQuery) {
     },
   });
 
-  const setTrackNameMutation = useMutation<
-    SetTrackCustomDataEndpointResponse,
-    TypedApiError<SetTrackCustomDataEndpointErrorMessage>,
-    SetTrackCustomDataVariables
+  const setTrackRatingMutation = useMutation<
+    SetTrackRatingEndpointResponse,
+    TypedApiError<SetTrackRatingEndpointErrorMessage>,
+    SetTrackRatingVariables
   >({
-    mutationFn: setTrackName,
+    mutationFn: setTrackRating,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ['tracks'],
@@ -78,10 +80,10 @@ export function useTracks(params: ListEndpointQuery) {
   });
 
   return {
-    setTrackName: setTrackNameMutation.mutateAsync,
     refetchTracks: tracksQuery.refetch,
-    tracks: tracksQuery.data?.tracks ?? [],
-    totalTracks: tracksQuery.data?.total ?? 0,
+    setTrackRating: setTrackRatingMutation.mutateAsync,
     isListing: tracksQuery.isLoading,
+    totalTracks: tracksQuery.data?.total ?? 0,
+    tracks: tracksQuery.data?.tracks ?? [],
   };
 }

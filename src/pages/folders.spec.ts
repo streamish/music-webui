@@ -167,4 +167,24 @@ test.describe('folders', () => {
       await testApi.deleteUser(newAccountId);
     });
   });
+
+  test.describe('rating tracks', () => {
+    test('should rate track', async ({ page }) => {
+      const newUsername = `folder-rating-track-${Date.now()}`;
+      const testApi = new TestApi();
+      const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
+        newUsername,
+      });
+      expect(newAccountId).toBeGreaterThan(0);
+      const pom = new Pom(page);
+      await pom.signIn({ username: newUsername, password: USER_PASSWORD });
+      await pom.navigateToFolders();
+      await page.getByText('Artist 1').click();
+      await page.getByText('Album 1').click();
+      await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
+      await page.waitForLoadState('networkidle');
+      await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
+      await testApi.deleteUser(newAccountId);
+    });
+  });
 });
