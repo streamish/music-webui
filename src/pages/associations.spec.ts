@@ -71,7 +71,7 @@ test.describe('associations', () => {
         await page.getByLabel('Album 1 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
         await page.click('button[aria-label="Play now"]');
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
         const queueItem1 = await page.getByLabel('Queue item 1');
@@ -96,7 +96,7 @@ test.describe('associations', () => {
         await page.getByLabel('Album 2 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 2 by Artist 1"]`);
         await page.click('button[aria-label="Play now"]');
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         const tracks = [
           '01 First Track',
           '02 Second Track',
@@ -133,7 +133,7 @@ test.describe('associations', () => {
         await page.getByLabel('Album 2 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 2 by Artist 1"]`);
         await page.click('button[aria-label="Add to start of queue"]');
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         const tracks = [
           '01 First Track',
           '02 Second Track',
@@ -178,7 +178,7 @@ test.describe('associations', () => {
         await page.getByLabel('Album 2 by Artist 1').click();
         await page.waitForSelector(`div[aria-label="Album details:  Album 2 by Artist 1"]`);
         await page.click('button[aria-label="Add to end of queue"]');
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         const tracks = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track', '05 Fifth Track'];
         for (let i = 1; i < tracks.length; i += 1) {
           await expect(page.getByLabel(`Queue item ${i}`, { exact: true })).toBeDefined();
@@ -245,7 +245,7 @@ test.describe('associations', () => {
         await pom.navigateToArtists();
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Play now').first().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -263,7 +263,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Play now').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -281,7 +281,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to start of queue').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -305,7 +305,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Artist 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to end of queue').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -363,7 +363,7 @@ test.describe('associations', () => {
         await pom.navigateToComposers();
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Play now').first().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -381,7 +381,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Play now').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -399,7 +399,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to start of queue').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -423,7 +423,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Composer 1').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to end of queue').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -481,7 +481,7 @@ test.describe('associations', () => {
         await pom.navigateToGenres();
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -499,7 +499,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Play now').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -517,7 +517,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to start of queue').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();
@@ -541,7 +541,7 @@ test.describe('associations', () => {
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
         await page.getByLabel('Add to end of queue').last().click();
-        await page.click('button[aria-label="Show or hide playback queue"]');
+        await pom.openPlaybackQueue();
         await page.waitForSelector(`li[aria-label="Queue item 1"]`);
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeDefined();
         await expect(page.getByLabel('Queue item 1', { exact: true })).toBeVisible();

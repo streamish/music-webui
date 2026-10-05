@@ -48,7 +48,7 @@ test.describe('tracks', () => {
       jwtToken = jwtToken || pom.jwtToken;
       await pom.navigateToTracks();
       await page.getByLabel('Play now').first().click();
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
       await expect(page.getByLabel('Queue item 1')).toBeDefined();
@@ -65,7 +65,7 @@ test.describe('tracks', () => {
       await pom.navigateToTracks();
       await page.getByLabel('Play now').first().click();
       await page.getByLabel('Play now').last().click();
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
       await expect(page.getByLabel('Queue item 1')).toBeDefined();
@@ -82,7 +82,7 @@ test.describe('tracks', () => {
       await pom.navigateToTracks();
       await page.getByLabel('Play now').first().click();
       await page.getByLabel('Add to start of queue').last().click();
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
       await expect(page.getByLabel('Queue item 1')).toBeDefined();
@@ -105,7 +105,7 @@ test.describe('tracks', () => {
       await pom.navigateToTracks();
       await page.getByLabel('Play now').first().click();
       await page.getByLabel('Add to end of queue').last().click();
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
       await expect(page.getByLabel('Queue item 1')).toBeDefined();

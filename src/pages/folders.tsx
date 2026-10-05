@@ -5,14 +5,16 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { Fragment, useRef } from 'react';
-import { Music } from 'lucide-react';
-import { PlaybackControls } from '@/components/playback-controls';
+import { Fragment, useCallback, useRef } from 'react';
+import { TrackTable } from '@/components/track-table';
 import { TreeCard } from '@/components/tree-card';
 import { type TreeItemDto, useFolders } from '@/hooks/user/use-folders';
 import { TreeListItem } from '@/components/tree-list-item';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams } from 'react-router-dom';
+import type { components } from '@/types/api-schema';
+
+type Track = components['schemas']['LibraryTrackDto'];
 
 function findBreadCrumb(id: number, items: TreeItemDto[], path: TreeItemDto[] = []): TreeItemDto[] | null {
   for (let i = 0; i < items.length; i += 1) {
@@ -35,7 +37,7 @@ function findBreadCrumb(id: number, items: TreeItemDto[], path: TreeItemDto[] = 
 export default function FoldersPage() {
   const navigate = useNavigate();
   const { folders, refetchFolders } = useFolders();
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
   const listRef = useRef(null);
   const { folderId } = useParams<{ folderId: string }>();
   const expandedItemId = Number(folderId) ?? null;
@@ -43,28 +45,40 @@ export default function FoldersPage() {
   const expandedItem = expandedItemId ? breadcrumb[breadcrumb.length - 1] : null;
   const items = expandedItem?.children || folders || [];
 
-  if (breadcrumb.length) {
-    breadcrumb.unshift({
-      id: 0,
-      folder: 'Root paths',
-      fullPath: '',
-      children: folders ?? [],
-    });
-  }
+  breadcrumb.unshift({
+    id: 0,
+    folder: 'Root paths',
+    fullPath: '',
+    children: folders ?? [],
+  });
 
-  function toggleFolder(item: TreeItemDto) {
-    if (expandedItemId === item.id || item.id === 0) {
-      navigate('/folders');
-    } else {
-      navigate(`/folders/${item.id}/${item.fullPath}`);
-    }
-  }
+  const toggleFolder = useCallback(
+    (item: TreeItemDto) => {
+      if (expandedItemId === item.id || item.id === 0) {
+        navigate('/folders');
+      } else {
+        navigate(`/folders/${item.id}/${item.fullPath}`);
+      }
+    },
+    [expandedItemId, navigate],
+  );
 
-  function clickCrumb(item: TreeItemDto) {
-    if (item.id === 0) {
-      navigate('/folders');
-    } else {
-      navigate(`/folders/${item.id}/${item.fullPath}`);
+  const clickCrumb = useCallback(
+    (item: TreeItemDto) => {
+      if (item.id === 0) {
+        navigate('/folders');
+      } else {
+        navigate(`/folders/${item.id}/${item.fullPath}`);
+      }
+    },
+    [navigate],
+  );
+
+  const tracks: Track[] = [];
+  for (let i = 0; i < items.length; i += 1) {
+    const item = items[i];
+    if (item.track) {
+      tracks.push(item.track);
     }
   }
 
@@ -91,8 +105,8 @@ export default function FoldersPage() {
           })}
         </BreadcrumbList>
       </Breadcrumb>
-      {isMobile && (
-        <>
+      <div className="overflow-y-scroll h-[calc(100vh-9rem)] pb-20">
+        {isMobile && (
           <ul className="flex flex-col grow" aria-label="Folder list">
             {items.length > 0 &&
               items
@@ -109,26 +123,8 @@ export default function FoldersPage() {
                   );
                 })}
           </ul>
-          <ol className="flex flex-col grow">
-            {items.length > 0 &&
-              items
-                .filter((item: TreeItemDto) => item.file)
-                .map((item: TreeItemDto, index) => {
-                  return (
-                    <li
-                      className="w-full p-2"
-                      key={`mobile-album ${item.fullPath}`}
-                      aria-label={`Track item ${index + 1}`}
-                    >
-                      <TreeListItem item={item} onEdit={refetchFolders} />
-                    </li>
-                  );
-                })}
-          </ol>
-        </>
-      )}
-      {!isMobile && (
-        <>
+        )}
+        {!isMobile && (
           <ul
             ref={listRef}
             className={[
@@ -149,36 +145,13 @@ export default function FoldersPage() {
                 );
               })}
           </ul>
-          <ol className="p-4">
-            {items
-              .filter((item: TreeItemDto) => item.file)
-              .map((item: TreeItemDto, index) => {
-                const { track } = item;
-                if (!track) return null;
-                return (
-                  <li
-                    key={track.id}
-                    className="align-middle flex justify-between border-dotted border-b border-foreground/25"
-                    aria-label={`Track item ${index + 1}`}
-                  >
-                    <div>
-                      <Music
-                        className="inline-block w-4 h-4 lg:w-6 lg:h-6 mr-2"
-                        strokeWidth={1}
-                        absoluteStrokeWidth={true}
-                        opacity={0.5}
-                      />
-                      <span className="py-1.5 align-middle text-sm text-foreground/90">{track.filePath}</span>
-                    </div>
-                    <div>
-                      <PlaybackControls tracks={[track]} onEdit={refetchFolders} />
-                    </div>
-                  </li>
-                );
-              })}
-          </ol>
-        </>
-      )}
+        )}
+        {tracks.length > 0 && (
+          <div className="w-full px-4">
+            <TrackTable tracks={tracks} onEdit={refetchFolders} />
+          </div>
+        )}
+      </div>
     </>
   );
 }

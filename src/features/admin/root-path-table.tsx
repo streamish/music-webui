@@ -17,7 +17,7 @@ import { useRootPaths } from '@/hooks/admin/use-root-paths';
 
 export const RootPathTable = memo(() => {
   const { rootPaths: data, isLoading } = useRootPaths();
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
 
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
   const dummyRows = [

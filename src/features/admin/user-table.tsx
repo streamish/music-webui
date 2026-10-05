@@ -18,7 +18,7 @@ import { useIsMobile } from '@/hooks/use-is-mobile';
 
 export function UserTable() {
   const { accounts: data, isLoadingAccounts } = useAccounts();
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
 
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
   const dummyRows = [

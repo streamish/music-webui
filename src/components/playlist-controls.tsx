@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useQueueActions } from '@/features/library/queue';
 import type { Track } from '@/hooks/user/use-tracks';
 
-export function PlaybackControls({
+export function PlaylistControls({
   className,
   hideEditButton,
   onEdit,

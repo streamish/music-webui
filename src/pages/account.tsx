@@ -6,7 +6,7 @@ import UiPreferences from '@/features/account/ui-preferences';
 
 const AccountPreferencesPage = () => {
   return (
-    <div className="px-4 overflow-y-scroll h-[calc(100vh-11rem)]">
+    <div className="px-4 overflow-y-auto h-[calc(100vh-9rem)]">
       <title>Account preferences</title>
       {/* General preferences */}
       <section className="mb-8">

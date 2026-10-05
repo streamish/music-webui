@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button';
+import { PlaybackButton } from './playback-button';
 import { Slider } from '@/components/ui/slider';
 import { Volume, Volume1, Volume2, VolumeX } from 'lucide-react';
 import { useQueueActions, useQueuePlayback } from '@/features/library/queue';
 import { useState } from 'react';
 
-export function VolumeControl({ className }: { className?: string }) {
+export function PlaybackVolumeControlSlider({ className }: { className?: string }) {
   const { volume } = useQueuePlayback();
   const { setVolume } = useQueueActions();
   const [showSlider, setShowSlider] = useState(false);
@@ -38,15 +38,7 @@ export function VolumeControl({ className }: { className?: string }) {
       onMouseEnter={() => setShowSlider(true)}
       onMouseLeave={() => setShowSlider(false)}
     >
-      <Button
-        variant="ghost"
-        size="icon-lg"
-        className="m-2 h-16 w-16 flex-none p-2 text-center hover:bg-foreground/20!"
-        onClick={() => toggleMute()}
-      >
-        <VolumeIcon className="relative left-1 h-8! w-8!" strokeWidth={1} />
-      </Button>
-
+      <PlaybackButton label="Adjust volume or toggle mute" onChange={() => toggleMute()} icon={VolumeIcon} />
       {showSlider && (
         <div
           className={`

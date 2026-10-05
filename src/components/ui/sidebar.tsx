@@ -4,7 +4,7 @@ import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Slot } from 'radix-ui';
 
-import { useIsMobile } from 'src/hooks/use-mobile';
+import { useIsMobile } from 'src/hooks/use-is-mobile';
 import { cn } from 'src/lib/utils';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
@@ -55,7 +55,7 @@ function SidebarProvider({
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }) {
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
 
   // This is the internal state of the sidebar.

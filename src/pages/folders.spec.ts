@@ -58,7 +58,7 @@ test.describe('folders', () => {
       await page.getByText('Artist 1').click();
       await page.getByText('Album 1').click();
       await page.click('button[aria-label="Play now"]');
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
       await expect(page.getByLabel('Queue item 1')).toBeDefined();
@@ -77,7 +77,7 @@ test.describe('folders', () => {
       await page.getByText('Album 1').click();
       await page.getByLabel('Track item 1').locator('button[aria-label="Play now"]').click();
       await page.getByLabel('Track item 3').locator('button[aria-label="Play now"]').click();
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
       await expect(page.getByLabel('Queue item 1')).toBeDefined();
@@ -96,7 +96,7 @@ test.describe('folders', () => {
       await page.getByText('Album 1').click();
       await page.getByLabel('Track item 1').locator('button[aria-label="Add to start of queue"]').click();
       await page.getByLabel('Track item 3').locator('button[aria-label="Add to start of queue"]').click();
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
       await expect(page.getByLabel('Queue item 1')).toBeDefined();
@@ -121,7 +121,7 @@ test.describe('folders', () => {
       await page.getByText('Album 1').click();
       await page.getByLabel('Track item 1').locator('button[aria-label="Add to start of queue"]').click();
       await page.getByLabel('Track item 3').locator('button[aria-label="Add to end of queue"]').click();
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       const queueItem1 = await page.getByLabel('Queue item 1');
       await expect(page.getByLabel('Queue item 1')).toBeDefined();

@@ -70,7 +70,7 @@ test.describe('albums', () => {
       await page.getByLabel('Album 1 by Artist 1').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
       await page.click('button[aria-label="Play now"]');
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       await page.waitForSelector(`li[aria-label="Queue item 1"]`);
       await expect(page.getByLabel('Queue item 1')).toBeDefined();
       await expect(page.getByLabel('Queue item 1')).toBeVisible();
@@ -94,7 +94,7 @@ test.describe('albums', () => {
       await page.getByLabel('Album 5 by Artist 3').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 5 by Artist 3"]`);
       await page.click('button[aria-label="Play now"]');
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       const tracks = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track'];
       for (let i = 1; i < 5; i += 1) {
         await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
@@ -122,7 +122,7 @@ test.describe('albums', () => {
       await page.getByLabel('Album 5 by Artist 3').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 5 by Artist 3"]`);
       await page.click('button[aria-label="Add to start of queue"]');
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       const tracks = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track'];
       for (let i = 1; i < 5; i += 1) {
         await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
@@ -159,7 +159,7 @@ test.describe('albums', () => {
       await page.getByLabel('Album 5 by Artist 3').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 5 by Artist 3"]`);
       await page.click('button[aria-label="Add to end of queue"]');
-      await page.click('button[aria-label="Show or hide playback queue"]');
+      await pom.openPlaybackQueue();
       const tracks = ['01 First Track', '02 Second Track', '03 Third Track', '04 Fourth Track', '05 Fifth Track'];
       for (let i = 1; i < 6; i += 1) {
         await page.waitForSelector(`li[aria-label="Queue item ${i}"]`);
