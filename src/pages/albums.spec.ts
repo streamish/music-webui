@@ -207,4 +207,23 @@ test.describe('albums', () => {
       await testApi.deleteUser(newAccountId);
     });
   });
+
+  test.describe('rating albums', () => {
+    test('should rate album', async ({ page }) => {
+      const newUsername = `albums-rating-album-${Date.now()}`;
+      const testApi = new TestApi();
+      const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
+        newUsername,
+      });
+      expect(newAccountId).toBeGreaterThan(0);
+      const pom = new Pom(page);
+      await pom.signIn({ username: newUsername, password: USER_PASSWORD });
+      await page.getByLabel('Album 1 by Artist 1').click();
+      await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
+      await page.click('button[aria-label="Rate this album with 5 stars"]');
+      await page.waitForLoadState('networkidle');
+      await expect(page.getByLabel('Rate this album with 5 stars')).toBeDefined();
+      await testApi.deleteUser(newAccountId);
+    });
+  });
 });

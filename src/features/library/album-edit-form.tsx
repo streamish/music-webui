@@ -44,7 +44,7 @@ const schema = z.object({
   year: z.coerce.number().optional(),
 });
 
-export function AlbumEditForm({ album, onSave }: { album: Album; onSave: () => void }) {
+export function AlbumEditForm({ album, onSave, className }: { album: Album; onSave: () => void; className?: string }) {
   const [open, setOpen] = useState(false);
   const { setAlbumCustomData } = useCustomData();
   const {
@@ -104,7 +104,9 @@ export function AlbumEditForm({ album, onSave }: { album: Album; onSave: () => v
   return (
     <>
       <Button
-        className="px-2 mb-4 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80"
+        className={[
+          `px-2 mb-4 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80 ${className || ''}`,
+        ].join(' ')}
         onClick={() => setOpen(true)}
         variant="ghost"
         aria-label="Edit album"

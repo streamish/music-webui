@@ -32,48 +32,60 @@ export function AlbumStandaloneDetails({
   return (
     <div
       aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
-      className="w-full h-full flex flex-col grow bg-muted/50 px-4"
+      className="w-full h-full flex flex-col grow bg-muted/50 px-4 pb-20"
       style={{
         backgroundColor: selectedColor,
       }}
     >
       {/* Navigation back to albums */}
-      <div className="flex flex-row justify-between items-center">
-        <menu
-          className="opacity-75 text-right"
-          style={{
-            color: album.coverImageLightMuted,
-            mixBlendMode: 'difference',
-          }}
+      <menu
+        className="text-right"
+        style={{
+          color: getContrastingTextColor(contrastingColor),
+          mixBlendMode: 'screen',
+        }}
+      >
+        <Button
+          variant="ghost"
+          onClick={onClose}
+          className="inline-flex flex-row w-fit self-start m-2"
+          aria-label="Back button"
         >
-          <Button
-            variant="ghost"
-            onClick={onClose}
-            className="inline-flex flex-row w-fit self-start m-2"
-            aria-label="Back button"
-          >
-            <ArrowLeftCircle />
-            Back
-          </Button>
-        </menu>
-      </div>
+          <ArrowLeftCircle />
+          Back
+        </Button>
+      </menu>
       {/* Image */}
       <AlbumFullImage albumId={album.id} size={600} className="w-full" />
       {/* Album info */}
       <div style={{ color: `${getContrastingTextColor(contrastingColor)}`, mixBlendMode: 'screen' }}>
-        <div className="p-8">
-          <h3 className="font-semibold text-2xl mb-2">
-            {album.title} <span className="text-xs">{album.year}</span>
-            <AlbumEditForm album={album} onSave={handleEdit} />
-          </h3>
-          <PlaylistControls tracks={album.tracks} textLabels={true} onEdit={handleEdit} />
-          {trackGroups.map((trackGroup, index) => (
-            <div key={index}>
-              {showDiscTitle && <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>}
-              <AlbumTrackList tracks={trackGroup} onEdit={handleEdit} />
-            </div>
-          ))}
-        </div>
+        <h3 className="font-semibold text-2xl mb-0! pb-0!">
+          {album.title} <span className="text-xs">{album.year}</span>
+          <AlbumEditForm album={album} onSave={handleEdit} className="mb-0" />
+        </h3>
+        <PlaylistControls
+          tracks={album.tracks}
+          album={album}
+          hidePlayButton={true}
+          hideEditButton={true}
+          hideQueueButtons={true}
+          textLabels={true}
+          className="-mx-8 mb-2"
+          onEdit={() => {}}
+        />
+        <PlaylistControls
+          tracks={album.tracks}
+          textLabels={true}
+          onEdit={handleEdit}
+          hideRatingButtons={true}
+          className="m-0!"
+        />
+        {trackGroups.map((trackGroup, index) => (
+          <div key={index}>
+            {showDiscTitle && <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>}
+            <AlbumTrackList tracks={trackGroup} onEdit={handleEdit} />
+          </div>
+        ))}
       </div>
     </div>
   );
