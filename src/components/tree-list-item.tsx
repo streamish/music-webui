@@ -1,5 +1,5 @@
 import { Folder, Music } from 'lucide-react';
-import { PlaybackControls } from './playback-controls';
+import { PlaylistControls } from './playlist-controls';
 import type { TreeItemDto } from '@/hooks/user/use-folders';
 
 export function TreeListItem({
@@ -31,7 +31,7 @@ export function TreeListItem({
         />
         <div className="flex flex-col justify-between">
           <h3 className="text-sm text-foreground/80">{item.folder || item.file}</h3>
-          <div className="text-right">{item.track && <PlaybackControls tracks={[item.track]} onEdit={onEdit} />}</div>
+          <div className="text-right">{item.track && <PlaylistControls tracks={[item.track]} onEdit={onEdit} />}</div>
         </div>
       </div>
     </div>

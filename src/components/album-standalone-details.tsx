@@ -3,7 +3,7 @@ import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { ArrowLeftCircle } from 'lucide-react';
 import { Button } from './ui/button';
-import { PlaybackControls } from './playback-controls';
+import { PlaylistControls } from './playlist-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { getContrastingTextColor } from '@/utils/color';
 import { useAlbum } from '@/hooks/user/use-albums';
@@ -32,11 +32,12 @@ export function AlbumStandaloneDetails({
   return (
     <div
       aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
-      className="w-full flex flex-col grow bg-muted/50 pl-8 -mx-4"
+      className="w-full h-full flex flex-col grow bg-muted/50 px-4"
       style={{
         backgroundColor: selectedColor,
       }}
     >
+      {/* Navigation back to albums */}
       <div className="flex flex-row justify-between items-center">
         <menu
           className="opacity-75 text-right"
@@ -65,7 +66,7 @@ export function AlbumStandaloneDetails({
             {album.title} <span className="text-xs">{album.year}</span>
             <AlbumEditForm album={album} onSave={handleEdit} />
           </h3>
-          <PlaybackControls tracks={album.tracks} textLabels={true} onEdit={handleEdit} />
+          <PlaylistControls tracks={album.tracks} textLabels={true} onEdit={handleEdit} />
           {trackGroups.map((trackGroup, index) => (
             <div key={index}>
               {showDiscTitle && <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>}

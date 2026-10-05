@@ -1,4 +1,4 @@
-import { PlaybackControls } from './playback-controls';
+import { PlaylistControls } from './playlist-controls';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
 import type { Track } from '@/hooks/user/use-tracks';
 
@@ -21,7 +21,7 @@ export function AlbumTrackList({ tracks, onEdit }: { tracks: Track[]; onEdit: ()
             <span className="p-1 opacity-50 w-8 text-right inline-block">{track.trackNumber}.</span>{' '}
             <span className="text-left w-full px-4 flex flex-row">
               <span className="p-1">{track.title}</span>
-              <PlaybackControls
+              <PlaylistControls
                 tracks={[track]}
                 hideQueueButtons={true}
                 hideEditButton={true}

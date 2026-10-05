@@ -28,11 +28,9 @@ export class Pom {
       document.querySelector('div[data-slot="sidebar"]')?.getAttribute('data-state'),
     );
     if (currentState === 'open') {
-      const trigger = await this.page.getByRole('button', { name: 'Close Sidebar' });
-      await trigger.click();
+      await this.page.getByLabel('Close Sidebar', { exact: true }).click();
     } else {
-      const trigger = await this.page.getByRole('button', { name: 'Toggle Sidebar' });
-      await trigger.click();
+      await this.page.getByLabel('Toggle Sidebar', { exact: true }).click();
     }
     await this.page.waitForTimeout(500);
   }
@@ -40,13 +38,28 @@ export class Pom {
   async toggleDarkMode(): Promise<void> {
     const responsiveMode = await this.isResponsive();
     if (responsiveMode) {
-      await this.page.getByRole('button', { name: 'Toggle Sidebar' }).click();
+      await this.page.getByLabel('Toggle Sidebar', { exact: true }).click();
       await this.page.locator('button[aria-label="Toggle dark mode"]').last().waitFor({ state: 'visible' });
       await this.page.getByRole('button', { name: 'Toggle dark mode' }).last().click();
     } else {
       await this.page.locator('button[aria-label="Toggle dark mode"]').first().waitFor({ state: 'visible' });
       await this.page.getByRole('button', { name: 'Toggle dark mode' }).first().click();
     }
+  }
+
+  async openPlaybackQueue() {
+    const responsiveMode = await this.isResponsive();
+    await this.page.getByLabel('Show or hide playback queue', { exact: true }).click();
+    await this.page.getByLabel('Show queue items', { exact: true }).count();
+    if (responsiveMode) {
+      await this.page.getByLabel('Show queue items', { exact: true }).click();
+    }
+
+    // await this.page.getByLabel('Show or hide playback queue', { exact: true }).click();
+    // const queueItemsLink = await this.page.getByLabel('Show queue items', { exact: true }).count();
+    // if (queueItemsLink) {
+    //   await this.page.getByLabel('Show queue items', { exact: true }).click();
+    // }
   }
 
   async isResponsive(): Promise<boolean> {

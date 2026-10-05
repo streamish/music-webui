@@ -1,7 +1,7 @@
 import { AlbumEditForm } from '@/features/library/album-edit-form';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
-import { PlaybackControls } from './playback-controls';
+import { PlaylistControls } from './playlist-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { useAlbum } from '@/hooks/user/use-albums';
 import { useMemo, useRef } from 'react';
@@ -38,14 +38,27 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
         }}
       >
         {/* Image on the right */}
-        <div className="absolute z-1 top-0 right-0 w-120 h-full overflow-hidden">
-          <AlbumFullImage albumId={album.id} size={600} className="absolute z-0 w-120 h-120 object-cover" />
-          <div className="absolute top-120 right-0 z-1 h-30 w-120 overflow-hidden">
+        <div className="absolute z-1 top-0 right-0 w-60 md:w-80 lg:w-100 xl:w-120 h-full overflow-hidden">
+          <AlbumFullImage
+            albumId={album.id}
+            size={600}
+            className="absolute z-0 w-60 md:w-80 lg:w-100 xl:w-120 object-cover"
+          />
+          <div
+            className={[
+              'absolute top-60 md:top-80 lg:top-100 xl:top-120 right-0 z-1 h-30',
+              'w-60 md:w-80 lg:w-100 xl:w-120 overflow-hidden',
+            ].join(' ')}
+          >
             {/* Reflected image */}
             <div className="opacity-30">
-              <AlbumFullImage albumId={album.id} size={600} className="absolute z-2 w-120 h-120 scale-y-[-1]" />
+              <AlbumFullImage
+                albumId={album.id}
+                size={600}
+                className="absolute z-2 w-60 md:w-80 lg:w-100 xl:w-120 scale-y-[-1]"
+              />
               <div
-                className="absolute z-3 top-0 right-0 w-120 h-60"
+                className="absolute z-3 top-0 right-0 w-60 md:w-80 lg:w-100 xl:w-120 h-60"
                 style={{
                   background: `linear-gradient(
                   to top,
@@ -85,7 +98,7 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
         <div className="relative z-3">
           {/* Physical filler */}
           <div
-            className="p-4 lg:pl-8 mr-120 2xl:mr-140"
+            className="p-4 lg:pl-8 mr-60 md:mr-80 lg:mr-100 xl:mr-120 2xl:mr-140"
             style={{
               color: album.coverImageLightMuted,
               mixBlendMode: 'difference',
@@ -96,7 +109,7 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
               {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
               <AlbumEditForm album={album} onSave={handleEdit} />
             </h3>
-            <PlaybackControls tracks={album.tracks} textLabels={true} className="mb-2" onEdit={handleEdit} />
+            <PlaylistControls tracks={album.tracks} textLabels={true} className="mb-2" onEdit={handleEdit} />
             <div className="lg:grid lg:grid-rows-2 2xl:grid-rows-none 2xl:grid-cols-2 gap-0 2xl:gap-20">
               {trackGroups.map((trackGroup, index) => {
                 return (

@@ -11,7 +11,7 @@ import { TrackTable } from '@/components/track-table';
 import { formatSlug } from '@/utils/format';
 import { useAlbumAssociations, useAssociation, useTrackAssociations } from '@/hooks/user/use-associations';
 import { useGridColumnCount } from '@/hooks/use-grid-column-count';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 type ViewingGroup = 'album-artists' | 'track-artists' | 'track-composers' | 'track-genres';
@@ -87,7 +87,7 @@ function usePageAssociations({
 
 export const AssociationsPage = memo(() => {
   const { pathname } = useLocation();
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
   const associationType = getAssociationType(pathname);
   const isAlbumArtists = getIsAlbumArtists(pathname);
   const groupUrl = getGroupUrl(associationType, isAlbumArtists);
@@ -309,13 +309,16 @@ export const AssociationsPage = memo(() => {
         {/* Associations list */}
         {(!isMobile || !expandedAssociation) && (
           <ul
-            className={['flex flex-col overflow-y-scroll pb-2 h-[calc(100vh-12rem)]', isMobile ? '' : 'max-w-100'].join(
-              ' ',
-            )}
+            className={[
+              'flex flex-col overflow-y-auto h-[calc(100vh-9rem)]',
+              isMobile ? '' : 'max-w-100 min-w-50',
+              'bg-accent/50',
+              'mr-2',
+            ].join(' ')}
           >
             {associations.map((item) => {
               return (
-                <li className="w-full px-2" key={`association-${item.id}`}>
+                <li className="w-full px-2 py-1 first:pt-2 last:pb-2" key={`association-${item.id}`}>
                   <AssociationListItem
                     association={item}
                     isExpanded={expandedAssociationId === item.id}
@@ -327,116 +330,118 @@ export const AssociationsPage = memo(() => {
           </ul>
         )}
         {/* Association details */}
-        <div className="w-full overflow-y-scroll h-[calc(100vh-11rem)]">
-          <div className="flex flex-row justify-between items-center">
-            <div className="w-full flex flex-row px-4 md:px-0 lg:px-0">
-              <h2 className="text-lg font-semibold">{expandedAssociation?.name || 'Loading...'}</h2>
-              {expandedAssociation && (
-                <AssociationEditForm
-                  association={expandedAssociation}
-                  associationType={associationType}
-                  onSave={refresh}
-                />
+        <div className="w-full overflow-y-auto h-[calc(100vh-9rem)]">
+          <div className="pt-2">
+            <div className="flex flex-row justify-between items-center">
+              <div className="w-full flex flex-row px-4 md:px-0 lg:px-0">
+                <h2 className="text-lg font-semibold">{expandedAssociation?.name || 'Loading...'}</h2>
+                {expandedAssociation && (
+                  <AssociationEditForm
+                    association={expandedAssociation}
+                    associationType={associationType}
+                    onSave={refresh}
+                  />
+                )}
+              </div>
+              {isMobile && (
+                <menu className="opacity-75 w-full text-right">
+                  <Button
+                    variant="ghost"
+                    onClick={onBack}
+                    className="inline-flex flex-row w-fit self-start m-2"
+                    aria-label="Back button"
+                  >
+                    <ArrowLeftCircle />
+                    Back
+                  </Button>
+                </menu>
               )}
             </div>
-            {isMobile && (
-              <menu className="opacity-75 w-full text-right">
-                <Button
-                  variant="ghost"
-                  onClick={onBack}
-                  className="inline-flex flex-row w-fit self-start m-2"
-                  aria-label="Back button"
-                >
-                  <ArrowLeftCircle />
-                  Back
-                </Button>
-              </menu>
+            {viewingGroup !== 'track-genres' && (
+              <>
+                {/* Group buttons */}
+                <menu className="p-1 bg-foreground/10 inline-block rounded-lg">
+                  {tabButtons.map((button, index) => (
+                    <li key={`button-${index}`} className="inline-block">
+                      {button}
+                    </li>
+                  ))}
+                </menu>
+                {viewingGroup === 'album-artists' && (
+                  <>
+                    {isMobile && (
+                      <ul ref={listRef} className="flex flex-col grow overflow-y-scroll h-[calc(100vh-9rem)]">
+                        {albums.map((item, index) => {
+                          const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
+                          return (
+                            <>
+                              {!expandedAlbumId && (
+                                <li className="w-full p-2" key={item.id}>
+                                  <AlbumListItem
+                                    album={item}
+                                    isExpanded={expandedAlbumId === item.id}
+                                    onToggle={() => toggleAlbum(item.id)}
+                                  />
+                                </li>
+                              )}
+                              {shouldInsertDetails && (
+                                <li className="album-details col-span-full pt-4">
+                                  <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refresh} />
+                                </li>
+                              )}
+                            </>
+                          );
+                        })}
+                      </ul>
+                    )}
+                    {!isMobile && (
+                      <ul
+                        ref={listRef}
+                        className={[
+                          'w-full',
+                          'grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))]',
+                          'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
+                          'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
+                          'items-start',
+                          'content-start',
+                          'auto-rows-max',
+                          'justify-start',
+                          'gap-4',
+                        ].join(' ')}
+                      >
+                        {albums.map((item, index) => {
+                          const isExpanded = expandedAssociationId === item.id;
+                          const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
+                          return (
+                            <Fragment key={`albums-${item.id}`}>
+                              <li className="w-full inline-flex align-middle justify-center">
+                                <AlbumCard album={item} isExpanded={isExpanded} onToggle={() => toggleAlbum(item.id)} />
+                              </li>
+                              {shouldInsertDetails && (
+                                <li className="album-details col-span-full pt-4">
+                                  <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refresh} />
+                                </li>
+                              )}
+                            </Fragment>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </>
+                )}
+                {viewingGroup !== 'album-artists' && (
+                  <div className="w-full" key={expandedAssociationId}>
+                    <TrackTable albums={albums} onEdit={refresh} />
+                  </div>
+                )}
+              </>
+            )}
+            {viewingGroup === 'track-genres' && (
+              <div className="w-full" key={expandedAssociationId}>
+                <TrackTable albums={expandedAssociation?.genreCredits || []} onEdit={refresh} />
+              </div>
             )}
           </div>
-          {viewingGroup !== 'track-genres' && (
-            <>
-              {/* Group buttons */}
-              <menu className="p-1 bg-foreground/10 inline-block rounded-lg">
-                {tabButtons.map((button, index) => (
-                  <li key={`button-${index}`} className="inline-block">
-                    {button}
-                  </li>
-                ))}
-              </menu>
-              {viewingGroup === 'album-artists' && (
-                <>
-                  {isMobile && (
-                    <ul ref={listRef} className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
-                      {albums.map((item, index) => {
-                        const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
-                        return (
-                          <>
-                            {!expandedAlbumId && (
-                              <li className="w-full p-2" key={item.id}>
-                                <AlbumListItem
-                                  album={item}
-                                  isExpanded={expandedAlbumId === item.id}
-                                  onToggle={() => toggleAlbum(item.id)}
-                                />
-                              </li>
-                            )}
-                            {shouldInsertDetails && (
-                              <li className="album-details col-span-full pt-4">
-                                <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refresh} />
-                              </li>
-                            )}
-                          </>
-                        );
-                      })}
-                    </ul>
-                  )}
-                  {!isMobile && (
-                    <ul
-                      ref={listRef}
-                      className={[
-                        'w-full',
-                        'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
-                        'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
-                        'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
-                        'items-start',
-                        'content-start',
-                        'auto-rows-max',
-                        'justify-start',
-                        'gap-4',
-                      ].join(' ')}
-                    >
-                      {albums.map((item, index) => {
-                        const isExpanded = expandedAssociationId === item.id;
-                        const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
-                        return (
-                          <Fragment key={`albums-${item.id}`}>
-                            <li className="w-full inline-flex align-middle justify-center">
-                              <AlbumCard album={item} isExpanded={isExpanded} onToggle={() => toggleAlbum(item.id)} />
-                            </li>
-                            {shouldInsertDetails && (
-                              <li className="album-details col-span-full pt-4">
-                                <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refresh} />
-                              </li>
-                            )}
-                          </Fragment>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </>
-              )}
-              {viewingGroup !== 'album-artists' && (
-                <div className="w-full" key={expandedAssociationId}>
-                  <TrackTable albums={albums} onEdit={refresh} />
-                </div>
-              )}
-            </>
-          )}
-          {viewingGroup === 'track-genres' && (
-            <div className="w-full" key={expandedAssociationId}>
-              <TrackTable albums={expandedAssociation?.genreCredits || []} onEdit={refresh} />
-            </div>
-          )}
         </div>
       </div>
     </div>

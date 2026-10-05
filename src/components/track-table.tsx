@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
-import { PlaybackControls } from './playback-controls';
+import { PlaylistControls } from './playlist-controls';
 import { formatSlug, secondsToMinutesAndSeconds } from '@/utils/format';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 import type { components } from '@/types/api-schema';
 
 type Album = components['schemas']['LibraryAlbumWithTracksDto'];
 type Track = components['schemas']['LibraryAlbumWithTracksDto']['tracks'][number];
 
 export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; tracks?: Track[]; onEdit: () => void }) {
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
   const trackList = tracks || (albums?.flatMap((album) => album.tracks) ?? []);
   return (
     <>
@@ -26,6 +26,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
               <tr
                 key={track.id}
                 className={[`py-1 ${index % 2 === 0 ? 'bg-foreground/5' : ''}`, `hover:bg-foreground/10`].join(' ')}
+                aria-label={`Track item ${index + 1}`}
               >
                 <td className="px-2 py-1 text-left">
                   <span className="text-md">{track.title}</span>
@@ -40,7 +41,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
                 <td className="px-2 py-1 text-left">
-                  <PlaybackControls tracks={[track]} onEdit={onEdit} />
+                  <PlaylistControls tracks={[track]} onEdit={onEdit} />
                 </td>
               </tr>
             ))}
@@ -48,15 +49,15 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
         </table>
       )}
       {!isMobile && (
-        <table className="w-full border-collapse">
+        <table className="w-full border-collapse" aria-label="Track items">
           <thead>
             <tr>
               <th className="px-2 py-1 text-left text-foreground/70">Title</th>
               <th className="px-2 py-1 text-left text-foreground/70">Time</th>
               <th className="px-2 py-1 text-left text-foreground/70">Album</th>
               <th className="px-2 py-1 text-left text-foreground/70">Album Artist</th>
-              <th className="px-2 py-1 text-left text-foreground/70">Track Artist</th>
-              <th className="px-2 py-1 text-left text-foreground/70">Track Composers</th>
+              <th className="px-2 py-1 text-left text-foreground/70">Artist</th>
+              <th className="px-2 py-1 text-left text-foreground/70">Composers</th>
               <th className="px-2 py-1 text-left text-foreground/70">Genres</th>
               <th className="px-2 py-1 text-left text-foreground/70"></th>
             </tr>
@@ -106,7 +107,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                   ))}
                 </td>
                 <td>
-                  <PlaybackControls tracks={[track]} onEdit={onEdit} />
+                  <PlaylistControls tracks={[track]} onEdit={onEdit} />
                 </td>
               </tr>
             ))}

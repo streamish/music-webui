@@ -1,27 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { DataCard, DataCardContent, DataCardSubtitle, DataCardTitle } from '@/components/data-card';
-import {
-  DataTable,
-  DataTableBody,
-  DataTableCell,
-  DataTableHeader,
-  DataTableHeaderCell,
-  DataTableRow,
-} from '@/components';
-import { DownloadIcon, LogsIcon, RefreshCcwIcon } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import { formatDateToRelative } from '@/utils/format';
+import { DownloadIcon, LogsIcon } from 'lucide-react';
 import { memo } from 'react';
 import { useIndexer } from '@/hooks/admin/use-indexer';
-import { useIsMobile } from '@/hooks/use-is-mobile';
 
 export const IndexerLogsTable = memo(() => {
-  const { isLoadingLogs, indexerLogs, listIndexerLogs } = useIndexer();
-  const isMobile = useIsMobile();
-
-  const handleRefresh = async () => {
-    await listIndexerLogs();
-  };
+  const { indexerLogs } = useIndexer();
 
   const handleViewRaw = async () => {
     let maximumDateLength = 0;
@@ -107,57 +90,22 @@ export const IndexerLogsTable = memo(() => {
     URL.revokeObjectURL(url);
   };
 
-  const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
-  const dummyRows = [
-    {
-      accountId: -1,
-      date: '',
-      username: '',
-      rootPath: '',
-      message: '',
-    },
-    {
-      accountId: -2,
-      date: '',
-      username: '',
-      rootPath: '',
-      message: '',
-    },
-    {
-      accountId: -3,
-      date: '',
-      username: '',
-      rootPath: '',
-      message: '',
-    },
-  ];
-
-  const dateInformation = (dateString: string) => {
-    const date = new Date(Date.parse(dateString));
-    return <span title={date.toLocaleString()}>{formatDateToRelative(date)}</span>;
-  };
-
   return (
     <>
-      {isLoadingLogs ? (
-        <Button className="mr-2 mb-4" variant="outline" disabled>
-          <RefreshCcwIcon className="animate-spin" />
-          Loading
-        </Button>
-      ) : (
-        <Button className="mr-2 mb-4" variant="outline" onClick={handleRefresh}>
-          <RefreshCcwIcon />
-          Refresh
-        </Button>
-      )}
-      <Button role="button" aria-label="View raw logs" className="mr-2 mb-4" variant="outline" onClick={handleViewRaw}>
+      <Button
+        role="button"
+        aria-label="View raw logs"
+        className=" text-xs mr-2 mb-4 uppercase"
+        variant="outline"
+        onClick={handleViewRaw}
+      >
         <LogsIcon />
-        View
+        View Indexer logs
       </Button>
       <Button
         role="button"
         aria-label="Download logs as JSON"
-        className="mr-2 mb-4"
+        className=" text-xs mr-2 mb-4 uppercase"
         variant="outline"
         onClick={handleDownloadJson}
       >
@@ -167,73 +115,13 @@ export const IndexerLogsTable = memo(() => {
       <Button
         role="button"
         aria-label="Download logs as CSV"
-        className="mb-2"
+        className=" text-xs mb-2 uppercase"
         variant="outline"
         onClick={handleDownloadCsv}
       >
         <DownloadIcon />
         CSV
       </Button>
-      {/* Mobile card view */}
-      {isMobile && (
-        <>
-          {(isLoadingLogs ? dummyRows : indexerLogs).map((log, index) => {
-            const opacity = index % 2 === 0 ? 20 : 10;
-            return (
-              <DataCard key={`card-${log.accountId}-${index}`} className="mb-4">
-                <DataCardTitle>{log.date ? dateInformation(log.date) : cellFiller(opacity)}</DataCardTitle>
-                <DataCardContent>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <DataCardSubtitle>Username</DataCardSubtitle>
-                      <p className="text-sm">{log.username || (log.accountId < 0 ? cellFiller(opacity) : '-')}</p>
-                    </div>
-                    <div>
-                      <DataCardSubtitle>Root path</DataCardSubtitle>
-                      <p className="text-sm">{log.rootPath || (log.accountId < 0 ? cellFiller(opacity) : '-')}</p>
-                    </div>
-                  </div>
-                  <p className="text-sm">{log.message.replace(log.rootPath, '') || cellFiller(opacity)}</p>
-                </DataCardContent>
-                <Separator />
-              </DataCard>
-            );
-          })}
-        </>
-      )}
-
-      {/* Desktop table view */}
-      {!isMobile && (
-        <DataTable>
-          <DataTableHeader>
-            <DataTableHeaderCell className="w-50">Date</DataTableHeaderCell>
-            <DataTableHeaderCell className="w-50">Username</DataTableHeaderCell>
-            <DataTableHeaderCell className="w-100">Root path</DataTableHeaderCell>
-            <DataTableHeaderCell>Message</DataTableHeaderCell>
-          </DataTableHeader>
-          <DataTableBody>
-            {(isLoadingLogs ? dummyRows : indexerLogs).map((log, index) => {
-              const opacity = index % 2 === 0 ? 20 : 10;
-              return (
-                <DataTableRow key={`row-${log.accountId}-${index}`}>
-                  <DataTableCell className="text-foreground/50 text-xs">
-                    {log.date ? dateInformation(log.date) : cellFiller(opacity)}
-                  </DataTableCell>
-                  <DataTableCell className="text-foreground/70 text-xs">
-                    {log.username || (log.accountId < 0 ? cellFiller(opacity) : '-')}
-                  </DataTableCell>
-                  <DataTableCell className="text-foreground/70 text-xs">
-                    {log.rootPath || (log.accountId < 0 ? cellFiller(opacity) : '-')}
-                  </DataTableCell>
-                  <DataTableCell className="text-foreground/70 text-xs">
-                    {log.message.replace(log.rootPath, '') || cellFiller(opacity)}
-                  </DataTableCell>
-                </DataTableRow>
-              );
-            })}
-          </DataTableBody>
-        </DataTable>
-      )}
     </>
   );
 });

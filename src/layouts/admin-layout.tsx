@@ -1,7 +1,7 @@
 import { AppSidebar, primaryLinks, secondaryLinks } from '@/components/app-sidebar';
 import { IndexerProvider } from '@/hooks/admin/use-indexer';
 import { Outlet, useLocation, useNavigate } from 'react-router';
-import { QueueControls } from '@/components/queue-controls';
+import { QueueControls } from '@/features/library/queue-controls';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/use-auth';

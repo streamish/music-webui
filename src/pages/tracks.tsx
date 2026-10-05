@@ -9,7 +9,7 @@ import { useSearchParams } from 'react-router';
 import { useTracks } from '@/hooks/user/use-tracks';
 
 export default function TracksPage() {
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
   const { preferences } = usePreferences();
@@ -47,7 +47,7 @@ export default function TracksPage() {
           <PageHeader>
             <PaginationControls page={pageNumber} setPage={setPage} items={totalTracks} />
           </PageHeader>
-          <div className="overflow-y-scroll h-[calc(100vh-11rem)]">
+          <div className="overflow-y-auto h-[calc(100vh-9rem)]">
             {isMobile && (
               <ul className="flex grow flex-col">
                 {tracks.map((item) => (

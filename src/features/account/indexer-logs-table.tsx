@@ -17,7 +17,7 @@ import { useIsMobile } from '@/hooks/use-is-mobile';
 
 export const IndexerLogsTable = memo(() => {
   const { indexerLogsLoading, indexerLogs, listIndexerLogs } = useIndexer();
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
 
   const handleRefresh = async () => {
     await listIndexerLogs();

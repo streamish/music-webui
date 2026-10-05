@@ -1,6 +1,7 @@
 import { Album, Folder, LogOut, type LucideIcon, Moon, Music, Settings, Tags, User, Users, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavLink } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 
 import { DarkModeSwitch } from '@/features/dark-mode-switch';
 import {
@@ -86,6 +87,7 @@ export const secondaryLinks: NavigationItem[] = [
 export function AppSidebar() {
   const { preferences } = usePreferences();
   const { setOpenMobile } = useSidebar();
+  const { isMobile } = useIsMobile();
 
   const closeMobileSidebar = () => {
     setOpenMobile(false);
@@ -96,21 +98,23 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar>
+    <Sidebar className="border-transparent">
       <SidebarHeader>
         <div className="flex items-center gap-3 px-2 py-2 cursor-default" onClick={closeMobileSidebar}>
           <div>
-            <img src="/public/images/logo.png" className="w-12 h-12" />
+            <img src="/images/logo.png" className="w-12 h-12" />
           </div>
           <span className="font-semibold">Music Player</span>
-          <Button
-            variant="ghost"
-            onClick={closeMobileSidebar}
-            aria-label="Close Sidebar"
-            className="ml-auto cursor-pointer"
-          >
-            <X />
-          </Button>
+          {isMobile && (
+            <Button
+              variant="ghost"
+              onClick={closeMobileSidebar}
+              aria-label="Close Sidebar"
+              className="ml-auto cursor-pointer"
+            >
+              <X />
+            </Button>
+          )}
         </div>
       </SidebarHeader>
       <SidebarContent>

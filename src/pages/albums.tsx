@@ -14,7 +14,7 @@ import { usePreferences } from '@/hooks/use-preferences';
 
 export default function AlbumsPage() {
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
   const { albumId } = useParams<{ albumId: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
@@ -95,9 +95,9 @@ export default function AlbumsPage() {
             </PageHeader>
           )}
           {isMobile && (
-            <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-11rem)]">
+            <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-4rem)] md:h-[calc(100vh-9rem)]">
               {expandedAlbumId && (
-                <li className="album-details col-span-full flex flex-col grow  -mx-4">
+                <li className="album-details col-span-full flex flex-col grow">
                   {expandedAlbum && (
                     <AlbumStandaloneDetails
                       albumId={expandedAlbumId}
@@ -128,8 +128,8 @@ export default function AlbumsPage() {
                 'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
                 'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
                 'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
-                'gap-4 mx-4',
-                'overflow-y-scroll h-[calc(100vh-11rem)]',
+                'gap-4',
+                'overflow-y-scroll h-[calc(100vh-9rem)]',
               ].join(' ')}
             >
               {albums.map((item, index) => {
@@ -144,7 +144,7 @@ export default function AlbumsPage() {
                       <AlbumCard album={item} isExpanded={isExpanded} onToggle={() => toggleAlbum(item.id)} />
                     </li>
                     {shouldInsertDetails && (
-                      <li className="album-details col-span-full -mx-4 pt-4">
+                      <li className="album-details col-span-full mt-4">
                         <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refetchAlbums} />
                       </li>
                     )}

@@ -37,7 +37,7 @@ function findBreadCrumb(id: number, items: TreeItemDto[], path: TreeItemDto[] = 
 export default function FoldersPage() {
   const navigate = useNavigate();
   const { folders, refetchFolders } = useFolders();
-  const isMobile = useIsMobile();
+  const { isMobile } = useIsMobile();
   const listRef = useRef(null);
   const { folderId } = useParams<{ folderId: string }>();
   const expandedItemId = Number(folderId) ?? null;
@@ -45,14 +45,12 @@ export default function FoldersPage() {
   const expandedItem = expandedItemId ? breadcrumb[breadcrumb.length - 1] : null;
   const items = expandedItem?.children || folders || [];
 
-  if (breadcrumb.length) {
-    breadcrumb.unshift({
-      id: 0,
-      folder: 'Root paths',
-      fullPath: '',
-      children: folders ?? [],
-    });
-  }
+  breadcrumb.unshift({
+    id: 0,
+    folder: 'Root paths',
+    fullPath: '',
+    children: folders ?? [],
+  });
 
   const toggleFolder = useCallback(
     (item: TreeItemDto) => {
@@ -107,50 +105,46 @@ export default function FoldersPage() {
           })}
         </BreadcrumbList>
       </Breadcrumb>
-      <div className=" overflow-y-scroll h-[calc(100vh-13rem)]">
+      <div className="overflow-y-scroll h-[calc(100vh-9rem)] pb-20">
         {isMobile && (
-          <>
-            <ul className="flex flex-col grow" aria-label="Folder list">
-              {items.length > 0 &&
-                items
-                  .filter((item: TreeItemDto) => item.folder)
-                  .map((item: TreeItemDto, index) => {
-                    return (
-                      <li
-                        className="w-full p-2"
-                        key={`mobile-album ${item.fullPath}`}
-                        aria-label={`Track item ${index + 1}`}
-                      >
-                        <TreeListItem item={item} onToggle={() => toggleFolder(item)} onEdit={refetchFolders} />
-                      </li>
-                    );
-                  })}
-            </ul>
-          </>
-        )}
-        {!isMobile && (
-          <>
-            <ul
-              ref={listRef}
-              className={[
-                'grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))]',
-                'md:grid-cols-[repeat(auto-fill,minmax(8rem,1fr))]',
-                'lg:grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] ',
-                'gap-4 mx-4',
-              ].join(' ')}
-              aria-label="Folder list"
-            >
-              {items
+          <ul className="flex flex-col grow" aria-label="Folder list">
+            {items.length > 0 &&
+              items
                 .filter((item: TreeItemDto) => item.folder)
-                .map((item) => {
+                .map((item: TreeItemDto, index) => {
                   return (
-                    <li className="w-full h-full inline-flex align-middle justify-center" key={`folder ${item.id}`}>
-                      <TreeCard item={item} onToggle={() => toggleFolder(item)} />
+                    <li
+                      className="w-full p-2"
+                      key={`mobile-album ${item.fullPath}`}
+                      aria-label={`Track item ${index + 1}`}
+                    >
+                      <TreeListItem item={item} onToggle={() => toggleFolder(item)} onEdit={refetchFolders} />
                     </li>
                   );
                 })}
-            </ul>
-          </>
+          </ul>
+        )}
+        {!isMobile && (
+          <ul
+            ref={listRef}
+            className={[
+              'grid grid-cols-[repeat(auto-fill,minmax(6rem,1fr))]',
+              'md:grid-cols-[repeat(auto-fill,minmax(8rem,1fr))]',
+              'lg:grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] ',
+              'gap-4 mx-4',
+            ].join(' ')}
+            aria-label="Folder list"
+          >
+            {items
+              .filter((item: TreeItemDto) => item.folder)
+              .map((item) => {
+                return (
+                  <li className="w-full h-full inline-flex align-middle justify-center" key={`folder ${item.id}`}>
+                    <TreeCard item={item} onToggle={() => toggleFolder(item)} />
+                  </li>
+                );
+              })}
+          </ul>
         )}
         {tracks.length > 0 && (
           <div className="w-full px-4">
