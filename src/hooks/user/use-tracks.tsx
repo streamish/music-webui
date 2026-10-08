@@ -5,7 +5,10 @@ import type { paths } from 'src/types/api-schema';
 type ListEndpoint = paths['/api/user/list-tracks']['get'];
 type ListEndpointQuery = ListEndpoint['parameters']['query'];
 type ListEndpointResponse = ListEndpoint['responses']['200']['content']['application/json'];
-type ListEndpointErrorMessage = ListEndpoint['responses']['400']['content']['application/json']['message'][number];
+type ListEndpointErrorMessage =
+  | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | ListEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type SetTrackRatingEndpoint = paths['/api/user/set-track-rating']['put'];
 type SetTrackRatingQuery = SetTrackRatingEndpoint['parameters']['query'];
@@ -13,6 +16,7 @@ type SetTrackRatingBody = SetTrackRatingEndpoint['requestBody']['content']['appl
 type SetTrackRatingEndpointResponse = SetTrackRatingEndpoint['responses']['200']['content']['application/json'];
 type SetTrackRatingEndpointErrorMessage =
   | SetTrackRatingEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | SetTrackRatingEndpoint['responses']['403']['content']['application/json']['message'][number]
   | SetTrackRatingEndpoint['responses']['404']['content']['application/json']['message'][number];
 
 type SetTrackRatingVariables = {
@@ -24,7 +28,7 @@ export type Track = ListEndpointResponse['tracks'][number];
 
 async function fetchTracks(query: ListEndpointQuery): Promise<ListEndpointResponse> {
   const { data, error } = await api.get('/api/user/list-tracks', {
-    params: { header: api.authHeader(), query },
+    params: { query },
   });
   if (error) {
     throw new TypedApiError<ListEndpointErrorMessage>(error.message, error.error);
@@ -38,7 +42,6 @@ async function fetchTracks(query: ListEndpointQuery): Promise<ListEndpointRespon
 async function setTrackRating({ body, query }: SetTrackRatingVariables): Promise<SetTrackRatingEndpointResponse> {
   const { data, error } = await api.put('/api/user/set-track-rating', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,

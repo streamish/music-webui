@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
+import api, { TypedApiError } from '@/lib/api';
 import type { paths } from 'src/types/api-schema';
 
 type ListEndpoint = paths['/api/user/folder-structure']['get'];
@@ -7,11 +7,13 @@ type ListEndpointResponse = ListEndpoint['responses']['200']['content']['applica
 export type TreeItemDto = ListEndpointResponse['items'][number];
 
 async function fetchFolders(): Promise<ListEndpointResponse> {
-  const { data, error } = await api.get('/api/user/folder-structure', {
-    params: { header: api.authHeader() },
-  });
+  const { data, error } = await api.get('/api/user/folder-structure');
   if (error) {
-    throw new Error(error);
+    throw new TypedApiError<
+      | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >(error.message, error.error);
   }
   if (!data?.items?.length) {
     throw new Error('No folders received');

@@ -7,38 +7,50 @@ type ListAlbumAssociationsEndpointQuery = ListAlbumAssociationsEndpoint['paramet
 type ListAlbumAssociationsEndpointResponse =
   ListAlbumAssociationsEndpoint['responses']['200']['content']['application/json'];
 type ListAlbumAssociationsEndpointErrorMessage =
-  ListAlbumAssociationsEndpoint['responses']['400']['content']['application/json']['message'][number];
+  | ListAlbumAssociationsEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | ListAlbumAssociationsEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | ListAlbumAssociationsEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type ListTrackAssociationsEndpoint = paths['/api/user/list-track-associations']['get'];
 type ListTrackAssociationsEndpointQuery = ListTrackAssociationsEndpoint['parameters']['query'];
 type ListTrackAssociationsEndpointResponse =
   ListTrackAssociationsEndpoint['responses']['200']['content']['application/json'];
 type ListTrackAssociationsEndpointErrorMessage =
-  ListTrackAssociationsEndpoint['responses']['400']['content']['application/json']['message'][number];
+  | ListTrackAssociationsEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | ListTrackAssociationsEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | ListTrackAssociationsEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type RetrieveEndpoint = paths['/api/user/retrieve-association']['get'];
 type RetrieveEndpointQuery = RetrieveEndpoint['parameters']['query'];
 type RetrieveEndpointResponse = RetrieveEndpoint['responses']['200']['content']['application/json'];
 type RetrieveEndpointErrorMessage =
-  RetrieveEndpoint['responses']['404']['content']['application/json']['message'][number];
+  | RetrieveEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | RetrieveEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | RetrieveEndpoint['responses']['404']['content']['application/json']['message'][number];
 
 type SetArtistNameEndpoint = paths['/api/user/set-artist-name']['patch'];
 type SetArtistNameEndpointResponse = SetArtistNameEndpoint['responses']['200']['content']['application/json'];
 type SetArtistNameEndpointErrorMessage =
   | SetArtistNameEndpoint['responses']['400']['content']['application/json']['message'][number]
-  | SetArtistNameEndpoint['responses']['404']['content']['application/json']['message'][number];
+  | SetArtistNameEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | SetArtistNameEndpoint['responses']['404']['content']['application/json']['message'][number]
+  | SetArtistNameEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type SetComposerNameEndpoint = paths['/api/user/set-composer-name']['patch'];
 type SetComposerNameEndpointResponse = SetComposerNameEndpoint['responses']['200']['content']['application/json'];
 type SetComposerNameEndpointErrorMessage =
   | SetComposerNameEndpoint['responses']['400']['content']['application/json']['message'][number]
-  | SetComposerNameEndpoint['responses']['404']['content']['application/json']['message'][number];
+  | SetComposerNameEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | SetComposerNameEndpoint['responses']['404']['content']['application/json']['message'][number]
+  | SetComposerNameEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type SetGenreNameEndpoint = paths['/api/user/set-genre-name']['patch'];
 type SetGenreNameEndpointResponse = SetGenreNameEndpoint['responses']['200']['content']['application/json'];
 type SetGenreNameEndpointErrorMessage =
   | SetGenreNameEndpoint['responses']['400']['content']['application/json']['message'][number]
-  | SetGenreNameEndpoint['responses']['404']['content']['application/json']['message'][number];
+  | SetGenreNameEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | SetGenreNameEndpoint['responses']['404']['content']['application/json']['message'][number]
+  | SetGenreNameEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type SetArtistNameVariables = {
   body: SetArtistNameEndpoint['requestBody']['content']['application/json'];
@@ -62,7 +74,7 @@ async function fetchAlbumAssociations(
   query: ListAlbumAssociationsEndpointQuery,
 ): Promise<ListAlbumAssociationsEndpointResponse> {
   const { data, error } = await api.get('/api/user/list-album-associations', {
-    params: { header: api.authHeader(), query },
+    params: { query },
   });
   if (error) {
     throw new TypedApiError<ListAlbumAssociationsEndpointErrorMessage>(error.message, error.error);
@@ -77,7 +89,7 @@ async function fetchTrackAssociations(
   query: ListTrackAssociationsEndpointQuery,
 ): Promise<ListTrackAssociationsEndpointResponse> {
   const { data, error } = await api.get('/api/user/list-track-associations', {
-    params: { header: api.authHeader(), query },
+    params: { query },
   });
   if (error) {
     throw new TypedApiError<ListTrackAssociationsEndpointErrorMessage>(error.message, error.error);
@@ -90,7 +102,7 @@ async function fetchTrackAssociations(
 
 async function fetchAssociation(query: RetrieveEndpointQuery): Promise<RetrieveEndpointResponse> {
   const { data, error } = await api.get('/api/user/retrieve-association', {
-    params: { header: api.authHeader(), query },
+    params: { query },
   });
   if (error) {
     throw new TypedApiError<RetrieveEndpointErrorMessage>(error.message, error.error);
@@ -104,7 +116,6 @@ async function fetchAssociation(query: RetrieveEndpointQuery): Promise<RetrieveE
 async function setArtistName({ body, query }: SetArtistNameVariables): Promise<SetArtistNameEndpointResponse> {
   const { data, error } = await api.patch('/api/user/set-artist-name', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,
@@ -124,7 +135,6 @@ async function setArtistName({ body, query }: SetArtistNameVariables): Promise<S
 async function setComposerName({ body, query }: SetComposerNameVariables): Promise<SetComposerNameEndpointResponse> {
   const { data, error } = await api.patch('/api/user/set-composer-name', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,
@@ -144,7 +154,6 @@ async function setComposerName({ body, query }: SetComposerNameVariables): Promi
 async function setGenreName({ body, query }: SetGenreNameVariables): Promise<SetGenreNameEndpointResponse> {
   const { data, error } = await api.patch('/api/user/set-genre-name', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,

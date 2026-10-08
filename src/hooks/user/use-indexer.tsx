@@ -17,14 +17,13 @@ async function fetchIndexerLogs(query?: ListEndpoint['parameters']['query']): Pr
   const { data, error } = await api.get('/api/user/list-indexer-logs', {
     params: {
       query,
-      header: api.authHeader(),
     },
   });
 
   if (error) {
     throw new TypedApiError<
       | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
-      | ListEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data?.logs) {
@@ -38,7 +37,7 @@ function fetchIndexerLogsWithClient(queryClient: QueryClient, query?: ListEndpoi
     IndexerLogDto[],
     TypedApiError<
       | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
-      | ListEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
     >
   >({
     queryKey: indexerQueryKey(query),

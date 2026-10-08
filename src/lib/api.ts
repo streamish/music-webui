@@ -1,8 +1,12 @@
 import createClient from 'openapi-fetch';
 import type { BadRequestErrorEnum, InternalServerErrorEnum, paths } from 'src/types/api-schema';
 
+const authToken = () => {
+  return sessionStorage.getItem('jwt-token') || localStorage.getItem('jwt-token');
+};
+
 const authHeader = () => {
-  const token = sessionStorage.getItem('jwt-token') || localStorage.getItem('jwt-token');
+  const token = authToken();
   return token ? { Authorization: `Bearer ${token}` } : { Authorization: '' };
 };
 
@@ -11,6 +15,12 @@ const client = createClient<paths>({
 });
 
 client.use({
+  async onRequest({ request }) {
+    const token = authToken();
+    if (token) {
+      request.headers.set('Authorization', `Bearer ${token}`);
+    }
+  },
   async onResponse({ response }) {
     if (response.status === 401) {
       sessionStorage.removeItem('jwt-token');

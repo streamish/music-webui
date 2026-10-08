@@ -19,11 +19,13 @@ export type AccountDto = ListEndpoint['responses']['200']['content']['applicatio
 const ACCOUNTS_QUERY_KEY = ['accounts'] as const;
 
 async function fetchAccounts(): Promise<ListEndpoint['responses']['200']['content']['application/json']> {
-  const { data, error } = await api.get('/api/admin/list-accounts', {
-    params: { header: api.authHeader() },
-  });
+  const { data, error } = await api.get('/api/admin/list-accounts');
   if (error) {
-    throw new Error(error);
+    throw new TypedApiError<
+      | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >(error.message, error.error);
   }
   if (!data?.accounts) {
     throw new Error('No accounts data received');
@@ -33,16 +35,15 @@ async function fetchAccounts(): Promise<ListEndpoint['responses']['200']['conten
 
 async function createAccountRequest(body: CreateEndpoint['requestBody']['content']['application/json']) {
   const { data, error } = await api.post('/api/admin/create-account', {
-    params: {
-      header: api.authHeader(),
-    },
     body,
   });
   if (error) {
-    throw new TypedApiError<CreateEndpoint['responses']['400']['content']['application/json']['message'][number]>(
-      error.message,
-      error.error,
-    );
+    throw new TypedApiError<
+      | CreateEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['401']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >(error.message, error.error);
   }
   if (!data?.success) {
     throw new Error('Failed to create account');
@@ -53,13 +54,14 @@ async function createAccountRequest(body: CreateEndpoint['requestBody']['content
 async function regenerateUserSessionKey(query: RegenerateSessionKeyEndpoint['parameters']['query']) {
   const { data, error } = await api.post('/api/admin/regenerate-user-session-key', {
     params: {
-      header: api.authHeader(),
       query,
     },
   });
   if (error) {
     throw new TypedApiError<
-      RegenerateSessionKeyEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | RegenerateSessionKeyEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | RegenerateSessionKeyEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | RegenerateSessionKeyEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data?.success) {
@@ -71,7 +73,6 @@ async function regenerateUserSessionKey(query: RegenerateSessionKeyEndpoint['par
 async function deleteAccountRequest({ query, body }: DeleteEndpointVariables) {
   const { data, error } = await api.patch('/api/admin/delete-account', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,
@@ -79,7 +80,10 @@ async function deleteAccountRequest({ query, body }: DeleteEndpointVariables) {
   if (error) {
     throw new TypedApiError<
       | DeleteEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['401']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['403']['content']['application/json']['message'][number]
       | DeleteEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data?.success) {
@@ -96,7 +100,6 @@ type UpdateRolesVariables = {
 async function updateRolesRequest({ query, body }: UpdateRolesVariables) {
   const { data, error } = await api.patch('/api/admin/update-user-roles', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,
@@ -104,7 +107,10 @@ async function updateRolesRequest({ query, body }: UpdateRolesVariables) {
   if (error) {
     throw new TypedApiError<
       | UpdateRolesEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | UpdateRolesEndpoint['responses']['401']['content']['application/json']['message'][number]
+      | UpdateRolesEndpoint['responses']['403']['content']['application/json']['message'][number]
       | UpdateRolesEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | UpdateRolesEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data?.success) {
@@ -121,7 +127,6 @@ type ResetPasswordVariables = {
 async function resetPasswordRequest({ query, body }: ResetPasswordVariables) {
   const { data, error } = await api.post('/api/admin/reset-user-password', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,
@@ -129,7 +134,10 @@ async function resetPasswordRequest({ query, body }: ResetPasswordVariables) {
   if (error) {
     throw new TypedApiError<
       | ResetPasswordEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | ResetPasswordEndpoint['responses']['401']['content']['application/json']['message'][number]
+      | ResetPasswordEndpoint['responses']['403']['content']['application/json']['message'][number]
       | ResetPasswordEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | ResetPasswordEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data?.success) {

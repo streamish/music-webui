@@ -20,11 +20,13 @@ type UpdateRootPathVariables = {
 const ROOT_PATHS_QUERY_KEY = ['rootPaths'] as const;
 
 async function fetchRootPathsRequest(): Promise<ListEndpoint['responses']['200']['content']['application/json']> {
-  const { data, error } = await api.get('/api/admin/list-root-paths', {
-    params: { header: api.authHeader() },
-  });
+  const { data, error } = await api.get('/api/admin/list-root-paths');
   if (error) {
-    throw new Error(error);
+    throw new TypedApiError<
+      | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >(error.message, error.error);
   }
   if (!data?.success) {
     throw new Error('Failed to fetch root paths');
@@ -35,7 +37,6 @@ async function fetchRootPathsRequest(): Promise<ListEndpoint['responses']['200']
 async function createRootPathRequest({ query, body }: CreateRootPathVariables) {
   const { data, error } = await api.post('/api/admin/create-root-path', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,
@@ -43,7 +44,10 @@ async function createRootPathRequest({ query, body }: CreateRootPathVariables) {
   if (error) {
     throw new TypedApiError<
       | CreateEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['401']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['403']['content']['application/json']['message'][number]
       | CreateEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data?.success) {
@@ -55,15 +59,16 @@ async function createRootPathRequest({ query, body }: CreateRootPathVariables) {
 async function deleteRootPathRequest(query: DeleteEndpoint['parameters']['query']) {
   const { data, error } = await api.delete('/api/admin/delete-root-path', {
     params: {
-      header: api.authHeader(),
       query,
     },
   });
   if (error) {
-    throw new TypedApiError<DeleteEndpoint['responses']['404']['content']['application/json']['message'][number]>(
-      error.message,
-      error.error,
-    );
+    throw new TypedApiError<
+      | DeleteEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >(error.message, error.error);
   }
   if (!data?.success) {
     throw new Error('Failed to delete root path');
@@ -74,7 +79,6 @@ async function deleteRootPathRequest(query: DeleteEndpoint['parameters']['query'
 async function updateRootPathRequest({ query, body }: UpdateRootPathVariables) {
   const { data, error } = await api.patch('/api/admin/update-root-path', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,
@@ -82,7 +86,9 @@ async function updateRootPathRequest({ query, body }: UpdateRootPathVariables) {
   if (error) {
     throw new TypedApiError<
       | UpdateEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | UpdateEndpoint['responses']['403']['content']['application/json']['message'][number]
       | UpdateEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | UpdateEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data?.success) {
@@ -103,7 +109,9 @@ export function useRootPaths() {
     CreateEndpoint['responses']['201']['content']['application/json'],
     TypedApiError<
       | CreateEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['403']['content']['application/json']['message'][number]
       | CreateEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['500']['content']['application/json']['message'][number]
     >,
     CreateRootPathVariables
   >({
@@ -115,7 +123,12 @@ export function useRootPaths() {
 
   const deleteRootPathMutation = useMutation<
     DeleteEndpoint['responses']['200']['content']['application/json'],
-    TypedApiError<DeleteEndpoint['responses']['404']['content']['application/json']['message'][number]>,
+    TypedApiError<
+      | DeleteEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >,
     DeleteEndpoint['parameters']['query']
   >({
     mutationFn: deleteRootPathRequest,
@@ -128,7 +141,9 @@ export function useRootPaths() {
     UpdateEndpoint['responses']['200']['content']['application/json'],
     TypedApiError<
       | UpdateEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | UpdateEndpoint['responses']['403']['content']['application/json']['message'][number]
       | UpdateEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | UpdateEndpoint['responses']['500']['content']['application/json']['message'][number]
     >,
     UpdateRootPathVariables
   >({

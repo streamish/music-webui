@@ -1,4 +1,10 @@
 import { type AccountDto, useAccounts } from '@/hooks/admin/use-accounts';
+import {
+  AdminUpdateUserRolesBadRequestErrors,
+  AdminUpdateUserRolesNotFoundErrors,
+  UserRoleEnum,
+  type paths,
+} from '@/types/api-schema';
 import { Button } from '@/components/ui/button';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -13,7 +19,6 @@ import { FormValidationError } from '@/components/form-validation-error';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { UserRoleEnum, type paths } from '@/types/api-schema';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -73,28 +78,28 @@ export function UserUpdateRolesForm({ user, className }: { user: AccountDto; cla
           for (let i = 0; i < error.messages.length; i += 1) {
             const message = error.messages[i];
             switch (message) {
-              case 'account-only-admin-error':
+              case AdminUpdateUserRolesBadRequestErrors.account_only_admin_error:
                 setError('roles', {
                   type: 'manual',
                   message: 'You must create another administrator before removing this permission.',
                 });
                 break;
-              case 'account-not-found-error':
+              case AdminUpdateUserRolesNotFoundErrors.account_not_found_error:
                 setError('roles', {
                   type: 'manual',
                   message: 'The specified account does not exist.',
                 });
                 break;
-              case 'invalid-user-role-error':
+              case AdminUpdateUserRolesBadRequestErrors.invalid_user_role_error:
                 setError('roles', {
                   type: 'manual',
                   message: 'An invalid role was specified.',
                 });
                 break;
-              case 'invalid-admin-password-error':
+              case AdminUpdateUserRolesBadRequestErrors.invalid_admin_password_error:
                 setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
                 break;
-              case 'invalid-admin-password-length-error':
+              case AdminUpdateUserRolesBadRequestErrors.invalid_admin_password_length_error:
                 setError('adminPassword', { type: 'manual', message: 'The admin password length is invalid.' });
                 break;
               default:

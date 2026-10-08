@@ -1,3 +1,4 @@
+import { AdminUpdateRootPathBadRequestErrors, AdminUpdateRootPathNotFoundErrors, type paths } from '@/types/api-schema';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -18,7 +19,6 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { RootPathDto } from '@/hooks/user/use-root-paths';
-import type { paths } from '@/types/api-schema';
 
 type UpdateEndpoint = paths['/api/admin/update-root-path']['patch'];
 type FormData = UpdateEndpoint['requestBody']['content']['application/json'];
@@ -66,10 +66,10 @@ export function RootPathUpdateForm({ rootPath }: { rootPath: RootPathDto }) {
           for (let i = 0; i < error.messages.length; i += 1) {
             const message = error.messages[i];
             switch (message) {
-              case 'root-path-does-not-exist-error':
+              case AdminUpdateRootPathNotFoundErrors.root_path_not_found_error:
                 setError('newPath', { type: 'manual', message: 'The new root path does not exist.' });
                 break;
-              case 'duplicate-root-path-error':
+              case AdminUpdateRootPathBadRequestErrors.duplicate_root_path_error:
                 setError('newPath', {
                   type: 'manual',
                   message: 'The new root path has already been added to this account.',

@@ -11,11 +11,13 @@ export type RootPathDto = ListEndpoint['responses']['200']['content']['applicati
 const ROOT_PATHS_QUERY_KEY = ['rootPaths'];
 
 async function fetchRootPaths(): Promise<RootPathDto[]> {
-  const { data, error } = await api.get('/api/user/list-root-paths', {
-    params: { header: api.authHeader() },
-  });
+  const { data, error } = await api.get('/api/user/list-root-paths');
   if (error) {
-    throw new Error(error);
+    throw new TypedApiError<
+      | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | ListEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >(error.message, error.error);
   }
   if (!data?.rootPaths) {
     throw new Error('No data received');
@@ -25,16 +27,14 @@ async function fetchRootPaths(): Promise<RootPathDto[]> {
 
 async function createRootPath(body: CreateEndpoint['requestBody']['content']['application/json']) {
   const { data, error } = await api.post('/api/user/create-root-path', {
-    params: {
-      header: api.authHeader(),
-    },
     body,
   });
   if (error) {
-    throw new TypedApiError<CreateEndpoint['responses']['400']['content']['application/json']['message'][number]>(
-      error.message,
-      error.error,
-    );
+    throw new TypedApiError<
+      | CreateEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | CreateEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >(error.message, error.error);
   }
   if (!data) {
     throw new Error('Failed to create root path');
@@ -48,15 +48,16 @@ async function createRootPath(body: CreateEndpoint['requestBody']['content']['ap
 async function deleteRootPath(query: DeleteEndpoint['parameters']['query']) {
   const { data, error } = await api.delete('/api/user/delete-root-path', {
     params: {
-      header: api.authHeader(),
       query,
     },
   });
   if (error) {
-    throw new TypedApiError<DeleteEndpoint['responses']['404']['content']['application/json']['message'][number]>(
-      error.message,
-      error.error,
-    );
+    throw new TypedApiError<
+      | DeleteEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | DeleteEndpoint['responses']['500']['content']['application/json']['message'][number]
+    >(error.message, error.error);
   }
   if (!data) {
     throw new Error('Failed to delete root path');

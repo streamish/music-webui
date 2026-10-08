@@ -44,14 +44,15 @@ async function setArtistName({ query, body }: SetArtistNameVariables) {
   const { data, error } = await api.patch('/api/user/set-artist-name', {
     params: {
       query,
-      header: api.authHeader(),
     },
     body,
   });
   if (error) {
     throw new TypedApiError<
       | SetArtistNameEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | SetArtistNameEndpoint['responses']['403']['content']['application/json']['message'][number]
       | SetArtistNameEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | SetArtistNameEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data) {
@@ -67,14 +68,15 @@ async function setComposerName({ query, body }: SetComposerNameVariables) {
   const { data, error } = await api.patch('/api/user/set-composer-name', {
     params: {
       query,
-      header: api.authHeader(),
     },
     body,
   });
   if (error) {
     throw new TypedApiError<
       | SetComposerNameEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | SetComposerNameEndpoint['responses']['403']['content']['application/json']['message'][number]
       | SetComposerNameEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | SetComposerNameEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data) {
@@ -90,14 +92,15 @@ async function setGenreName({ query, body }: SetGenreNameVariables) {
   const { data, error } = await api.patch('/api/user/set-genre-name', {
     params: {
       query,
-      header: api.authHeader(),
     },
     body,
   });
   if (error) {
     throw new TypedApiError<
       | SetGenreNameEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | SetGenreNameEndpoint['responses']['403']['content']['application/json']['message'][number]
       | SetGenreNameEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | SetGenreNameEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data) {
@@ -113,14 +116,15 @@ async function setAlbumCustomData({ query, body }: SetAlbumCustomDataVariables) 
   const { data, error } = await api.patch('/api/user/set-album-custom-data', {
     params: {
       query,
-      header: api.authHeader(),
     },
     body,
   });
   if (error) {
     throw new TypedApiError<
       | SetAlbumCustomDataEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | SetAlbumCustomDataEndpoint['responses']['403']['content']['application/json']['message'][number]
       | SetAlbumCustomDataEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | SetAlbumCustomDataEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data) {
@@ -136,14 +140,15 @@ async function setTrackCustomData({ query, body }: SetTrackCustomDataVariables) 
   const { data, error } = await api.patch('/api/user/set-track-custom-data', {
     params: {
       query,
-      header: api.authHeader(),
     },
     body,
   });
   if (error) {
     throw new TypedApiError<
       | SetTrackCustomDataEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | SetTrackCustomDataEndpoint['responses']['403']['content']['application/json']['message'][number]
       | SetTrackCustomDataEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | SetTrackCustomDataEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data) {
@@ -159,14 +164,15 @@ async function setCustomData({ query, body }: SetCustomDataVariables) {
   const { data, error } = await api.put('/api/user/set-custom-data', {
     params: {
       query,
-      header: api.authHeader(),
     },
     body,
   });
   if (error) {
     throw new TypedApiError<
       | SetCustomDataEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | SetCustomDataEndpoint['responses']['403']['content']['application/json']['message'][number]
       | SetCustomDataEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | SetCustomDataEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data) {
@@ -181,13 +187,15 @@ async function setCustomData({ query, body }: SetCustomDataVariables) {
 async function deleteCustomFileData(query: DeleteCustomDataEndpoint['parameters']['query']) {
   const { data, error } = await api.delete('/api/user/delete-custom-data', {
     params: {
-      header: api.authHeader(),
       query,
     },
   });
   if (error) {
     throw new TypedApiError<
-      DeleteCustomDataEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | DeleteCustomDataEndpoint['responses']['400']['content']['application/json']['message'][number]
+      | DeleteCustomDataEndpoint['responses']['403']['content']['application/json']['message'][number]
+      | DeleteCustomDataEndpoint['responses']['404']['content']['application/json']['message'][number]
+      | DeleteCustomDataEndpoint['responses']['500']['content']['application/json']['message'][number]
     >(error.message, error.error);
   }
   if (!data) {

@@ -36,13 +36,13 @@ export function IndexerProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const fetchIndexerStatus = async () => {
       try {
-        const { data, error } = await api.get('/api/admin/indexer-configuration', {
-          params: {
-            header: api.authHeader(),
-          },
-        });
+        const { data, error } = await api.get('/api/admin/indexer-configuration');
         if (error) {
-          throw new Error(error);
+          throw new TypedApiError<
+            | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
+            | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
+            | ListEndpoint['responses']['500']['content']['application/json']['message'][number]
+          >(error.message, error.error);
         }
         if (!data?.success) {
           throw new Error('Failed to fetch indexer configuration');
@@ -65,13 +65,14 @@ export function IndexerProvider({ children }: { children: ReactNode }) {
       setEnabled(newStatus);
       setUpdatingStatus(true);
       const { data, error } = await api.patch('/api/admin/set-indexer-status', {
-        params: {
-          header: api.authHeader(),
-        },
         body,
       });
       if (error) {
-        throw new Error(error);
+        throw new TypedApiError<
+          | SetStatusEndpoint['responses']['400']['content']['application/json']['message'][number]
+          | SetStatusEndpoint['responses']['403']['content']['application/json']['message'][number]
+          | SetStatusEndpoint['responses']['500']['content']['application/json']['message'][number]
+        >(error.message, error.error);
       }
       if (!data?.success) {
         throw new Error('Failed to set indexer status');
@@ -90,14 +91,14 @@ export function IndexerProvider({ children }: { children: ReactNode }) {
       setLoadingLogs(true);
       const { data, error } = await api.get('/api/admin/list-indexer-logs', {
         params: {
-          header: api.authHeader(),
           query,
         },
       });
       if (error) {
         throw new TypedApiError<
           | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
-          | ListEndpoint['responses']['404']['content']['application/json']['message'][number]
+          | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
+          | ListEndpoint['responses']['500']['content']['application/json']['message'][number]
         >(error.message, error.error);
       }
       if (!data?.success) {

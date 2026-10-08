@@ -5,13 +5,19 @@ import type { paths } from 'src/types/api-schema';
 type ListEndpoint = paths['/api/user/list-albums']['get'];
 type ListEndpointQuery = ListEndpoint['parameters']['query'];
 type ListEndpointResponse = ListEndpoint['responses']['200']['content']['application/json'];
-type ListEndpointErrorMessage = ListEndpoint['responses']['400']['content']['application/json']['message'][number];
+type ListEndpointErrorMessage =
+  | ListEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | ListEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | ListEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type RetrieveEndpoint = paths['/api/user/retrieve-album']['get'];
 type RetrieveEndpointQuery = RetrieveEndpoint['parameters']['query'];
 type RetrieveEndpointResponse = RetrieveEndpoint['responses']['200']['content']['application/json'];
 type RetrieveEndpointErrorMessage =
-  RetrieveEndpoint['responses']['404']['content']['application/json']['message'][number];
+  | RetrieveEndpoint['responses']['400']['content']['application/json']['message'][number]
+  | RetrieveEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | RetrieveEndpoint['responses']['404']['content']['application/json']['message'][number]
+  | RetrieveEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type SetAlbumRatingEndpoint = paths['/api/user/set-album-rating']['put'];
 type SetAlbumRatingQuery = SetAlbumRatingEndpoint['parameters']['query'];
@@ -19,7 +25,9 @@ type SetAlbumRatingBody = SetAlbumRatingEndpoint['requestBody']['content']['appl
 type SetAlbumRatingEndpointResponse = SetAlbumRatingEndpoint['responses']['200']['content']['application/json'];
 type SetAlbumRatingEndpointErrorMessage =
   | SetAlbumRatingEndpoint['responses']['400']['content']['application/json']['message'][number]
-  | SetAlbumRatingEndpoint['responses']['404']['content']['application/json']['message'][number];
+  | SetAlbumRatingEndpoint['responses']['403']['content']['application/json']['message'][number]
+  | SetAlbumRatingEndpoint['responses']['404']['content']['application/json']['message'][number]
+  | SetAlbumRatingEndpoint['responses']['500']['content']['application/json']['message'][number];
 
 type SetAlbumRatingVariables = {
   body: SetAlbumRatingBody;
@@ -31,7 +39,7 @@ export type AlbumWithTracks = RetrieveEndpointResponse['album'];
 
 async function fetchAlbums(query: ListEndpointQuery): Promise<ListEndpointResponse> {
   const { data, error } = await api.get('/api/user/list-albums', {
-    params: { header: api.authHeader(), query },
+    params: { query },
   });
   if (error) {
     throw new TypedApiError<ListEndpointErrorMessage>(error.message, error.error);
@@ -44,7 +52,7 @@ async function fetchAlbums(query: ListEndpointQuery): Promise<ListEndpointRespon
 
 async function fetchAlbum(query: RetrieveEndpointQuery): Promise<RetrieveEndpointResponse> {
   const { data, error } = await api.get('/api/user/retrieve-album', {
-    params: { header: api.authHeader(), query },
+    params: { query },
   });
   if (error) {
     throw new TypedApiError<RetrieveEndpointErrorMessage>(error.message, error.error);
@@ -58,7 +66,6 @@ async function fetchAlbum(query: RetrieveEndpointQuery): Promise<RetrieveEndpoin
 async function setAlbumRating({ body, query }: SetAlbumRatingVariables): Promise<SetAlbumRatingEndpointResponse> {
   const { data, error } = await api.put('/api/user/set-album-rating', {
     params: {
-      header: api.authHeader(),
       query,
     },
     body,

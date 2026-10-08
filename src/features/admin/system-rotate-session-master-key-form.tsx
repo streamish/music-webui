@@ -21,13 +21,7 @@ export function SystemRotateSessionMasterKeyForm({ className }: { className?: st
   const { handleSubmit } = useForm();
 
   const onSubmit = handleSubmit(async () => {
-    const { data, error } = await api.post('/api/admin/regenerate-master-session-key', {
-      params: {
-        header: {
-          ...api.authHeader(),
-        },
-      },
-    });
+    const { data, error } = await api.post('/api/admin/regenerate-master-session-key');
     if (error) {
       // eslint-disable-next-line no-console
       console.error('Error regenerating session master key', error);
