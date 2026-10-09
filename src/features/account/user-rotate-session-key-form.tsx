@@ -8,27 +8,42 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { useAccounts } from '@/hooks/user/use-accounts';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import api from '@/lib/api';
 
 export function UserRotateSessionKeyForm() {
   const [open, setOpen] = useState(false);
-  const { regenerateSessionKey } = useAccounts();
   const { handleSubmit } = useForm();
 
   const onSubmit = handleSubmit(async () => {
-    await regenerateSessionKey(undefined, {
-      onSuccess: () => {
-        setOpen(false);
+    try {
+      const result = await api.post('/api/user/regenerate-session-key', {});
+      if (result.data?.success) {
         toast.success('All sessions terminated. You will need to log in from any devices.');
-      },
-      onError: (error) => {
-        // eslint-disable-next-line no-console
-        console.error('Unexpected error occurred while terminating sessions:', error);
-        toast.error('An internal server error occurred. Please try again later.');
-      },
-    });
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while terminating sessions:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
+          }
+        }
+      } else {
+        toast.error('Failed to terminate sessions');
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while terminating sessions:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (

@@ -6,19 +6,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
-import { UserRoleEnum, type paths } from '@/types/api-schema';
+import { UserRoleEnum } from '@/types/api-schema';
 import { toast } from 'sonner';
-import { useAccounts } from '@/hooks/admin/use-accounts';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-
-type CreateEndpoint = paths['/api/admin/create-account']['post'];
-type CreateAccountBodyDto = CreateEndpoint['requestBody']['content']['application/json'];
-
-type FormData = CreateAccountBodyDto & {
-  confirmPassword: string;
-};
 
 const schema = z
   .object({
@@ -72,9 +65,10 @@ const schema = z
     message: 'Passwords do not match',
   });
 
+type FormData = z.infer<typeof schema>;
+
 export function UserAddForm({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
-  const { createAccount } = useAccounts();
   const {
     control,
     formState: { errors },
@@ -89,53 +83,64 @@ export function UserAddForm({ className }: { className?: string }) {
   });
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
-    await createAccount(
-      {
-        adminPassword: formData.adminPassword,
-        username: formData.username,
-        password: formData.password,
-        roles: formData.roles,
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Account created successfully. The user will need to log in with the new password.');
+    try {
+      const result = await api.post('/api/admin/create-account', {
+        body: {
+          adminPassword: formData.adminPassword,
+          username: formData.username,
+          password: formData.password,
+          roles: formData.roles,
         },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case 'invalid-username-not-unique-error':
-                setError('username', { type: 'manual', message: 'User already exists.' });
-                break;
-              case 'invalid-role-error':
-                setError('roles', { type: 'manual', message: 'Invalid role specified.' });
-                break;
-              case 'invalid-user-role-error':
-                setError('roles', { type: 'manual', message: 'At least one role must be selected.' });
-                break;
-              case 'invalid-password-error':
-                setError('password', { type: 'manual', message: 'Invalid user password specified.' });
-                break;
-              case 'invalid-password-length-error':
-                setError('password', { type: 'manual', message: 'User password length is invalid.' });
-                break;
-              case 'invalid-admin-password-error':
-                setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
-                break;
-              case 'invalid-admin-password-length-error':
-                setError('adminPassword', { type: 'manual', message: 'Admin password length is invalid.' });
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while creating account:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
+      });
+      if (result.data?.success) {
+        toast.success('Root path updated successfully. It will begin indexing shortly if the indexer is enabled.');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'invalid-username-not-unique-error':
+              setError('username', { type: 'manual', message: 'User already exists.' });
+              break;
+            case 'invalid-role-error':
+              setError('roles', { type: 'manual', message: 'Invalid role specified.' });
+              break;
+            case 'invalid-user-role-error':
+              setError('roles', { type: 'manual', message: 'At least one role must be selected.' });
+              break;
+            case 'invalid-password-error':
+              setError('password', { type: 'manual', message: 'Invalid user password specified.' });
+              break;
+            case 'invalid-password-length-error':
+              setError('password', { type: 'manual', message: 'User password length is invalid.' });
+              break;
+            case 'invalid-admin-password-error':
+              setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
+              break;
+            case 'invalid-admin-password-length-error':
+              setError('adminPassword', { type: 'manual', message: 'Admin password length is invalid.' });
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while creating account:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
+        }
+      } else {
+        setError('username', {
+          type: 'server',
+          message: 'Failed to create user account',
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while creating user account:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   const toggleRole = (currentRoles: UserRoleEnum[], role: UserRoleEnum) => {

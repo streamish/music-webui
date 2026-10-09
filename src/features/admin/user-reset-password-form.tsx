@@ -1,4 +1,3 @@
-import { type AccountDto, useAccounts } from '@/hooks/admin/use-accounts';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,14 +14,11 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-import type { paths } from '@/types/api-schema';
 
-type ResetPasswordEndpoint = paths['/api/admin/reset-user-password']['post'];
-type ResetPasswordBodyDto = ResetPasswordEndpoint['requestBody']['content']['application/json'];
-
-type FormData = ResetPasswordBodyDto & {
-  confirmPassword: string;
+type AccountDto = {
+  id: number;
 };
 
 const schema = z
@@ -65,9 +61,10 @@ const schema = z
     message: 'Passwords do not match',
   });
 
+type FormData = z.infer<typeof schema>;
+
 export function UserResetPasswordForm({ user, className }: { user: AccountDto; className?: string }) {
   const [open, setOpen] = useState(false);
-  const { resetPassword } = useAccounts();
   const {
     formState: { errors },
     handleSubmit,
@@ -78,51 +75,61 @@ export function UserResetPasswordForm({ user, className }: { user: AccountDto; c
   });
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
-    await resetPassword(
-      {
-        query: {
-          id: user.id,
+    try {
+      const result = await api.post('/api/admin/reset-user-password', {
+        params: {
+          query: {
+            id: user.id,
+          },
         },
         body: {
           adminPassword: formData.adminPassword,
           newPassword: formData.newPassword,
         },
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Password reset successfully. The user will need to log in again with the new password.');
-        },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case 'account-not-found-error':
-                toast.error('The specified account does not exist.');
-                break;
-              case 'invalid-new-password-error':
-                setError('newPassword', { type: 'manual', message: 'The new account password is invalid.' });
-                break;
-              case 'invalid-new-password-length-error':
-                setError('newPassword', { type: 'manual', message: 'The new account password length is invalid.' });
-                break;
-              case 'invalid-admin-password-error':
-                setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
-                break;
-              case 'invalid-admin-password-length-error':
-                setError('adminPassword', { type: 'manual', message: 'The admin password length is invalid.' });
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while resetting password:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
+      });
+      if (result.data?.success) {
+        toast.success('User password reset successfully.');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'account-not-found-error':
+              toast.error('The specified account does not exist.');
+              break;
+            case 'invalid-new-password-error':
+              setError('newPassword', { type: 'manual', message: 'The new account password is invalid.' });
+              break;
+            case 'invalid-new-password-length-error':
+              setError('newPassword', { type: 'manual', message: 'The new account password length is invalid.' });
+              break;
+            case 'invalid-admin-password-error':
+              setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
+              break;
+            case 'invalid-admin-password-length-error':
+              setError('adminPassword', { type: 'manual', message: 'The admin password length is invalid.' });
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while resetting password:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
-    setOpen(false);
+        }
+      } else {
+        setError('newPassword', {
+          type: 'server',
+          message: 'Failed to reset user password',
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while resetting password:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (

@@ -1,5 +1,7 @@
 import { PlaylistControls } from './playlist-controls';
-import type { Track } from '@/hooks/user/use-tracks';
+import type { components } from '@/types/api-schema';
+
+type Track = components['schemas']['LibraryTrackDto'];
 
 export function TrackListItem({ track, albumTitle, onEdit }: { track: Track; albumTitle: string; onEdit: () => void }) {
   return (

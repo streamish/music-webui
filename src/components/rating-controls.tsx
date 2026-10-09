@@ -1,13 +1,20 @@
-import { type Album, useAlbums } from '@/hooks/user/use-albums';
 import { Star } from 'lucide-react';
-import { type Track, useTracks } from '@/hooks/user/use-tracks';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import api from '@/lib/api';
+
+type Track = {
+  id: number;
+  rating: number;
+};
+
+type Album = {
+  id: number;
+  rating: number;
+};
 
 export function RatingControls({ track, album }: { track: Track; album?: Album }) {
   const [hoveredRating, setHoveredRating] = useState(0);
-  const { setTrackRating } = useTracks({});
-  const { setAlbumRating } = useAlbums({});
 
   const handleSubmit = async (rating: number) => {
     if (album) {
@@ -15,18 +22,56 @@ export function RatingControls({ track, album }: { track: Track; album?: Album }
       const a = album;
       a.rating = newValue;
       try {
-        await setAlbumRating({ body: { rating: newValue }, query: { id: album.id } });
+        const result = await api.put('/api/user/set-album-rating', {
+          params: {
+            query: {
+              id: album.id,
+            },
+          },
+          body: {
+            rating,
+          },
+        });
+        if (result.data?.success) {
+          return;
+        }
+        if (result.error) {
+          throw new Error(result.error.error, {
+            cause: result.error.message,
+          });
+        }
       } catch (error) {
-        toast.error('Failed to set album rating');
+        // eslint-disable-next-line no-console
+        console.error('Unexpected error occurred while updating roles:', error);
+        toast.error('An internal server error occurred. Please try again later.');
       }
     } else {
       const newValue = track.rating === rating ? 0 : rating;
       const t = track;
       t.rating = newValue;
       try {
-        await setTrackRating({ body: { rating: newValue }, query: { id: track.id } });
+        const result = await api.put('/api/user/set-track-rating', {
+          params: {
+            query: {
+              id: track.id,
+            },
+          },
+          body: {
+            rating,
+          },
+        });
+        if (result.data?.success) {
+          return;
+        }
+        if (result.error) {
+          throw new Error(result.error.error, {
+            cause: result.error.message,
+          });
+        }
       } catch (error) {
-        toast.error('Failed to set track rating');
+        // eslint-disable-next-line no-console
+        console.error('Unexpected error occurred while updating roles:', error);
+        toast.error('An internal server error occurred. Please try again later.');
       }
     }
   };

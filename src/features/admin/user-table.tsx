@@ -13,11 +13,28 @@ import { UserDeleteForm } from './user-delete-form';
 import { UserResetPasswordForm } from './user-reset-password-form';
 import { UserRotateSessionKeyForm } from './user-rotate-session-key-form';
 import { UserUpdateRolesForm } from './user-update-roles-form';
-import { useAccounts } from '@/hooks/admin/use-accounts';
 import { useIsMobile } from '@/hooks/use-is-mobile';
+import { useQuery } from 'node_modules/@tanstack/react-query/build/modern/useQuery';
+import api from '@/lib/api';
+
+function useListAccounts() {
+  return useQuery({
+    queryKey: ['admin', 'user-accounts'],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/admin/list-accounts');
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data) {
+        throw new Error('No user accounts returned');
+      }
+      return data.accounts;
+    },
+  });
+}
 
 export function UserTable() {
-  const { accounts: data, isLoadingAccounts } = useAccounts();
+  const { data: accounts = [], isLoading } = useListAccounts();
   const { isMobile } = useIsMobile();
 
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
@@ -47,7 +64,7 @@ export function UserTable() {
       {/* Mobile card view */}
       {isMobile && (
         <div role="list" aria-label="User accounts">
-          {(isLoadingAccounts ? dummyRows : data?.accounts || []).map((account, index) => {
+          {(isLoading ? dummyRows : accounts).map((account, index) => {
             const opacity = index % 2 === 0 ? 20 : 10;
             return (
               <DataCard
@@ -99,7 +116,7 @@ export function UserTable() {
             <DataTableHeaderCell>Actions</DataTableHeaderCell>
           </DataTableHeader>
           <DataTableBody>
-            {(isLoadingAccounts ? dummyRows : data?.accounts || []).map((account, index) => {
+            {(isLoading ? dummyRows : accounts).map((account, index) => {
               const opacity = index % 2 === 0 ? 20 : 10;
               return (
                 <DataTableRow

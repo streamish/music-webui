@@ -7,7 +7,7 @@ import { useAlbum } from '@/hooks/user/use-albums';
 import { useMemo, useRef } from 'react';
 
 export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onEdit: () => void }) {
-  const { album, refetch } = useAlbum({ id: albumId });
+  const { data: album, refetch } = useAlbum(albumId);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const selectedColor = album?.coverImageMuted || '#000000';
   const contrastingColor = album?.coverImageDarkMuted || '#000000';

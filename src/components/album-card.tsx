@@ -1,5 +1,7 @@
 import { AlbumIconImage } from './album-icon-image';
-import type { Album } from '@/hooks/user/use-albums';
+import type { components } from '@/types/api-schema';
+
+type Album = components['schemas']['LibraryAlbumDto'];
 
 export function AlbumCard({
   album,

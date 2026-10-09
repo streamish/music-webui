@@ -1,4 +1,3 @@
-import { AdminUpdateRootPathBadRequestErrors, AdminUpdateRootPathNotFoundErrors, type paths } from '@/types/api-schema';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -14,14 +13,15 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useRootPaths } from '@/hooks/admin/use-root-paths';
 import { useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { RootPathDto } from '@/hooks/user/use-root-paths';
+import api from '@/lib/api';
 
-type UpdateEndpoint = paths['/api/admin/update-root-path']['patch'];
-type FormData = UpdateEndpoint['requestBody']['content']['application/json'];
+type RootPathDto = {
+  id: number;
+  rootPath: string;
+};
 
 const schema = z.object({
   newPath: z
@@ -37,9 +37,10 @@ const schema = z.object({
     }),
 });
 
+type FormData = z.infer<typeof schema>;
+
 export function RootPathUpdateForm({ rootPath }: { rootPath: RootPathDto }) {
   const [open, setOpen] = useState(false);
-  const { updateRootPath } = useRootPaths();
   const {
     formState: { errors },
     handleSubmit,
@@ -47,44 +48,60 @@ export function RootPathUpdateForm({ rootPath }: { rootPath: RootPathDto }) {
     setError,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      newPath: rootPath.rootPath,
+    },
   });
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
-    await updateRootPath(
-      {
-        query: {
-          id: rootPath.id,
+    try {
+      const result = await api.patch('/api/admin/update-root-path', {
+        params: {
+          query: {
+            id: rootPath.id,
+          },
         },
-        body: formData,
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Root path updated successfully.  It will begin indexing shortly if the indexer is enabled.');
+        body: {
+          newPath: formData.newPath,
         },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case AdminUpdateRootPathNotFoundErrors.root_path_not_found_error:
-                setError('newPath', { type: 'manual', message: 'The new root path does not exist.' });
-                break;
-              case AdminUpdateRootPathBadRequestErrors.duplicate_root_path_error:
-                setError('newPath', {
-                  type: 'manual',
-                  message: 'The new root path has already been added to this account.',
-                });
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while updating root path:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
+      });
+      if (result.data?.success) {
+        toast.success('Root path updated successfully. It will begin indexing shortly if the indexer is enabled.');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'root-path-does-not-exist-error':
+              setError('newPath', { type: 'manual', message: 'The specified root path does not exist.' });
+              break;
+            case 'duplicate-root-path-error':
+              setError('newPath', {
+                type: 'manual',
+                message: 'The specified root path has already been added to this account.',
+              });
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while updating root path:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
+        }
+      } else {
+        setError('newPath', {
+          type: 'server',
+          message: 'Failed to update root path',
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while updating root path:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (

@@ -11,17 +11,12 @@ import { FormValidationError } from '@/components/form-validation-error';
 import { Input } from '@/components/ui/input';
 import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
-import { useCustomData } from '@/hooks/user/use-custom-data';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-import type { Association } from '@/hooks/user/use-associations';
-import type { AssociationTypeEnum } from '@/types/api-schema';
-
-type FormData = {
-  name: string;
-};
+import type { AssociationTypeEnum, components } from '@/types/api-schema';
 
 const schema = z.object({
   name: z
@@ -37,6 +32,9 @@ const schema = z.object({
     }),
 });
 
+type FormData = z.infer<typeof schema>;
+type Association = components['schemas']['LibraryAssociationDto'];
+
 export function AssociationEditForm({
   association,
   associationType,
@@ -47,7 +45,6 @@ export function AssociationEditForm({
   onSave: () => void;
 }) {
   const [open, setOpen] = useState(false);
-  const { setArtistName, setComposerName, setGenreName } = useCustomData();
   const {
     formState: { errors },
     handleSubmit,
@@ -67,45 +64,36 @@ export function AssociationEditForm({
   }, [association, reset]);
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
-    let apiHandler;
-    if (associationType === 'artist') {
-      apiHandler = setArtistName;
-    } else if (associationType === 'composer') {
-      apiHandler = setComposerName;
-    } else if (associationType === 'genre') {
-      apiHandler = setGenreName;
-    } else {
-      throw new Error(`Unsupported association type: ${associationType}`);
-    }
-    await apiHandler(
-      {
-        query: {
-          id: association.id,
+    try {
+      const result = await api.patch(`/api/user/set-${associationType}-name`, {
+        params: {
+          query: {
+            id: association.id,
+          },
         },
         body: {
           name: formData.name,
         },
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Association updated successfully.');
-          onSave();
-        },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while updating the association:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
-          }
-        },
-      },
-    );
+      });
+      if (result.data?.success) {
+        toast.success('Association updated successfully.');
+        setOpen(false);
+        onSave();
+        return;
+      }
+      if (result.error) {
+        const { error } = result.error;
+        // eslint-disable-next-line no-console
+        console.error('Unexpected error occurred while updating the association:', error);
+        toast.error('An internal server error occurred. Please try again later.');
+      } else {
+        toast.error('Failed to update association');
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while updating the association:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (

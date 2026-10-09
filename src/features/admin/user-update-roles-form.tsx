@@ -1,9 +1,7 @@
-import { type AccountDto, useAccounts } from '@/hooks/admin/use-accounts';
 import {
   AdminUpdateUserRolesBadRequestErrors,
   AdminUpdateUserRolesNotFoundErrors,
   UserRoleEnum,
-  type paths,
 } from '@/types/api-schema';
 import { Button } from '@/components/ui/button';
 import { Controller, useForm } from 'react-hook-form';
@@ -22,6 +20,7 @@ import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
 
 const schema = z.object({
@@ -39,79 +38,92 @@ const schema = z.object({
   roles: z.array(z.nativeEnum(UserRoleEnum)).min(1, { message: 'At least one role must be selected.' }),
 });
 
-type UpdateEndpoint = paths['/api/admin/update-user-roles']['patch'];
-type UpdateRolesBodyDto = UpdateEndpoint['requestBody']['content']['application/json'];
+type FormData = z.infer<typeof schema>;
+type AccountDto = {
+  id: number;
+  roles: UserRoleEnum[];
+};
 
 export function UserUpdateRolesForm({ user, className }: { user: AccountDto; className?: string }) {
   const [open, setOpen] = useState(false);
-  const { updateRoles } = useAccounts();
   const {
     control,
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  } = useForm<UpdateRolesBodyDto>({
+  } = useForm<FormData>({
     defaultValues: {
       roles: user.roles,
     },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit(async (formData: UpdateRolesBodyDto) => {
-    await updateRoles(
-      {
-        query: {
-          id: user.id,
+  const onSubmit = handleSubmit(async (formData: FormData) => {
+    try {
+      const result = await api.patch('/api/admin/update-user-roles', {
+        params: {
+          query: {
+            id: user.id,
+          },
         },
         body: {
           adminPassword: formData.adminPassword,
           roles: formData.roles,
         },
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Roles updated successfully. The user will need to log in with the new permissions.');
-        },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case AdminUpdateUserRolesBadRequestErrors.account_only_admin_error:
-                setError('roles', {
-                  type: 'manual',
-                  message: 'You must create another administrator before removing this permission.',
-                });
-                break;
-              case AdminUpdateUserRolesNotFoundErrors.account_not_found_error:
-                setError('roles', {
-                  type: 'manual',
-                  message: 'The specified account does not exist.',
-                });
-                break;
-              case AdminUpdateUserRolesBadRequestErrors.invalid_user_role_error:
-                setError('roles', {
-                  type: 'manual',
-                  message: 'An invalid role was specified.',
-                });
-                break;
-              case AdminUpdateUserRolesBadRequestErrors.invalid_admin_password_error:
-                setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
-                break;
-              case AdminUpdateUserRolesBadRequestErrors.invalid_admin_password_length_error:
-                setError('adminPassword', { type: 'manual', message: 'The admin password length is invalid.' });
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while updating roles:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
+      });
+      if (result.data?.success) {
+        toast.success('User roles updated successfully.');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case AdminUpdateUserRolesBadRequestErrors.account_only_admin_error:
+              setError('roles', {
+                type: 'manual',
+                message: 'You must create another administrator before removing this permission.',
+              });
+              break;
+            case AdminUpdateUserRolesNotFoundErrors.account_not_found_error:
+              setError('roles', {
+                type: 'manual',
+                message: 'The specified account does not exist.',
+              });
+              break;
+            case AdminUpdateUserRolesBadRequestErrors.invalid_user_role_error:
+              setError('roles', {
+                type: 'manual',
+                message: 'An invalid role was specified.',
+              });
+              break;
+            case AdminUpdateUserRolesBadRequestErrors.invalid_admin_password_error:
+              setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
+              break;
+            case AdminUpdateUserRolesBadRequestErrors.invalid_admin_password_length_error:
+              setError('adminPassword', { type: 'manual', message: 'The admin password length is invalid.' });
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while updating roles:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
+        }
+      } else {
+        setError('roles', {
+          type: 'server',
+          message: 'Failed to update user roles',
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while updating roles:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   const toggleRole = (currentRoles: UserRoleEnum[], role: UserRoleEnum) => {

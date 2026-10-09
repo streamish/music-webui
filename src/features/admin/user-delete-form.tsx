@@ -1,4 +1,3 @@
-import { type AccountDto, useAccounts } from '@/hooks/admin/use-accounts';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,11 +14,8 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-import type { paths } from '@/types/api-schema';
-
-type DeleteEndpoint = paths['/api/admin/delete-account']['patch'];
-type DeleteAccountBodyDto = DeleteEndpoint['requestBody']['content']['application/json'];
 
 const schema = z.object({
   adminPassword: z
@@ -35,54 +31,77 @@ const schema = z.object({
     }),
 });
 
+type FormData = z.infer<typeof schema>;
+type AccountDto = {
+  id: number;
+};
+
 export function UserDeleteForm({ user, className }: { user: AccountDto; className?: string }) {
   const [open, setOpen] = useState(false);
-  const { deleteAccount } = useAccounts();
   const {
     handleSubmit,
     register,
     setError,
     formState: { errors },
-  } = useForm<DeleteAccountBodyDto>({
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    await deleteAccount(
-      { query: { id: user.id }, body: { adminPassword: data.adminPassword } },
-      {
-        onSuccess: () => {
-          setOpen(false);
+    try {
+      const result = await api.patch('/api/admin/delete-account', {
+        params: {
+          query: {
+            id: user.id,
+          },
         },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case 'account-not-found-error':
-                toast.error('The specified account does not exist.');
-                break;
-              case 'invalid-account-id-error':
-                toast.error('The specified account ID is invalid.');
-                break;
-              case 'account-only-admin-error':
-                toast.error('You must create a new admin account before deleting this one.');
-                break;
-              case 'invalid-admin-password-error':
-                setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
-                break;
-              case 'invalid-admin-password-length-error':
-                setError('adminPassword', { type: 'manual', message: 'Admin password length is invalid.' });
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while deleting account:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
+        body: {
+          adminPassword: data.adminPassword,
+        },
+      });
+      if (result.data?.success) {
+        toast.success('User deleted successfully.');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'account-not-found-error':
+              toast.error('The specified account does not exist.');
+              break;
+            case 'invalid-account-id-error':
+              toast.error('The specified account ID is invalid.');
+              break;
+            case 'account-only-admin-error':
+              toast.error('You must create a new admin account before deleting this one.');
+              break;
+            case 'invalid-admin-password-error':
+              setError('adminPassword', { type: 'manual', message: 'Invalid admin password.' });
+              break;
+            case 'invalid-admin-password-length-error':
+              setError('adminPassword', { type: 'manual', message: 'Admin password length is invalid.' });
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while deleting account:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
+        }
+      } else {
+        setError('adminPassword', {
+          type: 'server',
+          message: 'Failed to delete user',
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while deleting account:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (

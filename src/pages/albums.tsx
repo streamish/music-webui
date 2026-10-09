@@ -25,7 +25,7 @@ export default function AlbumsPage() {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
   });
-  const { albums, refetchAlbums, total } = useAlbums(query);
+  const { data: { albums, total } = { albums: [], total: 0 }, refetch: refetchAlbums } = useAlbums(query);
   const expandedAlbumId = albumId ? Number(albumId) : null;
   const expandedAlbum =
     expandedAlbumId !== null ? (albums.find((album) => album.id === expandedAlbumId) ?? null) : null;
@@ -102,7 +102,7 @@ export default function AlbumsPage() {
                     <AlbumStandaloneDetails
                       albumId={expandedAlbumId}
                       onClose={() => toggleAlbum(expandedAlbumId)}
-                      onEdit={refetchAlbums}
+                      onEdit={() => refetchAlbums()}
                     />
                   )}
                 </li>
@@ -145,7 +145,7 @@ export default function AlbumsPage() {
                     </li>
                     {shouldInsertDetails && (
                       <li className="album-details col-span-full mt-4">
-                        <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refetchAlbums} />
+                        <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={() => refetchAlbums()} />
                       </li>
                     )}
                   </Fragment>

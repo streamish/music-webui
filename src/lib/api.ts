@@ -1,13 +1,8 @@
 import createClient from 'openapi-fetch';
-import type { BadRequestErrorEnum, InternalServerErrorEnum, paths } from 'src/types/api-schema';
+import type { paths } from 'src/types/api-schema';
 
 const authToken = () => {
   return sessionStorage.getItem('jwt-token') || localStorage.getItem('jwt-token');
-};
-
-const authHeader = () => {
-  const token = authToken();
-  return token ? { Authorization: `Bearer ${token}` } : { Authorization: '' };
 };
 
 const client = createClient<paths>({
@@ -34,39 +29,24 @@ client.use({
   },
 });
 
+type JsonBody<Operation> = Operation extends {
+  requestBody?: {
+    content?: {
+      'application/json'?: infer Body;
+    };
+  };
+}
+  ? Body
+  : never;
+
+export type PostJsonBody<Path extends keyof paths> = paths[Path] extends { post: infer Operation }
+  ? JsonBody<Operation>
+  : never;
+
 export default {
-  authHeader,
   get: client.GET,
   post: client.POST,
   delete: client.DELETE,
   patch: client.PATCH,
   put: client.PUT,
 };
-
-export type ErrorResponse<T> = {
-  message: (T | GenericErrorCodes)[];
-};
-
-export class TypedApiError<T> extends Error {
-  messages: (T | GenericErrorCodes)[];
-
-  constructor(messages: (T | GenericErrorCodes)[], type: string) {
-    super(type);
-    this.messages = messages;
-  }
-}
-
-export function getErrorMessage(error: unknown, fallbackMessage?: string): string {
-  if (typeof error === 'object' && error !== null && 'message' in error) {
-    const { message } = error as { message?: unknown };
-    if (Array.isArray(message)) {
-      return message.join(', ');
-    }
-    if (typeof message === 'string') {
-      return message;
-    }
-  }
-  return fallbackMessage ?? 'Request failed';
-}
-
-export type GenericErrorCodes = InternalServerErrorEnum.internal_server_error | BadRequestErrorEnum.bad_request_error;

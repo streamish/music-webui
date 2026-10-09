@@ -17,7 +17,7 @@ export function AlbumStandaloneDetails({
   onClose: () => void;
   onEdit: () => void;
 }) {
-  const { album, refetch } = useAlbum({ id: albumId });
+  const { data: album, refetch } = useAlbum(albumId);
   if (!album) {
     return null;
   }

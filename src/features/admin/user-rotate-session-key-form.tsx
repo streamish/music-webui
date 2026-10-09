@@ -1,4 +1,3 @@
-import { type AccountDto, useAccounts } from '@/hooks/admin/use-accounts';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -11,36 +10,52 @@ import {
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import api from '@/lib/api';
+
+type AccountDto = {
+  id: number;
+};
 
 export function UserRotateSessionKeyForm({ user, className }: { user: AccountDto; className?: string }) {
   const [open, setOpen] = useState(false);
-  const { regenerateSessionKey } = useAccounts();
   const { handleSubmit } = useForm();
 
   const onSubmit = handleSubmit(async () => {
-    await regenerateSessionKey(
-      { id: user.id },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('All sessions terminated. The user will need to log in from any devices.');
+    try {
+      const result = await api.post('/api/admin/regenerate-user-session-key', {
+        params: {
+          query: {
+            id: user.id,
+          },
         },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case 'account-not-found-error':
-                toast.error('The specified account does not exist.');
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while terminating sessions:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-            }
+      });
+      if (result.data?.success) {
+        toast.success('User session key rotated successfully.');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'account-not-found-error':
+              toast.error('The specified account does not exist.');
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while rotating user session key:', error);
+              toast.error('An internal server error occurred. Please try again later.');
           }
-        },
-      },
-    );
+        }
+      } else {
+        toast.error('Failed to rotate user session key');
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while rotating user session key:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (

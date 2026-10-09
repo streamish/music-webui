@@ -5,18 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
-import { useCustomData } from '@/hooks/user/use-custom-data';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-import type { Album } from '@/hooks/user/use-albums';
-
-type FormData = {
-  title: string;
-  artists: string;
-  year?: number;
-};
+import type { components } from '@/types/api-schema';
 
 const schema = z.object({
   title: z
@@ -44,9 +38,11 @@ const schema = z.object({
   year: z.coerce.number().optional(),
 });
 
+type FormData = z.infer<typeof schema>;
+type Album = components['schemas']['LibraryAlbumDto'];
+
 export function AlbumEditForm({ album, onSave, className }: { album: Album; onSave: () => void; className?: string }) {
   const [open, setOpen] = useState(false);
-  const { setAlbumCustomData } = useCustomData();
   const {
     formState: { errors },
     handleSubmit,
@@ -70,37 +66,39 @@ export function AlbumEditForm({ album, onSave, className }: { album: Album; onSa
   }, [album, reset]);
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
-    await setAlbumCustomData(
-      {
-        query: { id: album.id },
+    try {
+      const result = await api.patch('/api/user/set-album-custom-data', {
+        params: {
+          query: {
+            id: album.id,
+          },
+        },
         body: {
           title: formData.title,
           artists: formData.artists,
           year: formData.year || 0,
         },
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Album updated successfully.');
-          onSave();
-        },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while updating the album:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
-          }
-        },
-      },
-    );
+      });
+      if (result.data?.success) {
+        toast.success('Album updated successfully.');
+        setOpen(false);
+        onSave();
+        return;
+      }
+      if (result.error) {
+        const { error } = result.error;
+        // eslint-disable-next-line no-console
+        console.error('Unexpected error occurred while updating the album:', error);
+        toast.error('An internal server error occurred. Please try again later.');
+      } else {
+        toast.error('Failed to update album');
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while updating the album:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
-
   return (
     <>
       <Button
@@ -122,7 +120,7 @@ export function AlbumEditForm({ album, onSave, className }: { album: Album; onSa
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name">Title</Label>
-              <Input id="title" {...register('title', { required: true })} placeholder="Person 1, Person 2" />
+              <Input id="title" {...register('title', { required: true })} placeholder="Album Title" />
               <FormValidationError text={errors.title?.message} />
             </div>
             <div className="space-y-2">

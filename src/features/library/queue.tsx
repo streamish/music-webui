@@ -1,13 +1,13 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import type { Track } from '@/hooks/user/use-tracks';
+import type { components } from '@/types/api-schema';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+type Track = components['schemas']['LibraryTrackDto'];
 type QueueDataValue = {
   queue: Track[];
   currentIndex: number;
 };
-
 type QueuePlaybackValue = {
   currentTime: number;
   duration: number;
@@ -16,7 +16,6 @@ type QueuePlaybackValue = {
   isShuffling: boolean;
   volume: number;
 };
-
 type QueueActionsValue = {
   addToQueue: (tracks: Track[], atStart?: boolean) => void;
   clearQueue: () => void;

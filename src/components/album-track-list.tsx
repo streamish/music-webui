@@ -1,6 +1,8 @@
 import { PlaylistControls } from './playlist-controls';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
-import type { Track } from '@/hooks/user/use-tracks';
+import type { components } from '@/types/api-schema';
+
+type Track = components['schemas']['LibraryTrackDto'];
 
 export function AlbumTrackList({ tracks, onEdit }: { tracks: Track[]; onEdit: () => void }) {
   return (

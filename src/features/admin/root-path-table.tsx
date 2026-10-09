@@ -13,12 +13,28 @@ import { Separator } from '@/components/ui/separator';
 import { formatNumber, formatSize } from '@/utils/format';
 import { memo } from 'react';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useRootPaths } from '@/hooks/admin/use-root-paths';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
+
+function useListRootPaths() {
+  return useQuery({
+    queryKey: ['admin', 'root-paths'],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/admin/list-root-paths');
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data) {
+        throw new Error('No root paths returned');
+      }
+      return data.rootPaths;
+    },
+  });
+}
 
 export const RootPathTable = memo(() => {
-  const { rootPaths: data, isLoading } = useRootPaths();
+  const { data: rootPaths = [], isLoading } = useListRootPaths();
   const { isMobile } = useIsMobile();
-
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
   const dummyRows = [
     {
@@ -55,7 +71,7 @@ export const RootPathTable = memo(() => {
       {/* Mobile card view */}
       {isMobile && (
         <div role="list" aria-label="Root paths">
-          {(isLoading ? dummyRows : data?.rootPaths || []).map((rootPath) => {
+          {(isLoading ? dummyRows : rootPaths).map((rootPath) => {
             const ariaLabel = `Root path for ${
               rootPath.username ? `${rootPath.username} ${rootPath.rootPath}` : 'loading'
             }`;
@@ -99,7 +115,7 @@ export const RootPathTable = memo(() => {
             <DataTableHeaderCell>Actions</DataTableHeaderCell>
           </DataTableHeader>
           <DataTableBody>
-            {(isLoading ? dummyRows : data?.rootPaths || []).map((rootPath, index) => {
+            {(isLoading ? dummyRows : rootPaths).map((rootPath, index) => {
               const opacity = index % 2 === 0 ? 20 : 10;
               const ariaLabel = `Root path for ${
                 rootPath.username ? `${rootPath.username} ${rootPath.rootPath}` : 'loading'

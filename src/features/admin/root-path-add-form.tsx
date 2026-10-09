@@ -14,17 +14,11 @@ import { Label } from '@/components/ui/label';
 import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
 import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
-import { useAccounts } from '@/hooks/admin/use-accounts';
-import { useRootPaths } from '@/hooks/admin/use-root-paths';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-import type { paths } from '@/types/api-schema';
-
-type CreateEndpoint = paths['/api/admin/create-root-path']['post'];
-type CreateQueryDto = CreateEndpoint['parameters']['query'];
-type CreateBodyDto = CreateEndpoint['requestBody']['content']['application/json'];
-type FormData = CreateQueryDto & CreateBodyDto;
 
 const schema = z.object({
   id: z.coerce.number().refine((value) => value > 0, {
@@ -43,10 +37,27 @@ const schema = z.object({
     }),
 });
 
+type FormData = z.infer<typeof schema>;
+
+function useListAccounts() {
+  return useQuery({
+    queryKey: ['admin', 'user-accounts'],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/admin/list-accounts');
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data) {
+        throw new Error('No user accounts returned');
+      }
+      return data.accounts;
+    },
+  });
+}
+
 export function RootPathAddForm() {
   const [open, setOpen] = useState(false);
-  const { accounts: data } = useAccounts();
-  const { createRootPath } = useRootPaths();
+  const { data: accounts = [] } = useListAccounts();
   const {
     control,
     formState: { errors },
@@ -58,47 +69,61 @@ export function RootPathAddForm() {
   });
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
-    await createRootPath(
-      {
-        query: {
-          id: formData.id,
+    try {
+      const result = await api.post('/api/admin/create-root-path', {
+        params: {
+          query: {
+            id: formData.id,
+          },
         },
         body: {
           rootPath: formData.rootPath,
         },
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Root path added successfully.  It will begin indexing shortly if the indexer is enabled.');
-        },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case 'root-path-does-not-exist-error':
-                setError('rootPath', { type: 'manual', message: 'The specified root path does not exist.' });
-                break;
-              case 'duplicate-root-path-error':
-                setError('rootPath', {
-                  type: 'manual',
-                  message: 'The specified root path has already been added to this account.',
-                });
-                break;
-              case 'account-not-found-error':
-                setError('id', { type: 'manual', message: 'The specified account does not exist.' });
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while adding root path:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
+      });
+      if (result.data?.success) {
+        toast.success('Root path added successfully. It will begin indexing shortly if the indexer is enabled.');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'root-path-does-not-exist-error':
+              setError('rootPath', { type: 'manual', message: 'The specified root path does not exist.' });
+              break;
+            case 'duplicate-root-path-error':
+              setError('rootPath', {
+                type: 'manual',
+                message: 'The specified root path has already been added to this account.',
+              });
+              break;
+            case 'account-not-found-error':
+              setError('id', { type: 'manual', message: 'The specified account does not exist.' });
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while creating root path:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
+        }
+      } else {
+        setError('rootPath', {
+          type: 'server',
+          message: 'Failed to add root path',
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while adding root path:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
+  if (!accounts.length) {
+    return null;
+  }
 
   return (
     <>
@@ -131,7 +156,7 @@ export function RootPathAddForm() {
                     className="w-full"
                   >
                     <NativeSelectOption value={0}>Select an account</NativeSelectOption>
-                    {data?.accounts?.map((account) => (
+                    {accounts.map((account) => (
                       <NativeSelectOption key={account.id} value={account.id}>
                         {account.username}
                       </NativeSelectOption>

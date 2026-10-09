@@ -96,12 +96,12 @@ export const AssociationsPage = memo(() => {
   const [searchParams] = useSearchParams();
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
   const { listRef, columnCount } = useGridColumnCount();
-  const { associations, refetch: refetchAssociations } = usePageAssociations({
+  const { data: { associations = [] } = {}, refetch: refetchAssociations } = usePageAssociations({
     isAlbumArtists,
     associationType,
   });
   const expandedAssociationId = associationId ? Number(associationId) : undefined;
-  const { association: expandedAssociation, refetch: refetchAssociation } = useAssociation({
+  const { data: { association: expandedAssociation } = {}, refetch: refetchAssociation } = useAssociation({
     id: expandedAssociationId || 0,
     enabled: expandedAssociationId !== undefined && expandedAssociationId > 0,
   });

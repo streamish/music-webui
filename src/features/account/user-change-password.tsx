@@ -11,19 +11,11 @@ import { FormValidationError } from '@/components/form-validation-error';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import { useAccounts } from '@/hooks/user/use-accounts';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-import type { paths } from '@/types/api-schema';
-
-type UpdatePasswordEndpoint = paths['/api/user/update-password']['post'];
-type UpdatePasswordBodyDto = UpdatePasswordEndpoint['requestBody']['content']['application/json'];
-
-type FormData = UpdatePasswordBodyDto & {
-  confirmPassword: string;
-};
 
 const schema = z
   .object({
@@ -54,9 +46,10 @@ const schema = z
     message: 'Passwords do not match',
   });
 
+type FormData = z.infer<typeof schema>;
+
 export function UserChangePasswordForm() {
   const [open, setOpen] = useState(false);
-  const { updatePassword } = useAccounts();
   const {
     formState: { errors },
     handleSubmit,
@@ -71,36 +64,46 @@ export function UserChangePasswordForm() {
       toast.error('Passwords do not match');
       return;
     }
-    await updatePassword(
-      {
-        newPassword: formData.newPassword,
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Password changed successfully. You will need to log in again with the new password.');
+    try {
+      const result = await api.post('/api/user/update-password', {
+        body: {
+          newPassword: formData.newPassword,
         },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case 'invalid-password-error':
-                setError('newPassword', { type: 'manual', message: 'The specified password is invalid.' });
-                break;
-              case 'invalid-password-length-error':
-                setError('newPassword', { type: 'manual', message: 'The new password length is invalid.' });
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while changing password:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
+      });
+      if (result.data?.success) {
+        toast.success('Password updated successfully');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'invalid-password-error':
+              setError('newPassword', { type: 'manual', message: 'The specified password is invalid.' });
+              break;
+            case 'invalid-password-length-error':
+              setError('newPassword', { type: 'manual', message: 'The new password length is invalid.' });
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while changing password:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
-    setOpen(false);
+        }
+      } else {
+        setError('root.server', {
+          type: 'server',
+          message: 'Failed to update password',
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while changing password:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (

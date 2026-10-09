@@ -1,17 +1,11 @@
-import { Folder, Music } from 'lucide-react';
+import { Folder as FolderIcon, Music } from 'lucide-react';
 import { PlaylistControls } from './playlist-controls';
-import type { TreeItemDto } from '@/hooks/user/use-folders';
+import type { components } from '@/types/api-schema';
 
-export function TreeListItem({
-  item,
-  onToggle,
-  onEdit,
-}: {
-  item: TreeItemDto;
-  onToggle?: () => void;
-  onEdit: () => void;
-}) {
-  const Icon = item.folder ? Folder : Music;
+type Folder = components['schemas']['LibraryFolderDto'];
+
+export function TreeListItem({ item, onToggle, onEdit }: { item: Folder; onToggle?: () => void; onEdit: () => void }) {
+  const Icon = item.folder ? FolderIcon : Music;
 
   return (
     <div onClick={onToggle} className="w-full p-0 m-0 border-transparent rounded-lg text-left transition-colors">

@@ -18,7 +18,7 @@ export default function TracksPage() {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
   });
-  const { tracks, refetchTracks, totalTracks } = useTracks(query);
+  const { data: { tracks = [], total: totalTracks } = {}, refetch: refetchTracks } = useTracks(query);
 
   const setPage = useCallback(
     (nextPage: number) => {
