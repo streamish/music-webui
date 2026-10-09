@@ -1,5 +1,5 @@
 import { IndexerLogsTable } from '@/features/account/indexer-logs-table';
-import { RootPathAddForm, RootPathTable } from '@/components';
+import { RootPathTable } from '@/features/account/root-path-table';
 import { UserChangePasswordForm } from '@/features/account/user-change-password';
 import { UserRotateSessionKeyForm } from '@/features/account/user-rotate-session-key-form';
 import UiPreferences from '@/features/account/ui-preferences';
@@ -26,7 +26,6 @@ const AccountPreferencesPage = () => {
       {/* Root path management */}
       <section className="mb-8">
         <h2 className="font-semibold mb-2 text-foreground/60">Library management</h2>
-        <RootPathAddForm />
         <RootPathTable />
       </section>
       {/* Indexer logs */}

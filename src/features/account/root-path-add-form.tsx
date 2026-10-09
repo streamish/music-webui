@@ -34,7 +34,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function RootPathAddForm() {
+export function RootPathAddForm({ onSave }: { onSave: () => void }) {
   const [open, setOpen] = useState(false);
   const {
     formState: { errors },
@@ -54,6 +54,7 @@ export function RootPathAddForm() {
       });
       if (result.data?.success) {
         toast.success('Root path added successfully. It will begin indexing shortly if the indexer is enabled.');
+        onSave();
         setOpen(false);
         return;
       }

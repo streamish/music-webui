@@ -17,7 +17,7 @@ type RootPathDto = {
   rootPath: string;
 };
 
-export function RootPathDeleteForm({ rootPath }: { rootPath: RootPathDto }) {
+export function RootPathDeleteForm({ rootPath, onSave }: { rootPath: RootPathDto; onSave: () => void }) {
   const [open, setOpen] = useState(false);
   const { handleSubmit } = useForm();
 
@@ -32,6 +32,7 @@ export function RootPathDeleteForm({ rootPath }: { rootPath: RootPathDto }) {
       });
       if (result.data?.success) {
         toast.success('Root path deleted successfully.');
+        onSave();
         setOpen(false);
         return;
       }

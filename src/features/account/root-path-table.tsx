@@ -7,6 +7,7 @@ import {
   DataTableHeaderCell,
   DataTableRow,
 } from '../../components/data-table';
+import { RootPathAddForm } from './root-path-add-form';
 import { RootPathDeleteForm } from './root-path-delete-form';
 import { Separator } from '@/components/ui/separator';
 import { formatNumber, formatSize } from '@/utils/format';
@@ -32,7 +33,8 @@ function useListRootPaths() {
 }
 
 export const RootPathTable = memo(() => {
-  const { data: rootPaths = [], isLoading } = useListRootPaths();
+  console.log('got root paths table for account');
+  const { data: rootPaths = [], isLoading, refetch } = useListRootPaths();
   const { isMobile } = useIsMobile();
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
   const dummyRows = [
@@ -64,6 +66,7 @@ export const RootPathTable = memo(() => {
 
   return (
     <>
+      <RootPathAddForm onSave={() => refetch()} />
       {/* Mobile card view */}
       {isMobile && (
         <div role="list" aria-label="Root paths">
@@ -86,7 +89,7 @@ export const RootPathTable = memo(() => {
                 </DataCardContent>
                 <Separator />
                 <DataCardFooter>
-                  <RootPathDeleteForm rootPath={rootPath} />
+                  <RootPathDeleteForm rootPath={rootPath} onSave={() => refetch()} />
                 </DataCardFooter>
               </DataCard>
             );
@@ -118,7 +121,7 @@ export const RootPathTable = memo(() => {
                   <DataTableCell>
                     {rootPath.id > 0 ? (
                       <div className="flex gap-2 whitespace-nowrap">
-                        <RootPathDeleteForm rootPath={rootPath} />
+                        <RootPathDeleteForm rootPath={rootPath} onSave={() => refetch()} />
                       </div>
                     ) : (
                       cellFiller(opacity)
