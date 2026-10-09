@@ -6,12 +6,13 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Fragment, useCallback, useRef } from 'react';
-import { TrackTable } from '@/components/track-table';
+import { TrackTable } from '@/features/library/track-table';
 import { TreeCard } from '@/components/tree-card';
 import { TreeListItem } from '@/components/tree-list-item';
-import { useFolders } from '@/hooks/user/use-folders';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
 import type { components } from '@/types/api-schema';
 
 type Folder = components['schemas']['LibraryFolderDto'];
@@ -33,6 +34,22 @@ function findBreadCrumb(id: number, items: Folder[], path: Folder[] = []): Folde
     }
   }
   return null;
+}
+
+function useFolders() {
+  return useQuery({
+    queryKey: ['folders'],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/user/folder-structure');
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data?.items?.length) {
+        throw new Error('No folders received');
+      }
+      return data.items;
+    },
+  });
 }
 
 export default function FoldersPage() {

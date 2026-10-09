@@ -1,16 +1,39 @@
-import { AlbumCard } from '@/components/album-card';
-import { AlbumExpandedDetails } from '@/components/album-expanded-details';
-import { AlbumListItem } from '@/components/album-list-item';
-import { AlbumStandaloneDetails } from '@/components/album-standalone-details';
+import { AlbumCard } from '@/features/library/album-card';
+import { AlbumExpandedDetails } from '@/features/library/album-expanded-details';
+import { AlbumListItem } from '@/features/library/album-list-item';
+import { AlbumStandaloneDetails } from '@/features/library/album-standalone-details';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { PageHeader } from '@/layouts/user-layout';
 import { PaginationControls } from '@/components/pagination-controls';
 import { formatSlug } from '@/utils/format';
-import { useAlbums } from '@/hooks/user/use-albums';
 import { useGridColumnCount } from '@/hooks/use-grid-column-count';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { usePreferences } from '@/hooks/use-preferences';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
+import type { paths } from 'src/types/api-schema';
+
+function useAlbums(params: paths['/api/user/list-albums']['get']['parameters']['query']) {
+  return useQuery({
+    queryKey: ['albums', params],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/user/list-albums', {
+        params: { query: params },
+      });
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data) {
+        throw new Error('No root paths returned');
+      }
+      return {
+        albums: data.albums,
+        total: data.total,
+      };
+    },
+  });
+}
 
 export default function AlbumsPage() {
   const navigate = useNavigate();

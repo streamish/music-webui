@@ -1,7 +1,7 @@
-import { Button } from './ui/button';
+import { Button } from '../../components/ui/button';
 import { ListEnd, ListStart, Play } from 'lucide-react';
 import { RatingControls } from './rating-controls';
-import { TrackEditForm } from '../features/library/track-edit-form';
+import { TrackEditForm } from './track-edit-form';
 import { useEffect, useState } from 'react';
 import { useQueueActions } from '@/features/library/queue';
 import type { components } from '@/types/api-schema';

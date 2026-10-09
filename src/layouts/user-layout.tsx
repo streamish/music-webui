@@ -1,4 +1,4 @@
-import { AppSidebar, primaryLinks, secondaryLinks } from '@/components/app-sidebar';
+import { AppSidebar, primaryLinks, secondaryLinks } from '@/features/app-sidebar';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { QueueControls } from '@/features/library/queue-controls';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';

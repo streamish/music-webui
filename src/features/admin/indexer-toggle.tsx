@@ -1,12 +1,12 @@
 import { Label } from '../../components/ui/label';
 import { Switch } from '../../components/ui/switch';
-import { useIndexer } from '@/hooks/admin/use-indexer';
+import { useIndexerStatus } from '@/features/admin/indexer-status';
 
 export function IndexerToggle({
   className,
   ...rest
 }: { className?: string } & React.InputHTMLAttributes<HTMLInputElement>) {
-  const { isEnabled, isLoadingStatus, toggleStatus } = useIndexer();
+  const { isEnabled, isLoadingStatus, toggleStatus } = useIndexerStatus();
 
   if (isLoadingStatus) {
     return (

@@ -2,11 +2,30 @@ import { AlbumEditForm } from '@/features/library/album-edit-form';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { ArrowLeftCircle } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from '../../components/ui/button';
 import { PlaylistControls } from './playlist-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { getContrastingTextColor } from '@/utils/color';
-import { useAlbum } from '@/hooks/user/use-albums';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
+
+function useAlbum(id: number) {
+  return useQuery({
+    queryKey: ['album', id],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/user/retrieve-album', {
+        params: { query: { id } },
+      });
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data) {
+        throw new Error('No root paths returned');
+      }
+      return data.album;
+    },
+  });
+}
 
 export function AlbumStandaloneDetails({
   albumId,

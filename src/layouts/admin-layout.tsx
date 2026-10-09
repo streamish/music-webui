@@ -1,5 +1,5 @@
-import { AppSidebar, primaryLinks, secondaryLinks } from '@/components/app-sidebar';
-import { IndexerProvider } from '@/hooks/admin/use-indexer';
+import { AppSidebar, primaryLinks, secondaryLinks } from '@/features/app-sidebar';
+import { IndexerProvider } from '@/features/admin/indexer-status';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { QueueControls } from '@/features/library/queue-controls';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
