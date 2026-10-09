@@ -34,7 +34,7 @@ function useListAccounts() {
 }
 
 export function UserTable() {
-  const { data: accounts = [], isLoading } = useListAccounts();
+  const { data: accounts = [], isLoading, refetch: refetchAccounts } = useListAccounts();
   const { isMobile } = useIsMobile();
 
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
@@ -93,7 +93,7 @@ export function UserTable() {
                   {account.id > 0 ? (
                     <>
                       <UserRotateSessionKeyForm user={account} />
-                      <UserUpdateRolesForm user={account} />
+                      <UserUpdateRolesForm user={account} onSave={() => refetchAccounts()} />
                       <UserResetPasswordForm user={account} />
                       <UserDeleteForm user={account} />
                     </>
@@ -142,7 +142,7 @@ export function UserTable() {
                     {account.id > 0 ? (
                       <div className="flex gap-2 whitespace-nowrap">
                         <UserRotateSessionKeyForm user={account} className="mr-4" />
-                        <UserUpdateRolesForm user={account} className="mr-4" />
+                        <UserUpdateRolesForm user={account} onSave={() => refetchAccounts()} className="mr-4" />
                         <UserResetPasswordForm user={account} className="mr-4" />
                         <UserDeleteForm user={account} className="mr-4" />
                       </div>

@@ -44,7 +44,15 @@ type AccountDto = {
   roles: UserRoleEnum[];
 };
 
-export function UserUpdateRolesForm({ user, className }: { user: AccountDto; className?: string }) {
+export function UserUpdateRolesForm({
+  user,
+  className,
+  onSave,
+}: {
+  user: AccountDto;
+  className?: string;
+  onSave: () => void;
+}) {
   const [open, setOpen] = useState(false);
   const {
     control,
@@ -74,6 +82,7 @@ export function UserUpdateRolesForm({ user, className }: { user: AccountDto; cla
       });
       if (result.data?.success) {
         toast.success('User roles updated successfully.');
+        onSave();
         setOpen(false);
         return;
       }
