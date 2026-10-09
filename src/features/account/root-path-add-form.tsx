@@ -13,13 +13,10 @@ import { Label } from '@/components/ui/label';
 import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useRootPaths } from '@/hooks/user/use-root-paths';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-import type { paths } from '@/types/api-schema';
-
-type CreateBodyDto = paths['/api/user/create-root-path']['post']['requestBody']['content']['application/json'];
 
 const schema = z.object({
   rootPath: z
@@ -35,51 +32,64 @@ const schema = z.object({
     }),
 });
 
-export function RootPathAddForm() {
+type FormData = z.infer<typeof schema>;
+
+export function RootPathAddForm({ onSave }: { onSave: () => void }) {
   const [open, setOpen] = useState(false);
-  const { createRootPath } = useRootPaths();
   const {
     formState: { errors },
     handleSubmit,
     register,
     setError,
-  } = useForm<CreateBodyDto>({
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit(async (formData: CreateBodyDto) => {
-    await createRootPath(
-      {
-        rootPath: formData.rootPath,
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Root path added successfully.  It will begin indexing shortly if the indexer is enabled.');
+  const onSubmit = handleSubmit(async (formData: FormData) => {
+    try {
+      const result = await api.post('/api/user/create-root-path', {
+        body: {
+          rootPath: formData.rootPath,
         },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case 'root-path-does-not-exist-error':
-                setError('rootPath', { type: 'manual', message: 'The specified root path does not exist.' });
-                break;
-              case 'duplicate-root-path-error':
-                setError('rootPath', {
-                  type: 'manual',
-                  message: 'The specified root path has already been added to this account.',
-                });
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while adding root path:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
+      });
+      if (result.data?.success) {
+        toast.success('Root path added successfully. It will begin indexing shortly if the indexer is enabled.');
+        onSave();
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'root-path-does-not-exist-error':
+              setError('rootPath', { type: 'manual', message: 'The specified root path does not exist.' });
+              break;
+            case 'duplicate-root-path-error':
+              setError('rootPath', {
+                type: 'manual',
+                message: 'The specified root path has already been added to this account.',
+              });
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while adding root path:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
+        }
+      } else {
+        setError('rootPath', {
+          type: 'server',
+          message: 'Failed to add root path',
+        });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while adding root path:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (
@@ -87,7 +97,6 @@ export function RootPathAddForm() {
       <Button className="px-2 mb-4 py-1 rounded text-xs uppercase" onClick={() => setOpen(true)} variant="outline">
         <Plus /> Add root path
       </Button>
-
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-106.25">
           <DialogHeader>

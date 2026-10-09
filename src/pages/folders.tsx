@@ -8,15 +8,16 @@ import {
 import { Fragment, useCallback, useRef } from 'react';
 import { TrackTable } from '@/components/track-table';
 import { TreeCard } from '@/components/tree-card';
-import { type TreeItemDto, useFolders } from '@/hooks/user/use-folders';
 import { TreeListItem } from '@/components/tree-list-item';
+import { useFolders } from '@/hooks/user/use-folders';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { components } from '@/types/api-schema';
 
+type Folder = components['schemas']['LibraryFolderDto'];
 type Track = components['schemas']['LibraryTrackDto'];
 
-function findBreadCrumb(id: number, items: TreeItemDto[], path: TreeItemDto[] = []): TreeItemDto[] | null {
+function findBreadCrumb(id: number, items: Folder[], path: Folder[] = []): Folder[] | null {
   for (let i = 0; i < items.length; i += 1) {
     const item = items[i];
     if (item.folder) {
@@ -36,12 +37,12 @@ function findBreadCrumb(id: number, items: TreeItemDto[], path: TreeItemDto[] = 
 
 export default function FoldersPage() {
   const navigate = useNavigate();
-  const { folders, refetchFolders } = useFolders();
+  const { data: folders = [], refetch: refetchFolders } = useFolders();
   const { isMobile } = useIsMobile();
   const listRef = useRef(null);
   const { folderId } = useParams<{ folderId: string }>();
   const expandedItemId = Number(folderId) ?? null;
-  const breadcrumb = expandedItemId ? findBreadCrumb(expandedItemId, folders ?? []) || [] : [];
+  const breadcrumb = expandedItemId ? findBreadCrumb(expandedItemId, folders) || [] : [];
   const expandedItem = expandedItemId ? breadcrumb[breadcrumb.length - 1] : null;
   const items = expandedItem?.children || folders || [];
 
@@ -53,7 +54,7 @@ export default function FoldersPage() {
   });
 
   const toggleFolder = useCallback(
-    (item: TreeItemDto) => {
+    (item: Folder) => {
       if (expandedItemId === item.id || item.id === 0) {
         navigate('/folders');
       } else {
@@ -64,7 +65,7 @@ export default function FoldersPage() {
   );
 
   const clickCrumb = useCallback(
-    (item: TreeItemDto) => {
+    (item: Folder) => {
       if (item.id === 0) {
         navigate('/folders');
       } else {
@@ -110,8 +111,8 @@ export default function FoldersPage() {
           <ul className="flex flex-col grow" aria-label="Folder list">
             {items.length > 0 &&
               items
-                .filter((item: TreeItemDto) => item.folder)
-                .map((item: TreeItemDto, index) => {
+                .filter((item: Folder) => item.folder)
+                .map((item: Folder, index) => {
                   return (
                     <li
                       className="w-full p-2"
@@ -136,8 +137,8 @@ export default function FoldersPage() {
             aria-label="Folder list"
           >
             {items
-              .filter((item: TreeItemDto) => item.folder)
-              .map((item) => {
+              .filter((item: Folder) => item.folder)
+              .map((item: Folder) => {
                 return (
                   <li className="w-full h-full inline-flex align-middle justify-center" key={`folder ${item.id}`}>
                     <TreeCard item={item} onToggle={() => toggleFolder(item)} />

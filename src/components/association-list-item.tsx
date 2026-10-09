@@ -1,12 +1,14 @@
 import { AssociationIconImage } from './association-icon-image';
-import type { AssociationStub } from '@/hooks/user/use-associations';
+import type { components } from '@/types/api-schema';
+
+type Association = components['schemas']['LibraryAssociationDto'];
 
 export function AssociationListItem({
   association,
   isExpanded,
   onToggle,
 }: {
-  association: AssociationStub;
+  association: Association;
   isExpanded: boolean;
   onToggle: () => void;
 }) {

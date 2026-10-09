@@ -27,20 +27,19 @@ export async function createSession(username: string, password: string): Promise
 }
 
 export class AdminApi {
-  constructor(private readonly jwtToken: string) {}
+  private readonly adminApi;
 
-  private get authHeader() {
-    return {
-      Authorization: `Bearer ${this.jwtToken}`,
-    };
+  constructor(private readonly jwtToken: string) {
+    this.adminApi = createClient<paths>({
+      baseUrl: process.env.VITE_API_BASE_URL,
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    });
   }
 
   async getAccount(username: string): Promise<User> {
-    const { data, error } = await api.GET('/api/admin/list-accounts', {
-      params: {
-        header: this.authHeader,
-      },
-    });
+    const { data, error } = await this.adminApi.GET('/api/admin/list-accounts');
     if (error) {
       throw new Error(`Failed to list users: ${JSON.stringify(error)}`);
     }
@@ -52,20 +51,13 @@ export class AdminApi {
   }
 
   async createUser(userData: components['schemas']['AdminCreateAccountBodyDto']): Promise<User> {
-    const { error } = await api.POST('/api/admin/create-account', {
+    const { error } = await this.adminApi.POST('/api/admin/create-account', {
       body: userData,
-      params: {
-        header: this.authHeader,
-      },
     });
     if (error) {
       throw new Error(`Failed to create user: ${JSON.stringify(error)}`);
     }
-    const { data: data2, error: listError } = await api.GET('/api/admin/list-accounts', {
-      params: {
-        header: this.authHeader,
-      },
-    });
+    const { data: data2, error: listError } = await this.adminApi.GET('/api/admin/list-accounts', {});
     if (listError) {
       throw new Error(`Failed to list users: ${JSON.stringify(listError)}`);
     }
@@ -77,9 +69,8 @@ export class AdminApi {
   }
 
   async deleteUser(accountId: number): Promise<void> {
-    const { error } = await api.PATCH('/api/admin/delete-account', {
+    const { error } = await this.adminApi.PATCH('/api/admin/delete-account', {
       params: {
-        header: this.authHeader,
         query: { id: accountId },
       },
       body: {
@@ -92,10 +83,9 @@ export class AdminApi {
   }
 
   async createRootPath(accountId: number, rootPath: string): Promise<void> {
-    const { error } = await api.POST('/api/admin/create-root-path', {
+    const { error } = await this.adminApi.POST('/api/admin/create-root-path', {
       body: { rootPath },
       params: {
-        header: this.authHeader,
         query: { id: accountId },
       },
     });
@@ -105,11 +95,7 @@ export class AdminApi {
   }
 
   async getIndexerConfiguration(): Promise<components['schemas']['AdminIndexerConfigurationDto']> {
-    const { data, error } = await api.GET('/api/admin/indexer-configuration', {
-      params: {
-        header: this.authHeader,
-      },
-    });
+    const { data, error } = await this.adminApi.GET('/api/admin/indexer-configuration', {});
     if (error || !data) {
       throw new Error(`Failed to load indexer configuration: ${JSON.stringify(error)}`);
     }

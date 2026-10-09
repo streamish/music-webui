@@ -7,17 +7,35 @@ import {
   DataTableHeaderCell,
   DataTableRow,
 } from '../../components/data-table';
+import { RootPathAddForm } from './root-path-add-form';
 import { RootPathDeleteForm } from './root-path-delete-form';
 import { Separator } from '@/components/ui/separator';
 import { formatNumber, formatSize } from '@/utils/format';
 import { memo } from 'react';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useRootPaths } from '@/hooks/user/use-root-paths';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
+
+function useListRootPaths() {
+  return useQuery({
+    queryKey: ['admin', 'root-paths'],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/user/list-root-paths');
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data) {
+        throw new Error('No root paths returned');
+      }
+      return data.rootPaths;
+    },
+  });
+}
 
 export const RootPathTable = memo(() => {
-  const { rootPaths, isLoading } = useRootPaths();
+  console.log('got root paths table for account');
+  const { data: rootPaths = [], isLoading, refetch } = useListRootPaths();
   const { isMobile } = useIsMobile();
-
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
   const dummyRows = [
     {
@@ -48,6 +66,7 @@ export const RootPathTable = memo(() => {
 
   return (
     <>
+      <RootPathAddForm onSave={() => refetch()} />
       {/* Mobile card view */}
       {isMobile && (
         <div role="list" aria-label="Root paths">
@@ -70,7 +89,7 @@ export const RootPathTable = memo(() => {
                 </DataCardContent>
                 <Separator />
                 <DataCardFooter>
-                  <RootPathDeleteForm rootPath={rootPath} />
+                  <RootPathDeleteForm rootPath={rootPath} onSave={() => refetch()} />
                 </DataCardFooter>
               </DataCard>
             );
@@ -102,7 +121,7 @@ export const RootPathTable = memo(() => {
                   <DataTableCell>
                     {rootPath.id > 0 ? (
                       <div className="flex gap-2 whitespace-nowrap">
-                        <RootPathDeleteForm rootPath={rootPath} />
+                        <RootPathDeleteForm rootPath={rootPath} onSave={() => refetch()} />
                       </div>
                     ) : (
                       cellFiller(opacity)

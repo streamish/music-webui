@@ -4,8 +4,10 @@ import { RatingControls } from './rating-controls';
 import { TrackEditForm } from '../features/library/track-edit-form';
 import { useEffect, useState } from 'react';
 import { useQueueActions } from '@/features/library/queue';
-import type { Album } from '@/hooks/user/use-albums';
-import type { Track } from '@/hooks/user/use-tracks';
+import type { components } from '@/types/api-schema';
+
+type Album = components['schemas']['LibraryAlbumDto'];
+type Track = components['schemas']['LibraryTrackDto'];
 
 export function PlaylistControls({
   album,

@@ -84,7 +84,7 @@
     "start:dev": "vite --host localhost --port 8000 -- --inspect",
     "start:prod": "http-server dist --host localhost --port 8000",
     "start:test": "vite preview --mode test --host localhost --port 8100",
-    "openapi:generate": "npx openapi-typescript http://localhost:7100/swagger.json -o ./src/types/api-schema.ts --enum --export-type",
+    "openapi:refresh": "npx openapi-typescript http://localhost:7100/swagger.json -o ./src/types/api-schema.ts --enum --export-type",
     "test": "npx dotenv -e .env.test -- npx playwright test",
     "test:ci": "npx dotenv -e .env.test -- npx playwright test --reporter=line --workers=1"
   },

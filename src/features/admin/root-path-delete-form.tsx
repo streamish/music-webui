@@ -9,39 +9,55 @@ import {
 } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useRootPaths } from '@/hooks/admin/use-root-paths';
 import { useState } from 'react';
-import type { RootPathDto } from '@/hooks/user/use-root-paths';
+import api from '@/lib/api';
+
+type RootPathDto = {
+  id: number;
+  rootPath: string;
+};
 
 export function RootPathDeleteForm({ rootPath }: { rootPath: RootPathDto }) {
   const [open, setOpen] = useState(false);
-  const { deleteRootPath } = useRootPaths();
   const { handleSubmit } = useForm();
 
   const onSubmit = handleSubmit(async () => {
-    await deleteRootPath(
-      { id: rootPath.id },
-      {
-        onSuccess: () => {
-          setOpen(false);
+    try {
+      const result = await api.delete('/api/admin/delete-root-path', {
+        params: {
+          query: {
+            id: rootPath.id,
+          },
         },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              case 'root-path-not-found-error':
-                toast.error('The specified root path ID is invalid.');
-                break;
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while deleting root path:', error);
-                toast.error(error.message);
-                break;
-            }
+      });
+      if (result.data?.success) {
+        toast.success('Root path deleted successfully.');
+        setOpen(false);
+        return;
+      }
+      if (result.error) {
+        const { error, message } = result.error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'root-path-not-found-error':
+              toast.error('The specified root path ID is invalid.');
+              break;
+            default:
+              // eslint-disable-next-line no-console
+              console.error('Unexpected error occurred while deleting root path:', error);
+              toast.error('An internal server error occurred. Please try again later.');
+              break;
           }
-        },
-      },
-    );
+        }
+      } else {
+        toast.error('Failed to delete root path');
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while deleting root path:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (
@@ -49,7 +65,6 @@ export function RootPathDeleteForm({ rootPath }: { rootPath: RootPathDto }) {
       <Button className="px-2 py-1 rounded mr-4 text-xs uppercase" onClick={() => setOpen(true)} variant="destructive">
         Delete path
       </Button>
-
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-106.25">
           <DialogHeader>

@@ -5,23 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
-import { useCustomData } from '@/hooks/user/use-custom-data';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import api from '@/lib/api';
 import z from 'zod/v3';
-import type { Track } from '@/hooks/user/use-tracks';
-
-type FormData = {
-  title: string;
-  genres?: string;
-  artists: string;
-  comment?: string;
-  composers?: string;
-  trackNumber?: number;
-  discNumber?: number;
-  year?: number;
-};
+import type { components } from '@/types/api-schema';
 
 const schema = z.object({
   title: z
@@ -54,8 +43,10 @@ const schema = z.object({
   year: z.coerce.number().optional(),
 });
 
+type FormData = z.infer<typeof schema>;
+type Track = components['schemas']['LibraryTrackDto'];
+
 export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => void }) {
-  const { setTrackCustomData } = useCustomData();
   const [open, setOpen] = useState(false);
   const {
     formState: { errors },
@@ -90,9 +81,13 @@ export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => v
   }, [track, reset]);
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
-    await setTrackCustomData(
-      {
-        query: { id: track.id },
+    try {
+      const result = await api.patch('/api/user/set-track-custom-data', {
+        params: {
+          query: {
+            id: track.id,
+          },
+        },
         body: {
           artists: formData.artists,
           composers: formData.composers,
@@ -103,27 +98,26 @@ export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => v
           trackNumber: formData.trackNumber || 0,
           year: formData.year || 0,
         },
-      },
-      {
-        onSuccess: () => {
-          setOpen(false);
-          toast.success('Track updated successfully.');
-          onSave();
-        },
-        onError: (error) => {
-          for (let i = 0; i < error.messages.length; i += 1) {
-            const message = error.messages[i];
-            switch (message) {
-              default:
-                // eslint-disable-next-line no-console
-                console.error('Unexpected error occurred while updating the track:', error);
-                toast.error('An internal server error occurred. Please try again later.');
-                break;
-            }
-          }
-        },
-      },
-    );
+      });
+      if (result.data?.success) {
+        toast.success('Track updated successfully.');
+        setOpen(false);
+        onSave();
+        return;
+      }
+      if (result.error) {
+        const { error } = result.error;
+        // eslint-disable-next-line no-console
+        console.error('Unexpected error occurred while updating the track:', error);
+        toast.error('An internal server error occurred. Please try again later.');
+      } else {
+        toast.error('Failed to update track');
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while updating the track:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
   });
 
   return (

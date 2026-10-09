@@ -18,9 +18,7 @@ export function IndexerToggle({
   }
 
   const handleSubmit = async (value: boolean) => {
-    await toggleStatus({
-      enabled: value,
-    });
+    await toggleStatus(value);
   };
 
   return (

@@ -1,4 +1,6 @@
-import type { Track } from '@/hooks/user/use-tracks';
+import type { components } from 'src/types/api-schema';
+
+type Track = components['schemas']['LibraryTrackDto'];
 
 /**
  * Splits an array of tracks into two halves.

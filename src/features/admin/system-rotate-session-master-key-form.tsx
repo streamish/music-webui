@@ -21,31 +21,31 @@ export function SystemRotateSessionMasterKeyForm({ className }: { className?: st
   const { handleSubmit } = useForm();
 
   const onSubmit = handleSubmit(async () => {
-    const { data, error } = await api.post('/api/admin/regenerate-master-session-key', {
-      params: {
-        header: {
-          ...api.authHeader(),
-        },
-      },
-    });
-    if (error) {
-      // eslint-disable-next-line no-console
-      console.error('Error regenerating session master key', error);
-      toast.error('An error occurred generating a new master session key');
-      return;
-    }
-    if (!data.success) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to generate new session key', data);
-      toast.error('An error occurred generating a new master session key');
-      return;
-    }
     try {
-      await clearSessionToken();
-    } catch {
-      // expect an error here because the session is now invalid
-    } finally {
-      navigate('/signin');
+      const { data, error } = await api.post('/api/admin/regenerate-master-session-key');
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error regenerating session master key', error);
+        toast.error('An error occurred generating a new master session key');
+        return;
+      }
+      if (!data.success) {
+        // eslint-disable-next-line no-console
+        console.error('Failed to generate new session key', data);
+        toast.error('An error occurred generating a new master session key');
+        return;
+      }
+      try {
+        await clearSessionToken();
+      } catch {
+        // expect an error here because the session is now invalid
+      } finally {
+        navigate('/signin');
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while resetting the master session key:', error);
+      toast.error('An internal server error occurred. Please try again later.');
     }
   });
 
