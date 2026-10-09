@@ -1,4 +1,4 @@
-import { AlbumIconImage } from '@/components/album-icon-image';
+import { AlbumIconImage } from '@/features/library/album-icon-image';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
 import { useQueueData, useQueuePlayback } from './queue';
 

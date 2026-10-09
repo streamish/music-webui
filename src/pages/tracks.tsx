@@ -1,12 +1,35 @@
 import { PageHeader } from '@/layouts/user-layout';
 import { PaginationControls } from '@/components/pagination-controls';
-import { TrackListItem } from '@/components/track-list-item';
-import { TrackTable } from '@/components/track-table';
+import { TrackListItem } from '@/features/library/track-list-item';
+import { TrackTable } from '@/features/library/track-table';
 import { useCallback, useState } from 'react';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { usePreferences } from '@/hooks/use-preferences';
+import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router';
-import { useTracks } from '@/hooks/user/use-tracks';
+import api from '@/lib/api';
+import type { paths } from '@/types/api-schema';
+
+function useTracks(query: paths['/api/user/list-tracks']['get']['parameters']['query']) {
+  return useQuery({
+    queryKey: ['tracks', query],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/user/list-tracks', {
+        params: { query },
+      });
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data?.tracks) {
+        throw new Error('No tracks received');
+      }
+      return {
+        tracks: data.tracks,
+        total: data.total,
+      };
+    },
+  });
+}
 
 export default function TracksPage() {
   const { isMobile } = useIsMobile();

@@ -83,10 +83,10 @@ export function IndexerProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function useIndexer() {
+export function useIndexerStatus() {
   const context = useContext(IndexerContext);
   if (!context) {
-    throw new Error('useIndexer must be used within IndexerProvider');
+    throw new Error('useIndexerStatus must be used within IndexerProvider');
   }
   return context;
 }

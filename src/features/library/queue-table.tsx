@@ -1,5 +1,5 @@
-import { AlbumFullImage } from '@/components/album-full-image';
-import { AlbumIconImage } from '@/components/album-icon-image';
+import { AlbumFullImage } from '@/features/library/album-full-image';
+import { AlbumIconImage } from '@/features/library/album-icon-image';
 import { Button } from '@/components/ui/button';
 import { Logs, Repeat, Shuffle } from 'lucide-react';
 import { getContrastingTextColor } from '@/utils/color';

@@ -1,5 +1,5 @@
 import { Folder as FolderIcon, Music } from 'lucide-react';
-import { PlaylistControls } from './playlist-controls';
+import { PlaylistControls } from '../features/library/playlist-controls';
 import type { components } from '@/types/api-schema';
 
 type Folder = components['schemas']['LibraryFolderDto'];

@@ -3,8 +3,27 @@ import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { PlaylistControls } from './playlist-controls';
 import { createTrackGroups } from '@/utils/tracks';
-import { useAlbum } from '@/hooks/user/use-albums';
 import { useMemo, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
+
+function useAlbum(id: number) {
+  return useQuery({
+    queryKey: ['album', id],
+    queryFn: async () => {
+      const { data, error } = await api.get('/api/user/retrieve-album', {
+        params: { query: { id } },
+      });
+      if (error) {
+        throw new Error(error.error);
+      }
+      if (!data) {
+        throw new Error('No root paths returned');
+      }
+      return data.album;
+    },
+  });
+}
 
 export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onEdit: () => void }) {
   const { data: album, refetch } = useAlbum(albumId);
