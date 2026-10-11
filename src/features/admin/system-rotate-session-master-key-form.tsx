@@ -22,7 +22,7 @@ export function SystemRotateSessionMasterKeyForm({ className }: { className?: st
 
   const onSubmit = handleSubmit(async () => {
     try {
-      const { data, error } = await api.post('/api/admin/regenerate-master-session-key');
+      const { data, error } = await api.post('/api/regenerate-master-session-key');
       if (error) {
         // eslint-disable-next-line no-console
         console.error('Error regenerating session master key', error);

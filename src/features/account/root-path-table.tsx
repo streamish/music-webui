@@ -20,7 +20,7 @@ function useListRootPaths() {
   return useQuery({
     queryKey: ['admin', 'root-paths'],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/list-root-paths');
+      const { data, error } = await api.get('/api/list-root-paths');
       if (error) {
         throw new Error(error.error);
       }
@@ -33,7 +33,6 @@ function useListRootPaths() {
 }
 
 export const RootPathTable = memo(() => {
-  console.log('got root paths table for account');
   const { data: rootPaths = [], isLoading, refetch } = useListRootPaths();
   const { isMobile } = useIsMobile();
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;

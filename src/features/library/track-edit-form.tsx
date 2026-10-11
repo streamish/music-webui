@@ -82,7 +82,7 @@ export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => v
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.patch('/api/user/set-track-custom-data', {
+      const result = await api.patch('/api/set-track-custom-data', {
         params: {
           query: {
             id: track.id,

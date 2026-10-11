@@ -49,7 +49,7 @@ export function UserDeleteForm({ user, className }: { user: AccountDto; classNam
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const result = await api.patch('/api/admin/delete-account', {
+      const result = await api.patch('/api/delete-account', {
         params: {
           query: {
             id: user.id,

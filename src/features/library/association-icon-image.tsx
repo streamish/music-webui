@@ -44,7 +44,7 @@ export function AssociationIconImage({ associationId, size, style, ...props }: A
       setImageUrl(null);
       return undefined;
     }
-    const nextUrl = `${baseUrl}/api/user/association-cover-image?id=${associationId}&size=${size}`;
+    const nextUrl = `${baseUrl}/api/association-cover-image?id=${associationId}&size=${size}`;
     objectUrlRef.current = nextUrl;
     setImageUrl(nextUrl);
     return () => {

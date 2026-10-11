@@ -183,7 +183,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     audio.pause();
     setCurrentTime(0);
     setDuration(0);
-    audio.src = `${baseUrl}/api/user/stream-file?id=${track.id}`;
+    audio.src = `${baseUrl}/api/stream-track?id=${track.id}`;
     audio.load();
     if (isPlaying) {
       audio.play().catch(() => {

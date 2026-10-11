@@ -55,7 +55,7 @@ export function RootPathUpdateForm({ rootPath }: { rootPath: RootPathDto }) {
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.patch('/api/admin/update-root-path', {
+      const result = await api.patch('/api/update-user-root-path', {
         params: {
           query: {
             id: rootPath.id,

@@ -7,26 +7,57 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { FormValidationError } from '@/components/form-validation-error';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
+import z from 'zod/v3';
 
 type AccountDto = {
   id: number;
 };
 
+const schema = z.object({
+  adminPassword: z
+    .string()
+    .refine((value) => value.length > 0, {
+      message: 'Administrator password is required',
+    })
+    .refine((value) => value.length >= 1, {
+      message: 'Administrator password is too short',
+    })
+    .refine((value) => value.length <= 255, {
+      message: 'Administrator password is too long',
+    }),
+});
+
+type FormData = z.infer<typeof schema>;
+
 export function UserRotateSessionKeyForm({ user, className }: { user: AccountDto; className?: string }) {
   const [open, setOpen] = useState(false);
-  const { handleSubmit } = useForm();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    setError,
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
 
-  const onSubmit = handleSubmit(async () => {
+  const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.post('/api/admin/regenerate-user-session-key', {
+      const result = await api.post('/api/regenerate-user-session-key', {
         params: {
           query: {
             id: user.id,
           },
+        },
+        body: {
+          adminPassword: formData.adminPassword,
         },
       });
       if (result.data?.success) {
@@ -41,6 +72,9 @@ export function UserRotateSessionKeyForm({ user, className }: { user: AccountDto
           switch (errorMessage) {
             case 'account-not-found-error':
               toast.error('The specified account does not exist.');
+              break;
+            case 'invalid-admin-password-length-error':
+              setError('adminPassword', { type: 'manual', message: 'The admin password length is invalid.' });
               break;
             default:
               // eslint-disable-next-line no-console
@@ -78,6 +112,16 @@ export function UserRotateSessionKeyForm({ user, className }: { user: AccountDto
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={onSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="adminPassword">Administrator password</Label>
+              <Input
+                id="adminPassword"
+                type="password"
+                {...register('adminPassword', { required: true })}
+                placeholder="Enter admin password"
+              />
+              <FormValidationError text={errors.adminPassword?.message} />
+            </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                 Cancel

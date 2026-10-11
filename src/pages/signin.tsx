@@ -16,9 +16,6 @@ import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
 import z from 'zod/v3';
-import type { components } from '@/types/api-schema';
-
-type GuestCreateSessionBadRequestResponseDto = components['schemas']['GuestCreateSessionBadRequestResponseDto'];
 
 type FormData = {
   username: string;
@@ -46,7 +43,7 @@ export default function SignInPage() {
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const { error, data } = await api.post('/api/guest/create-session', {
+      const { error, data } = await api.post('/api/create-session', {
         body: {
           username: formData.username,
           password: formData.password,
@@ -54,16 +51,29 @@ export default function SignInPage() {
         },
       });
       if (error) {
-        let message: string;
-        if (error instanceof Error) {
-          message = error.message;
-        } else {
-          const errorResponse = error as GuestCreateSessionBadRequestResponseDto;
-          message = errorResponse.message[0] || 'An unknown error occurred';
+        const { message } = error;
+        for (let i = 0; i < message.length; i += 1) {
+          const errorMessage = message[i];
+          switch (errorMessage) {
+            case 'invalid-username-error':
+              setError('username', {
+                type: 'manual',
+                message: 'Your username is not valid',
+              });
+              break;
+            case 'invalid-password-error':
+              setError('password', {
+                type: 'manual',
+                message: 'Your password is not valid',
+              });
+              break;
+            default:
+              toast.error('An unknown error occurred');
+              break;
+          }
         }
-        throw new Error(message);
       }
-      if (!data.success || !data.jwtToken) {
+      if (!data?.success || !data?.jwtToken) {
         throw new Error('An unknown error occurred');
       }
       login(data.jwtToken, formData.remember);

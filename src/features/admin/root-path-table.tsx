@@ -20,7 +20,7 @@ function useListRootPaths() {
   return useQuery({
     queryKey: ['admin', 'root-paths'],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/admin/list-root-paths');
+      const { data, error } = await api.get('/api/list-user-root-paths');
       if (error) {
         throw new Error(error.error);
       }

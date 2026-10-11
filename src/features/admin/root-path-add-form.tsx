@@ -43,7 +43,7 @@ function useListAccounts() {
   return useQuery({
     queryKey: ['admin', 'user-accounts'],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/admin/list-accounts');
+      const { data, error } = await api.get('/api/list-accounts');
       if (error) {
         throw new Error(error.error);
       }
@@ -70,7 +70,7 @@ export function RootPathAddForm() {
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.post('/api/admin/create-root-path', {
+      const result = await api.post('/api/create-user-root-path', {
         params: {
           query: {
             id: formData.id,

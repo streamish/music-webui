@@ -22,7 +22,7 @@ export function RatingControls({ track, album }: { track: Track; album?: Album }
       const a = album;
       a.rating = newValue;
       try {
-        const result = await api.put('/api/user/set-album-rating', {
+        const result = await api.put('/api/set-album-rating', {
           params: {
             query: {
               id: album.id,
@@ -50,7 +50,7 @@ export function RatingControls({ track, album }: { track: Track; album?: Album }
       const t = track;
       t.rating = newValue;
       try {
-        const result = await api.put('/api/user/set-track-rating', {
+        const result = await api.put('/api/set-track-rating', {
           params: {
             query: {
               id: track.id,

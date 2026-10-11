@@ -47,7 +47,7 @@ export function RootPathAddForm({ onSave }: { onSave: () => void }) {
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.post('/api/user/create-root-path', {
+      const result = await api.post('/api/create-root-path', {
         body: {
           rootPath: formData.rootPath,
         },

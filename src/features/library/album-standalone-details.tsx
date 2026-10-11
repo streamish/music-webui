@@ -13,7 +13,7 @@ function useAlbum(id: number) {
   return useQuery({
     queryKey: ['album', id],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/retrieve-album', {
+      const { data, error } = await api.get('/api/retrieve-album', {
         params: { query: { id } },
       });
       if (error) {

@@ -663,7 +663,7 @@ test.describe('admin home', () => {
           await pom.navigateToAdmin();
           const configurationBefore = await api.getIndexerConfiguration();
           const response = page.waitForResponse(
-            (res) => res.url().includes('/api/admin/set-indexer-status') && res.status() === 200,
+            (res) => res.url().includes('/api/set-indexer-status') && res.status() === 200,
           );
           await page.getByRole('button', { name: 'Toggle indexer' }).click();
           await response;

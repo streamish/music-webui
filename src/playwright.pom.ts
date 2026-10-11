@@ -1,7 +1,5 @@
 import { type Locator, type Page, expect } from '@playwright/test';
-import type { components } from './types/api-schema';
-
-type CreateSessionBody = components['schemas']['GuestCreateSessionBodyDto'];
+import type { components, paths } from './types/api-schema';
 
 export class Pom {
   private readonly page: Page;
@@ -116,7 +114,10 @@ export class Pom {
     await this.page.waitForURL('/track-genres');
   }
 
-  async signIn(params?: CreateSessionBody, expectSuccess = true): Promise<void> {
+  async signIn(
+    params?: paths['/api/create-session']['post']['requestBody']['content']['application/json'],
+    expectSuccess = true,
+  ): Promise<void> {
     await this.page.goto('/signin');
     if (this.jwtToken) {
       await this.page.waitForLoadState('networkidle');
@@ -144,7 +145,7 @@ export class Pom {
       const url = res.url();
       const status = res.status();
       return (
-        url.includes('/api/guest/create-session') &&
+        url.includes('/api/create-session') &&
         ((expectSuccess && status === 201) || (!expectSuccess && (status === 400 || status === 404)))
       );
     });

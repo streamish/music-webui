@@ -84,7 +84,7 @@ export function UserAddForm({ className }: { className?: string }) {
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.post('/api/admin/create-account', {
+      const result = await api.post('/api/create-account', {
         body: {
           adminPassword: formData.adminPassword,
           username: formData.username,
