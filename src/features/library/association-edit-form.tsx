@@ -65,10 +65,11 @@ export function AssociationEditForm({
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.patch(`/api/user/set-${associationType}-name`, {
+      const result = await api.patch(`/api/set-association-name`, {
         params: {
           query: {
             id: association.id,
+            associationType,
           },
         },
         body: {

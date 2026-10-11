@@ -40,7 +40,7 @@ function useFolders() {
   return useQuery({
     queryKey: ['folders'],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/folder-structure');
+      const { data, error } = await api.get('/api/folder-structure');
       if (error) {
         throw new Error(error.error);
       }

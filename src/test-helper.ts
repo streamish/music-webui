@@ -1,7 +1,7 @@
 import createClient from 'openapi-fetch';
 import type { components, paths } from './types/api-schema';
 
-type User = components['schemas']['AdminAccountDto'];
+type User = components['schemas']['AccountDto'];
 
 if (!process.env.VITE_API_BASE_URL) {
   throw new Error('VITE_API_BASE_URL environment variable is not set');
@@ -17,7 +17,7 @@ const api = createClient<paths>({
 });
 
 export async function createSession(username: string, password: string): Promise<string> {
-  const { data, error } = await api.POST('/api/guest/create-session', {
+  const { data, error } = await api.POST('/api/create-session', {
     body: { username, password },
   });
   if (error || !data) {
@@ -39,7 +39,7 @@ export class AdminApi {
   }
 
   async getAccount(username: string): Promise<User> {
-    const { data, error } = await this.adminApi.GET('/api/admin/list-accounts');
+    const { data, error } = await this.adminApi.GET('/api/list-accounts');
     if (error) {
       throw new Error(`Failed to list users: ${JSON.stringify(error)}`);
     }
@@ -50,14 +50,14 @@ export class AdminApi {
     return account;
   }
 
-  async createUser(userData: components['schemas']['AdminCreateAccountBodyDto']): Promise<User> {
-    const { error } = await this.adminApi.POST('/api/admin/create-account', {
+  async createUser(userData: components['schemas']['CreateAccountBodyDto']): Promise<User> {
+    const { error } = await this.adminApi.POST('/api/create-account', {
       body: userData,
     });
     if (error) {
       throw new Error(`Failed to create user: ${JSON.stringify(error)}`);
     }
-    const { data: data2, error: listError } = await this.adminApi.GET('/api/admin/list-accounts', {});
+    const { data: data2, error: listError } = await this.adminApi.GET('/api/list-accounts', {});
     if (listError) {
       throw new Error(`Failed to list users: ${JSON.stringify(listError)}`);
     }
@@ -69,7 +69,7 @@ export class AdminApi {
   }
 
   async deleteUser(accountId: number): Promise<void> {
-    const { error } = await this.adminApi.PATCH('/api/admin/delete-account', {
+    const { error } = await this.adminApi.PATCH('/api/delete-account', {
       params: {
         query: { id: accountId },
       },
@@ -83,7 +83,7 @@ export class AdminApi {
   }
 
   async createRootPath(accountId: number, rootPath: string): Promise<void> {
-    const { error } = await this.adminApi.POST('/api/admin/create-root-path', {
+    const { error } = await this.adminApi.POST('/api/create-user-root-path', {
       body: { rootPath },
       params: {
         query: { id: accountId },
@@ -94,8 +94,8 @@ export class AdminApi {
     }
   }
 
-  async getIndexerConfiguration(): Promise<components['schemas']['AdminIndexerConfigurationDto']> {
-    const { data, error } = await this.adminApi.GET('/api/admin/indexer-configuration', {});
+  async getIndexerConfiguration(): Promise<components['schemas']['IndexerConfigurationDto']> {
+    const { data, error } = await this.adminApi.GET('/api/indexer-configuration', {});
     if (error || !data) {
       throw new Error(`Failed to load indexer configuration: ${JSON.stringify(error)}`);
     }
@@ -105,7 +105,7 @@ export class AdminApi {
 
 export class TestApi {
   async deleteUser(accountId: number): Promise<void> {
-    const { error } = await api.DELETE('/api/test/delete-account', {
+    const { error } = await api.DELETE('/api/test/delete-test-account', {
       params: {
         query: { id: accountId },
       },
@@ -116,9 +116,9 @@ export class TestApi {
   }
   async duplicateUser(
     username: string,
-    userData: components['schemas']['TestDuplicateAccountBodyDto'],
+    userData: components['schemas']['DuplicateTestAccountBodyDto'],
   ): Promise<number> {
-    const { data, error } = await api.POST('/api/test/duplicate-account', {
+    const { data, error } = await api.POST('/api/test/duplicate-test-account', {
       body: userData,
       params: {
         query: {
@@ -126,9 +126,9 @@ export class TestApi {
         },
       },
     });
-    if (error) {
+    if (error || !data?.account.accountId) {
       throw new Error(`Failed to create user: ${JSON.stringify(error)}`);
     }
-    return data.accountId;
+    return data.account.accountId;
   }
 }

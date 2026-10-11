@@ -23,7 +23,7 @@ export function RootPathDeleteForm({ rootPath, onSave }: { rootPath: RootPathDto
 
   const onSubmit = handleSubmit(async () => {
     try {
-      const result = await api.delete('/api/user/delete-root-path', {
+      const result = await api.delete('/api/delete-root-path', {
         params: {
           query: {
             id: rootPath.id,

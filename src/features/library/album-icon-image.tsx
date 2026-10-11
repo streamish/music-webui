@@ -43,7 +43,7 @@ export function AlbumIconImage({ albumId, size, style, ...props }: AlbumImagePro
       setImageUrl(null);
       return undefined;
     }
-    const nextUrl = `${baseUrl}/api/user/album-cover-image?id=${albumId}&size=${size}`;
+    const nextUrl = `${baseUrl}/api/album-cover-image?id=${albumId}&size=${size}`;
     objectUrlRef.current = nextUrl;
     setImageUrl(nextUrl);
     return () => {

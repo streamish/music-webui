@@ -20,7 +20,7 @@ function useListIndexerLogs() {
   return useQuery({
     queryKey: ['admin', 'indexer-logs'],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/list-indexer-logs');
+      const { data, error } = await api.get('/api/list-indexer-logs');
       if (error) {
         throw new Error(error.error);
       }

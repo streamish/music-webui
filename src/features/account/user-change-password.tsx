@@ -65,7 +65,7 @@ export function UserChangePasswordForm() {
       return;
     }
     try {
-      const result = await api.post('/api/user/update-password', {
+      const result = await api.post('/api/update-password', {
         body: {
           newPassword: formData.newPassword,
         },

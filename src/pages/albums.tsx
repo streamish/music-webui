@@ -14,11 +14,11 @@ import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 import type { paths } from 'src/types/api-schema';
 
-function useAlbums(params: paths['/api/user/list-albums']['get']['parameters']['query']) {
+function useAlbums(params: paths['/api/list-albums']['get']['parameters']['query']) {
   return useQuery({
     queryKey: ['albums', params],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/list-albums', {
+      const { data, error } = await api.get('/api/list-albums', {
         params: { query: params },
       });
       if (error) {

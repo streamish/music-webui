@@ -10,11 +10,11 @@ import { useSearchParams } from 'react-router';
 import api from '@/lib/api';
 import type { paths } from '@/types/api-schema';
 
-function useTracks(query: paths['/api/user/list-tracks']['get']['parameters']['query']) {
+function useTracks(query: paths['/api/list-tracks']['get']['parameters']['query']) {
   return useQuery({
     queryKey: ['tracks', query],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/list-tracks', {
+      const { data, error } = await api.get('/api/list-tracks', {
         params: { query },
       });
       if (error) {

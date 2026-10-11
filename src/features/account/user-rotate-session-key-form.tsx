@@ -18,7 +18,7 @@ export function UserRotateSessionKeyForm() {
 
   const onSubmit = handleSubmit(async () => {
     try {
-      const result = await api.post('/api/user/regenerate-session-key', {});
+      const result = await api.post('/api/regenerate-session-key', {});
       if (result.data?.success) {
         toast.success('All sessions terminated. You will need to log in from any devices.');
         setOpen(false);

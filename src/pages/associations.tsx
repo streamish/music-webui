@@ -64,13 +64,13 @@ function getViewingGroup(associationType: AssociationTypeEnum, isAlbumArtists: b
 }
 
 function useAlbumAssociations(
-  query: paths['/api/user/list-album-associations']['get']['parameters']['query'] & { enabled: boolean },
+  query: paths['/api/list-album-associations']['get']['parameters']['query'] & { enabled: boolean },
 ) {
   return useQuery({
     enabled: query.enabled,
     queryKey: ['albums', query],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/list-album-associations', {
+      const { data, error } = await api.get('/api/list-album-associations', {
         params: { query },
       });
       if (error) {
@@ -88,13 +88,13 @@ function useAlbumAssociations(
 }
 
 function useTrackAssociations(
-  query: paths['/api/user/list-track-associations']['get']['parameters']['query'] & { enabled: boolean },
+  query: paths['/api/list-track-associations']['get']['parameters']['query'] & { enabled: boolean },
 ) {
   return useQuery({
     enabled: query.enabled,
     queryKey: ['tracks', query],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/list-track-associations', {
+      const { data, error } = await api.get('/api/list-track-associations', {
         params: { query },
       });
       if (error) {
@@ -112,13 +112,13 @@ function useTrackAssociations(
 }
 
 function useAssociation(
-  query: paths['/api/user/retrieve-association']['get']['parameters']['query'] & { enabled: boolean },
+  query: paths['/api/retrieve-association']['get']['parameters']['query'] & { enabled: boolean },
 ) {
   return useQuery({
     enabled: query.enabled,
     queryKey: ['association', query],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/user/retrieve-association', {
+      const { data, error } = await api.get('/api/retrieve-association', {
         params: { query },
       });
       if (error) {

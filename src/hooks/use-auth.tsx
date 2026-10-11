@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const clearSessionToken = async () => {
-    await api.delete('/api/user/end-session');
+    await api.delete('/api/end-session');
     setUser(null);
     sessionStorage.removeItem('jwt-token');
     localStorage.removeItem('jwt-token');

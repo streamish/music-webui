@@ -21,7 +21,7 @@ function useListAccounts() {
   return useQuery({
     queryKey: ['admin', 'user-accounts'],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/admin/list-accounts');
+      const { data, error } = await api.get('/api/list-accounts');
       if (error) {
         throw new Error(error.error);
       }

@@ -76,7 +76,7 @@ export function UserResetPasswordForm({ user, className }: { user: AccountDto; c
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.post('/api/admin/reset-user-password', {
+      const result = await api.post('/api/reset-user-password', {
         params: {
           query: {
             id: user.id,

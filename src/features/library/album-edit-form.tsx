@@ -67,7 +67,7 @@ export function AlbumEditForm({ album, onSave, className }: { album: Album; onSa
 
   const onSubmit = handleSubmit(async (formData: FormData) => {
     try {
-      const result = await api.patch('/api/user/set-album-custom-data', {
+      const result = await api.patch('/api/set-album-custom-data', {
         params: {
           query: {
             id: album.id,

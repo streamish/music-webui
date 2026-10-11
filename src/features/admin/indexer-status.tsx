@@ -23,7 +23,7 @@ export function IndexerProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const fetchIndexerStatus = async () => {
       try {
-        const { data, error } = await api.get('/api/admin/indexer-configuration');
+        const { data, error } = await api.get('/api/indexer-configuration');
         if (error) {
           throw new Error(error.error, {
             cause: error.message,
@@ -49,7 +49,7 @@ export function IndexerProvider({ children }: { children: ReactNode }) {
       const newStatus = enabled;
       setEnabled(newStatus);
       setUpdatingStatus(true);
-      const { data, error } = await api.patch('/api/admin/set-indexer-status', {
+      const { data, error } = await api.patch('/api/set-indexer-status', {
         body: { enabled },
       });
       if (error) {

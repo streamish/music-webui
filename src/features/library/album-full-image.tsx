@@ -11,7 +11,7 @@ export function AlbumFullImage({ albumId, size, className, ariaHidden }: AlbumIm
   return (
     <img
       className={`animate-[fade-in_300ms_ease-out] object-cover ${className ?? ''}`}
-      src={`${baseUrl}/api/user/album-cover-image?id=${albumId}&size=${size}`}
+      src={`${baseUrl}/api/album-cover-image?id=${albumId}&size=${size}`}
       alt={`Album cover for album ID ${albumId}`}
       {...(ariaHidden ? { 'aria-hidden': 'true' } : {})}
     />
