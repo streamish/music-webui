@@ -1,3 +1,4 @@
+import { FavoriteControls } from './favorite-controls';
 import { Link } from 'react-router-dom';
 import { PlaylistControls } from './playlist-controls';
 import { formatSlug, secondsToMinutesAndSeconds } from '@/utils/format';
@@ -54,6 +55,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
             <tr>
               <th className="px-2 py-1 text-left text-foreground/70">Title</th>
               <th className="px-2 py-1 text-left text-foreground/70">Time</th>
+              <th className="px-2 py-1 text-left text-foreground/70">Rating</th>
               <th className="px-2 py-1 text-left text-foreground/70">Album</th>
               <th className="px-2 py-1 text-left text-foreground/70">Album Artist</th>
               <th className="px-2 py-1 text-left text-foreground/70">Artist</th>
@@ -69,8 +71,33 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 className={[`py-1 ${index % 2 === 0 ? 'bg-foreground/5' : ''}`, `hover:bg-foreground/10`].join(' ')}
                 aria-label={`Track item ${index + 1}`}
               >
-                <td className="px-2 py-1 text-left text-foreground/70">{track.title}</td>
+                <td className="flex flex-row px-2 py-1 text-left text-foreground/70">
+                  {track.title}
+
+                  <PlaylistControls
+                    tracks={[track]}
+                    hideEditButton={true}
+                    hideQueueButtons={true}
+                    hideRatingButtons={true}
+                  />
+                  <FavoriteControls track={track} />
+                  <PlaylistControls
+                    tracks={[track]}
+                    onEdit={onEdit}
+                    hidePlayButton={true}
+                    hideQueueButtons={true}
+                    hideRatingButtons={true}
+                  />
+                </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
+                <td>
+                  <PlaylistControls
+                    tracks={[track]}
+                    hideEditButton={true}
+                    hidePlayButton={true}
+                    hideQueueButtons={true}
+                  />
+                </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{track.albumTitle}</td>
                 <td className="px-2 py-1 text-left text-foreground/70">
                   {track.albumArtists.map((artist) => {
@@ -106,8 +133,9 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                     </span>
                   ))}
                 </td>
-                <td>
-                  <PlaylistControls tracks={[track]} onEdit={onEdit} />
+                <td className="flex" flex-row>
+                  <FavoriteControls track={track} />
+                  <PlaylistControls tracks={[track]} onEdit={onEdit} hidePlayButton={true} hideRatingButtons={true} />
                 </td>
               </tr>
             ))}

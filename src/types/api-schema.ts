@@ -4031,7 +4031,7 @@ export type components = {
     };
     SynologyPlaylistAdditionalDto: {
       /** @example and */
-      rules_conjunction?: components['schemas']['SmartPlaylistConjugalEnum'];
+      rules_conjunction?: components['schemas']['SmartPlaylistConjugalEnum'] | null;
       rules?: components['schemas']['SynologyPlaylistRuleDto'][];
       sharing_info: components['schemas']['SynologyPlaylistSharingInfoDto'];
     };
@@ -4078,7 +4078,7 @@ export type components = {
     };
     SynologyPlaylistAdditionalWithItemsDto: {
       /** @example and */
-      rules_conjunction?: components['schemas']['SmartPlaylistConjugalEnum'];
+      rules_conjunction?: components['schemas']['SmartPlaylistConjugalEnum'] | null;
       rules?: components['schemas']['SynologyPlaylistRuleDto'][];
       sharing_info: components['schemas']['SynologyPlaylistSharingInfoDto'];
       songs: components['schemas']['SynologyPlaylistSongDto'][];
@@ -5560,15 +5560,19 @@ export type components = {
        * @description The date the artist was added to the library
        */
       createdAt: string;
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
       /** @description The internally-generated unique ID of the artist */
       id: number;
       /** @description The name of the artist. */
       name: string;
     };
     LibraryAlbumDto: {
-      /** @description The artist for the album, which is all the album artists in a comma-delimited list */
+      /** @description The artist for the album, aggregated from the track album artists data. */
       artists: components['schemas']['LibraryAssociationDto'][];
+      /** @description The album composers aggregated from the track compilers data. */
       composers: components['schemas']['LibraryAssociationDto'][];
+      /** @description The album genres aggregated from the track genres. */
       genres: components['schemas']['LibraryAssociationDto'][];
       /** @description The aggregate rating for the album, which is a value between 0 and 5 inclusive applied to tracks. */
       rating: number;
@@ -5589,6 +5593,8 @@ export type components = {
        * @description The date the album was added to the library
        */
       createdAt: string;
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
       /** @description The internally-generated unique ID of the album */
       id: number;
       /**
@@ -5671,6 +5677,8 @@ export type components = {
       discNumber: number;
       /** @description The duration of the track in seconds. */
       duration: number;
+      /** @description The favorite data for the track if it exists */
+      favoriteId?: number;
       /** @description The bitrate of the audio file for the track, in Kb/s. */
       fileBitRate: number;
       /** @description The number of audio channels in the file for the track, such as 2 for stereo or 1 for mono. */
@@ -5694,9 +5702,11 @@ export type components = {
       year: number;
     };
     LibraryAlbumWithTracksDto: {
-      /** @description The artist for the album, which is all the album artists in a comma-delimited list */
+      /** @description The artist for the album, aggregated from the track album artists data. */
       artists: components['schemas']['LibraryAssociationDto'][];
+      /** @description The album composers aggregated from the track compilers data. */
       composers: components['schemas']['LibraryAssociationDto'][];
+      /** @description The album genres aggregated from the track genres. */
       genres: components['schemas']['LibraryAssociationDto'][];
       /** @description The aggregate rating for the album, which is a value between 0 and 5 inclusive applied to tracks. */
       rating: number;
@@ -5719,6 +5729,8 @@ export type components = {
        * @description The date the album was added to the library
        */
       createdAt: string;
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
       /** @description The internally-generated unique ID of the album */
       id: number;
       /**
@@ -5944,6 +5956,8 @@ export type components = {
       createdAt: string;
       /** @description The list of albums including tracks for the artist */
       albums: components['schemas']['LibraryAlbumWithTracksDto'][];
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
       /** @description The internally-generated unique ID of the artist */
       id: number;
       /** @description The name of the artist. */
@@ -6047,6 +6061,8 @@ export type components = {
       artistCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
       composerCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
       genreCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
       /** @description The internally-generated unique ID of the artist */
       id: number;
       /** @description The name of the artist. */
@@ -6455,6 +6471,8 @@ export type components = {
        */
       children?: components['schemas']['LibraryFolderDto'][];
       track?: components['schemas']['LibraryTrackDto'];
+      /** @description The favorite data for the folder if it exists */
+      favoriteId?: number;
       file?: string;
       folder?: string;
       fullPath: string;
@@ -6534,6 +6552,15 @@ export type components = {
        * @default album-not-found-error
        */
       message: components['schemas']['ApiFavoritesSetAlbumFavoriteNotFoundErrors'][];
+    };
+    CreateFavoriteResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      favoriteId: number;
     };
     /**
      * @description A validation or other error occurred during the processing of the request.
@@ -10435,7 +10462,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
         };
       };
       400: {
@@ -10490,7 +10517,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
         };
       };
       400: {
@@ -10543,7 +10570,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
         };
       };
       400: {
@@ -10597,7 +10624,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
         };
       };
       400: {

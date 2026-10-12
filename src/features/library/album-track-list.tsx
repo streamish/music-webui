@@ -1,3 +1,4 @@
+import { FavoriteControls } from './favorite-controls';
 import { PlaylistControls } from './playlist-controls';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
 import type { components } from '@/types/api-schema';
@@ -31,6 +32,7 @@ export function AlbumTrackList({ tracks, onEdit }: { tracks: Track[]; onEdit: ()
                 className="inline-block"
                 onEdit={onEdit}
               />
+              <FavoriteControls track={track} />
             </span>
             <span className="opacity-50 p-1">{secondsToMinutesAndSeconds(track.duration)}</span>
           </div>

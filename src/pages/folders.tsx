@@ -5,6 +5,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { FavoriteControls } from '@/features/library/favorite-controls';
 import { Fragment, useCallback, useRef } from 'react';
 import { TrackTable } from '@/features/library/track-table';
 import { TreeCard } from '@/components/tree-card';
@@ -116,6 +117,7 @@ export default function FoldersPage() {
                   >
                     {crumb.folder}
                   </BreadcrumbLink>
+                  {index === breadcrumb.length - 1 && <FavoriteControls folder={crumb} />}
                 </BreadcrumbItem>
                 {index < breadcrumb.length - 1 && <BreadcrumbSeparator />}
               </Fragment>

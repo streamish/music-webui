@@ -1,6 +1,7 @@
 import { AlbumEditForm } from '@/features/library/album-edit-form';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
+import { FavoriteControls } from './favorite-controls';
 import { PlaylistControls } from './playlist-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { useMemo, useRef } from 'react';
@@ -126,6 +127,7 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
           >
             <h3 className="font-semibold text-2xl">
               {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
+              <FavoriteControls album={album} />
               <AlbumEditForm album={album} onSave={handleEdit} />
             </h3>
             <PlaylistControls
