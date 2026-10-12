@@ -28,7 +28,7 @@ export function PlaylistControls({
   hideRatingButtons?: boolean;
   textLabels?: boolean;
   tracks: Track[];
-  onEdit: () => void;
+  onEdit?: () => void;
 }) {
   const { addToQueue, clearQueue, togglePlay } = useQueueActions();
   const [autoPlay, setAutoPlay] = useState(false);
@@ -77,7 +77,7 @@ export function PlaylistControls({
           </Button>
         </>
       )}
-      {!hideEditButton && tracks[0] && <TrackEditForm track={tracks[0]} onSave={onEdit} />}
+      {!hideEditButton && onEdit && tracks[0] && <TrackEditForm track={tracks[0]} onSave={onEdit} />}
       {!hideRatingButtons && <RatingControls track={tracks[0]} album={album} />}
     </menu>
   );

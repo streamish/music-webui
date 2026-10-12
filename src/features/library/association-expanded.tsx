@@ -1,6 +1,7 @@
 import { ArrowLeftCircle } from 'lucide-react';
 import { AssociationEditForm } from '@/features/library/association-edit-form';
 import { Button } from '../../components/ui/button';
+import { FavoriteControls } from './favorite-controls';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import type { AssociationTypeEnum, components } from '@/types/api-schema';
 
@@ -23,7 +24,10 @@ export function AssociationExpanded({
       <div className="w-full flex flex-row px-4 md:px-0 lg:px-0">
         <h2 className="text-lg font-semibold">{association?.name || 'Loading...'}</h2>
         {association && (
-          <AssociationEditForm association={association} associationType={associationType} onSave={() => {}} />
+          <>
+            <FavoriteControls association={association} />
+            <AssociationEditForm association={association} associationType={associationType} onSave={() => {}} />
+          </>
         )}
       </div>
       {isMobile && (
