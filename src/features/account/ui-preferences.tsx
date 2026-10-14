@@ -3,11 +3,11 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { formatNumber } from '@/utils/format';
 import { usePreferences } from '@/hooks/use-preferences';
-import type { PreferenceNavigationLink } from '@/hooks/use-preferences';
+import type { NavigationLink } from '@/types/navigation-link';
 
 export default function UiPreferences() {
   const { preferences, toggleItemVisibility, setPageSize } = usePreferences();
-  const preferenceNames: PreferenceNavigationLink[] = [
+  const preferenceNames: NavigationLink[] = [
     'Albums',
     'Album Artists',
     'Artists',
