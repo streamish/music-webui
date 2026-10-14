@@ -74,7 +74,7 @@ export default function RecentlyAddedPage() {
                   )}
                 </li>
               )}
-              {expandedAlbumId > 0 &&
+              {expandedAlbumId === 0 &&
                 albums.map((item) => {
                   return (
                     <li className="w-full p-2" key={item.id}>
