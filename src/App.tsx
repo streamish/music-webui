@@ -14,6 +14,7 @@ import AdminLayout from './layouts/admin-layout.tsx';
 import AlbumsPage from './pages/albums';
 import FoldersPage from './pages/folders';
 import GuestLayout from './layouts/guest-layout';
+import RecentlyAddedPage from './pages/recently-added';
 import SignInPage from './pages/signin';
 import SignOutPage from './pages/signout';
 import TracksPage from './pages/tracks.tsx';
@@ -26,7 +27,7 @@ const router = createBrowserRouter(
         <Route path="signin" element={<SignInPage />} />
       </Route>
       <Route element={<UserLayout />}>
-        <Route path="/" element={<AlbumsPage />} />
+        <Route path="/" element={<RecentlyAddedPage />} />
         <Route path="/albums" element={<AlbumsPage />} />
         <Route path="/albums/:albumId/:slug" element={<AlbumsPage />} />
         <Route path="/album-artists" element={<AssociationsPage />} />

@@ -19,7 +19,7 @@ function useAlbum(id: number) {
         throw new Error(error.error);
       }
       if (!data) {
-        throw new Error('No root paths returned');
+        throw new Error('No album returned');
       }
       return data.album;
     },

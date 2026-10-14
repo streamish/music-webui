@@ -1,4 +1,17 @@
-import { Album, Folder, LogOut, type LucideIcon, Moon, Music, Settings, Tags, User, Users, X } from 'lucide-react';
+import {
+  Album,
+  CalendarClock,
+  Folder,
+  LogOut,
+  type LucideIcon,
+  Moon,
+  Music,
+  Settings,
+  Tags,
+  User,
+  Users,
+  X,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { NavLink } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-is-mobile';
@@ -18,9 +31,9 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { usePreferences } from '@/hooks/use-preferences';
-import type { PreferenceNavigationLink } from '@/hooks/use-preferences';
+import type { NavigationLink } from '@/types/navigation-link';
 
-type NavigationLabel = PreferenceNavigationLink | 'Admin' | 'Account' | 'Sign out';
+type NavigationLabel = NavigationLink | 'Admin' | 'Account' | 'Sign out';
 
 type NavigationItem = {
   to: string;
@@ -29,6 +42,11 @@ type NavigationItem = {
 };
 
 export const primaryLinks: NavigationItem[] = [
+  {
+    to: '/',
+    label: 'Recently Added',
+    icon: CalendarClock,
+  },
   {
     to: '/albums',
     label: 'Albums',
@@ -94,7 +112,7 @@ export function AppSidebar() {
   };
 
   const showLink = (label: NavigationLabel) => {
-    return preferences.navigation[label as PreferenceNavigationLink];
+    return preferences.navigation[label as NavigationLink];
   };
 
   return (

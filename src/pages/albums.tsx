@@ -25,7 +25,7 @@ function useAlbums(params: paths['/api/list-albums']['get']['parameters']['query
         throw new Error(error.error);
       }
       if (!data) {
-        throw new Error('No root paths returned');
+        throw new Error('No albums returned');
       }
       return {
         albums: data.albums,
