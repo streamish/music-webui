@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { DownloadIcon, LogsIcon } from 'lucide-react';
 import { memo } from 'react';
-import { useQuery } from 'node_modules/@tanstack/react-query/build/modern/useQuery';
+import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 
 function useListIndexerLogs() {

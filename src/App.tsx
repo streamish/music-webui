@@ -7,6 +7,7 @@ import { QueueProvider } from './features/library/queue.tsx';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from './components/ui/tooltip';
+import { useState } from 'react';
 import AccountPage from './pages/account';
 import AdminHomePage from './pages/admin/home.tsx';
 import AdminLayout from './layouts/admin-layout.tsx';
@@ -54,7 +55,7 @@ const router = createBrowserRouter(
 );
 
 export default function App() {
-  const queryClient = new QueryClient();
+  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <div className="w-full min-w-32 min-h-screen overflow-auto select-none">
