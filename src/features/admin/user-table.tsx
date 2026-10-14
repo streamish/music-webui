@@ -14,7 +14,7 @@ import { UserResetPasswordForm } from './user-reset-password-form';
 import { UserRotateSessionKeyForm } from './user-rotate-session-key-form';
 import { UserUpdateRolesForm } from './user-update-roles-form';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useQuery } from 'node_modules/@tanstack/react-query/build/modern/useQuery';
+import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 
 function useListAccounts() {

@@ -13,7 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { formatDateToRelative } from '@/utils/format';
 import { memo } from 'react';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useQuery } from 'node_modules/@tanstack/react-query/build/modern/useQuery';
+import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 
 function useListIndexerLogs() {
