@@ -1,21 +1,19 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-
-export type PreferenceNavigationLink =
-  'Albums' | 'Album Artists' | 'Artists' | 'Composers' | 'Genres' | 'Folders' | 'Tracks';
+import type { NavigationLink } from '@/types/navigation-link';
 
 export type Preferences = {
   pageSize: number;
   navigation: {
-    [key in PreferenceNavigationLink]: boolean;
+    [key in NavigationLink]: boolean;
   };
 };
 
 interface PreferencesContextType {
   preferences: Preferences;
   setPageSize: (pageSize: number) => void;
-  hideItem: (id: PreferenceNavigationLink) => void;
-  showItem: (id: PreferenceNavigationLink) => void;
-  toggleItemVisibility: (id: PreferenceNavigationLink, value: boolean) => void;
+  hideItem: (id: NavigationLink) => void;
+  showItem: (id: NavigationLink) => void;
+  toggleItemVisibility: (id: NavigationLink, value: boolean) => void;
 }
 
 const defaultPreferences: Preferences = {
@@ -27,6 +25,7 @@ const defaultPreferences: Preferences = {
     Composers: true,
     Folders: true,
     Genres: true,
+    'Recently Added': true,
     Tracks: true,
   },
 };
@@ -62,7 +61,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     }));
   }
 
-  function hideItem(id: PreferenceNavigationLink) {
+  function hideItem(id: NavigationLink) {
     setPreferences((current) => ({
       ...current,
       navigation: {
@@ -72,7 +71,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     }));
   }
 
-  function showItem(id: PreferenceNavigationLink) {
+  function showItem(id: NavigationLink) {
     setPreferences((current) => ({
       ...current,
       navigation: {
@@ -82,7 +81,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     }));
   }
 
-  function toggleItemVisibility(id: PreferenceNavigationLink, value: boolean) {
+  function toggleItemVisibility(id: NavigationLink, value: boolean) {
     setPreferences((current) => ({
       ...current,
       navigation: {
@@ -110,9 +109,9 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
 export function usePreferences(): {
   preferences: Preferences;
   setPageSize: (pageSize: number) => void;
-  hideItem: (id: PreferenceNavigationLink) => void;
-  showItem: (id: PreferenceNavigationLink) => void;
-  toggleItemVisibility: (id: PreferenceNavigationLink, value: boolean) => void;
+  hideItem: (id: NavigationLink) => void;
+  showItem: (id: NavigationLink) => void;
+  toggleItemVisibility: (id: NavigationLink, value: boolean) => void;
 } {
   const context = useContext(PreferencesContext);
   if (!context) {
