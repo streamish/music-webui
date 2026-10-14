@@ -10,6 +10,7 @@ test.describe('albums', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
+      await pom.navigateToAlbums();
       const isDark = await page.evaluate(() => document.body.classList.contains('dark'));
       expect(isDark).toBeDefined();
       await pom.toggleDarkMode();
@@ -22,6 +23,7 @@ test.describe('albums', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
+      await pom.navigateToAlbums();
       const firstState =
         (await page.evaluate(() => document.querySelector('div[data-slot="sidebar"]')?.getAttribute('data-state'))) ||
         'closed';
@@ -44,6 +46,7 @@ test.describe('albums', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
+      await pom.navigateToAlbums();
       const albums = [
         'Album 1 by Artist 1',
         'Album 2 by Artist 1',
@@ -67,6 +70,7 @@ test.describe('albums', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
+      await pom.navigateToAlbums();
       await page.getByLabel('Album 1 by Artist 1').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
       await page.click('button[aria-label="Play now"]');
@@ -85,6 +89,7 @@ test.describe('albums', () => {
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
       const isResponsive = await pom.isResponsive();
+      await pom.navigateToAlbums();
       await page.getByLabel('Album 1 by Artist 1').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
       await page.click('button[aria-label="Play now"]');
@@ -113,6 +118,7 @@ test.describe('albums', () => {
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
       const isResponsive = await pom.isResponsive();
+      await pom.navigateToAlbums();
       await page.getByLabel('Album 1 by Artist 1').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
       await page.click('button[aria-label="Play now"]');
@@ -149,6 +155,7 @@ test.describe('albums', () => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
+      await pom.navigateToAlbums();
       const isResponsive = await pom.isResponsive();
       await page.getByLabel('Album 1 by Artist 1').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
@@ -193,6 +200,7 @@ test.describe('albums', () => {
       expect(newAccountId).toBeGreaterThan(0);
       const pom = new Pom(page);
       await pom.signIn({ username: newUsername, password: USER_PASSWORD });
+      await pom.navigateToAlbums();
       await page.getByLabel('Album 1 by Artist 1').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
       await page.click('button[aria-label="Edit album"]');
@@ -218,6 +226,7 @@ test.describe('albums', () => {
       expect(newAccountId).toBeGreaterThan(0);
       const pom = new Pom(page);
       await pom.signIn({ username: newUsername, password: USER_PASSWORD });
+      await pom.navigateToAlbums();
       await page.getByLabel('Album 1 by Artist 1').click();
       await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
       await page.click('button[aria-label="Rate this album with 5 stars"]');
