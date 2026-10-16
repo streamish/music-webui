@@ -3,7 +3,7 @@ import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { ArrowLeftCircle } from 'lucide-react';
 import { Button } from '../../components/ui/button';
-import { PlaylistControls } from './playlist-controls';
+import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { getContrastingTextColor } from '@/utils/color';
 import { useQuery } from '@tanstack/react-query';
@@ -82,7 +82,7 @@ export function AlbumStandaloneDetails({
           {album.title} <span className="text-xs">{album.year}</span>
           <AlbumEditForm album={album} onSave={handleEdit} className="mb-0" />
         </h3>
-        <PlaylistControls
+        <PlayControls
           tracks={album.tracks}
           album={album}
           hidePlayButton={true}
@@ -92,7 +92,7 @@ export function AlbumStandaloneDetails({
           className="-mx-8 mb-2"
           onEdit={() => {}}
         />
-        <PlaylistControls
+        <PlayControls
           tracks={album.tracks}
           textLabels={true}
           onEdit={handleEdit}

@@ -2,7 +2,7 @@ import { AlbumEditForm } from '@/features/library/album-edit-form';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
 import { FavoriteControls } from './favorite-controls';
-import { PlaylistControls } from './playlist-controls';
+import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { useMemo, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -130,14 +130,14 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
               <FavoriteControls album={album} />
               <AlbumEditForm album={album} onSave={handleEdit} />
             </h3>
-            <PlaylistControls
+            <PlayControls
               tracks={album.tracks}
               album={album}
               textLabels={true}
               hideRatingButtons={true}
               onEdit={handleEdit}
             />
-            <PlaylistControls
+            <PlayControls
               tracks={album.tracks}
               album={album}
               hidePlayButton={true}

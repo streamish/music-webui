@@ -139,8 +139,8 @@ export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => v
           <form onSubmit={onSubmit} className="flex min-h-0 flex-1 flex-col">
             <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-2">
               <div className="space-y-2">
-                <Label htmlFor="name">Title</Label>
-                <Input id="title" {...register('title', { required: true })} placeholder="Person 1, Person 2" />
+                <Label htmlFor="title">Title</Label>
+                <Input id="title" {...register('title', { required: true })} placeholder="Red Right Hand" />
                 <FormValidationError text={errors.title?.message} />
               </div>
               <div className="space-y-2">

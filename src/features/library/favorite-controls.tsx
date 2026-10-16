@@ -5,26 +5,34 @@ import { useState } from 'react';
 import api from '@/lib/api';
 
 type Entity = {
+  // the ID of a given entity (album, track, association, folder, or station)
   id: number;
+  // an existing favorite ID
   favoriteId?: number;
+  // a SHOUTcast station URL that has not been saved to the db (eg within genre)
+  url?: string;
+  title?: string;
 };
 
 export function FavoriteControls({
   album,
-  track,
   association,
   folder,
+  station,
+  track,
 }: {
   album?: Entity;
-  track?: Entity;
   association?: Entity;
   folder?: Entity;
+  station?: Entity;
+  track?: Entity;
 }) {
   const [isHovered, setIsHovered] = useState(false);
-  const isFilled = album?.favoriteId || track?.favoriteId || association?.favoriteId || folder?.favoriteId;
+  const isFilled =
+    album?.favoriteId || track?.favoriteId || association?.favoriteId || folder?.favoriteId || station?.favoriteId;
 
   const entity = (() => {
-    return album || track || association || folder || undefined;
+    return album || track || association || folder || station || undefined;
   })();
   const entityType = (() => {
     if (album) {
@@ -39,12 +47,36 @@ export function FavoriteControls({
     if (folder) {
       return 'folder';
     }
+    if (station) {
+      return 'shoutcast-station';
+    }
     return undefined;
   })();
 
   if (!entity || !entityType) {
     throw new Error('Favorite controls embedded without entity');
   }
+
+  const setFavorite = async () => {
+    if (entityType === 'shoutcast-station') {
+      return api.put(`/api/set-shoutcast-station-favorite`, {
+        params: {
+          query: {
+            shoutcastStationId: entity.id || undefined,
+            shoutcastStationUrl: entity.url,
+            shoutcastStationTitle: entity.title,
+          },
+        },
+      });
+    }
+    return api.put(`/api/set-${entityType}-favorite`, {
+      params: {
+        query: {
+          id: entity.id,
+        },
+      },
+    });
+  };
 
   const handleSubmit = async () => {
     if (entity.favoriteId) {
@@ -72,13 +104,7 @@ export function FavoriteControls({
       }
     } else {
       try {
-        const result = await api.put(`/api/set-${entityType}-favorite`, {
-          params: {
-            query: {
-              id: entity.id,
-            },
-          },
-        });
+        const result = await setFavorite();
         if (result.data?.success) {
           entity.favoriteId = result.data.favoriteId;
           return;
@@ -98,7 +124,7 @@ export function FavoriteControls({
 
   return (
     <Button
-      aria-label={`Toggle ${album ? 'album' : 'track'} favorited`}
+      aria-label={`Toggle ${album ? 'album' : 'track'} favorite`}
       className={[
         `px-2 mb-4 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80`,
         album || association ? 'ml-2' : '',

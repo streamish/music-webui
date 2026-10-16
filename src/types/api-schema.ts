@@ -149,6 +149,1081 @@ export type paths = {
     patch: operations['ApiAccountsController_updateUserRoles'];
     trace?: never;
   };
+  '/api/list-albums': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to /api/list-albums */
+    get: operations['ApiAlbumsController_listAlbums'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-albums-with-tracks': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to /api/list-albums-with-tracks */
+    get: operations['ApiAlbumsController_listAlbumsWithTracks'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/retrieve-album': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/retrieve-album` */
+    get: operations['ApiAlbumsController_retrieveAlbum'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/delete-custom-data': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** @description `DELETE` request to `/api/delete-custom-data` */
+    delete: operations['ApiCustomDataController_deleteCustomData'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-album-custom-data': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description `PATCH` request to /api/set-album-custom-data` */
+    patch: operations['ApiCustomDataController_setAlbumData'];
+    trace?: never;
+  };
+  '/api/set-association-name': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description `PATCH` request to /api/set-association-name` */
+    patch: operations['ApiCustomDataController_setArtistName'];
+    trace?: never;
+  };
+  '/api/set-custom-data': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** @description `PATCH` reuquest to `/api/set-custom-data` */
+    put: operations['ApiCustomDataController_put'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-track-custom-data': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description `PATCH` reuquest to `/api/set-track-custom-data` */
+    patch: operations['ApiCustomDataController_patch'];
+    trace?: never;
+  };
+  '/api/delete-favorite': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** @description `DELETE` request to `/api/delete-favorite` */
+    delete: operations['ApiFavoritesController_deleteFavorite'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-favorites': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-favorites` */
+    get: operations['ApiFavoritesController_listFavorites'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-album-favorite': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** @description `PUT` request to `/api/set-album-favorite` */
+    put: operations['ApiFavoritesController_setAlbumFavorite'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-association-favorite': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** @description `PUT` request to `/api/set-association-favorite` */
+    put: operations['ApiFavoritesController_setAssociationFavorite'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-folder-favorite': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** @description `PUT` request to `/api/set-folder-favorite` */
+    put: operations['ApiFavoritesController_setFolderFavorite'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-shoutcast-station-favorite': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** @description `PUT` request to `/api/set-shoutcast-station-favorite` */
+    put: operations['ApiFavoritesController_setShoutcastStationFavorite'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-track-favorite': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /** @description `PUT` request to `/api/set-track-favorite` */
+    put: operations['ApiFavoritesController_setTrackFavorite'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/healthcheck': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Healthcheck
+     * @description Checks the health status of the server.
+     */
+    get: operations['ApiHealthcheckController_healthcheck'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/indexer-configuration': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` requests to `/api/indexer-configuration` */
+    get: operations['ApiIndexerController_indexerConfiguration'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-user-indexer-logs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` requests to `/api/list-user-indexer-logs` */
+    get: operations['ApiIndexerController_listIndexerLogs'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-indexer-logs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` requests to `/api/indexer-logs` */
+    get: operations['ApiIndexerController_listIndexerLogsByUser'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-indexer-status': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description `PATCH` requests to `/api/set-indexer-status` */
+    patch: operations['ApiIndexerController_setStatus'];
+    trace?: never;
+  };
+  '/api/list-album-associations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-album-assocations` */
+    get: operations['ApiAssociationsController_listAssociations'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-album-associations-with-tracks': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-album-assocations-with-tracks` */
+    get: operations['ApiAssociationsController_listAssociationsWithTracks'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-track-associations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-track-assocations` */
+    get: operations['ApiAssociationsController_listTrackAssociations'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-track-associations-with-tracks': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-track-assocations-with-tracks` */
+    get: operations['ApiAssociationsController_listTrackAssociationsWithTracks'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/retrieve-association': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/retrieve-association` */
+    get: operations['ApiAssociationsController_retrieveAssociation'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/album-cover-image': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/album-cover-image` */
+    get: operations['ApiCoverImageController_getAlbumCover'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/association-cover-image': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/association-cover-image` */
+    get: operations['ApiCoverImageController_getAssociationCover'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/folder-structure': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve library folder structure
+     * @description Returns a tree structure starting with the root folders and nesting their folder and music file contents. This is used for browsing libraries by folder which can be helpful when metadata is ambiguous or incomplete.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    get: operations['ApiFoldersController_getTreeStructure'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-tracks': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-tracks` */
+    get: operations['ApiTracksController_listTracks'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/stream-track': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/stream-track` */
+    get: operations['ApiTracksController_get'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-album-rating': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /**
+     * Sets or unsets ratings for an album
+     * @description Sets or unsets a 1-5 star rating for the tracks within an album. If a value of 0 is specified the album rating is reset to `NULL`. Album ratings are applied to each track within the album, overriding any prior value.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    put: operations['ApiRatingsController_setAlbumRating'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/set-track-rating': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    /**
+     * Sets or unsets rating for a track
+     * @description Sets or unsets a 1-5 star rating for a single track. If a value of 0 is specified the track rating is reset to `NULL`.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    put: operations['ApiRatingsController_put'];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/create-user-root-path': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description `POST` request to `/api/create-user-root-path` */
+    post: operations['ApiRootPathsController_createRootPath'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/create-root-path': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description `POST` request to `/api/create-root-path` */
+    post: operations['ApiRootPathsController_post'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/delete-user-root-path': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** @description `DELETE` request to `/api/delete-user-root-path` */
+    delete: operations['ApiRootPathsController_deleteUserRootPath'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/delete-root-path': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** @description `DELETE` request to `/api/delete-root-path` */
+    delete: operations['ApiRootPathsController_deleteRootPath'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-root-paths': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-root-paths` */
+    get: operations['ApiRootPathsController_listRootPaths'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-user-root-paths': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List all root paths for all or specific users
+     * @description Retrieves a list of all root paths optionally associated with a user, eg `/home/<username>/music`.',
+     *           'These paths are indexed periodically or when files are changed to build the music library. The indexer works from a single queue so the more root paths the longer the delay between scanning.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    get: operations['ApiRootPathsController_listUserRootPaths'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/update-user-root-path': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description `PATCH` request to `/api/update-root-path` */
+    patch: operations['ApiRootPathsController_patch'];
+    trace?: never;
+  };
+  '/api/create-session': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Sign in
+     * @description Creates a user session and returns a JWT token used for authenticated API requests. The session can be lasting or temporary. Sessions are locked to the APIs that created them, these tokens cannot access QNAP or Synology APIs.
+     */
+    post: operations['ApiSessionsController_createSession'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/end-session': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Terminate the session
+     * @description Ends a user session and invalidates the JWT token provided in the `Authorization` header.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    delete: operations['ApiSessionsController_delete'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/regenerate-master-session-key': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Invalidate all user sessions
+     * @description Regenerates the master session key for the entire platform, used to sign all session tokens. When a new master key is generated every single session immediately becomes invalid.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    post: operations['ApiSessionsController_regenerateMasterSessionKey'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/regenerate-user-session-key': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Invalidate a user's sessions
+     * @description Regenerates the session key for the specified user, used to sign their session tokens. When a new key is generated all sessions of the user immediately invalidate, including their current session. The user will need to authenticate again to continue accessing protected APIs.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    post: operations['ApiSessionsController_regenerateUserSessionKey'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/regenerate-session-key': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Invalidate a user's sessions
+     * @description Regenerates the session key for the user, used to sign their session tokens. When a new key is generated all sessions of the user immediately invalidate, including their current session. The user will need to authenticate again to continue accessing protected APIs.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    post: operations['ApiSessionsController_regenerateSessionKey'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/create-shoutcast-genre': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Add a SHOUTcast genre
+     * @description Add another SHOUTcast genre.  The genre must be a real genre as-recognized by SHOUTcast.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    post: operations['ApiShoutcastController_createGenre'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/create-shoutcast-station': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Add a SHOUTcast station
+     * @description Add a custom station by its name and URL/IP address, optionally setting it as a favorite.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    post: operations['ApiShoutcastController_createStation'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/delete-shoutcast-genre': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete a SHOUTcast genre
+     * @description Delete a SHOUTcast genre by its ID
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    delete: operations['ApiShoutcastController_deleteGenre'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/delete-shoutcast-station': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete a custom station
+     * @description Delete a custom SHOUTcast station by its ID
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    delete: operations['ApiShoutcastController_deleteStation'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-shoutcast-genres': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List SHOUTcast genres
+     * @description Lists all SHOUTcast genres for the authenticated user. This is a hard-coded list of genres in the database.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    get: operations['ApiShoutcastController_listGenres'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-shoutcast-stations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List SHOUTcast stations
+     * @description Lists all custom SHOUTcast stations for the authenticated user. This is likely a short list so it is not paginated or filtered.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    get: operations['ApiShoutcastController_listStations'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-online-shoutcast-stations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List online SHOUTcast stations
+     * @description Lists all online SHOUTcast stations for the specified genre. This is a short list fetched from `shoutcast.com` so it is not paginated or filtered.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    get: operations['ApiShoutcastController_listOnlineStations'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/proxy-shoutcast-station': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Proxies a SHOUTcast station
+     * @description Creates a basic HTTP proxy stream to a SHOUTcast radio station stream.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    get: operations['ApiShoutcastController_proxyStream'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/retrieve-shoutcast-playing': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve current track for a SHOUTcast station
+     * @description Fetches the currently playing track information from a SHOUTcast radio stream.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    get: operations['ApiShoutcastController_retrieveCurrentPlaying'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/update-shoutcast-genre': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Update a custom genre
+     * @description Update the details of a custom SHOUTcast genre by its ID.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    patch: operations['ApiShoutcastController_updateGenre'];
+    trace?: never;
+  };
+  '/api/update-shoutcast-station': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Update a custom station
+     * @description Update the details of a custom SHOUTcast station by its ID.
+     *
+     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
+     *
+     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
+     */
+    patch: operations['ApiShoutcastController_updateStation'];
+    trace?: never;
+  };
   '/cgi-bin/as_get_file_api.php': {
     parameters: {
       query?: never;
@@ -662,800 +1737,6 @@ export type paths = {
     patch?: never;
     trace?: never;
   };
-  '/api/list-albums': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to /api/list-albums */
-    get: operations['ApiAlbumsController_listAlbums'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-albums-with-tracks': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to /api/list-albums-with-tracks */
-    get: operations['ApiAlbumsController_listAlbumsWithTracks'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/retrieve-album': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/retrieve-album` */
-    get: operations['ApiAlbumsController_retrieveAlbum'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/healthcheck': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Healthcheck
-     * @description Checks the health status of the server.
-     */
-    get: operations['ApiHealthcheckController_healthcheck'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/indexer-configuration': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` requests to `/api/indexer-configuration` */
-    get: operations['ApiIndexerController_indexerConfiguration'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-user-indexer-logs': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` requests to `/api/list-user-indexer-logs` */
-    get: operations['ApiIndexerController_listIndexerLogs'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-indexer-logs': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` requests to `/api/indexer-logs` */
-    get: operations['ApiIndexerController_listIndexerLogsByUser'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-indexer-status': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** @description `PATCH` requests to `/api/set-indexer-status` */
-    patch: operations['ApiIndexerController_setStatus'];
-    trace?: never;
-  };
-  '/api/list-album-associations': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/list-album-assocations` */
-    get: operations['ApiAssociationsController_listAssociations'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-album-associations-with-tracks': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/list-album-assocations-with-tracks` */
-    get: operations['ApiAssociationsController_listAssociationsWithTracks'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-track-associations': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/list-track-assocations` */
-    get: operations['ApiAssociationsController_listTrackAssociations'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-track-associations-with-tracks': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/list-track-assocations-with-tracks` */
-    get: operations['ApiAssociationsController_listTrackAssociationsWithTracks'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/retrieve-association': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/retrieve-association` */
-    get: operations['ApiAssociationsController_retrieveAssociation'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/album-cover-image': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/album-cover-image` */
-    get: operations['ApiCoverImageController_getAlbumCover'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/association-cover-image': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/association-cover-image` */
-    get: operations['ApiCoverImageController_getAssociationCover'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/delete-custom-data': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /** @description `DELETE` request to `/api/delete-custom-data` */
-    delete: operations['ApiCustomDataController_deleteCustomData'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-album-custom-data': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** @description `PATCH` request to /api/set-album-custom-data` */
-    patch: operations['ApiCustomDataController_setAlbumData'];
-    trace?: never;
-  };
-  '/api/set-association-name': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** @description `PATCH` request to /api/set-association-name` */
-    patch: operations['ApiCustomDataController_setArtistName'];
-    trace?: never;
-  };
-  '/api/set-custom-data': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    /** @description `PATCH` reuquest to `/api/set-custom-data` */
-    put: operations['ApiCustomDataController_put'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-track-custom-data': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** @description `PATCH` reuquest to `/api/set-track-custom-data` */
-    patch: operations['ApiCustomDataController_patch'];
-    trace?: never;
-  };
-  '/api/delete-favorite': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /** @description `DELETE` request to `/api/delete-favorite` */
-    delete: operations['ApiFavoritesController_deleteFavorite'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-favorites': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/list-favorites` */
-    get: operations['ApiFavoritesController_listFavorites'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-album-favorite': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    /** @description `PUT` request to `/api/set-album-favorite` */
-    put: operations['ApiFavoritesController_setAlbumFavorite'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-association-favorite': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    /** @description `PUT` request to `/api/set-association-favorite` */
-    put: operations['ApiFavoritesController_setAssociationFavorite'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-folder-favorite': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    /** @description `PUT` request to `/api/set-folder-favorite` */
-    put: operations['ApiFavoritesController_setFolderFavorite'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-track-favorite': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    /** @description `PUT` request to `/api/set-track-favorite` */
-    put: operations['ApiFavoritesController_setTrackFavorite'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/folder-structure': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Retrieve library folder structure
-     * @description Returns a tree structure starting with the root folders and nesting their folder and music file contents. This is used for browsing libraries by folder which can be helpful when metadata is ambiguous or incomplete.
-     *
-     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
-     *
-     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
-     */
-    get: operations['ApiFoldersController_getTreeStructure'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-album-rating': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    /**
-     * Sets or unsets ratings for an album
-     * @description Sets or unsets a 1-5 star rating for the tracks within an album. If a value of 0 is specified the album rating is reset to `NULL`. Album ratings are applied to each track within the album, overriding any prior value.
-     *
-     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
-     *
-     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
-     */
-    put: operations['ApiRatingsController_setAlbumRating'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/set-track-rating': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    /**
-     * Sets or unsets rating for a track
-     * @description Sets or unsets a 1-5 star rating for a single track. If a value of 0 is specified the track rating is reset to `NULL`.
-     *
-     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
-     *
-     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
-     */
-    put: operations['ApiRatingsController_put'];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-tracks': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/list-tracks` */
-    get: operations['ApiTracksController_listTracks'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/stream-track': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/stream-track` */
-    get: operations['ApiTracksController_get'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/create-user-root-path': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** @description `POST` request to `/api/create-user-root-path` */
-    post: operations['ApiRootPathsController_createRootPath'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/create-root-path': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** @description `POST` request to `/api/create-root-path` */
-    post: operations['ApiRootPathsController_post'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/delete-user-root-path': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /** @description `DELETE` request to `/api/delete-user-root-path` */
-    delete: operations['ApiRootPathsController_deleteUserRootPath'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/delete-root-path': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /** @description `DELETE` request to `/api/delete-root-path` */
-    delete: operations['ApiRootPathsController_deleteRootPath'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-root-paths': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/list-root-paths` */
-    get: operations['ApiRootPathsController_listRootPaths'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/list-user-root-paths': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List all root paths for all or specific users
-     * @description Retrieves a list of all root paths optionally associated with a user, eg `/home/<username>/music`.',
-     *           'These paths are indexed periodically or when files are changed to build the music library. The indexer works from a single queue so the more root paths the longer the delay between scanning.
-     *
-     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
-     *
-     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
-     */
-    get: operations['ApiRootPathsController_listUserRootPaths'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/update-user-root-path': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** @description `PATCH` request to `/api/update-root-path` */
-    patch: operations['ApiRootPathsController_patch'];
-    trace?: never;
-  };
-  '/api/create-session': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Sign in
-     * @description Creates a user session and returns a JWT token used for authenticated API requests. The session can be lasting or temporary. Sessions are locked to the APIs that created them, these tokens cannot access QNAP or Synology APIs.
-     */
-    post: operations['ApiSessionsController_createSession'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/end-session': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * Terminate the session
-     * @description Ends a user session and invalidates the JWT token provided in the `Authorization` header.
-     *
-     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
-     *
-     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
-     */
-    delete: operations['ApiSessionsController_delete'];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/regenerate-master-session-key': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Invalidate all user sessions
-     * @description Regenerates the master session key for the entire platform, used to sign all session tokens. When a new master key is generated every single session immediately becomes invalid.
-     *
-     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
-     *
-     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
-     */
-    post: operations['ApiSessionsController_regenerateMasterSessionKey'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/regenerate-user-session-key': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Invalidate a user's sessions
-     * @description Regenerates the session key for the specified user, used to sign their session tokens. When a new key is generated all sessions of the user immediately invalidate, including their current session. The user will need to authenticate again to continue accessing protected APIs.
-     *
-     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
-     *
-     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
-     */
-    post: operations['ApiSessionsController_regenerateUserSessionKey'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/regenerate-session-key': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Invalidate a user's sessions
-     * @description Regenerates the session key for the user, used to sign their session tokens. When a new key is generated all sessions of the user immediately invalidate, including their current session. The user will need to authenticate again to continue accessing protected APIs.
-     *
-     *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/guest/create-session` endpoint.
-     *
-     *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
-     */
-    post: operations['ApiSessionsController_regenerateSessionKey'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/api/test/create-test-account': {
     parameters: {
       query?: never;
@@ -1882,6 +2163,2136 @@ export type components = {
       /** @description The administrator's password to authorize the operation. */
       adminPassword: string;
     };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiAlbumsListAlbumsBadRequestErrors: ApiAlbumsListAlbumsBadRequestErrors;
+    ApiAlbumsListAlbumsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-added-after-error
+       */
+      message: components['schemas']['ApiAlbumsListAlbumsBadRequestErrors'][];
+    };
+    /** @enum {string} */
+    SortDirectionEnum: SortDirectionEnum;
+    /** @enum {string} */
+    AlbumSortFieldEnum: AlbumSortFieldEnum;
+    LibraryAssociationDto: {
+      /**
+       * Format: date-time
+       * @description The date the artist was added to the library
+       */
+      createdAt: string;
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
+      /** @description The internally-generated unique ID of the artist */
+      id: number;
+      /** @description The name of the artist. */
+      name: string;
+    };
+    LibraryAlbumDto: {
+      /** @description The artist for the album, aggregated from the track album artists data. */
+      artists: components['schemas']['LibraryAssociationDto'][];
+      /** @description The album composers aggregated from the track compilers data. */
+      composers: components['schemas']['LibraryAssociationDto'][];
+      /** @description The album genres aggregated from the track genres. */
+      genres: components['schemas']['LibraryAssociationDto'][];
+      /** @description The aggregate rating for the album, which is a value between 0 and 5 inclusive applied to tracks. */
+      rating: number;
+      /** @description A color detected in the cover art image */
+      coverImageLightVibrant?: string;
+      /** @description A color detected in the cover art image */
+      coverImageDarkVibrant?: string;
+      /** @description A color detected in the cover art image */
+      coverImageMuted?: string;
+      /** @description A color detected in the cover art image */
+      coverImageVibrant?: string;
+      /** @description A color detected in the cover art image */
+      coverImageDarkMuted?: string;
+      /** @description A color detected in the cover art image */
+      coverImageLightMuted?: string;
+      /**
+       * Format: date-time
+       * @description The date the album was added to the library
+       */
+      createdAt: string;
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
+      /** @description The internally-generated unique ID of the album */
+      id: number;
+      /**
+       * @description The name or title of the album, this would usually come from an official source such as MusicBrainz
+       *     or Discogs.
+       */
+      title: string;
+      /** @description The year the album was released. */
+      year: number;
+    };
+    ListAlbumsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      albums: components['schemas']['LibraryAlbumDto'][];
+      limit: number;
+      offset: number;
+      total: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiAlbumsListAlbumsWithTracksBadRequestErrors: ApiAlbumsListAlbumsWithTracksBadRequestErrors;
+    ApiAlbumsListAlbumsWithTracksBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-added-after-error
+       */
+      message: components['schemas']['ApiAlbumsListAlbumsWithTracksBadRequestErrors'][];
+    };
+    /**
+     * @description The type of the file for the track, such as MP3, FLAC, etc.
+     * @enum {string}
+     */
+    FileTypeEnum: FileTypeEnum;
+    LibraryTrackDto: {
+      /** @description The list of artists for the track. */
+      albumArtists: components['schemas']['LibraryAssociationDto'][];
+      /** @description The list of artists for the track. */
+      artists: components['schemas']['LibraryAssociationDto'][];
+      /** @description The list of composers for the track. */
+      composers: components['schemas']['LibraryAssociationDto'][];
+      /**
+       * @description The type of the file for the track, such as MP3, FLAC, etc.
+       * @example flac
+       */
+      fileType: components['schemas']['FileTypeEnum'];
+      /** @description The list of genres for the track. */
+      genres: components['schemas']['LibraryAssociationDto'][];
+      /** @description The rating of the track which is a value between 0 and 5 inclusive applied to the track. */
+      rating: number;
+      /** @description The title of the album to which the track belongs. */
+      albumId: number;
+      /** @description The title of the album to which the track belongs. */
+      albumTitle: string;
+      /** @description A color detected in the cover art image */
+      albumCoverImageLightVibrant?: string;
+      /** @description A color detected in the cover art image */
+      albumCoverImageDarkVibrant?: string;
+      /** @description A color detected in the cover art image */
+      albumCoverImageMuted?: string;
+      /** @description A color detected in the cover art image */
+      albumCoverImageVibrant?: string;
+      /** @description A color detected in the cover art image */
+      albumCoverImageDarkMuted?: string;
+      /** @description A color detected in the cover art image */
+      albumCoverImageLightMuted?: string;
+      /** @description The comment or description associated with the track. */
+      comment: string;
+      /**
+       * @description The disc number of the track on the album or disc if there are multiple discs.  If this field is not
+       *     specified it is assumed to be a single-disc album.
+       */
+      discNumber: number;
+      /** @description The duration of the track in seconds. */
+      duration: number;
+      /** @description The favorite data for the track if it exists */
+      favoriteId?: number;
+      /** @description The bitrate of the audio file for the track, in Kb/s. */
+      fileBitRate: number;
+      /** @description The number of audio channels in the file for the track, such as 2 for stereo or 1 for mono. */
+      fileChannels: number;
+      /** @description The frequency or sample rate of the audio file for the track, in Hz. */
+      fileFrequency: number;
+      /** @description The file path of the file for the track. */
+      filePath: string;
+      /** @description The size of the file in bytes */
+      fileSize: number;
+      /** @description The internally-generated unique ID of the track */
+      id: number;
+      /** @description The title of the track, which is usually the name of the song or piece of music. */
+      title: string;
+      /** @description The track number of the track on the album or disc if there are multiple discs. */
+      trackNumber: number;
+      /**
+       * @description The year of release of the track, often the same as the album except in "greatest hits"
+       *     and compilations.
+       */
+      year: number;
+    };
+    LibraryAlbumWithTracksDto: {
+      /** @description The artist for the album, aggregated from the track album artists data. */
+      artists: components['schemas']['LibraryAssociationDto'][];
+      /** @description The album composers aggregated from the track compilers data. */
+      composers: components['schemas']['LibraryAssociationDto'][];
+      /** @description The album genres aggregated from the track genres. */
+      genres: components['schemas']['LibraryAssociationDto'][];
+      /** @description The aggregate rating for the album, which is a value between 0 and 5 inclusive applied to tracks. */
+      rating: number;
+      /** @description The list of tracks for the album */
+      tracks: components['schemas']['LibraryTrackDto'][];
+      /** @description A color detected in the cover art image */
+      coverImageLightVibrant?: string;
+      /** @description A color detected in the cover art image */
+      coverImageDarkVibrant?: string;
+      /** @description A color detected in the cover art image */
+      coverImageMuted?: string;
+      /** @description A color detected in the cover art image */
+      coverImageVibrant?: string;
+      /** @description A color detected in the cover art image */
+      coverImageDarkMuted?: string;
+      /** @description A color detected in the cover art image */
+      coverImageLightMuted?: string;
+      /**
+       * Format: date-time
+       * @description The date the album was added to the library
+       */
+      createdAt: string;
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
+      /** @description The internally-generated unique ID of the album */
+      id: number;
+      /**
+       * @description The name or title of the album, this would usually come from an official source such as MusicBrainz
+       *     or Discogs.
+       */
+      title: string;
+      /** @description The year the album was released. */
+      year: number;
+    };
+    ListAlbumsWithTracksResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      albums: components['schemas']['LibraryAlbumWithTracksDto'][];
+      limit: number;
+      offset: number;
+      total: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiAlbumsRetrieveAlbumBadRequestErrors: ApiAlbumsRetrieveAlbumBadRequestErrors;
+    ApiAlbumsRetrieveAlbumBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default album-not-found-error
+       */
+      message: components['schemas']['ApiAlbumsRetrieveAlbumBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiAlbumsRetrieveAlbumNotFoundErrors: ApiAlbumsRetrieveAlbumNotFoundErrors;
+    ApiAlbumsRetrieveAlbumNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default album-not-found-error
+       */
+      message: components['schemas']['ApiAlbumsRetrieveAlbumNotFoundErrors'][];
+    };
+    RetrieveAlbumResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      album: components['schemas']['LibraryAlbumWithTracksDto'];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiCustomDataDeleteCustomDataBadRequestErrors: ApiCustomDataDeleteCustomDataBadRequestErrors;
+    ApiCustomDataDeleteCustomDataBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-track-id-error
+       */
+      message: components['schemas']['ApiCustomDataDeleteCustomDataBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiCustomDataDeleteCustomDataNotFoundErrors: ApiCustomDataDeleteCustomDataNotFoundErrors;
+    ApiCustomDataDeleteCustomDataNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default track-not-found-error
+       */
+      message: components['schemas']['ApiCustomDataDeleteCustomDataNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiCustomDataSetAlbumDataBadRequestErrors: ApiCustomDataSetAlbumDataBadRequestErrors;
+    ApiCustomDataSetAlbumDataBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-album-id-error
+       */
+      message: components['schemas']['ApiCustomDataSetAlbumDataBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiCustomDataSetAlbumDataNotFoundErrors: ApiCustomDataSetAlbumDataNotFoundErrors;
+    ApiCustomDataSetAlbumDataNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default album-not-found-error
+       */
+      message: components['schemas']['ApiCustomDataSetAlbumDataNotFoundErrors'][];
+    };
+    SetAlbumCustomDataBodyDto: {
+      /**
+       * @description Assigns a new value to the album artists if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.
+       */
+      artists: string;
+      /**
+       * @description Assigns a custom value to the title of the album if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.
+       */
+      title: string;
+      /**
+       * @description Assigns a custom value to the year if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.
+       */
+      year: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiCustomDataSetArtistNameBadRequestErrors: ApiCustomDataSetArtistNameBadRequestErrors;
+    ApiCustomDataSetArtistNameBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-artist-id-error
+       */
+      message: components['schemas']['ApiCustomDataSetArtistNameBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiCustomDataSetArtistNameNotFoundErrors: ApiCustomDataSetArtistNameNotFoundErrors;
+    ApiCustomDataSetArtistNameNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default artist-not-found-error
+       */
+      message: components['schemas']['ApiCustomDataSetArtistNameNotFoundErrors'][];
+    };
+    SetAssociationNameBodyDto: {
+      /**
+       * @description The new value to the artist name.  If an empty string is provided it will erase the
+       *     custom value.
+       */
+      name: string;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiCustomDataPutBadRequestErrors: ApiCustomDataPutBadRequestErrors;
+    ApiCustomDataPutBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-track-id-error
+       */
+      message: components['schemas']['ApiCustomDataPutBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiCustomDataPutNotFoundErrors: ApiCustomDataPutNotFoundErrors;
+    ApiCustomDataPutNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default track-not-found-error
+       */
+      message: components['schemas']['ApiCustomDataPutNotFoundErrors'][];
+    };
+    SetCustomDataBodyDto: {
+      /**
+       * @description Assigns a new value to the album artists if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      albumArtists?: string;
+      /**
+       * @description Assigns a new value to the album title if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      albumTitle?: string;
+      /**
+       * @description Assigns a new value to the track artists if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      artists?: string;
+      /**
+       * @description Assigns a new value to the comment if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      comment?: string;
+      /**
+       * @description Assigns a new value to the track composers if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      composers?: string;
+      /**
+       * @description Assigns a new value to the disc number if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      discNumber?: number;
+      /**
+       * @description Assigns a new value to the genres if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      genres?: string;
+      /**
+       * @description Assigns a new value to the title if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      title?: string;
+      /**
+       * @description Assigns a new value to the track number if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      trackNumber?: number;
+      /**
+       * @description Assigns a new value to the year if a value is provided.  If an empty
+       *     string is provided it will erase the existing value.  If the field is not
+       *     provided it will leave the existing value unchanged.
+       */
+      year?: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiCustomDataPatchBadRequestErrors: ApiCustomDataPatchBadRequestErrors;
+    ApiCustomDataPatchBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-track-id-error
+       */
+      message: components['schemas']['ApiCustomDataPatchBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiCustomDataPatchNotFoundErrors: ApiCustomDataPatchNotFoundErrors;
+    ApiCustomDataPatchNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default track-not-found-error
+       */
+      message: components['schemas']['ApiCustomDataPatchNotFoundErrors'][];
+    };
+    SetTrackCustomDataBodyDto: {
+      /**
+       * @description The new value to the track artists if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.  If the field is not
+       *     provided it will leave the custom value unchanged.
+       */
+      artists: string;
+      /**
+       * @description The new value to the comment if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.  If the field is not
+       *     provided it will leave the custom value unchanged.
+       */
+      comment?: string;
+      /**
+       * @description The new value to the track composers if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.  If the field is not
+       *     provided it will leave the custom value unchanged.
+       */
+      composers?: string;
+      /**
+       * @description The new value to the disc number if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.  If the field is not
+       *     provided it will leave the custom value unchanged.
+       */
+      discNumber?: number;
+      /**
+       * @description The new value to the genres if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.  If the field is not
+       *     provided it will leave the custom value unchanged.
+       */
+      genres?: string;
+      /**
+       * @description The new value to the title if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.  If the field is not
+       *     provided it will leave the custom value unchanged.
+       */
+      title: string;
+      /**
+       * @description The new value to the track number if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.  If the field is not
+       *     provided it will leave the custom value unchanged.
+       */
+      trackNumber?: number;
+      /**
+       * @description The new value to the year if a value is provided.  If an empty
+       *     string is provided it will erase the custom value.
+       */
+      year?: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiFavoritesDeleteFavoriteBadRequestErrors: ApiFavoritesDeleteFavoriteBadRequestErrors;
+    ApiFavoritesDeleteFavoriteBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-favorite-item-id-error
+       */
+      message: components['schemas']['ApiFavoritesDeleteFavoriteBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiFavoritesDeleteFavoriteNotFoundErrors: ApiFavoritesDeleteFavoriteNotFoundErrors;
+    ApiFavoritesDeleteFavoriteNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default favorite-item-not-found-error
+       */
+      message: components['schemas']['ApiFavoritesDeleteFavoriteNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiFavoritesListFavoritesBadRequestErrors: ApiFavoritesListFavoritesBadRequestErrors;
+    ApiFavoritesListFavoritesBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-limit-error
+       */
+      message: components['schemas']['ApiFavoritesListFavoritesBadRequestErrors'][];
+    };
+    LibraryAssociationWithTracksDto: {
+      /**
+       * Format: date-time
+       * @description The date the artist was added to the library
+       */
+      createdAt: string;
+      /** @description The list of albums including tracks for the artist */
+      albums: components['schemas']['LibraryAlbumWithTracksDto'][];
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
+      /** @description The internally-generated unique ID of the artist */
+      id: number;
+      /** @description The name of the artist. */
+      name: string;
+    };
+    /** @enum {string} */
+    AssociationTypeEnum: AssociationTypeEnum;
+    LibraryFolderDto: {
+      /**
+       * @example [
+       *       {
+       *         "folder": "sub-folder",
+       *         "fullPath": "/path/to/sub-folder",
+       *         "id": 123
+       *       }
+       *     ]
+       */
+      children?: components['schemas']['LibraryFolderDto'][];
+      track?: components['schemas']['LibraryTrackDto'];
+      /** @description The favorite data for the folder if it exists */
+      favoriteId?: number;
+      file?: string;
+      folder?: string;
+      fullPath: string;
+      id: number;
+    };
+    PlaylistPlaceholder: {
+      id: number;
+      name: string;
+    };
+    /**
+     * @description The `type` value is `container` for SHOUTcast genres, and
+     *     `radio` for actual stations.
+     * @enum {string}
+     */
+    ShoutcastItemTypeEnum: ShoutcastItemTypeEnum;
+    LibraryShoutcastStationDto: {
+      /**
+       * @description The `type` value is `container` for SHOUTcast genres, and
+       *     `radio` for actual stations.
+       */
+      type: components['schemas']['ShoutcastItemTypeEnum'];
+      id: number;
+      title: string;
+      /**
+       * Format: uri
+       * @description The `url` value is expected to always be an empty string for SHOUTcast genres.
+       */
+      url: string;
+    };
+    LibraryFavoriteDto: {
+      /**
+       * Format: date-time
+       * @description The date the artist was added to the library
+       */
+      createdAt: string;
+      album?: components['schemas']['LibraryAlbumDto'];
+      association?: components['schemas']['LibraryAssociationWithTracksDto'];
+      associationType?: components['schemas']['AssociationTypeEnum'];
+      folder?: components['schemas']['LibraryFolderDto'];
+      playlist?: components['schemas']['PlaylistPlaceholder'];
+      shoutcastStation?: components['schemas']['LibraryShoutcastStationDto'];
+      track?: components['schemas']['LibraryTrackDto'];
+      /** @description Flag used by Synology */
+      allSongs?: boolean;
+      /** @description Flag used by Synology for a random-100 playlist */
+      randomHundred?: boolean;
+      /** @description Flag used by Synology for recently added items */
+      recentlyAdded?: boolean;
+      /** @description The internally-generated unique ID of the artist */
+      id: number;
+    };
+    ListFavoritesResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      favorites: components['schemas']['LibraryFavoriteDto'][];
+      limit: number;
+      offset: number;
+      total: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiFavoritesSetAlbumFavoriteBadRequestErrors: ApiFavoritesSetAlbumFavoriteBadRequestErrors;
+    ApiFavoritesSetAlbumFavoriteBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-album-id-error
+       */
+      message: components['schemas']['ApiFavoritesSetAlbumFavoriteBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiFavoritesSetAlbumFavoriteNotFoundErrors: ApiFavoritesSetAlbumFavoriteNotFoundErrors;
+    ApiFavoritesSetAlbumFavoriteNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default album-not-found-error
+       */
+      message: components['schemas']['ApiFavoritesSetAlbumFavoriteNotFoundErrors'][];
+    };
+    CreateFavoriteResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      favoriteId: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiFavoritesSetAssociationFavoriteBadRequestErrors: ApiFavoritesSetAssociationFavoriteBadRequestErrors;
+    ApiFavoritesSetAssociationFavoriteBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-association-type-error
+       */
+      message: components['schemas']['ApiFavoritesSetAssociationFavoriteBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiFavoritesSetAssociationFavoriteNotFoundErrors: ApiFavoritesSetAssociationFavoriteNotFoundErrors;
+    ApiFavoritesSetAssociationFavoriteNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default association-not-found-error
+       */
+      message: components['schemas']['ApiFavoritesSetAssociationFavoriteNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {number}
+     */
+    ApiFavoritesSetFolderFavoriteBadRequestErrors: ApiFavoritesSetFolderFavoriteBadRequestErrors;
+    ApiFavoritesSetFolderFavoriteBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /** @description A validation or other error occurred during the processing of the request. */
+      message: components['schemas']['ApiFavoritesSetFolderFavoriteBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiFavoritesSetFolderFavoriteNotFoundErrors: ApiFavoritesSetFolderFavoriteNotFoundErrors;
+    ApiFavoritesSetFolderFavoriteNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default folder-not-found-error
+       */
+      message: components['schemas']['ApiFavoritesSetFolderFavoriteNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiFavoritesSetShoutcastStationFavoriteBadRequestErrors: ApiFavoritesSetShoutcastStationFavoriteBadRequestErrors;
+    ApiFavoritesSetShoutcastStationFavoriteBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-shoutcast-station-id-error
+       */
+      message: components['schemas']['ApiFavoritesSetShoutcastStationFavoriteBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiFavoritesSetShoutcastStationFavoriteNotFoundErrors: ApiFavoritesSetShoutcastStationFavoriteNotFoundErrors;
+    ApiFavoritesSetShoutcastStationFavoriteNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default shoutcast-station-not-found-error
+       */
+      message: components['schemas']['ApiFavoritesSetShoutcastStationFavoriteNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiFavoritesSetTrackFavoriteBadRequestErrors: ApiFavoritesSetTrackFavoriteBadRequestErrors;
+    ApiFavoritesSetTrackFavoriteBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-track-id-error
+       */
+      message: components['schemas']['ApiFavoritesSetTrackFavoriteBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiFavoritesSetTrackFavoriteNotFoundErrors: ApiFavoritesSetTrackFavoriteNotFoundErrors;
+    ApiFavoritesSetTrackFavoriteNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default track-not-found-error
+       */
+      message: components['schemas']['ApiFavoritesSetTrackFavoriteNotFoundErrors'][];
+    };
+    HealthcheckResponseDto: Record<string, never>;
+    IndexerConfigurationDto: {
+      id: number;
+      isEnabled: boolean;
+      /** Format: date-time */
+      createdAt: string;
+      createdByAccountId: number;
+      createdByUsername: string;
+    };
+    IndexerConfigurationResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      configuration: components['schemas']['IndexerConfigurationDto'];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiIndexerListIndexerLogsBadRequestErrors: ApiIndexerListIndexerLogsBadRequestErrors;
+    ApiIndexerListIndexerLogsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-account-id-error
+       */
+      message: components['schemas']['ApiIndexerListIndexerLogsBadRequestErrors'][];
+    };
+    LogWithUserEntryDto: {
+      /** @description The username the indexer action was for. */
+      username: string;
+      /** Format: date-time */
+      date: string;
+      rootPathId: number;
+      rootPath: string;
+      message: string;
+    };
+    ListIndexerLogsWithUserResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      logs: components['schemas']['LogWithUserEntryDto'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiIndexerListIndexerLogsByUserBadRequestErrors: ApiIndexerListIndexerLogsByUserBadRequestErrors;
+    ApiIndexerListIndexerLogsByUserBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-root-path-id-error
+       */
+      message: components['schemas']['ApiIndexerListIndexerLogsByUserBadRequestErrors'][];
+    };
+    LogEntryDto: {
+      /** Format: date-time */
+      date: string;
+      rootPathId: number;
+      rootPath: string;
+      message: string;
+    };
+    ListIndexerLogsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      logs: components['schemas']['LogEntryDto'][];
+    };
+    SetIndexerStatusBodyDto: {
+      /** @description Whether the scanner should be enabled or disabled */
+      enabled: boolean;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiAssociationsListAssociationsBadRequestErrors: ApiAssociationsListAssociationsBadRequestErrors;
+    ApiAssociationsListAssociationsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-added-after-error
+       */
+      message: components['schemas']['ApiAssociationsListAssociationsBadRequestErrors'][];
+    };
+    /** @enum {string} */
+    AssociationSortFieldEnum: AssociationSortFieldEnum;
+    ListAssociationsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      associations: components['schemas']['LibraryAssociationDto'][];
+      limit: number;
+      offset: number;
+      total: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiAssociationsListAssociationsWithTracksBadRequestErrors: ApiAssociationsListAssociationsWithTracksBadRequestErrors;
+    ApiAssociationsListAssociationsWithTracksBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-added-after-error
+       */
+      message: components['schemas']['ApiAssociationsListAssociationsWithTracksBadRequestErrors'][];
+    };
+    ListAssociationsWithTracksResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      associations: components['schemas']['LibraryAssociationWithTracksDto'][];
+      limit: number;
+      offset: number;
+      total: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiAssociationsListTrackAssociationsBadRequestErrors: ApiAssociationsListTrackAssociationsBadRequestErrors;
+    ApiAssociationsListTrackAssociationsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-added-after-error
+       */
+      message: components['schemas']['ApiAssociationsListTrackAssociationsBadRequestErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiAssociationsListTrackAssociationsWithTracksBadRequestErrors: ApiAssociationsListTrackAssociationsWithTracksBadRequestErrors;
+    ApiAssociationsListTrackAssociationsWithTracksBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-added-after-error
+       */
+      message: components['schemas']['ApiAssociationsListTrackAssociationsWithTracksBadRequestErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiAssociationsRetrieveAssociationBadRequestErrors: ApiAssociationsRetrieveAssociationBadRequestErrors;
+    ApiAssociationsRetrieveAssociationBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-association-id-error
+       */
+      message: components['schemas']['ApiAssociationsRetrieveAssociationBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiAssociationsRetrieveAssociationNotFoundErrors: ApiAssociationsRetrieveAssociationNotFoundErrors;
+    ApiAssociationsRetrieveAssociationNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default association-not-found-error
+       */
+      message: components['schemas']['ApiAssociationsRetrieveAssociationNotFoundErrors'][];
+    };
+    AssociationWithCreditsDto: {
+      /**
+       * Format: date-time
+       * @description The date the artist was added to the library
+       */
+      createdAt: string;
+      albumArtistCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
+      artistCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
+      composerCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
+      genreCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
+      /** @description The favorite data for the album if it exists */
+      favoriteId?: number;
+      /** @description The internally-generated unique ID of the artist */
+      id: number;
+      /** @description The name of the artist. */
+      name: string;
+    };
+    RetrieveAssociationResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      association: components['schemas']['AssociationWithCreditsDto'];
+    };
+    FolderStructureResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      items: components['schemas']['LibraryFolderDto'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiTracksListTracksBadRequestErrors: ApiTracksListTracksBadRequestErrors;
+    ApiTracksListTracksBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-added-after-error
+       */
+      message: components['schemas']['ApiTracksListTracksBadRequestErrors'][];
+    };
+    /** @enum {string} */
+    TrackSortFieldEnum: TrackSortFieldEnum;
+    ListTracksResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      tracks: components['schemas']['LibraryTrackDto'][];
+      limit: number;
+      offset: number;
+      total: number;
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiTracksGetNotFoundErrors: ApiTracksGetNotFoundErrors;
+    ApiTracksGetNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default file-not-found-error
+       */
+      message: components['schemas']['ApiTracksGetNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiRatingsSetAlbumRatingBadRequestErrors: ApiRatingsSetAlbumRatingBadRequestErrors;
+    ApiRatingsSetAlbumRatingBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-album-id-error
+       */
+      message: components['schemas']['ApiRatingsSetAlbumRatingBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiRatingsSetAlbumRatingNotFoundErrors: ApiRatingsSetAlbumRatingNotFoundErrors;
+    ApiRatingsSetAlbumRatingNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default album-not-found-error
+       */
+      message: components['schemas']['ApiRatingsSetAlbumRatingNotFoundErrors'][];
+    };
+    SetAlbumRatingBodyDto: {
+      /**
+       * Format: int32
+       * @description The rating value to be set for the track.  If it is 0 the rating will be unset.
+       */
+      rating: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiRatingsPutBadRequestErrors: ApiRatingsPutBadRequestErrors;
+    ApiRatingsPutBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-track-id-error
+       */
+      message: components['schemas']['ApiRatingsPutBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiRatingsPutNotFoundErrors: ApiRatingsPutNotFoundErrors;
+    ApiRatingsPutNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default track-not-found-error
+       */
+      message: components['schemas']['ApiRatingsPutNotFoundErrors'][];
+    };
+    SetTrackRatingBodyDto: {
+      /**
+       * Format: int32
+       * @description The rating value to be set for the track.  If it is 0 the rating will be unset.
+       */
+      rating: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiRootPathsCreateRootPathBadRequestErrors: ApiRootPathsCreateRootPathBadRequestErrors;
+    ApiRootPathsCreateRootPathBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default root-path-does-not-exist-error
+       */
+      message: components['schemas']['ApiRootPathsCreateRootPathBadRequestErrors'][];
+    };
+    /**
+     * @description Authentication failed or the user does not have the necessary permissions to access the resource.
+     * @enum {string}
+     */
+    ApiRootPathsCreateRootPathUnauthorizedErrors: ApiRootPathsCreateRootPathUnauthorizedErrors;
+    ApiRootPathsCreateRootPathUnauthorizedResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description Authentication failed or the user does not have the necessary permissions to access the resource.
+       * @default invalid-admin-password-error
+       */
+      message: components['schemas']['ApiRootPathsCreateRootPathUnauthorizedErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiRootPathsCreateRootPathNotFoundErrors: ApiRootPathsCreateRootPathNotFoundErrors;
+    ApiRootPathsCreateRootPathNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default root-path-not-found-error
+       */
+      message: components['schemas']['ApiRootPathsCreateRootPathNotFoundErrors'][];
+    };
+    CreateRootPathBodyDto: {
+      /** @description The fully-qualified path to set for the root path */
+      rootPath: string;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiRootPathsPostBadRequestErrors: ApiRootPathsPostBadRequestErrors;
+    ApiRootPathsPostBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default root-path-does-not-exist-error
+       */
+      message: components['schemas']['ApiRootPathsPostBadRequestErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiRootPathsDeleteUserRootPathBadRequestErrors: ApiRootPathsDeleteUserRootPathBadRequestErrors;
+    ApiRootPathsDeleteUserRootPathBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-root-path-id-error
+       */
+      message: components['schemas']['ApiRootPathsDeleteUserRootPathBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiRootPathsDeleteUserRootPathNotFoundErrors: ApiRootPathsDeleteUserRootPathNotFoundErrors;
+    ApiRootPathsDeleteUserRootPathNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default root-path-not-found-error
+       */
+      message: components['schemas']['ApiRootPathsDeleteUserRootPathNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiRootPathsDeleteRootPathBadRequestErrors: ApiRootPathsDeleteRootPathBadRequestErrors;
+    ApiRootPathsDeleteRootPathBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-root-path-id-error
+       */
+      message: components['schemas']['ApiRootPathsDeleteRootPathBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiRootPathsDeleteRootPathNotFoundErrors: ApiRootPathsDeleteRootPathNotFoundErrors;
+    ApiRootPathsDeleteRootPathNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default root-path-not-found-error
+       */
+      message: components['schemas']['ApiRootPathsDeleteRootPathNotFoundErrors'][];
+    };
+    RootPathDto: {
+      /**
+       * Format: date-time
+       * @description The date and time the row was created
+       */
+      createdAt: string;
+      /**
+       * @description The number of files or songs that have been found in this root path, this excludes
+       *     anything that is not a music track.
+       */
+      fileCount: number;
+      /** @description The ID of the root path row in the database. */
+      id: number;
+      /** @description The fully-qualified path of the root path, this is the base path where music is stored for a user. */
+      rootPath: string;
+      /** @description The total size of all the files in this root path contained in the `fileCount` field. */
+      totalSize: number;
+      /**
+       * Format: date-time
+       * @description The date and time the row was last updated, this field is optional and may not be present
+       *     if the row has never been updated.
+       */
+      updatedAt?: string;
+    };
+    RootPathsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      rootPaths: components['schemas']['RootPathDto'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiRootPathsListUserRootPathsBadRequestErrors: ApiRootPathsListUserRootPathsBadRequestErrors;
+    ApiRootPathsListUserRootPathsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default account-not-found-error
+       */
+      message: components['schemas']['ApiRootPathsListUserRootPathsBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiRootPathsListUserRootPathsNotFoundErrors: ApiRootPathsListUserRootPathsNotFoundErrors;
+    ApiRootPathsListUserRootPathsNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default account-not-found-error
+       */
+      message: components['schemas']['ApiRootPathsListUserRootPathsNotFoundErrors'][];
+    };
+    RootPathWithUserDto: {
+      /**
+       * Format: date-time
+       * @description The date and time the row was created
+       */
+      createdAt: string;
+      /**
+       * @description The number of files or songs that have been found in this root path, this excludes
+       *     anything that is not a music track.
+       */
+      fileCount: number;
+      /** @description The ID of the root path row in the database. */
+      id: number;
+      /** @description The fully-qualified path of the root path, this is the base path where music is stored for a user. */
+      rootPath: string;
+      /** @description The total size of all the files in this root path contained in the `fileCount` field. */
+      totalSize: number;
+      /**
+       * Format: date-time
+       * @description The date and time the row was last updated, this field is optional and may not be present
+       *     if the row has never been updated.
+       */
+      updatedAt?: string;
+      /** @description The username that owns the root path. */
+      username: string;
+    };
+    RootPathsWithUserResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      rootPaths: components['schemas']['RootPathWithUserDto'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiRootPathsPatchBadRequestErrors: ApiRootPathsPatchBadRequestErrors;
+    ApiRootPathsPatchBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default root-path-does-not-exist-error
+       */
+      message: components['schemas']['ApiRootPathsPatchBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiRootPathsPatchNotFoundErrors: ApiRootPathsPatchNotFoundErrors;
+    ApiRootPathsPatchNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default root-path-not-found-error
+       */
+      message: components['schemas']['ApiRootPathsPatchNotFoundErrors'][];
+    };
+    UpdateRootPathBodyDto: {
+      /** @description The new path to set for the root path */
+      newPath: string;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiSessionsCreateSessionBadRequestErrors: ApiSessionsCreateSessionBadRequestErrors;
+    ApiSessionsCreateSessionBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-password-error
+       */
+      message: components['schemas']['ApiSessionsCreateSessionBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiSessionsCreateSessionNotFoundErrors: ApiSessionsCreateSessionNotFoundErrors;
+    ApiSessionsCreateSessionNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default invalid-username-error
+       */
+      message: components['schemas']['ApiSessionsCreateSessionNotFoundErrors'][];
+    };
+    CreateSessionBodyDto: {
+      /** @description The username for the account */
+      username: string;
+      /** @description The password for the account */
+      password: string;
+      /** @description The number of days until the session expires */
+      expiresDays?: number;
+    };
+    CreateSessionResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      jwtToken: string;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiSessionsDeleteBadRequestErrors: ApiSessionsDeleteBadRequestErrors;
+    ApiSessionsDeleteBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default session-not-found-error
+       */
+      message: components['schemas']['ApiSessionsDeleteBadRequestErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiSessionsRegenerateUserSessionKeyBadRequestErrors: ApiSessionsRegenerateUserSessionKeyBadRequestErrors;
+    ApiSessionsRegenerateUserSessionKeyBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-admin-password-error
+       */
+      message: components['schemas']['ApiSessionsRegenerateUserSessionKeyBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiSessionsRegenerateUserSessionKeyNotFoundErrors: ApiSessionsRegenerateUserSessionKeyNotFoundErrors;
+    ApiSessionsRegenerateUserSessionKeyNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default account-not-found-error
+       */
+      message: components['schemas']['ApiSessionsRegenerateUserSessionKeyNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastCreateGenreBadRequestErrors: ApiShoutcastCreateGenreBadRequestErrors;
+    ApiShoutcastCreateGenreBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default shoutcast-genre-already-exists-error
+       */
+      message: components['schemas']['ApiShoutcastCreateGenreBadRequestErrors'][];
+    };
+    CreateShoutcastGenreBodyDto: {
+      name: string;
+    };
+    ShoutcastGenreDto: {
+      id: number;
+      name: string;
+    };
+    CreateShoutcastGenreResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      genre: components['schemas']['ShoutcastGenreDto'];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastCreateStationBadRequestErrors: ApiShoutcastCreateStationBadRequestErrors;
+    ApiShoutcastCreateStationBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-shoutcast-station-url-length-error
+       */
+      message: components['schemas']['ApiShoutcastCreateStationBadRequestErrors'][];
+    };
+    CreateShoutcastStationBodyDto: {
+      /** Format: uri */
+      url: string;
+      title: string;
+      favorite: boolean;
+    };
+    ShoutcastStationDto: {
+      /**
+       * @description The `type` value is `container` for SHOUTcast genres, and
+       *     `radio` for actual stations.
+       */
+      type: components['schemas']['ShoutcastItemTypeEnum'];
+      /** @description The favorite data for the station if it exists */
+      favoriteId?: number;
+      id: number;
+      title: string;
+      /**
+       * Format: uri
+       * @description The `url` value is expected to always be an empty string for SHOUTcast genres.
+       */
+      url: string;
+    };
+    CreateShoutcastStationResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      station: components['schemas']['ShoutcastStationDto'];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastDeleteGenreBadRequestErrors: ApiShoutcastDeleteGenreBadRequestErrors;
+    ApiShoutcastDeleteGenreBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default shoutcast-genre-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastDeleteGenreBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiShoutcastDeleteGenreNotFoundErrors: ApiShoutcastDeleteGenreNotFoundErrors;
+    ApiShoutcastDeleteGenreNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default shoutcast-genre-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastDeleteGenreNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastDeleteStationBadRequestErrors: ApiShoutcastDeleteStationBadRequestErrors;
+    ApiShoutcastDeleteStationBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default shoutcast-station-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastDeleteStationBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiShoutcastDeleteStationNotFoundErrors: ApiShoutcastDeleteStationNotFoundErrors;
+    ApiShoutcastDeleteStationNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default shoutcast-station-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastDeleteStationNotFoundErrors'][];
+    };
+    ListShoutcastGenresResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      genres: components['schemas']['ShoutcastGenreDto'][];
+    };
+    ListShoutcastStationsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      stations: components['schemas']['ShoutcastStationDto'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastListOnlineStationsBadRequestErrors: ApiShoutcastListOnlineStationsBadRequestErrors;
+    ApiShoutcastListOnlineStationsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default shoutcast-genre-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastListOnlineStationsBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiShoutcastListOnlineStationsNotFoundErrors: ApiShoutcastListOnlineStationsNotFoundErrors;
+    ApiShoutcastListOnlineStationsNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default shoutcast-genre-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastListOnlineStationsNotFoundErrors'][];
+    };
+    ListOnlineShoutcastStationsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      stations: components['schemas']['ShoutcastStationDto'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastProxyStreamBadRequestErrors: ApiShoutcastProxyStreamBadRequestErrors;
+    ApiShoutcastProxyStreamBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-shoutcast-station-url-length-error
+       */
+      message: components['schemas']['ApiShoutcastProxyStreamBadRequestErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastRetrieveCurrentPlayingBadRequestErrors: ApiShoutcastRetrieveCurrentPlayingBadRequestErrors;
+    ApiShoutcastRetrieveCurrentPlayingBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-shoutcast-station-url-length-error
+       */
+      message: components['schemas']['ApiShoutcastRetrieveCurrentPlayingBadRequestErrors'][];
+    };
+    RetrieveCurrentPlayingResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      title: string;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastUpdateGenreBadRequestErrors: ApiShoutcastUpdateGenreBadRequestErrors;
+    ApiShoutcastUpdateGenreBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default shoutcast-genre-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastUpdateGenreBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiShoutcastUpdateGenreNotFoundErrors: ApiShoutcastUpdateGenreNotFoundErrors;
+    ApiShoutcastUpdateGenreNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default shoutcast-genre-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastUpdateGenreNotFoundErrors'][];
+    };
+    UpdateShoutcastGenreBodyDto: {
+      name: string;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiShoutcastUpdateStationBadRequestErrors: ApiShoutcastUpdateStationBadRequestErrors;
+    ApiShoutcastUpdateStationBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default shoutcast-station-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastUpdateStationBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiShoutcastUpdateStationNotFoundErrors: ApiShoutcastUpdateStationNotFoundErrors;
+    ApiShoutcastUpdateStationNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default shoutcast-station-not-found-error
+       */
+      message: components['schemas']['ApiShoutcastUpdateStationNotFoundErrors'][];
+    };
+    UpdateShoutcastStationBodyDto: {
+      /** Format: uri */
+      url: string;
+      title: string;
+    };
     QnapUserAsLoginFunctionsDto: {
       /**
        * @description Whether the user can create shared folders.
@@ -2280,11 +4691,6 @@ export type components = {
       /** @description Media grouping to return, album, artist */
       type: string;
     };
-    /**
-     * @description The sort direction
-     * @enum {string}
-     */
-    SortDirectionEnum: SortDirectionEnum;
     QnapMediaListGeneralQueryDto: {
       /**
        * @description The sort direction
@@ -3700,8 +6106,6 @@ export type components = {
       /** @description The final segment of the folder path */
       title: string;
     };
-    /** @enum {string} */
-    FileTypeEnum: FileTypeEnum;
     SynologySongAudioDto: {
       /** @example flac */
       codec: components['schemas']['FileTypeEnum'];
@@ -4704,13 +7108,6 @@ export type components = {
       /** @description The array index of the song to delete from the SHOUTcast radio station */
       stream_id: number;
     };
-    /**
-     * @description The `type` value is expected to always be `container` for SHOUTcast genres, and
-     *     `radio` for actual stations.  Possibly other values for favorites and custom-added
-     *     stations.
-     * @enum {string}
-     */
-    ShoutcastItemTypeEnum: ShoutcastItemTypeEnum;
     SynologyRadioItemDto: {
       /**
        * @description The `type` value is expected to always be `container` for SHOUTcast genres, and
@@ -4816,9 +7213,14 @@ export type components = {
        *     is not the pagination offset.
        */
       offset: number;
-      /** @description The name of the container */
+      /** @description The name of the container which bundles the genre eg `SHOUTcast_genre_Rock` */
       container: string;
     };
+    /**
+     * @description The name of the container the favorite is in.
+     * @enum {string}
+     */
+    ShoutcastContainerNamesEnum: ShoutcastContainerNamesEnum;
     SynologyRadioFavoriteItemDto: {
       desc: string;
       title: string;
@@ -4853,9 +7255,9 @@ export type components = {
        *     out the GitHub Issues page and submit a request to support your version of the API.
        */
       version: number;
-      radios_json: components['schemas']['SynologyRadioFavoriteItemDto'][];
       /** @description The name of the container the favorite is in. */
-      container: string;
+      container: components['schemas']['ShoutcastContainerNamesEnum'];
+      radios_json: components['schemas']['SynologyRadioFavoriteItemDto'][];
       /**
        * @description Refers to the position in the existing data, a value of `-1` indicates a new item.  This
        *     is not the pagination offset.
@@ -4891,7 +7293,7 @@ export type components = {
        */
       version: number;
       /** @description The name of the container the user-defined station is in. */
-      container: string;
+      container: components['schemas']['ShoutcastContainerNamesEnum'];
       /**
        * @description Refers to the position in the existing data, a value of `-1` indicates a new item.  This
        *     is not the pagination offset.
@@ -5537,1713 +7939,6 @@ export type components = {
      * @description A validation or other error occurred during the processing of the request.
      * @enum {string}
      */
-    ApiAlbumsListAlbumsBadRequestErrors: ApiAlbumsListAlbumsBadRequestErrors;
-    ApiAlbumsListAlbumsBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-added-after-error
-       */
-      message: components['schemas']['ApiAlbumsListAlbumsBadRequestErrors'][];
-    };
-    /** @enum {string} */
-    AlbumSortFieldEnum: AlbumSortFieldEnum;
-    LibraryAssociationDto: {
-      /**
-       * Format: date-time
-       * @description The date the artist was added to the library
-       */
-      createdAt: string;
-      /** @description The favorite data for the album if it exists */
-      favoriteId?: number;
-      /** @description The internally-generated unique ID of the artist */
-      id: number;
-      /** @description The name of the artist. */
-      name: string;
-    };
-    LibraryAlbumDto: {
-      /** @description The artist for the album, aggregated from the track album artists data. */
-      artists: components['schemas']['LibraryAssociationDto'][];
-      /** @description The album composers aggregated from the track compilers data. */
-      composers: components['schemas']['LibraryAssociationDto'][];
-      /** @description The album genres aggregated from the track genres. */
-      genres: components['schemas']['LibraryAssociationDto'][];
-      /** @description The aggregate rating for the album, which is a value between 0 and 5 inclusive applied to tracks. */
-      rating: number;
-      /** @description A color detected in the cover art image */
-      coverImageLightVibrant?: string;
-      /** @description A color detected in the cover art image */
-      coverImageDarkVibrant?: string;
-      /** @description A color detected in the cover art image */
-      coverImageMuted?: string;
-      /** @description A color detected in the cover art image */
-      coverImageVibrant?: string;
-      /** @description A color detected in the cover art image */
-      coverImageDarkMuted?: string;
-      /** @description A color detected in the cover art image */
-      coverImageLightMuted?: string;
-      /**
-       * Format: date-time
-       * @description The date the album was added to the library
-       */
-      createdAt: string;
-      /** @description The favorite data for the album if it exists */
-      favoriteId?: number;
-      /** @description The internally-generated unique ID of the album */
-      id: number;
-      /**
-       * @description The name or title of the album, this would usually come from an official source such as MusicBrainz
-       *     or Discogs.
-       */
-      title: string;
-      /** @description The year the album was released. */
-      year: number;
-    };
-    ListAlbumsResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      albums: components['schemas']['LibraryAlbumDto'][];
-      limit: number;
-      offset: number;
-      total: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiAlbumsListAlbumsWithTracksBadRequestErrors: ApiAlbumsListAlbumsWithTracksBadRequestErrors;
-    ApiAlbumsListAlbumsWithTracksBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-added-after-error
-       */
-      message: components['schemas']['ApiAlbumsListAlbumsWithTracksBadRequestErrors'][];
-    };
-    LibraryTrackDto: {
-      /** @description The list of artists for the track. */
-      albumArtists: components['schemas']['LibraryAssociationDto'][];
-      /** @description The list of artists for the track. */
-      artists: components['schemas']['LibraryAssociationDto'][];
-      /** @description The list of composers for the track. */
-      composers: components['schemas']['LibraryAssociationDto'][];
-      /**
-       * @description The type of the file for the track, such as MP3, FLAC, etc.
-       * @example flac
-       */
-      fileType: components['schemas']['FileTypeEnum'];
-      /** @description The list of genres for the track. */
-      genres: components['schemas']['LibraryAssociationDto'][];
-      /** @description The rating of the track which is a value between 0 and 5 inclusive applied to the track. */
-      rating: number;
-      /** @description The title of the album to which the track belongs. */
-      albumId: number;
-      /** @description The title of the album to which the track belongs. */
-      albumTitle: string;
-      /** @description A color detected in the cover art image */
-      albumCoverImageLightVibrant?: string;
-      /** @description A color detected in the cover art image */
-      albumCoverImageDarkVibrant?: string;
-      /** @description A color detected in the cover art image */
-      albumCoverImageMuted?: string;
-      /** @description A color detected in the cover art image */
-      albumCoverImageVibrant?: string;
-      /** @description A color detected in the cover art image */
-      albumCoverImageDarkMuted?: string;
-      /** @description A color detected in the cover art image */
-      albumCoverImageLightMuted?: string;
-      /** @description The comment or description associated with the track. */
-      comment: string;
-      /**
-       * @description The disc number of the track on the album or disc if there are multiple discs.  If this field is not
-       *     specified it is assumed to be a single-disc album.
-       */
-      discNumber: number;
-      /** @description The duration of the track in seconds. */
-      duration: number;
-      /** @description The favorite data for the track if it exists */
-      favoriteId?: number;
-      /** @description The bitrate of the audio file for the track, in Kb/s. */
-      fileBitRate: number;
-      /** @description The number of audio channels in the file for the track, such as 2 for stereo or 1 for mono. */
-      fileChannels: number;
-      /** @description The frequency or sample rate of the audio file for the track, in Hz. */
-      fileFrequency: number;
-      /** @description The file path of the file for the track. */
-      filePath: string;
-      /** @description The size of the file in bytes */
-      fileSize: number;
-      /** @description The internally-generated unique ID of the track */
-      id: number;
-      /** @description The title of the track, which is usually the name of the song or piece of music. */
-      title: string;
-      /** @description The track number of the track on the album or disc if there are multiple discs. */
-      trackNumber: number;
-      /**
-       * @description The year of release of the track, often the same as the album except in "greatest hits"
-       *     and compilations.
-       */
-      year: number;
-    };
-    LibraryAlbumWithTracksDto: {
-      /** @description The artist for the album, aggregated from the track album artists data. */
-      artists: components['schemas']['LibraryAssociationDto'][];
-      /** @description The album composers aggregated from the track compilers data. */
-      composers: components['schemas']['LibraryAssociationDto'][];
-      /** @description The album genres aggregated from the track genres. */
-      genres: components['schemas']['LibraryAssociationDto'][];
-      /** @description The aggregate rating for the album, which is a value between 0 and 5 inclusive applied to tracks. */
-      rating: number;
-      /** @description The list of tracks for the album */
-      tracks: components['schemas']['LibraryTrackDto'][];
-      /** @description A color detected in the cover art image */
-      coverImageLightVibrant?: string;
-      /** @description A color detected in the cover art image */
-      coverImageDarkVibrant?: string;
-      /** @description A color detected in the cover art image */
-      coverImageMuted?: string;
-      /** @description A color detected in the cover art image */
-      coverImageVibrant?: string;
-      /** @description A color detected in the cover art image */
-      coverImageDarkMuted?: string;
-      /** @description A color detected in the cover art image */
-      coverImageLightMuted?: string;
-      /**
-       * Format: date-time
-       * @description The date the album was added to the library
-       */
-      createdAt: string;
-      /** @description The favorite data for the album if it exists */
-      favoriteId?: number;
-      /** @description The internally-generated unique ID of the album */
-      id: number;
-      /**
-       * @description The name or title of the album, this would usually come from an official source such as MusicBrainz
-       *     or Discogs.
-       */
-      title: string;
-      /** @description The year the album was released. */
-      year: number;
-    };
-    ListAlbumsWithTracksResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      albums: components['schemas']['LibraryAlbumWithTracksDto'][];
-      limit: number;
-      offset: number;
-      total: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiAlbumsRetrieveAlbumBadRequestErrors: ApiAlbumsRetrieveAlbumBadRequestErrors;
-    ApiAlbumsRetrieveAlbumBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default album-not-found-error
-       */
-      message: components['schemas']['ApiAlbumsRetrieveAlbumBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiAlbumsRetrieveAlbumNotFoundErrors: ApiAlbumsRetrieveAlbumNotFoundErrors;
-    ApiAlbumsRetrieveAlbumNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default album-not-found-error
-       */
-      message: components['schemas']['ApiAlbumsRetrieveAlbumNotFoundErrors'][];
-    };
-    RetrieveAlbumResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      album: components['schemas']['LibraryAlbumWithTracksDto'];
-    };
-    HealthcheckResponseDto: Record<string, never>;
-    IndexerConfigurationDto: {
-      id: number;
-      isEnabled: boolean;
-      /** Format: date-time */
-      createdAt: string;
-      createdByAccountId: number;
-      createdByUsername: string;
-    };
-    IndexerConfigurationResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      configuration: components['schemas']['IndexerConfigurationDto'];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiIndexerListIndexerLogsBadRequestErrors: ApiIndexerListIndexerLogsBadRequestErrors;
-    ApiIndexerListIndexerLogsBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-account-id-error
-       */
-      message: components['schemas']['ApiIndexerListIndexerLogsBadRequestErrors'][];
-    };
-    LogWithUserEntryDto: {
-      /** @description The username the indexer action was for. */
-      username: string;
-      /** Format: date-time */
-      date: string;
-      rootPathId: number;
-      rootPath: string;
-      message: string;
-    };
-    ListIndexerLogsWithUserResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      logs: components['schemas']['LogWithUserEntryDto'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiIndexerListIndexerLogsByUserBadRequestErrors: ApiIndexerListIndexerLogsByUserBadRequestErrors;
-    ApiIndexerListIndexerLogsByUserBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-root-path-id-error
-       */
-      message: components['schemas']['ApiIndexerListIndexerLogsByUserBadRequestErrors'][];
-    };
-    LogEntryDto: {
-      /** Format: date-time */
-      date: string;
-      rootPathId: number;
-      rootPath: string;
-      message: string;
-    };
-    ListIndexerLogsResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      logs: components['schemas']['LogEntryDto'][];
-    };
-    SetIndexerStatusBodyDto: {
-      /** @description Whether the scanner should be enabled or disabled */
-      enabled: boolean;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiAssociationsListAssociationsBadRequestErrors: ApiAssociationsListAssociationsBadRequestErrors;
-    ApiAssociationsListAssociationsBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-added-after-error
-       */
-      message: components['schemas']['ApiAssociationsListAssociationsBadRequestErrors'][];
-    };
-    /** @enum {string} */
-    AssociationTypeEnum: AssociationTypeEnum;
-    /** @enum {string} */
-    AssociationSortFieldEnum: AssociationSortFieldEnum;
-    ListAssociationsResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      associations: components['schemas']['LibraryAssociationDto'][];
-      limit: number;
-      offset: number;
-      total: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiAssociationsListAssociationsWithTracksBadRequestErrors: ApiAssociationsListAssociationsWithTracksBadRequestErrors;
-    ApiAssociationsListAssociationsWithTracksBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-added-after-error
-       */
-      message: components['schemas']['ApiAssociationsListAssociationsWithTracksBadRequestErrors'][];
-    };
-    LibraryAssociationWithTracksDto: {
-      /**
-       * Format: date-time
-       * @description The date the artist was added to the library
-       */
-      createdAt: string;
-      /** @description The list of albums including tracks for the artist */
-      albums: components['schemas']['LibraryAlbumWithTracksDto'][];
-      /** @description The favorite data for the album if it exists */
-      favoriteId?: number;
-      /** @description The internally-generated unique ID of the artist */
-      id: number;
-      /** @description The name of the artist. */
-      name: string;
-    };
-    ListAssociationsWithTracksResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      associations: components['schemas']['LibraryAssociationWithTracksDto'][];
-      limit: number;
-      offset: number;
-      total: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiAssociationsListTrackAssociationsBadRequestErrors: ApiAssociationsListTrackAssociationsBadRequestErrors;
-    ApiAssociationsListTrackAssociationsBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-added-after-error
-       */
-      message: components['schemas']['ApiAssociationsListTrackAssociationsBadRequestErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiAssociationsListTrackAssociationsWithTracksBadRequestErrors: ApiAssociationsListTrackAssociationsWithTracksBadRequestErrors;
-    ApiAssociationsListTrackAssociationsWithTracksBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-added-after-error
-       */
-      message: components['schemas']['ApiAssociationsListTrackAssociationsWithTracksBadRequestErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiAssociationsRetrieveAssociationBadRequestErrors: ApiAssociationsRetrieveAssociationBadRequestErrors;
-    ApiAssociationsRetrieveAssociationBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-association-id-error
-       */
-      message: components['schemas']['ApiAssociationsRetrieveAssociationBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiAssociationsRetrieveAssociationNotFoundErrors: ApiAssociationsRetrieveAssociationNotFoundErrors;
-    ApiAssociationsRetrieveAssociationNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default association-not-found-error
-       */
-      message: components['schemas']['ApiAssociationsRetrieveAssociationNotFoundErrors'][];
-    };
-    AssociationWithCreditsDto: {
-      /**
-       * Format: date-time
-       * @description The date the artist was added to the library
-       */
-      createdAt: string;
-      albumArtistCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
-      artistCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
-      composerCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
-      genreCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
-      /** @description The favorite data for the album if it exists */
-      favoriteId?: number;
-      /** @description The internally-generated unique ID of the artist */
-      id: number;
-      /** @description The name of the artist. */
-      name: string;
-    };
-    RetrieveAssociationResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      association: components['schemas']['AssociationWithCreditsDto'];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiCustomDataDeleteCustomDataBadRequestErrors: ApiCustomDataDeleteCustomDataBadRequestErrors;
-    ApiCustomDataDeleteCustomDataBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-track-id-error
-       */
-      message: components['schemas']['ApiCustomDataDeleteCustomDataBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiCustomDataDeleteCustomDataNotFoundErrors: ApiCustomDataDeleteCustomDataNotFoundErrors;
-    ApiCustomDataDeleteCustomDataNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default track-not-found-error
-       */
-      message: components['schemas']['ApiCustomDataDeleteCustomDataNotFoundErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiCustomDataSetAlbumDataBadRequestErrors: ApiCustomDataSetAlbumDataBadRequestErrors;
-    ApiCustomDataSetAlbumDataBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-album-id-error
-       */
-      message: components['schemas']['ApiCustomDataSetAlbumDataBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiCustomDataSetAlbumDataNotFoundErrors: ApiCustomDataSetAlbumDataNotFoundErrors;
-    ApiCustomDataSetAlbumDataNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default album-not-found-error
-       */
-      message: components['schemas']['ApiCustomDataSetAlbumDataNotFoundErrors'][];
-    };
-    SetAlbumCustomDataBodyDto: {
-      /**
-       * @description Assigns a new value to the album artists if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.
-       */
-      artists: string;
-      /**
-       * @description Assigns a custom value to the title of the album if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.
-       */
-      title: string;
-      /**
-       * @description Assigns a custom value to the year if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.
-       */
-      year: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiCustomDataSetArtistNameBadRequestErrors: ApiCustomDataSetArtistNameBadRequestErrors;
-    ApiCustomDataSetArtistNameBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-artist-id-error
-       */
-      message: components['schemas']['ApiCustomDataSetArtistNameBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiCustomDataSetArtistNameNotFoundErrors: ApiCustomDataSetArtistNameNotFoundErrors;
-    ApiCustomDataSetArtistNameNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default artist-not-found-error
-       */
-      message: components['schemas']['ApiCustomDataSetArtistNameNotFoundErrors'][];
-    };
-    SetAssociationNameBodyDto: {
-      /**
-       * @description The new value to the artist name.  If an empty string is provided it will erase the
-       *     custom value.
-       */
-      name: string;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiCustomDataPutBadRequestErrors: ApiCustomDataPutBadRequestErrors;
-    ApiCustomDataPutBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-track-id-error
-       */
-      message: components['schemas']['ApiCustomDataPutBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiCustomDataPutNotFoundErrors: ApiCustomDataPutNotFoundErrors;
-    ApiCustomDataPutNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default track-not-found-error
-       */
-      message: components['schemas']['ApiCustomDataPutNotFoundErrors'][];
-    };
-    SetCustomDataBodyDto: {
-      /**
-       * @description Assigns a new value to the album artists if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      albumArtists?: string;
-      /**
-       * @description Assigns a new value to the album title if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      albumTitle?: string;
-      /**
-       * @description Assigns a new value to the track artists if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      artists?: string;
-      /**
-       * @description Assigns a new value to the comment if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      comment?: string;
-      /**
-       * @description Assigns a new value to the track composers if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      composers?: string;
-      /**
-       * @description Assigns a new value to the disc number if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      discNumber?: number;
-      /**
-       * @description Assigns a new value to the genres if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      genres?: string;
-      /**
-       * @description Assigns a new value to the title if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      title?: string;
-      /**
-       * @description Assigns a new value to the track number if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      trackNumber?: number;
-      /**
-       * @description Assigns a new value to the year if a value is provided.  If an empty
-       *     string is provided it will erase the existing value.  If the field is not
-       *     provided it will leave the existing value unchanged.
-       */
-      year?: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiCustomDataPatchBadRequestErrors: ApiCustomDataPatchBadRequestErrors;
-    ApiCustomDataPatchBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-track-id-error
-       */
-      message: components['schemas']['ApiCustomDataPatchBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiCustomDataPatchNotFoundErrors: ApiCustomDataPatchNotFoundErrors;
-    ApiCustomDataPatchNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default track-not-found-error
-       */
-      message: components['schemas']['ApiCustomDataPatchNotFoundErrors'][];
-    };
-    SetTrackCustomDataBodyDto: {
-      /**
-       * @description The new value to the track artists if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.  If the field is not
-       *     provided it will leave the custom value unchanged.
-       */
-      artists: string;
-      /**
-       * @description The new value to the comment if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.  If the field is not
-       *     provided it will leave the custom value unchanged.
-       */
-      comment?: string;
-      /**
-       * @description The new value to the track composers if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.  If the field is not
-       *     provided it will leave the custom value unchanged.
-       */
-      composers?: string;
-      /**
-       * @description The new value to the disc number if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.  If the field is not
-       *     provided it will leave the custom value unchanged.
-       */
-      discNumber?: number;
-      /**
-       * @description The new value to the genres if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.  If the field is not
-       *     provided it will leave the custom value unchanged.
-       */
-      genres?: string;
-      /**
-       * @description The new value to the title if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.  If the field is not
-       *     provided it will leave the custom value unchanged.
-       */
-      title: string;
-      /**
-       * @description The new value to the track number if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.  If the field is not
-       *     provided it will leave the custom value unchanged.
-       */
-      trackNumber?: number;
-      /**
-       * @description The new value to the year if a value is provided.  If an empty
-       *     string is provided it will erase the custom value.
-       */
-      year?: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiFavoritesDeleteFavoriteBadRequestErrors: ApiFavoritesDeleteFavoriteBadRequestErrors;
-    ApiFavoritesDeleteFavoriteBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-favorite-item-id-error
-       */
-      message: components['schemas']['ApiFavoritesDeleteFavoriteBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiFavoritesDeleteFavoriteNotFoundErrors: ApiFavoritesDeleteFavoriteNotFoundErrors;
-    ApiFavoritesDeleteFavoriteNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default favorite-item-not-found-error
-       */
-      message: components['schemas']['ApiFavoritesDeleteFavoriteNotFoundErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiFavoritesListFavoritesBadRequestErrors: ApiFavoritesListFavoritesBadRequestErrors;
-    ApiFavoritesListFavoritesBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-limit-error
-       */
-      message: components['schemas']['ApiFavoritesListFavoritesBadRequestErrors'][];
-    };
-    LibraryFolderDto: {
-      /**
-       * @example [
-       *       {
-       *         "folder": "sub-folder",
-       *         "fullPath": "/path/to/sub-folder",
-       *         "id": 123
-       *       }
-       *     ]
-       */
-      children?: components['schemas']['LibraryFolderDto'][];
-      track?: components['schemas']['LibraryTrackDto'];
-      /** @description The favorite data for the folder if it exists */
-      favoriteId?: number;
-      file?: string;
-      folder?: string;
-      fullPath: string;
-      id: number;
-    };
-    PlaylistPlaceholder: {
-      id: number;
-      name: string;
-    };
-    LibraryFavoriteDto: {
-      /**
-       * Format: date-time
-       * @description The date the artist was added to the library
-       */
-      createdAt: string;
-      album?: components['schemas']['LibraryAlbumDto'];
-      association?: components['schemas']['LibraryAssociationWithTracksDto'];
-      associationType?: components['schemas']['AssociationTypeEnum'];
-      folder?: components['schemas']['LibraryFolderDto'];
-      playlist?: components['schemas']['PlaylistPlaceholder'];
-      track?: components['schemas']['LibraryTrackDto'];
-      /** @description Flag used by Synology */
-      allSongs?: boolean;
-      /** @description Flag used by Synology for a random-100 playlist */
-      randomHundred?: boolean;
-      /** @description Flag used by Synology for recently added items */
-      recentlyAdded?: boolean;
-      /** @description The internally-generated unique ID of the artist */
-      id: number;
-    };
-    ListFavoritesResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      favorites: components['schemas']['LibraryFavoriteDto'][];
-      limit: number;
-      offset: number;
-      total: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiFavoritesSetAlbumFavoriteBadRequestErrors: ApiFavoritesSetAlbumFavoriteBadRequestErrors;
-    ApiFavoritesSetAlbumFavoriteBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-album-id-error
-       */
-      message: components['schemas']['ApiFavoritesSetAlbumFavoriteBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiFavoritesSetAlbumFavoriteNotFoundErrors: ApiFavoritesSetAlbumFavoriteNotFoundErrors;
-    ApiFavoritesSetAlbumFavoriteNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default album-not-found-error
-       */
-      message: components['schemas']['ApiFavoritesSetAlbumFavoriteNotFoundErrors'][];
-    };
-    CreateFavoriteResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      favoriteId: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiFavoritesSetAssociationFavoriteBadRequestErrors: ApiFavoritesSetAssociationFavoriteBadRequestErrors;
-    ApiFavoritesSetAssociationFavoriteBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-association-type-error
-       */
-      message: components['schemas']['ApiFavoritesSetAssociationFavoriteBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiFavoritesSetAssociationFavoriteNotFoundErrors: ApiFavoritesSetAssociationFavoriteNotFoundErrors;
-    ApiFavoritesSetAssociationFavoriteNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default association-not-found-error
-       */
-      message: components['schemas']['ApiFavoritesSetAssociationFavoriteNotFoundErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {number}
-     */
-    ApiFavoritesSetFolderFavoriteBadRequestErrors: ApiFavoritesSetFolderFavoriteBadRequestErrors;
-    ApiFavoritesSetFolderFavoriteBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /** @description A validation or other error occurred during the processing of the request. */
-      message: components['schemas']['ApiFavoritesSetFolderFavoriteBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiFavoritesSetFolderFavoriteNotFoundErrors: ApiFavoritesSetFolderFavoriteNotFoundErrors;
-    ApiFavoritesSetFolderFavoriteNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default folder-not-found-error
-       */
-      message: components['schemas']['ApiFavoritesSetFolderFavoriteNotFoundErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiFavoritesSetTrackFavoriteBadRequestErrors: ApiFavoritesSetTrackFavoriteBadRequestErrors;
-    ApiFavoritesSetTrackFavoriteBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-track-id-error
-       */
-      message: components['schemas']['ApiFavoritesSetTrackFavoriteBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiFavoritesSetTrackFavoriteNotFoundErrors: ApiFavoritesSetTrackFavoriteNotFoundErrors;
-    ApiFavoritesSetTrackFavoriteNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default track-not-found-error
-       */
-      message: components['schemas']['ApiFavoritesSetTrackFavoriteNotFoundErrors'][];
-    };
-    FolderStructureResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      items: components['schemas']['LibraryFolderDto'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiRatingsSetAlbumRatingBadRequestErrors: ApiRatingsSetAlbumRatingBadRequestErrors;
-    ApiRatingsSetAlbumRatingBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-album-id-error
-       */
-      message: components['schemas']['ApiRatingsSetAlbumRatingBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiRatingsSetAlbumRatingNotFoundErrors: ApiRatingsSetAlbumRatingNotFoundErrors;
-    ApiRatingsSetAlbumRatingNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default album-not-found-error
-       */
-      message: components['schemas']['ApiRatingsSetAlbumRatingNotFoundErrors'][];
-    };
-    SetAlbumRatingBodyDto: {
-      /**
-       * Format: int32
-       * @description The rating value to be set for the track.  If it is 0 the rating will be unset.
-       */
-      rating: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiRatingsPutBadRequestErrors: ApiRatingsPutBadRequestErrors;
-    ApiRatingsPutBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-track-id-error
-       */
-      message: components['schemas']['ApiRatingsPutBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiRatingsPutNotFoundErrors: ApiRatingsPutNotFoundErrors;
-    ApiRatingsPutNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default track-not-found-error
-       */
-      message: components['schemas']['ApiRatingsPutNotFoundErrors'][];
-    };
-    SetTrackRatingBodyDto: {
-      /**
-       * Format: int32
-       * @description The rating value to be set for the track.  If it is 0 the rating will be unset.
-       */
-      rating: number;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiTracksListTracksBadRequestErrors: ApiTracksListTracksBadRequestErrors;
-    ApiTracksListTracksBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-added-after-error
-       */
-      message: components['schemas']['ApiTracksListTracksBadRequestErrors'][];
-    };
-    /** @enum {string} */
-    TrackSortFieldEnum: TrackSortFieldEnum;
-    ListTracksResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      tracks: components['schemas']['LibraryTrackDto'][];
-      limit: number;
-      offset: number;
-      total: number;
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiTracksGetNotFoundErrors: ApiTracksGetNotFoundErrors;
-    ApiTracksGetNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default file-not-found-error
-       */
-      message: components['schemas']['ApiTracksGetNotFoundErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiRootPathsCreateRootPathBadRequestErrors: ApiRootPathsCreateRootPathBadRequestErrors;
-    ApiRootPathsCreateRootPathBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default root-path-does-not-exist-error
-       */
-      message: components['schemas']['ApiRootPathsCreateRootPathBadRequestErrors'][];
-    };
-    /**
-     * @description Authentication failed or the user does not have the necessary permissions to access the resource.
-     * @enum {string}
-     */
-    ApiRootPathsCreateRootPathUnauthorizedErrors: ApiRootPathsCreateRootPathUnauthorizedErrors;
-    ApiRootPathsCreateRootPathUnauthorizedResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description Authentication failed or the user does not have the necessary permissions to access the resource.
-       * @default invalid-admin-password-error
-       */
-      message: components['schemas']['ApiRootPathsCreateRootPathUnauthorizedErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiRootPathsCreateRootPathNotFoundErrors: ApiRootPathsCreateRootPathNotFoundErrors;
-    ApiRootPathsCreateRootPathNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default root-path-not-found-error
-       */
-      message: components['schemas']['ApiRootPathsCreateRootPathNotFoundErrors'][];
-    };
-    CreateRootPathBodyDto: {
-      /** @description The fully-qualified path to set for the root path */
-      rootPath: string;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiRootPathsPostBadRequestErrors: ApiRootPathsPostBadRequestErrors;
-    ApiRootPathsPostBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default root-path-does-not-exist-error
-       */
-      message: components['schemas']['ApiRootPathsPostBadRequestErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiRootPathsDeleteUserRootPathBadRequestErrors: ApiRootPathsDeleteUserRootPathBadRequestErrors;
-    ApiRootPathsDeleteUserRootPathBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-root-path-id-error
-       */
-      message: components['schemas']['ApiRootPathsDeleteUserRootPathBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiRootPathsDeleteUserRootPathNotFoundErrors: ApiRootPathsDeleteUserRootPathNotFoundErrors;
-    ApiRootPathsDeleteUserRootPathNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default root-path-not-found-error
-       */
-      message: components['schemas']['ApiRootPathsDeleteUserRootPathNotFoundErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiRootPathsDeleteRootPathBadRequestErrors: ApiRootPathsDeleteRootPathBadRequestErrors;
-    ApiRootPathsDeleteRootPathBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-root-path-id-error
-       */
-      message: components['schemas']['ApiRootPathsDeleteRootPathBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiRootPathsDeleteRootPathNotFoundErrors: ApiRootPathsDeleteRootPathNotFoundErrors;
-    ApiRootPathsDeleteRootPathNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default root-path-not-found-error
-       */
-      message: components['schemas']['ApiRootPathsDeleteRootPathNotFoundErrors'][];
-    };
-    RootPathDto: {
-      /**
-       * Format: date-time
-       * @description The date and time the row was created
-       */
-      createdAt: string;
-      /**
-       * @description The number of files or songs that have been found in this root path, this excludes
-       *     anything that is not a music track.
-       */
-      fileCount: number;
-      /** @description The ID of the root path row in the database. */
-      id: number;
-      /** @description The fully-qualified path of the root path, this is the base path where music is stored for a user. */
-      rootPath: string;
-      /** @description The total size of all the files in this root path contained in the `fileCount` field. */
-      totalSize: number;
-      /**
-       * Format: date-time
-       * @description The date and time the row was last updated, this field is optional and may not be present
-       *     if the row has never been updated.
-       */
-      updatedAt?: string;
-    };
-    RootPathsResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      rootPaths: components['schemas']['RootPathDto'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiRootPathsListUserRootPathsBadRequestErrors: ApiRootPathsListUserRootPathsBadRequestErrors;
-    ApiRootPathsListUserRootPathsBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default account-not-found-error
-       */
-      message: components['schemas']['ApiRootPathsListUserRootPathsBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiRootPathsListUserRootPathsNotFoundErrors: ApiRootPathsListUserRootPathsNotFoundErrors;
-    ApiRootPathsListUserRootPathsNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default account-not-found-error
-       */
-      message: components['schemas']['ApiRootPathsListUserRootPathsNotFoundErrors'][];
-    };
-    RootPathWithUserDto: {
-      /**
-       * Format: date-time
-       * @description The date and time the row was created
-       */
-      createdAt: string;
-      /**
-       * @description The number of files or songs that have been found in this root path, this excludes
-       *     anything that is not a music track.
-       */
-      fileCount: number;
-      /** @description The ID of the root path row in the database. */
-      id: number;
-      /** @description The fully-qualified path of the root path, this is the base path where music is stored for a user. */
-      rootPath: string;
-      /** @description The total size of all the files in this root path contained in the `fileCount` field. */
-      totalSize: number;
-      /**
-       * Format: date-time
-       * @description The date and time the row was last updated, this field is optional and may not be present
-       *     if the row has never been updated.
-       */
-      updatedAt?: string;
-      /** @description The username that owns the root path. */
-      username: string;
-    };
-    RootPathsWithUserResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      rootPaths: components['schemas']['RootPathWithUserDto'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiRootPathsPatchBadRequestErrors: ApiRootPathsPatchBadRequestErrors;
-    ApiRootPathsPatchBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default root-path-does-not-exist-error
-       */
-      message: components['schemas']['ApiRootPathsPatchBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiRootPathsPatchNotFoundErrors: ApiRootPathsPatchNotFoundErrors;
-    ApiRootPathsPatchNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default root-path-not-found-error
-       */
-      message: components['schemas']['ApiRootPathsPatchNotFoundErrors'][];
-    };
-    UpdateRootPathBodyDto: {
-      /** @description The new path to set for the root path */
-      newPath: string;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiSessionsCreateSessionBadRequestErrors: ApiSessionsCreateSessionBadRequestErrors;
-    ApiSessionsCreateSessionBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-password-error
-       */
-      message: components['schemas']['ApiSessionsCreateSessionBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiSessionsCreateSessionNotFoundErrors: ApiSessionsCreateSessionNotFoundErrors;
-    ApiSessionsCreateSessionNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default invalid-username-error
-       */
-      message: components['schemas']['ApiSessionsCreateSessionNotFoundErrors'][];
-    };
-    CreateSessionBodyDto: {
-      /** @description The username for the account */
-      username: string;
-      /** @description The password for the account */
-      password: string;
-      /** @description The number of days until the session expires */
-      expiresDays?: number;
-    };
-    CreateSessionResponseDto: {
-      /**
-       * Format: constant
-       * @description The success being "true" indicates that the request completed.
-       * @default true
-       */
-      success: boolean;
-      jwtToken: string;
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiSessionsDeleteBadRequestErrors: ApiSessionsDeleteBadRequestErrors;
-    ApiSessionsDeleteBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default session-not-found-error
-       */
-      message: components['schemas']['ApiSessionsDeleteBadRequestErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
-    ApiSessionsRegenerateUserSessionKeyBadRequestErrors: ApiSessionsRegenerateUserSessionKeyBadRequestErrors;
-    ApiSessionsRegenerateUserSessionKeyBadRequestResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A validation or other error occurred during the processing of the request.
-       * @default invalid-admin-password-error
-       */
-      message: components['schemas']['ApiSessionsRegenerateUserSessionKeyBadRequestErrors'][];
-    };
-    /**
-     * @description A resource ID was specified that does not exist or does not belong to your account.
-     * @enum {string}
-     */
-    ApiSessionsRegenerateUserSessionKeyNotFoundErrors: ApiSessionsRegenerateUserSessionKeyNotFoundErrors;
-    ApiSessionsRegenerateUserSessionKeyNotFoundResponse: {
-      /** @description General description of the error class */
-      error: string;
-      /**
-       * @description The success being "false" indicates that the request failed to complete.
-       * @default false
-       */
-      success: boolean;
-      /**
-       * @description A resource ID was specified that does not exist or does not belong to your account.
-       * @default account-not-found-error
-       */
-      message: components['schemas']['ApiSessionsRegenerateUserSessionKeyNotFoundErrors'][];
-    };
-    /**
-     * @description A validation or other error occurred during the processing of the request.
-     * @enum {string}
-     */
     ApiTestCreateTestAccountBadRequestErrors: ApiTestCreateTestAccountBadRequestErrors;
     ApiTestCreateTestAccountBadRequestResponse: {
       /** @description General description of the error class */
@@ -7746,6 +8441,3130 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['ApiAccountsUpdateUserRolesNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiAlbumsController_listAlbums: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedAfter?: string;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedBefore?: string;
+        /**
+         * @description Optional filter for the artist name, which will do a case-insensitive partial-match against the
+         *     artists associated with an album.
+         */
+        artist?: string[];
+        /**
+         * @description Optional filter for the composer name, which will do a case-insensitive partial-match against the
+         *     composers associated with an album.
+         */
+        composer?: string[];
+        /**
+         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
+         *     genres associated with an album.
+         */
+        genre?: string[];
+        /**
+         * @description Optional filter for the date the album was released, which will do an exact match against
+         *     the date of release.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        releasedAfter?: string;
+        /**
+         * @description Optional filter for the date the album was released, which will do an exact match against
+         *     the date of release.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        releasedBefore?: string;
+        /** @description Optional filter for the direction to sort the results by. */
+        sortDirection?: components['schemas']['SortDirectionEnum'];
+        /** @description Optional filter for the field to sort results by. */
+        sortField?: components['schemas']['AlbumSortFieldEnum'];
+        /**
+         * @description Optional filter for the year of the album, which will do an exact match against the year associated
+         *     with an album's release date.
+         */
+        year?: number;
+        /**
+         * @description Optional search filter that will do a case-insensitive partial-match against the album
+         *     name, artist name, composer name, or genre.
+         */
+        filter?: string;
+        /**
+         * @description Maximum rating value, which will do an exact match against the rating associated with an album.  The
+         *     rating is a value between 0 and 5, inclusive.
+         */
+        maxRating?: number;
+        /**
+         * @description Minimum rating value, which will do an exact match against the rating associated with an album.  The
+         *     rating is a value between 0 and 5, inclusive.
+         */
+        minRating?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListAlbumsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAlbumsListAlbumsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiAlbumsController_listAlbumsWithTracks: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedAfter?: string;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedBefore?: string;
+        /**
+         * @description Optional filter for the artist name, which will do a case-insensitive partial-match against the
+         *     artists associated with an album.
+         */
+        artist?: string[];
+        /**
+         * @description Optional filter for the composer name, which will do a case-insensitive partial-match against the
+         *     composers associated with an album.
+         */
+        composer?: string[];
+        /**
+         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
+         *     genres associated with an album.
+         */
+        genre?: string[];
+        /**
+         * @description Optional filter for the date the album was released, which will do an exact match against
+         *     the date of release.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        releasedAfter?: string;
+        /**
+         * @description Optional filter for the date the album was released, which will do an exact match against
+         *     the date of release.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        releasedBefore?: string;
+        /** @description Optional filter for the direction to sort the results by. */
+        sortDirection?: components['schemas']['SortDirectionEnum'];
+        /** @description Optional filter for the field to sort results by. */
+        sortField?: components['schemas']['AlbumSortFieldEnum'];
+        /**
+         * @description Optional filter for the year of the album, which will do an exact match against the year associated
+         *     with an album's release date.
+         */
+        year?: number;
+        /**
+         * @description Optional search filter that will do a case-insensitive partial-match against the album
+         *     name, artist name, composer name, or genre.
+         */
+        filter?: string;
+        /**
+         * @description Maximum rating value, which will do an exact match against the rating associated with an album.  The
+         *     rating is a value between 0 and 5, inclusive.
+         */
+        maxRating?: number;
+        /**
+         * @description Minimum rating value, which will do an exact match against the rating associated with an album.  The
+         *     rating is a value between 0 and 5, inclusive.
+         */
+        minRating?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListAlbumsWithTracksResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAlbumsListAlbumsWithTracksBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiAlbumsController_retrieveAlbum: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['RetrieveAlbumResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAlbumsRetrieveAlbumBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAlbumsRetrieveAlbumNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCustomDataController_deleteCustomData: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataDeleteCustomDataBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataDeleteCustomDataNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCustomDataController_setAlbumData: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SetAlbumCustomDataBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataSetAlbumDataBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataSetAlbumDataNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCustomDataController_setArtistName: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SetAssociationNameBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataSetArtistNameBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataSetArtistNameNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCustomDataController_put: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SetCustomDataBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataPutBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataPutNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCustomDataController_patch: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SetTrackCustomDataBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataPatchBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiCustomDataPatchNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiFavoritesController_deleteFavorite: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesDeleteFavoriteBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesDeleteFavoriteNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiFavoritesController_listFavorites: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListFavoritesResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesListFavoritesBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiFavoritesController_setAlbumFavorite: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetAlbumFavoriteBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetAlbumFavoriteNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiFavoritesController_setAssociationFavorite: {
+    parameters: {
+      query: {
+        associationType: components['schemas']['AssociationTypeEnum'];
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetAssociationFavoriteBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetAssociationFavoriteNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiFavoritesController_setFolderFavorite: {
+    parameters: {
+      query: {
+        folder: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetFolderFavoriteBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetFolderFavoriteNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiFavoritesController_setShoutcastStationFavorite: {
+    parameters: {
+      query?: {
+        /**
+         * @description The ID of a previously-added custom station.  This will take precedence
+         *     if a URL has also been supplied.
+         */
+        shoutcastStationId?: number;
+        /**
+         * @description The title of the Shoutcast station if it is an online station that has not
+         *     previously been added as a custom station.
+         */
+        shoutcastStationTitle?: string;
+        /**
+         * @description The URL of the Shoutcast station if it is an online station that has not
+         *     previously been added as a custom station.
+         */
+        shoutcastStationUrl?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetShoutcastStationFavoriteBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetShoutcastStationFavoriteNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiFavoritesController_setTrackFavorite: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateFavoriteResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetTrackFavoriteBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiFavoritesSetTrackFavoriteNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiHealthcheckController_healthcheck: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['HealthcheckResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiIndexerController_indexerConfiguration: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['IndexerConfigurationResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiIndexerController_listIndexerLogs: {
+    parameters: {
+      query?: {
+        accountId?: number;
+        rootPathId?: number;
+        search?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListIndexerLogsWithUserResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiIndexerListIndexerLogsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiIndexerController_listIndexerLogsByUser: {
+    parameters: {
+      query?: {
+        rootPathId?: number;
+        search?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListIndexerLogsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiIndexerListIndexerLogsByUserBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiIndexerController_setStatus: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SetIndexerStatusBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiAssociationsController_listAssociations: {
+    parameters: {
+      query: {
+        limit?: number;
+        offset?: number;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedAfter?: string;
+        /**
+         * @description Optional filter for the date the association was added to the library, which will do an exact match against
+         *     the date the association was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedBefore?: string;
+        associationType: components['schemas']['AssociationTypeEnum'];
+        /**
+         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
+         *     genres associated with an artist.
+         */
+        genre?: string[];
+        /** @description Optional filter for the direction to sort the results by. */
+        sortDirection?: components['schemas']['SortDirectionEnum'];
+        /** @description Optional filter for the field to sort results by. */
+        sortField?: components['schemas']['AssociationSortFieldEnum'];
+        /**
+         * @description Optional search filter that will do a case-insensitive partial-match against the artist
+         *     name, album name, composer name, or genre.
+         */
+        filter?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListAssociationsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAssociationsListAssociationsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiAssociationsController_listAssociationsWithTracks: {
+    parameters: {
+      query: {
+        limit?: number;
+        offset?: number;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedAfter?: string;
+        /**
+         * @description Optional filter for the date the association was added to the library, which will do an exact match against
+         *     the date the association was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedBefore?: string;
+        associationType: components['schemas']['AssociationTypeEnum'];
+        /**
+         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
+         *     genres associated with an artist.
+         */
+        genre?: string[];
+        /** @description Optional filter for the direction to sort the results by. */
+        sortDirection?: components['schemas']['SortDirectionEnum'];
+        /** @description Optional filter for the field to sort results by. */
+        sortField?: components['schemas']['AssociationSortFieldEnum'];
+        /**
+         * @description Optional search filter that will do a case-insensitive partial-match against the artist
+         *     name, album name, composer name, or genre.
+         */
+        filter?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListAssociationsWithTracksResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAssociationsListAssociationsWithTracksBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiAssociationsController_listTrackAssociations: {
+    parameters: {
+      query: {
+        limit?: number;
+        offset?: number;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedAfter?: string;
+        /**
+         * @description Optional filter for the date the artist was added to the library, which will do an exact match against
+         *     the date the artist was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedBefore?: string;
+        associationType: components['schemas']['AssociationTypeEnum'];
+        /**
+         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
+         *     genres associated with an artist.
+         */
+        genre?: string[];
+        /** @description Optional filter for the direction to sort the results by. */
+        sortDirection?: components['schemas']['SortDirectionEnum'];
+        /** @description Optional filter for the field to sort results by. */
+        sortField?: components['schemas']['AssociationSortFieldEnum'];
+        /**
+         * @description Optional search filter that will do a case-insensitive partial-match against the artist
+         *     name, album name, composer name, or genre.
+         */
+        filter?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListAssociationsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAssociationsListTrackAssociationsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiAssociationsController_listTrackAssociationsWithTracks: {
+    parameters: {
+      query: {
+        limit?: number;
+        offset?: number;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedAfter?: string;
+        /**
+         * @description Optional filter for the date the artist was added to the library, which will do an exact match against
+         *     the date the artist was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedBefore?: string;
+        associationType: components['schemas']['AssociationTypeEnum'];
+        /**
+         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
+         *     genres associated with an artist.
+         */
+        genre?: string[];
+        /** @description Optional filter for the direction to sort the results by. */
+        sortDirection?: components['schemas']['SortDirectionEnum'];
+        /** @description Optional filter for the field to sort results by. */
+        sortField?: components['schemas']['AssociationSortFieldEnum'];
+        /**
+         * @description Optional search filter that will do a case-insensitive partial-match against the artist
+         *     name, album name, composer name, or genre.
+         */
+        filter?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListAssociationsWithTracksResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAssociationsListTrackAssociationsWithTracksBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiAssociationsController_retrieveAssociation: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['RetrieveAssociationResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAssociationsRetrieveAssociationBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiAssociationsRetrieveAssociationNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCoverImageController_getAlbumCover: {
+    parameters: {
+      query: {
+        /** @description The width/height size of the image in pixels */
+        size: number;
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': string;
+          'image/png': string;
+          'image/webp': string;
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['BadRequestResponseDto'];
+          'image/png': components['schemas']['BadRequestResponseDto'];
+          'image/webp': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
+          'image/png': components['schemas']['InternalServerErrorResponseDto'];
+          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCoverImageController_getAssociationCover: {
+    parameters: {
+      query: {
+        /** @description The type of association */
+        type?: components['schemas']['AssociationTypeEnum'];
+        /** @description The width/height size of the image in pixels */
+        size: number;
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': string;
+          'image/png': string;
+          'image/webp': string;
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['BadRequestResponseDto'];
+          'image/png': components['schemas']['BadRequestResponseDto'];
+          'image/webp': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
+          'image/png': components['schemas']['InternalServerErrorResponseDto'];
+          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiFoldersController_getTreeStructure: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['FolderStructureResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiTracksController_listTracks: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedAfter?: string;
+        /**
+         * @description Optional filter for the date the album was added to the library, which will do an exact match against
+         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
+         */
+        addedBefore?: string;
+        /**
+         * @description Optional filter for the album artist name, which will do a case-insensitive partial-match against the
+         *     artists associated with an album.
+         */
+        albumArtists?: string[];
+        /**
+         * @description Optional filter for the artist name, which will do a case-insensitive partial-match against the
+         *     artists associated with tracks.
+         */
+        artist?: string[];
+        /**
+         * @description Optional filter for the composer name, which will do a case-insensitive partial-match against the
+         *     composers associated with an album.
+         */
+        composer?: string[];
+        /**
+         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
+         *     genres associated with an album.
+         */
+        genre?: string[];
+        /** @description Optional filter for the direction to sort the results by. */
+        sortDirection?: components['schemas']['SortDirectionEnum'];
+        /** @description Optional filter for the field to sort results by. */
+        sortField?: components['schemas']['TrackSortFieldEnum'];
+        /**
+         * @description Optional filter for the year of the album, which will do an exact match against the year associated
+         *     with an album's release date.
+         */
+        year?: number;
+        /**
+         * @description Optional filter for the album name, which will do a case-insensitive partial-match against the
+         *     name of the album.
+         */
+        album?: string;
+        /**
+         * @description Optional search filter that will do a case-insensitive partial-match against the album
+         *     name, artist name, composer name, or genre.
+         */
+        filter?: string;
+        /**
+         * @description Maximum rating value, which will do an exact match against the rating associated with an album.  The
+         *     rating is a value between 0 and 5, inclusive.
+         */
+        maxRating?: number;
+        /**
+         * @description Minimum rating value, which will do an exact match against the rating associated with an album.  The
+         *     rating is a value between 0 and 5, inclusive.
+         */
+        minRating?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListTracksResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiTracksListTracksBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiTracksController_get: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'audio/mpeg': string;
+          'audio/ogg': string;
+          'audio/wav': string;
+          'audio/flac': string;
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'audio/mpeg': components['schemas']['BadRequestResponseDto'];
+          'audio/ogg': components['schemas']['BadRequestResponseDto'];
+          'audio/wav': components['schemas']['BadRequestResponseDto'];
+          'audio/flac': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'audio/mpeg': components['schemas']['ForbiddenErrorResponseDto'];
+          'audio/ogg': components['schemas']['ForbiddenErrorResponseDto'];
+          'audio/wav': components['schemas']['ForbiddenErrorResponseDto'];
+          'audio/flac': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'audio/mpeg': components['schemas']['ApiTracksGetNotFoundResponse'];
+          'audio/ogg': components['schemas']['ApiTracksGetNotFoundResponse'];
+          'audio/wav': components['schemas']['ApiTracksGetNotFoundResponse'];
+          'audio/flac': components['schemas']['ApiTracksGetNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'audio/mpeg': components['schemas']['InternalServerErrorResponseDto'];
+          'audio/ogg': components['schemas']['InternalServerErrorResponseDto'];
+          'audio/wav': components['schemas']['InternalServerErrorResponseDto'];
+          'audio/flac': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRatingsController_setAlbumRating: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SetAlbumRatingBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRatingsSetAlbumRatingBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRatingsSetAlbumRatingNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRatingsController_put: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SetTrackRatingBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRatingsPutBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRatingsPutNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRootPathsController_createRootPath: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateRootPathBodyDto'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsCreateRootPathBadRequestResponse'];
+        };
+      };
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsCreateRootPathUnauthorizedResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsCreateRootPathNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRootPathsController_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateRootPathBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsPostBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRootPathsController_deleteUserRootPath: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsDeleteUserRootPathBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsDeleteUserRootPathNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRootPathsController_deleteRootPath: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsDeleteRootPathBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsDeleteRootPathNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRootPathsController_listRootPaths: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['RootPathsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRootPathsController_listUserRootPaths: {
+    parameters: {
+      query?: {
+        /** @description The database ID of the resource */
+        id?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['RootPathsWithUserResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsListUserRootPathsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsListUserRootPathsNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiRootPathsController_patch: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateRootPathBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsPatchBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiRootPathsPatchNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiSessionsController_createSession: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateSessionBodyDto'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateSessionResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiSessionsCreateSessionBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiSessionsCreateSessionNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiSessionsController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiSessionsDeleteBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiSessionsController_regenerateMasterSessionKey: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiSessionsController_regenerateUserSessionKey: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AdminAuthorizationBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiSessionsRegenerateUserSessionKeyBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiSessionsRegenerateUserSessionKeyNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiSessionsController_regenerateSessionKey: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_createGenre: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateShoutcastGenreBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateShoutcastGenreResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastCreateGenreBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_createStation: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateShoutcastStationBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreateShoutcastStationResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastCreateStationBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_deleteGenre: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastDeleteGenreBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastDeleteGenreNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_deleteStation: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastDeleteStationBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastDeleteStationNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_listGenres: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListShoutcastGenresResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_listStations: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListShoutcastStationsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_listOnlineStations: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListOnlineShoutcastStationsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastListOnlineStationsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastListOnlineStationsNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_proxyStream: {
+    parameters: {
+      query: {
+        /**
+         * @description The URL of the Shoutcast station if it is an online station that has not
+         *     previously been added as a custom station.
+         */
+        shoutcastStationUrl: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastProxyStreamBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_retrieveCurrentPlaying: {
+    parameters: {
+      query: {
+        /**
+         * @description The URL of the Shoutcast station if it is an online station that has not
+         *     previously been added as a custom station.
+         */
+        shoutcastStationUrl: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['RetrieveCurrentPlayingResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastRetrieveCurrentPlayingBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_updateGenre: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateShoutcastGenreBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastUpdateGenreBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastUpdateGenreNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiShoutcastController_updateStation: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateShoutcastStationBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastUpdateStationBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiShoutcastUpdateStationNotFoundResponse'];
         };
       };
       500: {
@@ -9117,2507 +12936,6 @@ export interface operations {
       };
     };
   };
-  ApiAlbumsController_listAlbums: {
-    parameters: {
-      query?: {
-        limit?: number;
-        offset?: number;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedAfter?: string;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedBefore?: string;
-        /**
-         * @description Optional filter for the artist name, which will do a case-insensitive partial-match against the
-         *     artists associated with an album.
-         */
-        artist?: string[];
-        /**
-         * @description Optional filter for the composer name, which will do a case-insensitive partial-match against the
-         *     composers associated with an album.
-         */
-        composer?: string[];
-        /**
-         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
-         *     genres associated with an album.
-         */
-        genre?: string[];
-        /**
-         * @description Optional filter for the date the album was released, which will do an exact match against
-         *     the date of release.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        releasedAfter?: string;
-        /**
-         * @description Optional filter for the date the album was released, which will do an exact match against
-         *     the date of release.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        releasedBefore?: string;
-        /** @description Optional filter for the direction to sort the results by. */
-        sortDirection?: components['schemas']['SortDirectionEnum'];
-        /** @description Optional filter for the field to sort results by. */
-        sortField?: components['schemas']['AlbumSortFieldEnum'];
-        /**
-         * @description Optional filter for the year of the album, which will do an exact match against the year associated
-         *     with an album's release date.
-         */
-        year?: number;
-        /**
-         * @description Optional search filter that will do a case-insensitive partial-match against the album
-         *     name, artist name, composer name, or genre.
-         */
-        filter?: string;
-        /**
-         * @description Maximum rating value, which will do an exact match against the rating associated with an album.  The
-         *     rating is a value between 0 and 5, inclusive.
-         */
-        maxRating?: number;
-        /**
-         * @description Minimum rating value, which will do an exact match against the rating associated with an album.  The
-         *     rating is a value between 0 and 5, inclusive.
-         */
-        minRating?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListAlbumsResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAlbumsListAlbumsBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiAlbumsController_listAlbumsWithTracks: {
-    parameters: {
-      query?: {
-        limit?: number;
-        offset?: number;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedAfter?: string;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedBefore?: string;
-        /**
-         * @description Optional filter for the artist name, which will do a case-insensitive partial-match against the
-         *     artists associated with an album.
-         */
-        artist?: string[];
-        /**
-         * @description Optional filter for the composer name, which will do a case-insensitive partial-match against the
-         *     composers associated with an album.
-         */
-        composer?: string[];
-        /**
-         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
-         *     genres associated with an album.
-         */
-        genre?: string[];
-        /**
-         * @description Optional filter for the date the album was released, which will do an exact match against
-         *     the date of release.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        releasedAfter?: string;
-        /**
-         * @description Optional filter for the date the album was released, which will do an exact match against
-         *     the date of release.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        releasedBefore?: string;
-        /** @description Optional filter for the direction to sort the results by. */
-        sortDirection?: components['schemas']['SortDirectionEnum'];
-        /** @description Optional filter for the field to sort results by. */
-        sortField?: components['schemas']['AlbumSortFieldEnum'];
-        /**
-         * @description Optional filter for the year of the album, which will do an exact match against the year associated
-         *     with an album's release date.
-         */
-        year?: number;
-        /**
-         * @description Optional search filter that will do a case-insensitive partial-match against the album
-         *     name, artist name, composer name, or genre.
-         */
-        filter?: string;
-        /**
-         * @description Maximum rating value, which will do an exact match against the rating associated with an album.  The
-         *     rating is a value between 0 and 5, inclusive.
-         */
-        maxRating?: number;
-        /**
-         * @description Minimum rating value, which will do an exact match against the rating associated with an album.  The
-         *     rating is a value between 0 and 5, inclusive.
-         */
-        minRating?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListAlbumsWithTracksResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAlbumsListAlbumsWithTracksBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiAlbumsController_retrieveAlbum: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['RetrieveAlbumResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAlbumsRetrieveAlbumBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAlbumsRetrieveAlbumNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiHealthcheckController_healthcheck: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['HealthcheckResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiIndexerController_indexerConfiguration: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['IndexerConfigurationResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiIndexerController_listIndexerLogs: {
-    parameters: {
-      query?: {
-        accountId?: number;
-        rootPathId?: number;
-        search?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListIndexerLogsWithUserResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiIndexerListIndexerLogsBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiIndexerController_listIndexerLogsByUser: {
-    parameters: {
-      query?: {
-        rootPathId?: number;
-        search?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListIndexerLogsResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiIndexerListIndexerLogsByUserBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiIndexerController_setStatus: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SetIndexerStatusBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiAssociationsController_listAssociations: {
-    parameters: {
-      query: {
-        limit?: number;
-        offset?: number;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedAfter?: string;
-        /**
-         * @description Optional filter for the date the association was added to the library, which will do an exact match against
-         *     the date the association was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedBefore?: string;
-        associationType: components['schemas']['AssociationTypeEnum'];
-        /**
-         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
-         *     genres associated with an artist.
-         */
-        genre?: string[];
-        /** @description Optional filter for the direction to sort the results by. */
-        sortDirection?: components['schemas']['SortDirectionEnum'];
-        /** @description Optional filter for the field to sort results by. */
-        sortField?: components['schemas']['AssociationSortFieldEnum'];
-        /**
-         * @description Optional search filter that will do a case-insensitive partial-match against the artist
-         *     name, album name, composer name, or genre.
-         */
-        filter?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListAssociationsResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAssociationsListAssociationsBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiAssociationsController_listAssociationsWithTracks: {
-    parameters: {
-      query: {
-        limit?: number;
-        offset?: number;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedAfter?: string;
-        /**
-         * @description Optional filter for the date the association was added to the library, which will do an exact match against
-         *     the date the association was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedBefore?: string;
-        associationType: components['schemas']['AssociationTypeEnum'];
-        /**
-         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
-         *     genres associated with an artist.
-         */
-        genre?: string[];
-        /** @description Optional filter for the direction to sort the results by. */
-        sortDirection?: components['schemas']['SortDirectionEnum'];
-        /** @description Optional filter for the field to sort results by. */
-        sortField?: components['schemas']['AssociationSortFieldEnum'];
-        /**
-         * @description Optional search filter that will do a case-insensitive partial-match against the artist
-         *     name, album name, composer name, or genre.
-         */
-        filter?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListAssociationsWithTracksResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAssociationsListAssociationsWithTracksBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiAssociationsController_listTrackAssociations: {
-    parameters: {
-      query: {
-        limit?: number;
-        offset?: number;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedAfter?: string;
-        /**
-         * @description Optional filter for the date the artist was added to the library, which will do an exact match against
-         *     the date the artist was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedBefore?: string;
-        associationType: components['schemas']['AssociationTypeEnum'];
-        /**
-         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
-         *     genres associated with an artist.
-         */
-        genre?: string[];
-        /** @description Optional filter for the direction to sort the results by. */
-        sortDirection?: components['schemas']['SortDirectionEnum'];
-        /** @description Optional filter for the field to sort results by. */
-        sortField?: components['schemas']['AssociationSortFieldEnum'];
-        /**
-         * @description Optional search filter that will do a case-insensitive partial-match against the artist
-         *     name, album name, composer name, or genre.
-         */
-        filter?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListAssociationsResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAssociationsListTrackAssociationsBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiAssociationsController_listTrackAssociationsWithTracks: {
-    parameters: {
-      query: {
-        limit?: number;
-        offset?: number;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedAfter?: string;
-        /**
-         * @description Optional filter for the date the artist was added to the library, which will do an exact match against
-         *     the date the artist was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedBefore?: string;
-        associationType: components['schemas']['AssociationTypeEnum'];
-        /**
-         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
-         *     genres associated with an artist.
-         */
-        genre?: string[];
-        /** @description Optional filter for the direction to sort the results by. */
-        sortDirection?: components['schemas']['SortDirectionEnum'];
-        /** @description Optional filter for the field to sort results by. */
-        sortField?: components['schemas']['AssociationSortFieldEnum'];
-        /**
-         * @description Optional search filter that will do a case-insensitive partial-match against the artist
-         *     name, album name, composer name, or genre.
-         */
-        filter?: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListAssociationsWithTracksResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAssociationsListTrackAssociationsWithTracksBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiAssociationsController_retrieveAssociation: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['RetrieveAssociationResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAssociationsRetrieveAssociationBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiAssociationsRetrieveAssociationNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCoverImageController_getAlbumCover: {
-    parameters: {
-      query: {
-        /** @description The width/height size of the image in pixels */
-        size: number;
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': string;
-          'image/png': string;
-          'image/webp': string;
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['BadRequestResponseDto'];
-          'image/png': components['schemas']['BadRequestResponseDto'];
-          'image/webp': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
-          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
-          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
-          'image/png': components['schemas']['InternalServerErrorResponseDto'];
-          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCoverImageController_getAssociationCover: {
-    parameters: {
-      query: {
-        /** @description The type of association */
-        type?: components['schemas']['AssociationTypeEnum'];
-        /** @description The width/height size of the image in pixels */
-        size: number;
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': string;
-          'image/png': string;
-          'image/webp': string;
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['BadRequestResponseDto'];
-          'image/png': components['schemas']['BadRequestResponseDto'];
-          'image/webp': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
-          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
-          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
-          'image/png': components['schemas']['InternalServerErrorResponseDto'];
-          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCustomDataController_deleteCustomData: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataDeleteCustomDataBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataDeleteCustomDataNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCustomDataController_setAlbumData: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SetAlbumCustomDataBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataSetAlbumDataBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataSetAlbumDataNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCustomDataController_setArtistName: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SetAssociationNameBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataSetArtistNameBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataSetArtistNameNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCustomDataController_put: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SetCustomDataBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataPutBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataPutNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCustomDataController_patch: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SetTrackCustomDataBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataPatchBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiCustomDataPatchNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiFavoritesController_deleteFavorite: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesDeleteFavoriteBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesDeleteFavoriteNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiFavoritesController_listFavorites: {
-    parameters: {
-      query?: {
-        limit?: number;
-        offset?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListFavoritesResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesListFavoritesBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiFavoritesController_setAlbumFavorite: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CreateFavoriteResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesSetAlbumFavoriteBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesSetAlbumFavoriteNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiFavoritesController_setAssociationFavorite: {
-    parameters: {
-      query: {
-        associationType: components['schemas']['AssociationTypeEnum'];
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CreateFavoriteResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesSetAssociationFavoriteBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesSetAssociationFavoriteNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiFavoritesController_setFolderFavorite: {
-    parameters: {
-      query: {
-        folder: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CreateFavoriteResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesSetFolderFavoriteBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesSetFolderFavoriteNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiFavoritesController_setTrackFavorite: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CreateFavoriteResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesSetTrackFavoriteBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiFavoritesSetTrackFavoriteNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiFoldersController_getTreeStructure: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['FolderStructureResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRatingsController_setAlbumRating: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SetAlbumRatingBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRatingsSetAlbumRatingBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRatingsSetAlbumRatingNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRatingsController_put: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['SetTrackRatingBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRatingsPutBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRatingsPutNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiTracksController_listTracks: {
-    parameters: {
-      query?: {
-        limit?: number;
-        offset?: number;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedAfter?: string;
-        /**
-         * @description Optional filter for the date the album was added to the library, which will do an exact match against
-         *     the date the album was added to the library.  The date must be in ISO 8601 format (YYYY-MM-DD).
-         */
-        addedBefore?: string;
-        /**
-         * @description Optional filter for the album artist name, which will do a case-insensitive partial-match against the
-         *     artists associated with an album.
-         */
-        albumArtists?: string[];
-        /**
-         * @description Optional filter for the artist name, which will do a case-insensitive partial-match against the
-         *     artists associated with tracks.
-         */
-        artist?: string[];
-        /**
-         * @description Optional filter for the composer name, which will do a case-insensitive partial-match against the
-         *     composers associated with an album.
-         */
-        composer?: string[];
-        /**
-         * @description Optional filter for the genre name, which will do a case-insensitive partial-match against the
-         *     genres associated with an album.
-         */
-        genre?: string[];
-        /** @description Optional filter for the direction to sort the results by. */
-        sortDirection?: components['schemas']['SortDirectionEnum'];
-        /** @description Optional filter for the field to sort results by. */
-        sortField?: components['schemas']['TrackSortFieldEnum'];
-        /**
-         * @description Optional filter for the year of the album, which will do an exact match against the year associated
-         *     with an album's release date.
-         */
-        year?: number;
-        /**
-         * @description Optional filter for the album name, which will do a case-insensitive partial-match against the
-         *     name of the album.
-         */
-        album?: string;
-        /**
-         * @description Optional search filter that will do a case-insensitive partial-match against the album
-         *     name, artist name, composer name, or genre.
-         */
-        filter?: string;
-        /**
-         * @description Maximum rating value, which will do an exact match against the rating associated with an album.  The
-         *     rating is a value between 0 and 5, inclusive.
-         */
-        maxRating?: number;
-        /**
-         * @description Minimum rating value, which will do an exact match against the rating associated with an album.  The
-         *     rating is a value between 0 and 5, inclusive.
-         */
-        minRating?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ListTracksResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiTracksListTracksBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiTracksController_get: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'audio/mpeg': string;
-          'audio/ogg': string;
-          'audio/wav': string;
-          'audio/flac': string;
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'audio/mpeg': components['schemas']['BadRequestResponseDto'];
-          'audio/ogg': components['schemas']['BadRequestResponseDto'];
-          'audio/wav': components['schemas']['BadRequestResponseDto'];
-          'audio/flac': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'audio/mpeg': components['schemas']['ForbiddenErrorResponseDto'];
-          'audio/ogg': components['schemas']['ForbiddenErrorResponseDto'];
-          'audio/wav': components['schemas']['ForbiddenErrorResponseDto'];
-          'audio/flac': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'audio/mpeg': components['schemas']['ApiTracksGetNotFoundResponse'];
-          'audio/ogg': components['schemas']['ApiTracksGetNotFoundResponse'];
-          'audio/wav': components['schemas']['ApiTracksGetNotFoundResponse'];
-          'audio/flac': components['schemas']['ApiTracksGetNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'audio/mpeg': components['schemas']['InternalServerErrorResponseDto'];
-          'audio/ogg': components['schemas']['InternalServerErrorResponseDto'];
-          'audio/wav': components['schemas']['InternalServerErrorResponseDto'];
-          'audio/flac': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRootPathsController_createRootPath: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateRootPathBodyDto'];
-      };
-    };
-    responses: {
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsCreateRootPathBadRequestResponse'];
-        };
-      };
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsCreateRootPathUnauthorizedResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsCreateRootPathNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRootPathsController_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateRootPathBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsPostBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRootPathsController_deleteUserRootPath: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsDeleteUserRootPathBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsDeleteUserRootPathNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRootPathsController_deleteRootPath: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsDeleteRootPathBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsDeleteRootPathNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRootPathsController_listRootPaths: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['RootPathsResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRootPathsController_listUserRootPaths: {
-    parameters: {
-      query?: {
-        /** @description The database ID of the resource */
-        id?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['RootPathsWithUserResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsListUserRootPathsBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsListUserRootPathsNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiRootPathsController_patch: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['UpdateRootPathBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsPatchBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiRootPathsPatchNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiSessionsController_createSession: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateSessionBodyDto'];
-      };
-    };
-    responses: {
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CreateSessionResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiSessionsCreateSessionBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiSessionsCreateSessionNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiSessionsController_delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiSessionsDeleteBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiSessionsController_regenerateMasterSessionKey: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiSessionsController_regenerateUserSessionKey: {
-    parameters: {
-      query: {
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['AdminAuthorizationBodyDto'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiSessionsRegenerateUserSessionKeyBadRequestResponse'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ApiSessionsRegenerateUserSessionKeyNotFoundResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiSessionsController_regenerateSessionKey: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['SuccessResponseDto'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
   ApiTestController_createTestAccount: {
     parameters: {
       query?: never;
@@ -11937,103 +13255,6 @@ export enum ApiAccountsUpdateUserRolesUnauthorizedErrors {
 export enum ApiAccountsUpdateUserRolesNotFoundErrors {
   account_not_found_error = 'account-not-found-error',
 }
-export enum SortDirectionEnum {
-  asc = 'asc',
-  desc = 'desc',
-}
-export enum SynologyApiEnum {
-  SYNO_AudioStation_Album = 'SYNO.AudioStation.Album',
-  SYNO_AudioStation_Artist = 'SYNO.AudioStation.Artist',
-  SYNO_AudioStation_Info = 'SYNO.AudioStation.Info',
-  SYNO_API_Auth = 'SYNO.API.Auth',
-  SYNO_AudioStation_Composer = 'SYNO.AudioStation.Composer',
-  SYNO_AudioStation_Cover = 'SYNO.AudioStation.Cover',
-  SYNO_API_Encryption = 'SYNO.API.Encryption',
-  SYNO_AudioStation_Folder = 'SYNO.AudioStation.Folder',
-  SYNO_AudioStation_Genre = 'SYNO.AudioStation.Genre',
-  SYNO_API_Info = 'SYNO.API.Info',
-  SYNO_AudioStation_Pin = 'SYNO.AudioStation.Pin',
-  SYNO_AudioStation_Playlist = 'SYNO.AudioStation.Playlist',
-  SYNO_AudioStation_Proxy = 'SYNO.AudioStation.Proxy',
-  SYNO_AudioStation_Radio = 'SYNO.AudioStation.Radio',
-  SYNO_AudioStation_Search = 'SYNO.AudioStation.Search',
-  SYNO_AudioStation_Song = 'SYNO.AudioStation.Song',
-  SYNO_AudioStation_Stream = 'SYNO.AudioStation.Stream',
-}
-export enum SynologyMethodEnum {
-  add = 'add',
-  add_track = 'add_track',
-  create = 'create',
-  createsmart = 'createsmart',
-  delete = 'delete',
-  deletesonginfo = 'deletesonginfo',
-  getcover = 'getcover',
-  getsongcover = 'getsongcover',
-  getinfo = 'getinfo',
-  getsonginfo = 'getsonginfo',
-  getstreamid = 'getstreamid',
-  list = 'list',
-  list_default_genre = 'list_default_genre',
-  clearSessionToken = 'clearSessionToken',
-  pin = 'pin',
-  query = 'query',
-  removemissing = 'removemissing',
-  rename = 'rename',
-  setrating = 'setrating',
-  stream = 'stream',
-  transcode = 'transcode',
-  unpin = 'unpin',
-  updateradios = 'updateradios',
-  updatesmart = 'updatesmart',
-  updatesongs = 'updatesongs',
-}
-export enum SynologyLibraryEnum {
-  all = 'all',
-  shared = 'shared',
-  personal = 'personal',
-}
-export enum SynologyPinTypeEnum {
-  album = 'album',
-  artist = 'artist',
-  composer = 'composer',
-  genre = 'genre',
-  folder = 'folder',
-  recently_added = 'recently_added',
-  random_100 = 'random_100',
-  playlist = 'playlist',
-}
-export enum ContentTypeEnum {
-  file = 'file',
-  folder = 'folder',
-  remote = 'remote',
-}
-export enum FileTypeEnum {
-  flac = 'flac',
-  m4a = 'm4a',
-  mp3 = 'mp3',
-  ogg = 'ogg',
-}
-export enum SynologyInfoDataDtoBrowse_personal_library {
-  all = 'all',
-  shared = 'shared',
-  personal = 'personal',
-}
-export enum PlaylistTypeEnum {
-  normal = 'normal',
-  smart = 'smart',
-}
-export enum SmartPlaylistConjugalEnum {
-  and = 'and',
-  or = 'or',
-}
-export enum SynologyPlaylistDeleteBodyDtoType {
-  normal = 'normal',
-  smart = 'smart',
-}
-export enum ShoutcastItemTypeEnum {
-  container = 'container',
-  station = 'station',
-}
 export enum ApiAlbumsListAlbumsBadRequestErrors {
   invalid_added_after_error = 'invalid-added-after-error',
   invalid_added_before_error = 'invalid-added-before-error',
@@ -12054,6 +13275,10 @@ export enum ApiAlbumsListAlbumsBadRequestErrors {
   invalid_year_error = 'invalid-year-error',
   invalid_limit_error = 'invalid-limit-error',
   invalid_offset_error = 'invalid-offset-error',
+}
+export enum SortDirectionEnum {
+  asc = 'asc',
+  desc = 'desc',
 }
 export enum AlbumSortFieldEnum {
   album = 'album',
@@ -12088,85 +13313,18 @@ export enum ApiAlbumsListAlbumsWithTracksBadRequestErrors {
   invalid_limit_error = 'invalid-limit-error',
   invalid_offset_error = 'invalid-offset-error',
 }
+export enum FileTypeEnum {
+  flac = 'flac',
+  m4a = 'm4a',
+  mp3 = 'mp3',
+  ogg = 'ogg',
+}
 export enum ApiAlbumsRetrieveAlbumBadRequestErrors {
   album_not_found_error = 'album-not-found-error',
   invalid_album_id_error = 'invalid-album-id-error',
 }
 export enum ApiAlbumsRetrieveAlbumNotFoundErrors {
   album_not_found_error = 'album-not-found-error',
-}
-export enum ApiIndexerListIndexerLogsBadRequestErrors {
-  invalid_account_id_error = 'invalid-account-id-error',
-  invalid_root_path_id_error = 'invalid-root-path-id-error',
-  invalid_search_length_error = 'invalid-search-length-error',
-}
-export enum ApiIndexerListIndexerLogsByUserBadRequestErrors {
-  invalid_root_path_id_error = 'invalid-root-path-id-error',
-  invalid_search_length_error = 'invalid-search-length-error',
-}
-export enum ApiAssociationsListAssociationsBadRequestErrors {
-  invalid_added_after_error = 'invalid-added-after-error',
-  invalid_added_before_error = 'invalid-added-before-error',
-  invalid_filter_length_error = 'invalid-filter-length-error',
-  invalid_filter_error = 'invalid-filter-error',
-  invalid_genre_length_error = 'invalid-genre-length-error',
-  invalid_genre_error = 'invalid-genre-error',
-  invalid_sort_order_error = 'invalid-sort-order-error',
-  invalid_sort_field_error = 'invalid-sort-field-error',
-  invalid_limit_error = 'invalid-limit-error',
-  invalid_offset_error = 'invalid-offset-error',
-}
-export enum AssociationTypeEnum {
-  artist = 'artist',
-  composer = 'composer',
-  genre = 'genre',
-}
-export enum AssociationSortFieldEnum {
-  name = 'name',
-  date_added = 'date_added',
-  random = 'random',
-}
-export enum ApiAssociationsListAssociationsWithTracksBadRequestErrors {
-  invalid_added_after_error = 'invalid-added-after-error',
-  invalid_added_before_error = 'invalid-added-before-error',
-  invalid_filter_length_error = 'invalid-filter-length-error',
-  invalid_filter_error = 'invalid-filter-error',
-  invalid_genre_length_error = 'invalid-genre-length-error',
-  invalid_genre_error = 'invalid-genre-error',
-  invalid_sort_order_error = 'invalid-sort-order-error',
-  invalid_sort_field_error = 'invalid-sort-field-error',
-  invalid_limit_error = 'invalid-limit-error',
-  invalid_offset_error = 'invalid-offset-error',
-}
-export enum ApiAssociationsListTrackAssociationsBadRequestErrors {
-  invalid_added_after_error = 'invalid-added-after-error',
-  invalid_added_before_error = 'invalid-added-before-error',
-  invalid_filter_length_error = 'invalid-filter-length-error',
-  invalid_filter_error = 'invalid-filter-error',
-  invalid_genre_length_error = 'invalid-genre-length-error',
-  invalid_genre_error = 'invalid-genre-error',
-  invalid_sort_order_error = 'invalid-sort-order-error',
-  invalid_sort_field_error = 'invalid-sort-field-error',
-  invalid_limit_error = 'invalid-limit-error',
-  invalid_offset_error = 'invalid-offset-error',
-}
-export enum ApiAssociationsListTrackAssociationsWithTracksBadRequestErrors {
-  invalid_added_after_error = 'invalid-added-after-error',
-  invalid_added_before_error = 'invalid-added-before-error',
-  invalid_filter_length_error = 'invalid-filter-length-error',
-  invalid_filter_error = 'invalid-filter-error',
-  invalid_genre_length_error = 'invalid-genre-length-error',
-  invalid_genre_error = 'invalid-genre-error',
-  invalid_sort_order_error = 'invalid-sort-order-error',
-  invalid_sort_field_error = 'invalid-sort-field-error',
-  invalid_limit_error = 'invalid-limit-error',
-  invalid_offset_error = 'invalid-offset-error',
-}
-export enum ApiAssociationsRetrieveAssociationBadRequestErrors {
-  invalid_association_id_error = 'invalid-association-id-error',
-}
-export enum ApiAssociationsRetrieveAssociationNotFoundErrors {
-  association_not_found_error = 'association-not-found-error',
 }
 export enum ApiCustomDataDeleteCustomDataBadRequestErrors {
   invalid_track_id_error = 'invalid-track-id-error',
@@ -12252,6 +13410,15 @@ export enum ApiFavoritesListFavoritesBadRequestErrors {
   invalid_limit_error = 'invalid-limit-error',
   invalid_offset_error = 'invalid-offset-error',
 }
+export enum AssociationTypeEnum {
+  artist = 'artist',
+  composer = 'composer',
+  genre = 'genre',
+}
+export enum ShoutcastItemTypeEnum {
+  container = 'container',
+  station = 'station',
+}
 export enum ApiFavoritesSetAlbumFavoriteBadRequestErrors {
   invalid_album_id_error = 'invalid-album-id-error',
 }
@@ -12269,30 +13436,88 @@ export enum ApiFavoritesSetFolderFavoriteBadRequestErrors {}
 export enum ApiFavoritesSetFolderFavoriteNotFoundErrors {
   folder_not_found_error = 'folder-not-found-error',
 }
+export enum ApiFavoritesSetShoutcastStationFavoriteBadRequestErrors {
+  invalid_shoutcast_station_id_error = 'invalid-shoutcast-station-id-error',
+  invalid_shoutcast_station_title_length_error = 'invalid-shoutcast-station-title-length-error',
+  invalid_shoutcast_station_url_length_error = 'invalid-shoutcast-station-url-length-error',
+  invalid_shoutcast_station_url_error = 'invalid-shoutcast-station-url-error',
+}
+export enum ApiFavoritesSetShoutcastStationFavoriteNotFoundErrors {
+  shoutcast_station_not_found_error = 'shoutcast-station-not-found-error',
+}
 export enum ApiFavoritesSetTrackFavoriteBadRequestErrors {
   invalid_track_id_error = 'invalid-track-id-error',
 }
 export enum ApiFavoritesSetTrackFavoriteNotFoundErrors {
   track_not_found_error = 'track-not-found-error',
 }
-export enum ApiRatingsSetAlbumRatingBadRequestErrors {
-  invalid_album_id_error = 'invalid-album-id-error',
-  invalid_max_rating_error = 'invalid-max-rating-error',
-  invalid_min_rating_error = 'invalid-min-rating-error',
-  invalid_rating_error = 'invalid-rating-error',
+export enum ApiIndexerListIndexerLogsBadRequestErrors {
+  invalid_account_id_error = 'invalid-account-id-error',
+  invalid_root_path_id_error = 'invalid-root-path-id-error',
+  invalid_search_length_error = 'invalid-search-length-error',
 }
-export enum ApiRatingsSetAlbumRatingNotFoundErrors {
-  album_not_found_error = 'album-not-found-error',
+export enum ApiIndexerListIndexerLogsByUserBadRequestErrors {
+  invalid_root_path_id_error = 'invalid-root-path-id-error',
+  invalid_search_length_error = 'invalid-search-length-error',
 }
-export enum ApiRatingsPutBadRequestErrors {
-  invalid_track_id_error = 'invalid-track-id-error',
-  invalid_max_rating_error = 'invalid-max-rating-error',
-  invalid_min_rating_error = 'invalid-min-rating-error',
-  invalid_rating_error = 'invalid-rating-error',
+export enum ApiAssociationsListAssociationsBadRequestErrors {
+  invalid_added_after_error = 'invalid-added-after-error',
+  invalid_added_before_error = 'invalid-added-before-error',
+  invalid_filter_length_error = 'invalid-filter-length-error',
+  invalid_filter_error = 'invalid-filter-error',
+  invalid_genre_length_error = 'invalid-genre-length-error',
+  invalid_genre_error = 'invalid-genre-error',
+  invalid_sort_order_error = 'invalid-sort-order-error',
+  invalid_sort_field_error = 'invalid-sort-field-error',
+  invalid_limit_error = 'invalid-limit-error',
+  invalid_offset_error = 'invalid-offset-error',
 }
-export enum ApiRatingsPutNotFoundErrors {
-  track_not_found_error = 'track-not-found-error',
-  album_not_found_error = 'album-not-found-error',
+export enum AssociationSortFieldEnum {
+  name = 'name',
+  date_added = 'date_added',
+  random = 'random',
+}
+export enum ApiAssociationsListAssociationsWithTracksBadRequestErrors {
+  invalid_added_after_error = 'invalid-added-after-error',
+  invalid_added_before_error = 'invalid-added-before-error',
+  invalid_filter_length_error = 'invalid-filter-length-error',
+  invalid_filter_error = 'invalid-filter-error',
+  invalid_genre_length_error = 'invalid-genre-length-error',
+  invalid_genre_error = 'invalid-genre-error',
+  invalid_sort_order_error = 'invalid-sort-order-error',
+  invalid_sort_field_error = 'invalid-sort-field-error',
+  invalid_limit_error = 'invalid-limit-error',
+  invalid_offset_error = 'invalid-offset-error',
+}
+export enum ApiAssociationsListTrackAssociationsBadRequestErrors {
+  invalid_added_after_error = 'invalid-added-after-error',
+  invalid_added_before_error = 'invalid-added-before-error',
+  invalid_filter_length_error = 'invalid-filter-length-error',
+  invalid_filter_error = 'invalid-filter-error',
+  invalid_genre_length_error = 'invalid-genre-length-error',
+  invalid_genre_error = 'invalid-genre-error',
+  invalid_sort_order_error = 'invalid-sort-order-error',
+  invalid_sort_field_error = 'invalid-sort-field-error',
+  invalid_limit_error = 'invalid-limit-error',
+  invalid_offset_error = 'invalid-offset-error',
+}
+export enum ApiAssociationsListTrackAssociationsWithTracksBadRequestErrors {
+  invalid_added_after_error = 'invalid-added-after-error',
+  invalid_added_before_error = 'invalid-added-before-error',
+  invalid_filter_length_error = 'invalid-filter-length-error',
+  invalid_filter_error = 'invalid-filter-error',
+  invalid_genre_length_error = 'invalid-genre-length-error',
+  invalid_genre_error = 'invalid-genre-error',
+  invalid_sort_order_error = 'invalid-sort-order-error',
+  invalid_sort_field_error = 'invalid-sort-field-error',
+  invalid_limit_error = 'invalid-limit-error',
+  invalid_offset_error = 'invalid-offset-error',
+}
+export enum ApiAssociationsRetrieveAssociationBadRequestErrors {
+  invalid_association_id_error = 'invalid-association-id-error',
+}
+export enum ApiAssociationsRetrieveAssociationNotFoundErrors {
+  association_not_found_error = 'association-not-found-error',
 }
 export enum ApiTracksListTracksBadRequestErrors {
   invalid_added_after_error = 'invalid-added-after-error',
@@ -12327,6 +13552,25 @@ export enum TrackSortFieldEnum {
 }
 export enum ApiTracksGetNotFoundErrors {
   file_not_found_error = 'file-not-found-error',
+}
+export enum ApiRatingsSetAlbumRatingBadRequestErrors {
+  invalid_album_id_error = 'invalid-album-id-error',
+  invalid_max_rating_error = 'invalid-max-rating-error',
+  invalid_min_rating_error = 'invalid-min-rating-error',
+  invalid_rating_error = 'invalid-rating-error',
+}
+export enum ApiRatingsSetAlbumRatingNotFoundErrors {
+  album_not_found_error = 'album-not-found-error',
+}
+export enum ApiRatingsPutBadRequestErrors {
+  invalid_track_id_error = 'invalid-track-id-error',
+  invalid_max_rating_error = 'invalid-max-rating-error',
+  invalid_min_rating_error = 'invalid-min-rating-error',
+  invalid_rating_error = 'invalid-rating-error',
+}
+export enum ApiRatingsPutNotFoundErrors {
+  track_not_found_error = 'track-not-found-error',
+  album_not_found_error = 'album-not-found-error',
 }
 export enum ApiRootPathsCreateRootPathBadRequestErrors {
   root_path_does_not_exist_error = 'root-path-does-not-exist-error',
@@ -12396,6 +13640,155 @@ export enum ApiSessionsRegenerateUserSessionKeyBadRequestErrors {
 }
 export enum ApiSessionsRegenerateUserSessionKeyNotFoundErrors {
   account_not_found_error = 'account-not-found-error',
+}
+export enum ApiShoutcastCreateGenreBadRequestErrors {
+  shoutcast_genre_already_exists_error = 'shoutcast-genre-already-exists-error',
+  invalid_shoutcast_genre_length_error = 'invalid-shoutcast-genre-length-error',
+  invalid_shoutcast_genre_name_error = 'invalid-shoutcast-genre-name-error',
+}
+export enum ApiShoutcastCreateStationBadRequestErrors {
+  invalid_shoutcast_station_url_length_error = 'invalid-shoutcast-station-url-length-error',
+  invalid_shoutcast_station_url_error = 'invalid-shoutcast-station-url-error',
+  invalid_shoutcast_station_title_length_error = 'invalid-shoutcast-station-title-length-error',
+  invalid_shoutcast_station_title_error = 'invalid-shoutcast-station-title-error',
+  invalid_shoutcast_station_favorite_error = 'invalid-shoutcast-station-favorite-error',
+}
+export enum ApiShoutcastDeleteGenreBadRequestErrors {
+  shoutcast_genre_not_found_error = 'shoutcast-genre-not-found-error',
+  invalid_shoutcast_genre_id_error = 'invalid-shoutcast-genre-id-error',
+}
+export enum ApiShoutcastDeleteGenreNotFoundErrors {
+  shoutcast_genre_not_found_error = 'shoutcast-genre-not-found-error',
+}
+export enum ApiShoutcastDeleteStationBadRequestErrors {
+  shoutcast_station_not_found_error = 'shoutcast-station-not-found-error',
+  invalid_shoutcast_station_id_error = 'invalid-shoutcast-station-id-error',
+}
+export enum ApiShoutcastDeleteStationNotFoundErrors {
+  shoutcast_station_not_found_error = 'shoutcast-station-not-found-error',
+}
+export enum ApiShoutcastListOnlineStationsBadRequestErrors {
+  shoutcast_genre_not_found_error = 'shoutcast-genre-not-found-error',
+  invalid_shoutcast_genre_id_error = 'invalid-shoutcast-genre-id-error',
+}
+export enum ApiShoutcastListOnlineStationsNotFoundErrors {
+  shoutcast_genre_not_found_error = 'shoutcast-genre-not-found-error',
+}
+export enum ApiShoutcastProxyStreamBadRequestErrors {
+  invalid_shoutcast_station_url_length_error = 'invalid-shoutcast-station-url-length-error',
+  invalid_shoutcast_station_url_error = 'invalid-shoutcast-station-url-error',
+}
+export enum ApiShoutcastRetrieveCurrentPlayingBadRequestErrors {
+  invalid_shoutcast_station_url_length_error = 'invalid-shoutcast-station-url-length-error',
+  invalid_shoutcast_station_url_error = 'invalid-shoutcast-station-url-error',
+}
+export enum ApiShoutcastUpdateGenreBadRequestErrors {
+  shoutcast_genre_not_found_error = 'shoutcast-genre-not-found-error',
+  invalid_shoutcast_genre_id_error = 'invalid-shoutcast-genre-id-error',
+  invalid_shoutcast_genre_length_error = 'invalid-shoutcast-genre-length-error',
+  invalid_shoutcast_genre_name_error = 'invalid-shoutcast-genre-name-error',
+}
+export enum ApiShoutcastUpdateGenreNotFoundErrors {
+  shoutcast_genre_not_found_error = 'shoutcast-genre-not-found-error',
+}
+export enum ApiShoutcastUpdateStationBadRequestErrors {
+  shoutcast_station_not_found_error = 'shoutcast-station-not-found-error',
+  invalid_shoutcast_station_id_error = 'invalid-shoutcast-station-id-error',
+  invalid_shoutcast_station_url_length_error = 'invalid-shoutcast-station-url-length-error',
+  invalid_shoutcast_station_url_error = 'invalid-shoutcast-station-url-error',
+  invalid_shoutcast_station_title_length_error = 'invalid-shoutcast-station-title-length-error',
+  invalid_shoutcast_station_title_error = 'invalid-shoutcast-station-title-error',
+}
+export enum ApiShoutcastUpdateStationNotFoundErrors {
+  shoutcast_station_not_found_error = 'shoutcast-station-not-found-error',
+}
+export enum SynologyApiEnum {
+  SYNO_AudioStation_Album = 'SYNO.AudioStation.Album',
+  SYNO_AudioStation_Artist = 'SYNO.AudioStation.Artist',
+  SYNO_AudioStation_Info = 'SYNO.AudioStation.Info',
+  SYNO_API_Auth = 'SYNO.API.Auth',
+  SYNO_AudioStation_Composer = 'SYNO.AudioStation.Composer',
+  SYNO_AudioStation_Cover = 'SYNO.AudioStation.Cover',
+  SYNO_API_Encryption = 'SYNO.API.Encryption',
+  SYNO_AudioStation_Folder = 'SYNO.AudioStation.Folder',
+  SYNO_AudioStation_Genre = 'SYNO.AudioStation.Genre',
+  SYNO_API_Info = 'SYNO.API.Info',
+  SYNO_AudioStation_Pin = 'SYNO.AudioStation.Pin',
+  SYNO_AudioStation_Playlist = 'SYNO.AudioStation.Playlist',
+  SYNO_AudioStation_Proxy = 'SYNO.AudioStation.Proxy',
+  SYNO_AudioStation_Radio = 'SYNO.AudioStation.Radio',
+  SYNO_AudioStation_Search = 'SYNO.AudioStation.Search',
+  SYNO_AudioStation_Song = 'SYNO.AudioStation.Song',
+  SYNO_AudioStation_Stream = 'SYNO.AudioStation.Stream',
+}
+export enum SynologyMethodEnum {
+  add = 'add',
+  add_track = 'add_track',
+  create = 'create',
+  createsmart = 'createsmart',
+  delete = 'delete',
+  deletesonginfo = 'deletesonginfo',
+  getcover = 'getcover',
+  getsongcover = 'getsongcover',
+  getinfo = 'getinfo',
+  getsonginfo = 'getsonginfo',
+  getstreamid = 'getstreamid',
+  list = 'list',
+  list_default_genre = 'list_default_genre',
+  clearSessionToken = 'clearSessionToken',
+  pin = 'pin',
+  query = 'query',
+  removemissing = 'removemissing',
+  rename = 'rename',
+  setrating = 'setrating',
+  stream = 'stream',
+  transcode = 'transcode',
+  unpin = 'unpin',
+  updateradios = 'updateradios',
+  updatesmart = 'updatesmart',
+  updatesongs = 'updatesongs',
+}
+export enum SynologyLibraryEnum {
+  all = 'all',
+  shared = 'shared',
+  personal = 'personal',
+}
+export enum SynologyPinTypeEnum {
+  album = 'album',
+  artist = 'artist',
+  composer = 'composer',
+  genre = 'genre',
+  folder = 'folder',
+  recently_added = 'recently_added',
+  random_100 = 'random_100',
+  playlist = 'playlist',
+}
+export enum ContentTypeEnum {
+  file = 'file',
+  folder = 'folder',
+  remote = 'remote',
+}
+export enum SynologyInfoDataDtoBrowse_personal_library {
+  all = 'all',
+  shared = 'shared',
+  personal = 'personal',
+}
+export enum PlaylistTypeEnum {
+  normal = 'normal',
+  smart = 'smart',
+}
+export enum SmartPlaylistConjugalEnum {
+  and = 'and',
+  or = 'or',
+}
+export enum SynologyPlaylistDeleteBodyDtoType {
+  normal = 'normal',
+  smart = 'smart',
+}
+export enum ShoutcastContainerNamesEnum {
+  SHOUTcast = 'SHOUTcast',
+  User_defined = 'User defined',
+  My_favorite = 'My favorite',
 }
 export enum ApiTestCreateTestAccountBadRequestErrors {
   invalid_username_error = 'invalid-username-error',

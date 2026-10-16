@@ -4,7 +4,7 @@ import type { NavigationLink } from '@/types/navigation-link';
 export type Preferences = {
   pageSize: number;
   navigation: {
-    [key in NavigationLink]: boolean;
+    [key in NavigationLink]: boolean | undefined;
   };
 };
 
@@ -26,6 +26,7 @@ const defaultPreferences: Preferences = {
     Folders: true,
     Genres: true,
     'Recently Added': true,
+    'Shoutcast Radio': true,
     Tracks: true,
   },
 };

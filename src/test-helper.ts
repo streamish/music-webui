@@ -29,7 +29,7 @@ export async function createSession(username: string, password: string): Promise
 export class AdminApi {
   private readonly adminApi;
 
-  constructor(private readonly jwtToken: string) {
+  constructor(jwtToken: string) {
     this.adminApi = createClient<paths>({
       baseUrl: process.env.VITE_API_BASE_URL,
       headers: {

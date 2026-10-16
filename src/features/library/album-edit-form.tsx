@@ -119,7 +119,7 @@ export function AlbumEditForm({ album, onSave, className }: { album: Album; onSa
           </DialogHeader>
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Title</Label>
+              <Label htmlFor="title">Title</Label>
               <Input id="title" {...register('title', { required: true })} placeholder="Album Title" />
               <FormValidationError text={errors.title?.message} />
             </div>

@@ -3,9 +3,12 @@ import type { components } from '@/types/api-schema';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+type Station = components['schemas']['LibraryShoutcastStationDto'];
 type Track = components['schemas']['LibraryTrackDto'];
+type QueueEntry = Station | Track;
+
 type QueueDataValue = {
-  queue: Track[];
+  queue: QueueEntry[];
   currentIndex: number;
 };
 type QueuePlaybackValue = {
@@ -20,6 +23,7 @@ type QueueActionsValue = {
   addToQueue: (tracks: Track[], atStart?: boolean) => void;
   clearQueue: () => void;
   nextTrack: () => void;
+  playStation: (station: Station) => void;
   playTrack: (track: Track, tracks?: Track[]) => void;
   previousTrack: () => void;
   seek: (seconds: number) => void;
@@ -36,12 +40,10 @@ const QueueActionsContext = createContext<QueueActionsValue | null>(null);
 
 export function QueueProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const [queue, setQueue] = useState<Track[]>([]);
-  const [queueShuffled, setQueueShuffled] = useState<Track[]>([]);
+  const [queue, setQueue] = useState<QueueEntry[]>([]);
+  const [queueShuffled, setQueueShuffled] = useState<QueueEntry[]>([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [shuffleIndex, setShuffleIndex] = useState(-1);
-
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRepeating, setIsRepeating] = useState(false);
   const [isShuffling, setIsShuffling] = useState(false);
@@ -70,9 +72,21 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
   }, [queue]);
 
   const playTrack = useCallback((track: Track, tracks: Track[] = [track]) => {
+    // clear any radio playing
+    if (queue.length === 1 && 'url' in queue[0]) {
+      setQueue([]);
+      setCurrentIndex(-1);
+    }
+    // play the track
     const index = tracks.findIndex((item) => item.id === track.id);
     setQueue(tracks);
     setCurrentIndex(index >= 0 ? index : 0);
+    setIsPlaying(true);
+  }, []);
+
+  const playStation = useCallback((station: Station) => {
+    setQueue([station]);
+    setCurrentIndex(0);
     setIsPlaying(true);
   }, []);
 
@@ -81,7 +95,12 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
       if (queue.length === 0) {
         return;
       }
-      setIsPlaying((previoustrack) => playing ?? !previoustrack);
+      if (!playing && queue.length && audioRef.current && 'url' in queue[0]) {
+        audioRef.current.pause();
+        audioRef.current.removeAttribute('src');
+        audioRef.current.load();
+      }
+      setIsPlaying((previous) => playing ?? !previous);
       if (currentIndex === -1) {
         setCurrentIndex(0);
       }
@@ -133,6 +152,13 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
   }, [queue, queueShuffled, shuffleIndex, isRepeating]);
 
   const nextTrack = useCallback(() => {
+    if (queue.length < 2) {
+      return;
+    }
+    if (queue.length === 2) {
+      setCurrentIndex(currentIndex === 0 ? 1 : 0);
+      return;
+    }
     if (isShuffling) {
       const index = nextShuffledTrack();
       if (index !== undefined && index >= 0) {
@@ -149,6 +175,13 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
   }, [isShuffling, currentIndex, queue.length, isRepeating, nextShuffledTrack]);
 
   const previousTrack = useCallback(() => {
+    if (queue.length < 2) {
+      return;
+    }
+    if (queue.length === 2) {
+      setCurrentIndex(currentIndex === 0 ? 1 : 0);
+      return;
+    }
     if (isShuffling) {
       const index = previousShuffledTrack();
       if (index !== undefined && index >= 0) {
@@ -165,6 +198,9 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
   }, [isShuffling, currentIndex, queue.length, isRepeating, previousShuffledTrack]);
 
   const seek = useCallback((seconds: number) => {
+    if (queue.length > 0 && 'url' in queue[0]) {
+      return;
+    }
     if (audioRef.current) {
       audioRef.current.currentTime = seconds;
       setCurrentTime(seconds);
@@ -176,14 +212,18 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     if (!audio || currentIndex < 0) {
       return;
     }
-    const track = queue[currentIndex];
-    if (!track) {
+    const queueItem = queue[currentIndex];
+    if (!queueItem) {
       return;
     }
     audio.pause();
     setCurrentTime(0);
     setDuration(0);
-    audio.src = `${baseUrl}/api/stream-track?id=${track.id}`;
+    if ('url' in queueItem) {
+      audio.src = `${baseUrl}/api/proxy-shoutcast-station?shoutcastStationUrl=${queueItem.url}`;
+    } else {
+      audio.src = `${baseUrl}/api/stream-track?id=${queueItem.id}`;
+    }
     audio.load();
     if (isPlaying) {
       audio.play().catch(() => {
@@ -197,7 +237,14 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     if (!audio || currentIndex < 0) {
       return;
     }
+    const queueItem = queue[currentIndex];
+    if (!queueItem) {
+      return;
+    }
     if (isPlaying) {
+      if ('url' in queueItem) {
+        audio.src = `${baseUrl}/api/proxy-shoutcast-station?shoutcastStationUrl=${queueItem.url}`;
+      }
       audio.play().catch(() => {
         setIsPlaying(false);
       });
@@ -270,6 +317,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
       addToQueue,
       clearQueue,
       nextTrack,
+      playStation,
       playTrack,
       previousTrack,
       seek,
@@ -283,6 +331,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
       addToQueue,
       clearQueue,
       nextTrack,
+      playStation,
       playTrack,
       previousTrack,
       seek,

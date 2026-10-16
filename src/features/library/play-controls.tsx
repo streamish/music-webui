@@ -1,21 +1,24 @@
 import { Button } from '../../components/ui/button';
+import { type JSX, useEffect, useState } from 'react';
 import { ListEnd, ListStart, Play } from 'lucide-react';
 import { RatingControls } from './rating-controls';
+import { ShoutcastStationEditForm } from './shoutcast-station-edit-form';
 import { TrackEditForm } from './track-edit-form';
-import { useEffect, useState } from 'react';
 import { useQueueActions } from '@/features/library/queue';
 import type { components } from '@/types/api-schema';
 
 type Album = components['schemas']['LibraryAlbumDto'];
 type Track = components['schemas']['LibraryTrackDto'];
+type Station = components['schemas']['LibraryShoutcastStationDto'];
 
-export function PlaylistControls({
+export function PlayControls({
   album,
   className,
   hideEditButton,
   hidePlayButton,
   hideQueueButtons,
   hideRatingButtons,
+  station,
   textLabels,
   tracks,
   onEdit,
@@ -26,21 +29,28 @@ export function PlaylistControls({
   hideEditButton?: boolean;
   hidePlayButton?: boolean;
   hideRatingButtons?: boolean;
+  station?: Station;
   textLabels?: boolean;
-  tracks: Track[];
+  tracks?: Track[];
   onEdit?: () => void;
 }) {
-  const { addToQueue, clearQueue, togglePlay } = useQueueActions();
+  const { addToQueue, clearQueue, playStation, togglePlay } = useQueueActions();
   const [autoPlay, setAutoPlay] = useState(false);
 
   const addTracksToQueue = (atStart = true) => {
-    addToQueue(tracks, atStart);
+    if (tracks?.length) {
+      addToQueue(tracks, atStart);
+    }
   };
 
-  const replaceQueue = () => {
+  const playImmediately = () => {
     clearQueue();
-    addToQueue(tracks, false);
-    setAutoPlay(true);
+    if (tracks?.length) {
+      addToQueue(tracks, false);
+      setAutoPlay(true);
+    } else if (station) {
+      playStation(station);
+    }
   };
 
   useEffect(() => {
@@ -50,10 +60,27 @@ export function PlaylistControls({
     }
   }, [autoPlay]);
 
+  const [EditForm, setEditForm] = useState<JSX.Element>(<></>);
+
+  useEffect(() => {
+    if (tracks?.length && onEdit) {
+      setEditForm(<TrackEditForm track={tracks[0]} onSave={onEdit} />);
+    } else if (station && onEdit) {
+      setEditForm(<ShoutcastStationEditForm station={station} onSave={onEdit} />);
+    } else {
+      setEditForm(<></>);
+    }
+  }, [tracks, station, onEdit]);
+
   return (
     <menu className={`opacity-75 flex flex-row ${className || ''}`}>
       {!hidePlayButton && (
-        <Button variant="ghost" className="w-fit self-start p-1 mx-1 px-2" aria-label="Play now" onClick={replaceQueue}>
+        <Button
+          variant="ghost"
+          className="w-fit self-start p-1 mx-1 px-2"
+          aria-label="Play now"
+          onClick={playImmediately}
+        >
           <Play /> {textLabels ? <span>Play</span> : null}
         </Button>
       )}
@@ -77,8 +104,8 @@ export function PlaylistControls({
           </Button>
         </>
       )}
-      {!hideEditButton && onEdit && tracks[0] && <TrackEditForm track={tracks[0]} onSave={onEdit} />}
-      {!hideRatingButtons && <RatingControls track={tracks[0]} album={album} />}
+      {!hideEditButton && EditForm}
+      {!hideRatingButtons && tracks?.[0] && <RatingControls track={tracks?.[0]} album={album} />}
     </menu>
   );
 }

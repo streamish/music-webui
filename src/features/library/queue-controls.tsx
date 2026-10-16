@@ -6,7 +6,6 @@ import { PlaybackPreviousButton } from './playback-previous-button';
 import { PlaybackRepeatButton } from './playback-repeat-button';
 import { PlaybackSeekBar } from './playback-seek-bar';
 import { PlaybackShuffleButton } from './playback-shuffle-button';
-import { PlaybackStopButton } from './playback-stop-button';
 import { PlaybackToggleQueueButton } from './playback-toggle-queue-button';
 import { PlaybackVolumeControlSlider } from './playback-volume-control-slider';
 import { useState } from 'react';
@@ -33,7 +32,6 @@ export function QueueControls() {
               <PlaybackPreviousButton />
               <PlaybackPlayButton />
               <PlaybackNextButton />
-              <PlaybackStopButton />
             </div>
             <PlaybackDivider />
           </div>
