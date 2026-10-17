@@ -103,34 +103,48 @@ export default function QueueTable() {
 
   const playingQueue = (
     <ul className="flex grow flex-col w-full h-full overflow-y-auto p-4">
-      {queue.map((item, index) => (
-        <li
-          aria-label={`Queue item ${index + 1}`}
-          className={[
-            `w-full p-2 border-b last-of-type:border-0 bg-foreground/1 cursor-pointer`,
-            index === currentIndex ? 'bg-foreground/10' : '',
-          ].join(' ')}
-          key={`queue-track-${item.id}-${index}`}
-          onClick={() => selectItem(index)}
-          onDoubleClick={() => selectItem(index, true)}
-        >
-          <div
-            className="grid w-full grid-cols-[2fr_1fr_auto] items-center"
-            style={{
-              color: `${getContrastingTextColor(contrastingColor)}`,
-              mixBlendMode: 'screen',
-              transition: 'color 700ms ease-in-out',
-            }}
+      {queue.map((item, index) => {
+        const itemAlbumTitle = (() => {
+          return 'albumTitle' in item ? item.albumTitle || '' : '';
+        })();
+        const itemAlbumArtists = (() => {
+          return 'albumArtists' in item ? item.albumArtists.map((artist) => artist.name).join(', ') : '';
+        })();
+        const itemDuration = (() => {
+          if (!item) {
+            return 0;
+          }
+          return 'duration' in item ? secondsToMinutesAndSeconds(item.duration || 0) : 0;
+        })();
+        return (
+          <li
+            aria-label={`Queue item ${index + 1}`}
+            className={[
+              `w-full p-2 border-b last-of-type:border-0 bg-foreground/1 cursor-pointer`,
+              index === currentIndex ? 'bg-foreground/10' : '',
+            ].join(' ')}
+            key={`queue-track-${item.id}-${index}`}
+            onClick={() => selectItem(index)}
+            onDoubleClick={() => selectItem(index, true)}
           >
-            <div className="min-w-0">
-              <h3 className="text-lg font-bold">{item.title}</h3>
-              {albumTitle && <span className="block text-md text-foreground/80">{albumTitle}</span>}
+            <div
+              className="grid w-full grid-cols-[2fr_1fr_auto] items-center"
+              style={{
+                color: `${getContrastingTextColor(contrastingColor)}`,
+                mixBlendMode: 'screen',
+                transition: 'color 700ms ease-in-out',
+              }}
+            >
+              <div className="min-w-0">
+                <h3 className="text-lg font-bold">{item.title}</h3>
+                {itemAlbumTitle && <span className="block text-md text-foreground/80">{itemAlbumTitle}</span>}
+              </div>
+              <span className="mb-2 whitespace-nowrap text-sm text-foreground/60">{itemAlbumArtists}</span>
+              <span className="whitespace-nowrap pr-4 text-right text-sm text-foreground/80">{itemDuration}</span>
             </div>
-            <span className="mb-2 whitespace-nowrap text-sm text-foreground/60">{albumArtists}</span>
-            <span className="whitespace-nowrap pr-4 text-right text-sm text-foreground/80">{duration}</span>
-          </div>
-        </li>
-      ))}
+          </li>
+        );
+      })}
     </ul>
   );
 
