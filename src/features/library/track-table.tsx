@@ -1,6 +1,6 @@
 import { FavoriteControls } from './favorite-controls';
 import { Link } from 'react-router-dom';
-import { PlaylistControls } from './playlist-controls';
+import { PlayControls } from './play-controls';
 import { formatSlug, secondsToMinutesAndSeconds } from '@/utils/format';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import type { components } from '@/types/api-schema';
@@ -42,7 +42,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
                 <td className="px-2 py-1 text-left">
-                  <PlaylistControls tracks={[track]} onEdit={onEdit} />
+                  <PlayControls tracks={[track]} onEdit={onEdit} />
                 </td>
               </tr>
             ))}
@@ -74,14 +74,14 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 <td className="flex flex-row px-2 py-1 text-left text-foreground/70">
                   {track.title}
 
-                  <PlaylistControls
+                  <PlayControls
                     tracks={[track]}
                     hideEditButton={true}
                     hideQueueButtons={true}
                     hideRatingButtons={true}
                   />
                   <FavoriteControls track={track} />
-                  <PlaylistControls
+                  <PlayControls
                     tracks={[track]}
                     onEdit={onEdit}
                     hidePlayButton={true}
@@ -91,12 +91,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
                 <td>
-                  <PlaylistControls
-                    tracks={[track]}
-                    hideEditButton={true}
-                    hidePlayButton={true}
-                    hideQueueButtons={true}
-                  />
+                  <PlayControls tracks={[track]} hideEditButton={true} hidePlayButton={true} hideQueueButtons={true} />
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{track.albumTitle}</td>
                 <td className="px-2 py-1 text-left text-foreground/70">
@@ -135,7 +130,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 </td>
                 <td className="flex" flex-row>
                   <FavoriteControls track={track} />
-                  <PlaylistControls tracks={[track]} onEdit={onEdit} hidePlayButton={true} hideRatingButtons={true} />
+                  <PlayControls tracks={[track]} onEdit={onEdit} hidePlayButton={true} hideRatingButtons={true} />
                 </td>
               </tr>
             ))}

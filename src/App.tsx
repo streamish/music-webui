@@ -15,6 +15,7 @@ import AlbumsPage from './pages/albums';
 import FoldersPage from './pages/folders';
 import GuestLayout from './layouts/guest-layout';
 import RecentlyAddedPage from './pages/recently-added';
+import ShoutcastRadioPage from './pages/shoutcast-radio.tsx';
 import SignInPage from './pages/signin';
 import SignOutPage from './pages/signout';
 import TracksPage from './pages/tracks.tsx';
@@ -35,6 +36,9 @@ const router = createBrowserRouter(
         <Route path="/album-artists/:associationId/:slug" element={<AssociationsPage />} />
         <Route path="/folders" element={<FoldersPage />} />
         <Route path="/folders/:folderId/:slug*" element={<FoldersPage />} />
+        <Route path="/shoutcast" element={<ShoutcastRadioPage />} />
+        <Route path="/shoutcast/:container" element={<ShoutcastRadioPage />} />
+        <Route path="/shoutcast/:container/:genreId/:slug" element={<ShoutcastRadioPage />} />
         <Route path="/track-artists" element={<AssociationsPage />} />
         <Route path="/track-artists/:associationId/:slug" element={<AssociationsPage />} />
         <Route path="/track-artists/:associationId/:slug/:albumId/:albumSlug" element={<AssociationsPage />} />

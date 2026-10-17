@@ -6,10 +6,11 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { FavoriteControls } from '@/features/library/favorite-controls';
+import { FolderIcon } from 'lucide-react';
 import { Fragment, useCallback, useRef } from 'react';
+import { IconCard } from '@/components/icon-card';
 import { TrackTable } from '@/features/library/track-table';
-import { TreeCard } from '@/components/tree-card';
-import { TreeListItem } from '@/components/tree-list-item';
+import { TreeListItem } from '@/features/library/folder-list-item';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -160,7 +161,11 @@ export default function FoldersPage() {
               .map((item: Folder) => {
                 return (
                   <li className="w-full h-full inline-flex align-middle justify-center" key={`folder ${item.id}`}>
-                    <TreeCard item={item} onToggle={() => toggleFolder(item)} />
+                    <IconCard
+                      text={item.folder || item.file || ''}
+                      icon={FolderIcon}
+                      onToggle={() => toggleFolder(item)}
+                    />
                   </li>
                 );
               })}

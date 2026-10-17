@@ -1,5 +1,5 @@
 import { FavoriteControls } from './favorite-controls';
-import { PlaylistControls } from './playlist-controls';
+import { PlayControls } from './play-controls';
 import type { components } from '@/types/api-schema';
 
 type Track = components['schemas']['LibraryTrackDto'];
@@ -18,7 +18,7 @@ export function TrackListItem({ track, albumTitle, onEdit }: { track: Track; alb
         <h4 className="text-foreground/80">{albumTitle}</h4>
         <p className="text-sm text-foreground/60">{track.artists.map((artist) => artist.name).join(', ')}</p>
         <FavoriteControls track={track} />
-        <PlaylistControls tracks={[track]} onEdit={onEdit} />
+        <PlayControls tracks={[track]} onEdit={onEdit} />
       </div>
     </div>
   );

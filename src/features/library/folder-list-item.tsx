@@ -1,5 +1,5 @@
 import { Folder as FolderIcon, Music } from 'lucide-react';
-import { PlaylistControls } from '../features/library/playlist-controls';
+import { PlayControls } from './play-controls';
 import type { components } from '@/types/api-schema';
 
 type Folder = components['schemas']['LibraryFolderDto'];
@@ -25,7 +25,7 @@ export function TreeListItem({ item, onToggle, onEdit }: { item: Folder; onToggl
         />
         <div className="flex flex-col justify-between">
           <h3 className="text-sm text-foreground/80">{item.folder || item.file}</h3>
-          <div className="text-right">{item.track && <PlaylistControls tracks={[item.track]} onEdit={onEdit} />}</div>
+          <div className="text-right">{item.track && <PlayControls tracks={[item.track]} onEdit={onEdit} />}</div>
         </div>
       </div>
     </div>

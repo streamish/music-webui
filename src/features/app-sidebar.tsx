@@ -6,6 +6,7 @@ import {
   type LucideIcon,
   Moon,
   Music,
+  Radio,
   Settings,
   Tags,
   User,
@@ -82,6 +83,11 @@ export const primaryLinks: NavigationItem[] = [
     label: 'Tracks',
     icon: Music,
   },
+  {
+    to: '/shoutcast',
+    label: 'Shoutcast Radio',
+    icon: Radio,
+  },
 ];
 
 export const secondaryLinks: NavigationItem[] = [
@@ -112,7 +118,10 @@ export function AppSidebar() {
   };
 
   const showLink = (label: NavigationLabel) => {
-    return preferences.navigation[label as NavigationLink];
+    return (
+      preferences.navigation[label as NavigationLink] === true ||
+      preferences.navigation[label as NavigationLink] === undefined
+    );
   };
 
   return (

@@ -1,9 +1,6 @@
-import { Folder as FolderIcon } from 'lucide-react';
-import type { components } from '@/types/api-schema';
+import { type LucideIcon } from 'lucide-react';
 
-type Folder = components['schemas']['LibraryFolderDto'];
-
-export function TreeCard({ item, onToggle }: { item: Folder; onToggle: () => void }) {
+export function IconCard({ text, icon: Icon, onToggle }: { text: string; icon: LucideIcon; onToggle: () => void }) {
   return (
     <button
       type="button"
@@ -25,15 +22,10 @@ export function TreeCard({ item, onToggle }: { item: Folder; onToggle: () => voi
         ].join(' ')}
       >
         <div className={['w-30 lg:w-30', 'h-30 lg:h-30', 'rounded-lg p-4'].join(' ')}>
-          <FolderIcon
-            strokeWidth={0.5}
-            absoluteStrokeWidth={true}
-            opacity={0.75}
-            className="w-22 h-22 lg:w-30 lg:h-30"
-          />
+          <Icon strokeWidth={0.5} absoluteStrokeWidth={true} opacity={0.75} className="w-22 h-22 lg:w-30 lg:h-30" />
         </div>
         <div className="p-2">
-          <h3 className="text-center text-sm text-foreground/80">{item.folder || item.file}</h3>
+          <h3 className="text-center text-sm text-foreground/80">{text}</h3>
         </div>
       </div>
     </button>

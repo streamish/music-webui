@@ -1,5 +1,5 @@
 import { type Locator, type Page, expect } from '@playwright/test';
-import type { components, paths } from './types/api-schema';
+import type { paths } from './types/api-schema';
 
 export class Pom {
   private readonly page: Page;
