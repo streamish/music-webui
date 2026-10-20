@@ -38,28 +38,34 @@ function findBreadCrumb(id: number, items: Folder[], path: Folder[] = []): Folde
   return null;
 }
 
-function useFolders() {
+function useFolders(path: string) {
   return useQuery({
-    queryKey: ['folders'],
+    queryKey: ['folders', path],
     queryFn: async () => {
-      const { data, error } = await api.get('/api/folder-structure');
+      const { data, error } = await api.get('/api/list-folder-contents', {
+        params: {
+          query: {
+            path,
+          },
+        },
+      });
       if (error) {
         throw new Error(error.error);
       }
-      if (!data?.items?.length) {
+      if (!data?.folder?.children?.length) {
         throw new Error('No folders received');
       }
-      return data.items;
+      return data.folder.children;
     },
   });
 }
 
 export default function FoldersPage() {
   const navigate = useNavigate();
-  const { data: folders = [], refetch: refetchFolders } = useFolders();
+  const { folderId, '*': folderSlug } = useParams<{ folderId: string; '*': string }>();
+  const { data: folders = [], refetch: refetchFolders } = useFolders(`/${folderSlug || ''}`);
   const { isMobile } = useIsMobile();
   const listRef = useRef(null);
-  const { folderId } = useParams<{ folderId: string }>();
   const expandedItemId = Number(folderId) ?? null;
   const breadcrumb = expandedItemId ? findBreadCrumb(expandedItemId, folders) || [] : [];
   const expandedItem = expandedItemId ? breadcrumb[breadcrumb.length - 1] : null;
@@ -68,7 +74,8 @@ export default function FoldersPage() {
   breadcrumb.unshift({
     id: 0,
     folder: 'Root paths',
-    fullPath: '',
+    fullPath: '/',
+    relativePath: '/',
     children: folders ?? [],
   });
 
@@ -77,7 +84,7 @@ export default function FoldersPage() {
       if (expandedItemId === item.id || item.id === 0) {
         navigate('/folders');
       } else {
-        navigate(`/folders/${item.id}/${item.fullPath}`);
+        navigate(`/folders/${item.id}/${item.relativePath}`);
       }
     },
     [expandedItemId, navigate],
@@ -88,7 +95,7 @@ export default function FoldersPage() {
       if (item.id === 0) {
         navigate('/folders');
       } else {
-        navigate(`/folders/${item.id}/${item.fullPath}`);
+        navigate(`/folders/${item.id}/${item.relativePath}`);
       }
     },
     [navigate],
