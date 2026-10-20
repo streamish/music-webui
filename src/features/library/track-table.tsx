@@ -71,23 +71,25 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 className={[`py-1 ${index % 2 === 0 ? 'bg-foreground/5' : ''}`, `hover:bg-foreground/10`].join(' ')}
                 aria-label={`Track item ${index + 1}`}
               >
-                <td className="flex flex-row px-2 py-1 text-left text-foreground/70">
-                  {track.title}
+                <td className="px-2 py-1 text-left text-foreground/70">
+                  <div className="flex flex-row">
+                    {track.title}
 
-                  <PlayControls
-                    tracks={[track]}
-                    hideEditButton={true}
-                    hideQueueButtons={true}
-                    hideRatingButtons={true}
-                  />
-                  <FavoriteControls track={track} />
-                  <PlayControls
-                    tracks={[track]}
-                    onEdit={onEdit}
-                    hidePlayButton={true}
-                    hideQueueButtons={true}
-                    hideRatingButtons={true}
-                  />
+                    <PlayControls
+                      tracks={[track]}
+                      hideEditButton={true}
+                      hideQueueButtons={true}
+                      hideRatingButtons={true}
+                    />
+                    <FavoriteControls track={track} />
+                    <PlayControls
+                      tracks={[track]}
+                      onEdit={onEdit}
+                      hidePlayButton={true}
+                      hideQueueButtons={true}
+                      hideRatingButtons={true}
+                    />
+                  </div>
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
                 <td>
@@ -128,9 +130,11 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                     </span>
                   ))}
                 </td>
-                <td className="flex" flex-row>
-                  <FavoriteControls track={track} />
-                  <PlayControls tracks={[track]} onEdit={onEdit} hidePlayButton={true} hideRatingButtons={true} />
+                <td>
+                  <div className="flex flex-row">
+                    <FavoriteControls track={track} />
+                    <PlayControls tracks={[track]} onEdit={onEdit} hidePlayButton={true} hideRatingButtons={true} />
+                  </div>
                 </td>
               </tr>
             ))}

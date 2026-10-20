@@ -36,10 +36,12 @@ export function ShoutcastOnlineStationsTable({ genreId, onEdit }: { genreId: num
             className={[`py-1 ${index % 2 === 0 ? 'bg-foreground/5' : ''}`, `hover:bg-foreground/10`].join(' ')}
             aria-label={`Track item ${index + 1}`}
           >
-            <td className="px-2 py-1 text-left flex flex-row">
-              <span className="text-md">{station.title}</span>
-              <PlayControls station={station} hideQueueButtons={true} hideEditButton={true} onEdit={onEdit} />
-              <FavoriteControls station={station} />
+            <td className="px-2 py-1 text-left">
+              <div className="flex flex-row">
+                <span className="text-md">{station.title}</span>
+                <PlayControls station={station} hideQueueButtons={true} hideEditButton={true} onEdit={onEdit} />
+                <FavoriteControls station={station} />
+              </div>
             </td>
           </tr>
         ))}

@@ -611,7 +611,7 @@ export type paths = {
     patch?: never;
     trace?: never;
   };
-  '/api/folder-structure': {
+  '/api/list-folder-contents': {
     parameters: {
       query?: never;
       header?: never;
@@ -626,7 +626,7 @@ export type paths = {
      *
      *     Only administrator users can access this route.  An administrator can assign this role to an account in the system settings.
      */
-    get: operations['ApiFoldersController_getTreeStructure'];
+    get: operations['ApiFoldersController_listFolderContents'];
     put?: never;
     post?: never;
     delete?: never;
@@ -1526,7 +1526,7 @@ export type paths = {
     put?: never;
     /**
      * Lists folders in the music library
-     * @description Lists folders found in the music library to enable navigating music by the file path.
+     * @description Lists folders found in the music library to enable navigating music by the file path. Synology uses a numerical ID to identify each folder which is internally mapped to the actual folder path. The internal mapping segregates each folder level using a pattern like `{n}00{n}00{n}00...{n}`.
      *
      *     The request must be authenticated using a valid Synology session ID and device ID cookie for the user, which can be obtained by signing in via the `/entry.cgi` endpoint, a two-step process requesting the encryption public key from `/certs` and then  submitting credentials encrypted with it.
      */
@@ -2854,6 +2854,7 @@ export type components = {
       folder?: string;
       fullPath: string;
       id: number;
+      relativePath: string;
     };
     PlaylistPlaceholder: {
       id: number;
@@ -3000,7 +3001,7 @@ export type components = {
     };
     /**
      * @description A validation or other error occurred during the processing of the request.
-     * @enum {number}
+     * @enum {string}
      */
     ApiFavoritesSetFolderFavoriteBadRequestErrors: ApiFavoritesSetFolderFavoriteBadRequestErrors;
     ApiFavoritesSetFolderFavoriteBadRequestResponse: {
@@ -3011,7 +3012,10 @@ export type components = {
        * @default false
        */
       success: boolean;
-      /** @description A validation or other error occurred during the processing of the request. */
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-folder-id-error
+       */
       message: components['schemas']['ApiFavoritesSetFolderFavoriteBadRequestErrors'][];
     };
     /**
@@ -3369,14 +3373,14 @@ export type components = {
       success: boolean;
       association: components['schemas']['AssociationWithCreditsDto'];
     };
-    FolderStructureResponseDto: {
+    ListFolderContentsResponseDto: {
       /**
        * Format: constant
        * @description The success being "true" indicates that the request completed.
        * @default true
        */
       success: boolean;
-      items: components['schemas']['LibraryFolderDto'][];
+      folder: components['schemas']['LibraryFolderDto'];
     };
     /**
      * @description A validation or other error occurred during the processing of the request.
@@ -4808,7 +4812,7 @@ export type components = {
     QnapMediaListFoldersDto: {
       data: components['schemas']['QnapFolderDto'][];
     };
-    QnapMediaListFoldersResponseDto: {
+    QnapMediaListFolderContentsResponseDto: {
       datas: components['schemas']['QnapMediaListFoldersDto'];
     };
     QnapTrackDto: {
@@ -9215,7 +9219,8 @@ export interface operations {
   ApiFavoritesController_setFolderFavorite: {
     parameters: {
       query: {
-        folder: string;
+        /** @description The database ID of the resource */
+        id: number;
       };
       header?: never;
       path?: never;
@@ -10064,9 +10069,12 @@ export interface operations {
       };
     };
   };
-  ApiFoldersController_getTreeStructure: {
+  ApiFoldersController_listFolderContents: {
     parameters: {
-      query?: never;
+      query: {
+        /** @description The current path within the folder tree to retrieve, defaults to the root '/' */
+        path: string;
+      };
       header?: never;
       path?: never;
       cookie?: never;
@@ -10078,7 +10086,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['FolderStructureResponseDto'];
+          'application/json': components['schemas']['ListFolderContentsResponseDto'];
         };
       };
       400: {
@@ -11909,7 +11917,7 @@ export interface operations {
             | components['schemas']['QnapMediaListArtistsResponseDto']
             | components['schemas']['QnapMediaListAlbumsResponseDto']
             | components['schemas']['QnapMediaListGenresResponseDto']
-            | components['schemas']['QnapMediaListFoldersResponseDto']
+            | components['schemas']['QnapMediaListFolderContentsResponseDto']
             | components['schemas']['QnapMediaListTracksResponseDto'];
         };
       };
@@ -13432,7 +13440,9 @@ export enum ApiFavoritesSetAssociationFavoriteBadRequestErrors {
 export enum ApiFavoritesSetAssociationFavoriteNotFoundErrors {
   association_not_found_error = 'association-not-found-error',
 }
-export enum ApiFavoritesSetFolderFavoriteBadRequestErrors {}
+export enum ApiFavoritesSetFolderFavoriteBadRequestErrors {
+  invalid_folder_id_error = 'invalid-folder-id-error',
+}
 export enum ApiFavoritesSetFolderFavoriteNotFoundErrors {
   folder_not_found_error = 'folder-not-found-error',
 }

@@ -18,6 +18,7 @@ test.describe('folders', () => {
       expect(isDarkNow).toBeDefined();
       expect(isDark).toBe(!isDarkNow);
     });
+
     test('should toggle sidebar visibility', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });

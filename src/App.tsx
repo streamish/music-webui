@@ -35,7 +35,7 @@ const router = createBrowserRouter(
         <Route path="/album-artists/:associationId/:slug/:albumId/:albumSlug" element={<AssociationsPage />} />
         <Route path="/album-artists/:associationId/:slug" element={<AssociationsPage />} />
         <Route path="/folders" element={<FoldersPage />} />
-        <Route path="/folders/:folderId/:slug*" element={<FoldersPage />} />
+        <Route path="/folders/:folderId/*" element={<FoldersPage />} />
         <Route path="/shoutcast" element={<ShoutcastRadioPage />} />
         <Route path="/shoutcast/:container" element={<ShoutcastRadioPage />} />
         <Route path="/shoutcast/:container/:genreId/:slug" element={<ShoutcastRadioPage />} />
