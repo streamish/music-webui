@@ -1,5 +1,5 @@
 import { FavoriteControls } from './favorite-controls';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { PlayControls } from './play-controls';
 import { formatSlug, secondsToMinutesAndSeconds } from '@/utils/format';
 import { useIsMobile } from '@/hooks/use-is-mobile';

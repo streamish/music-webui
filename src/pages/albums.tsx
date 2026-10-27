@@ -8,7 +8,7 @@ import { PaginationControls } from '@/components/pagination-controls';
 import { formatSlug } from '@/utils/format';
 import { useGridColumnCount } from '@/hooks/use-grid-column-count';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { usePreferences } from '@/hooks/use-preferences';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';

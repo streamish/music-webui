@@ -4,7 +4,7 @@ import { AuthProvider } from './hooks/use-auth.tsx';
 import { PreferencesProvider } from './hooks/use-preferences.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { QueueProvider } from './features/library/queue.tsx';
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from './components/ui/tooltip';
 import { useState } from 'react';

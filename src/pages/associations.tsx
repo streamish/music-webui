@@ -10,7 +10,7 @@ import { TrackTable } from '@/features/library/track-table';
 import { formatSlug } from '@/utils/format';
 import { useGridColumnCount } from '@/hooks/use-grid-column-count';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 import type { paths } from 'src/types/api-schema';

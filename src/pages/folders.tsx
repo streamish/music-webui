@@ -12,7 +12,7 @@ import { IconCard } from '@/components/icon-card';
 import { TrackTable } from '@/features/library/track-table';
 import { TreeListItem } from '@/features/library/folder-list-item';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 import type { components } from '@/types/api-schema';
