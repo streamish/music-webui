@@ -1,6 +1,8 @@
 import { type ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import api from '@/lib/api';
 
+export const REMEMBERED_SESSION_DURATION_DAYS = 3650;
+
 interface User {
   accountId: string;
   roles: string[];
@@ -57,16 +59,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const userData = decodeToken(token);
     if (userData) {
       setUser(userData);
-      const d = new Date();
       if (remember) {
-        const expiresTime = d.getTime() + 365 * 60 * 60 * 1000;
-        d.setTime(expiresTime);
+        const d = new Date(Date.now() + REMEMBERED_SESSION_DURATION_DAYS * 24 * 60 * 60 * 1000);
         const expires = `expires=${d.toUTCString()}`;
         document.cookie = `token=${token}; ${expires}`;
         localStorage.setItem('jwt-token', token);
       } else {
-        const expiresTime = d.getTime() + 60 * 60 * 1000;
-        d.setTime(expiresTime);
         sessionStorage.setItem('jwt-token', token);
         document.cookie = `token=${token}`;
       }

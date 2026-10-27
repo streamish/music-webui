@@ -41,12 +41,16 @@ test.describe('signin', () => {
 
     test('remembered signin persists in localStorage', async ({ page }, testInfo) => {
       const pom = new Pom(page);
-      await pom.signIn({ username: 'admin', password: 'admin', expiresDays: 7 });
+      const sessionRequest = page.waitForRequest(
+        (request) => request.url().includes('/api/create-session') && request.method() === 'POST',
+      );
+      await pom.signIn({ username: 'admin', password: 'admin', expiresDays: 3650 });
       expect(page.url()).toBe(`${testInfo.project.use.baseURL}/`);
       const jwtToken = await page.evaluate(() => {
         return localStorage.getItem('jwt-token');
       });
       expect(jwtToken).not.toBeNull();
+      expect((await sessionRequest).postDataJSON().expiresDays).toBe(3650);
     });
   });
 
