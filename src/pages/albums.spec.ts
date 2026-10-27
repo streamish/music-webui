@@ -1,9 +1,121 @@
 import { ADMIN_PASSWORD, ADMIN_USERNAME, TestApi, USER_PASSWORD, USER_USERNAME } from '../test-helper';
 import { Pom } from '../playwright.pom';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+function waitForAlbumRequest(page: Page, limit: number, offset: number) {
+  return page.waitForResponse((response) => {
+    const url = new URL(response.url());
+    return (
+      url.pathname.endsWith('/api/list-albums') &&
+      url.searchParams.get('limit') === String(limit) &&
+      url.searchParams.get('offset') === String(offset)
+    );
+  });
+}
 
 test.describe('albums', () => {
   let jwtToken: string | undefined;
+
+  test.describe('pagination', () => {
+    test('uses the URL page for initial load and refresh', async ({ page }) => {
+      const pom = new Pom(page, jwtToken);
+      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      await page.addInitScript(() => {
+        localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
+      });
+      await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+      jwtToken = jwtToken || pom.jwtToken;
+
+      const initialRequest = waitForAlbumRequest(page, 2, 2);
+      await page.goto('/albums?page=2');
+      expect((await initialRequest).ok()).toBeTruthy();
+      await expect(page).toHaveURL(/\/albums\?page=2$/);
+      await expect(
+        page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
+      ).toHaveAttribute('aria-current', 'page');
+
+      const refreshRequest = waitForAlbumRequest(page, 2, 2);
+      await page.reload();
+      expect((await refreshRequest).ok()).toBeTruthy();
+      await expect(page).toHaveURL(/\/albums\?page=2$/);
+      await expect(
+        page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
+      ).toHaveAttribute('aria-current', 'page');
+    });
+
+    test('preserves the page when opening an album', async ({ page }) => {
+      const pom = new Pom(page, jwtToken);
+      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      await page.addInitScript(() => {
+        localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
+      });
+      await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+      jwtToken = jwtToken || pom.jwtToken;
+
+      const pageRequest = waitForAlbumRequest(page, 2, 2);
+      await page.goto('/albums?page=2');
+      expect((await pageRequest).ok()).toBeTruthy();
+
+      await page.getByLabel('Album 3 by Artist 2').click();
+      await expect(page).toHaveURL(/\/albums\/\d+\/[^?]+\?page=2$/);
+      await expect(page.getByLabel('Album details:  Album 3 by Artist 2')).toBeVisible();
+    });
+
+    test('keeps the query in sync with browser back and forward', async ({ page }) => {
+      const pom = new Pom(page, jwtToken);
+      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      await page.addInitScript(() => {
+        localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
+      });
+      await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+      jwtToken = jwtToken || pom.jwtToken;
+
+      const firstPageRequest = waitForAlbumRequest(page, 2, 0);
+      await page.goto('/albums');
+      expect((await firstPageRequest).ok()).toBeTruthy();
+
+      const secondPageRequest = waitForAlbumRequest(page, 2, 2);
+      await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }).click();
+      expect((await secondPageRequest).ok()).toBeTruthy();
+      await expect(page).toHaveURL(/\/albums\?page=2$/);
+
+      const thirdPageRequest = waitForAlbumRequest(page, 2, 4);
+      await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '3' }).click();
+      expect((await thirdPageRequest).ok()).toBeTruthy();
+      await expect(page).toHaveURL(/\/albums\?page=3$/);
+
+      const backRequest = waitForAlbumRequest(page, 2, 2);
+      await page.goBack();
+      expect((await backRequest).ok()).toBeTruthy();
+      await expect(page).toHaveURL(/\/albums\?page=2$/);
+
+      const forwardRequest = waitForAlbumRequest(page, 2, 4);
+      await page.goForward();
+      expect((await forwardRequest).ok()).toBeTruthy();
+      await expect(page).toHaveURL(/\/albums\?page=3$/);
+    });
+
+    test('uses the current page-size preference when loading a URL page', async ({ page }) => {
+      const pom = new Pom(page, jwtToken);
+      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      await page.addInitScript(() => {
+        if (!localStorage.getItem('preferences')) {
+          localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
+        }
+      });
+      await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+      jwtToken = jwtToken || pom.jwtToken;
+      await pom.navigateToAccount();
+      await page.getByRole('radio', { name: '100', exact: true }).click();
+      await expect
+        .poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('preferences') ?? '{}').pageSize))
+        .toBe(100);
+
+      const pageRequest = waitForAlbumRequest(page, 100, 100);
+      await page.goto('/albums?page=2');
+      expect((await pageRequest).ok()).toBeTruthy();
+    });
+  });
 
   test.describe('sidebar', () => {
     test('should turn dark mode on or off', async ({ page }) => {

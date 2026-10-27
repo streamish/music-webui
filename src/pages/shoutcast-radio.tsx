@@ -16,7 +16,7 @@ import { ShoutcastStationsTable } from '@/features/library/shoutcast-stations-ta
 import { formatSlug } from '@/utils/format';
 import { memo, useCallback } from 'react';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import api from '@/lib/api';
 import type { LucideIcon } from 'lucide-react';

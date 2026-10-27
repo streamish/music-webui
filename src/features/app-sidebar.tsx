@@ -14,7 +14,7 @@ import {
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 
 import { DarkModeSwitch } from '@/features/dark-mode-switch';

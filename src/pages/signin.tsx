@@ -12,7 +12,7 @@ import {
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/use-auth';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
 import z from 'zod/v3';

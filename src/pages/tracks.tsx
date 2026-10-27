@@ -2,7 +2,7 @@ import { PageHeader } from '@/layouts/user-layout';
 import { PaginationControls } from '@/components/pagination-controls';
 import { TrackListItem } from '@/features/library/track-list-item';
 import { TrackTable } from '@/features/library/track-table';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { usePreferences } from '@/hooks/use-preferences';
 import { useQuery } from '@tanstack/react-query';
@@ -37,10 +37,10 @@ export default function TracksPage() {
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
   const { preferences } = usePreferences();
   const { pageSize } = preferences;
-  const [query, setQuery] = useState({
+  const query = {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
-  });
+  };
   const { data: { tracks = [], total: totalTracks } = {}, refetch: refetchTracks } = useTracks(query);
 
   const setPage = useCallback(
@@ -50,14 +50,8 @@ export default function TracksPage() {
         next.set('page', String(nextPage));
         return next;
       });
-      setQuery(() => {
-        return {
-          limit: pageSize,
-          offset: (nextPage - 1) * pageSize,
-        };
-      });
     },
-    [setSearchParams, pageSize],
+    [setSearchParams],
   );
 
   return (

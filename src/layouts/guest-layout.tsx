@@ -1,5 +1,5 @@
 import { DarkModeSwitch } from '@/features/dark-mode-switch';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router';
 import { useAuth } from '@/hooks/use-auth';
 
 export default function GuestLayout() {
