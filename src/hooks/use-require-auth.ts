@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router';
 // Redirects guests to sign-in and, when a role is required, users without it to the home page.
 export function useRequireAuth(requiredRole?: string) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname, search, hash } = useLocation();
   const { user, loading } = useAuth();
 
   useEffect(() => {
@@ -14,12 +14,13 @@ export function useRequireAuth(requiredRole?: string) {
       return;
     }
     if (!user) {
-      navigate(pathname.startsWith('/signout') ? '/signin' : `/signin?returnUrl=${encodeURIComponent(pathname)}`);
+      const returnUrl = `${pathname}${search}${hash}`;
+      navigate(pathname.startsWith('/signout') ? '/signin' : `/signin?returnUrl=${encodeURIComponent(returnUrl)}`);
     } else if (requiredRole && !user.roles.includes(requiredRole)) {
       toast.error(`You must be signed in as an ${requiredRole} to access this page.`);
       navigate('/');
     }
-  }, [user, loading, navigate, pathname, requiredRole]);
+  }, [user, loading, navigate, pathname, search, hash, requiredRole]);
 
   return { user, loading };
 }
