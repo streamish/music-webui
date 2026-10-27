@@ -61,10 +61,8 @@ export class Pom {
   }
 
   async isResponsive(): Promise<boolean> {
-    const isResponsive = await this.page.evaluate(() => {
-      return !window.matchMedia('(min-width: 640px)').matches;
-    });
-    return isResponsive;
+    const pageWidth = this.page.viewportSize()?.width ?? Infinity;
+    return pageWidth < 641;
   }
 
   async navigateToAccount(): Promise<void> {
