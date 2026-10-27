@@ -2,6 +2,12 @@ import { Pom } from '@/playwright.pom';
 import { expect, test } from '@playwright/test';
 
 test.describe('signin', () => {
+  test('preserves query and hash when redirecting guests to sign in', async ({ page }) => {
+    const returnUrl = '/tracks?page=2#track-1';
+    await page.goto(returnUrl);
+    await expect(page).toHaveURL(`/signin?returnUrl=${encodeURIComponent(returnUrl)}`);
+  });
+
   test.describe('errors', () => {
     test('rejects invalid username', async ({ page }) => {
       const pom = new Pom(page);
@@ -41,12 +47,16 @@ test.describe('signin', () => {
 
     test('remembered signin persists in localStorage', async ({ page }, testInfo) => {
       const pom = new Pom(page);
-      await pom.signIn({ username: 'admin', password: 'admin', expiresDays: 7 });
+      const sessionRequest = page.waitForRequest(
+        (request) => request.url().includes('/api/create-session') && request.method() === 'POST',
+      );
+      await pom.signIn({ username: 'admin', password: 'admin', expiresDays: 3650 });
       expect(page.url()).toBe(`${testInfo.project.use.baseURL}/`);
       const jwtToken = await page.evaluate(() => {
         return localStorage.getItem('jwt-token');
       });
       expect(jwtToken).not.toBeNull();
+      expect((await sessionRequest).postDataJSON().expiresDays).toBe(3650);
     });
   });
 

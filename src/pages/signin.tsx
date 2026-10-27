@@ -9,8 +9,8 @@ import {
   EntryFormLabel,
   EntryFormVerticalGroup,
 } from '@/components';
+import { REMEMBERED_SESSION_DURATION_DAYS, useAuth } from '@/hooks/use-auth';
 import { toast } from 'sonner';
-import { useAuth } from '@/hooks/use-auth';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -47,7 +47,7 @@ export default function SignInPage() {
         body: {
           username: formData.username,
           password: formData.password,
-          expiresDays: formData.remember ? 3650 : 1,
+          expiresDays: formData.remember ? REMEMBERED_SESSION_DURATION_DAYS : 1,
         },
       });
       if (error) {
