@@ -8,12 +8,10 @@ import { AssociationTypeEnum } from '@/types/api-schema';
 import { Fragment, memo, useCallback, useEffect, useState } from 'react';
 import { TrackTable } from '@/features/library/track-table';
 import { formatSlug } from '@/utils/format';
+import { useAlbumAssociations, useAssociation, useTrackAssociations } from '@/features/library/api/associations';
 import { useGridColumnCount } from '@/hooks/use-grid-column-count';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
-import type { paths } from 'src/types/api-schema';
 
 type ViewingGroup = 'album-artists' | 'track-artists' | 'track-composers' | 'track-genres';
 
@@ -63,77 +61,6 @@ function getViewingGroup(associationType: AssociationTypeEnum, isAlbumArtists: b
   }
 }
 
-function useAlbumAssociations(
-  query: paths['/api/list-album-associations']['get']['parameters']['query'] & { enabled: boolean },
-) {
-  return useQuery({
-    enabled: query.enabled,
-    queryKey: ['albums', query],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-album-associations', {
-        params: { query },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data?.associations) {
-        throw new Error('No associations received');
-      }
-      return {
-        associations: data.associations,
-        total: data.total,
-      };
-    },
-  });
-}
-
-function useTrackAssociations(
-  query: paths['/api/list-track-associations']['get']['parameters']['query'] & { enabled: boolean },
-) {
-  return useQuery({
-    enabled: query.enabled,
-    queryKey: ['tracks', query],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-track-associations', {
-        params: { query },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data?.associations) {
-        throw new Error('No associations received');
-      }
-      return {
-        associations: data.associations,
-        total: data.total,
-      };
-    },
-  });
-}
-
-function useAssociation(
-  query: paths['/api/retrieve-association']['get']['parameters']['query'] & { enabled: boolean },
-) {
-  return useQuery({
-    enabled: query.enabled,
-    queryKey: ['association', query],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/retrieve-association', {
-        params: { query },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data?.association) {
-        throw new Error('No association received');
-      }
-      return {
-        association: data.association,
-      };
-    },
-  });
-}
-
 function usePageAssociations({
   isAlbumArtists,
   associationType,
@@ -168,12 +95,12 @@ export const AssociationsPage = memo(() => {
   const [searchParams] = useSearchParams();
   const pageNumber = Math.max(1, Number.parseInt(searchParams.get('page') ?? '1', 10) || 1);
   const { listRef, columnCount } = useGridColumnCount();
-  const { data: { associations = [] } = {}, refetch: refetchAssociations } = usePageAssociations({
+  const { data: { associations = [] } = {} } = usePageAssociations({
     isAlbumArtists,
     associationType,
   });
   const expandedAssociationId = associationId ? Number(associationId) : undefined;
-  const { data: { association: expandedAssociation } = {}, refetch: refetchAssociation } = useAssociation({
+  const { data: { association: expandedAssociation } = {} } = useAssociation({
     id: expandedAssociationId || 0,
     enabled: expandedAssociationId !== undefined && expandedAssociationId > 0,
   });
@@ -208,11 +135,6 @@ export const AssociationsPage = memo(() => {
     },
     [expandedAssociation, expandedAssociationId, getAssociationUrl],
   );
-
-  const refresh = useCallback(() => {
-    refetchAssociations();
-    refetchAssociation();
-  }, [refetchAssociations, refetchAssociation]);
 
   const toggleArtist = useCallback(
     (id: number) => {
@@ -375,7 +297,7 @@ export const AssociationsPage = memo(() => {
                               )}
                               {shouldInsertDetails && (
                                 <li className="album-details col-span-full pt-4">
-                                  <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refresh} />
+                                  <AlbumExpandedDetails albumId={expandedAlbumId} />
                                 </li>
                               )}
                             </>
@@ -408,7 +330,7 @@ export const AssociationsPage = memo(() => {
                               </li>
                               {shouldInsertDetails && (
                                 <li className="album-details col-span-full pt-4">
-                                  <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={refresh} />
+                                  <AlbumExpandedDetails albumId={expandedAlbumId} />
                                 </li>
                               )}
                             </Fragment>
@@ -420,14 +342,14 @@ export const AssociationsPage = memo(() => {
                 )}
                 {viewingGroup !== 'album-artists' && (
                   <div className="w-full" key={expandedAssociationId}>
-                    <TrackTable albums={albums} onEdit={refresh} />
+                    <TrackTable albums={albums} />
                   </div>
                 )}
               </>
             )}
             {viewingGroup === 'track-genres' && (
               <div className="w-full" key={expandedAssociationId}>
-                <TrackTable albums={expandedAssociation?.genreCredits || []} onEdit={refresh} />
+                <TrackTable albums={expandedAssociation?.genreCredits || []} />
               </div>
             )}
           </div>

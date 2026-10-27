@@ -1,53 +1,53 @@
-import { type ComponentType } from 'react';
+import { AssociationsPage } from './pages/associations';
 import { type RouteObject, createBrowserRouter } from 'react-router';
+import AccountPage from './pages/account';
+import AdminHomePage from './pages/admin/home';
 import AdminLayout from './layouts/admin-layout';
+import AlbumsPage from './pages/albums';
+import FoldersPage from './pages/folders';
 import GuestLayout from './layouts/guest-layout';
+import RecentlyAddedPage from './pages/recently-added';
+import ShoutcastRadioPage from './pages/shoutcast-radio';
+import SignInPage from './pages/signin';
+import SignOutPage from './pages/signout';
+import TracksPage from './pages/tracks';
 import UserLayout from './layouts/user-layout';
-
-type PageModule = { default: ComponentType };
-
-// Code-splits a page; the router waits for the chunk before rendering the route.
-const page = (load: () => Promise<PageModule>) => async () => ({ Component: (await load()).default });
-
-const associationPage = page(() =>
-  import('./pages/associations').then((module) => ({ default: module.AssociationsPage })),
-);
 
 // Each association section lists items, then drills into an item and optionally one of its albums.
 const associationRoutes = (base: string, { withAlbums = true } = {}): RouteObject[] => [
-  { path: base, lazy: associationPage },
-  { path: `${base}/:associationId/:slug`, lazy: associationPage },
-  ...(withAlbums ? [{ path: `${base}/:associationId/:slug/:albumId/:albumSlug`, lazy: associationPage }] : []),
+  { path: base, Component: AssociationsPage },
+  { path: `${base}/:associationId/:slug`, Component: AssociationsPage },
+  ...(withAlbums ? [{ path: `${base}/:associationId/:slug/:albumId/:albumSlug`, Component: AssociationsPage }] : []),
 ];
 
 export const routes: RouteObject[] = [
   {
-    element: <GuestLayout />,
-    children: [{ path: 'signin', lazy: page(() => import('./pages/signin')) }],
+    Component: GuestLayout,
+    children: [{ path: 'signin', Component: SignInPage }],
   },
   {
-    element: <UserLayout />,
+    Component: UserLayout,
     children: [
-      { index: true, lazy: page(() => import('./pages/recently-added')) },
-      { path: 'albums', lazy: page(() => import('./pages/albums')) },
-      { path: 'albums/:albumId/:slug', lazy: page(() => import('./pages/albums')) },
+      { index: true, Component: RecentlyAddedPage },
+      { path: 'albums', Component: AlbumsPage },
+      { path: 'albums/:albumId/:slug', Component: AlbumsPage },
       ...associationRoutes('album-artists'),
       ...associationRoutes('track-artists'),
       ...associationRoutes('track-composers'),
       ...associationRoutes('track-genres', { withAlbums: false }),
-      { path: 'folders', lazy: page(() => import('./pages/folders')) },
-      { path: 'folders/:folderId/*', lazy: page(() => import('./pages/folders')) },
-      { path: 'shoutcast', lazy: page(() => import('./pages/shoutcast-radio')) },
-      { path: 'shoutcast/:container', lazy: page(() => import('./pages/shoutcast-radio')) },
-      { path: 'shoutcast/:container/:genreId/:slug', lazy: page(() => import('./pages/shoutcast-radio')) },
-      { path: 'tracks', lazy: page(() => import('./pages/tracks')) },
-      { path: 'account', lazy: page(() => import('./pages/account')) },
-      { path: 'signout', lazy: page(() => import('./pages/signout')) },
+      { path: 'folders', Component: FoldersPage },
+      { path: 'folders/:folderId/*', Component: FoldersPage },
+      { path: 'shoutcast', Component: ShoutcastRadioPage },
+      { path: 'shoutcast/:container', Component: ShoutcastRadioPage },
+      { path: 'shoutcast/:container/:genreId/:slug', Component: ShoutcastRadioPage },
+      { path: 'tracks', Component: TracksPage },
+      { path: 'account', Component: AccountPage },
+      { path: 'signout', Component: SignOutPage },
     ],
   },
   {
-    element: <AdminLayout />,
-    children: [{ path: 'admin', lazy: page(() => import('./pages/admin/home')) }],
+    Component: AdminLayout,
+    children: [{ path: 'admin', Component: AdminHomePage }],
   },
 ];
 

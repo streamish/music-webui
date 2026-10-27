@@ -11,8 +11,10 @@ import { FormValidationError } from '@/components/form-validation-error';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Plus } from 'lucide-react';
+import { accountKeys } from './api/account';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
@@ -34,7 +36,8 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function RootPathAddForm({ onSave }: { onSave: () => void }) {
+export function RootPathAddForm() {
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const {
     formState: { errors },
@@ -54,7 +57,7 @@ export function RootPathAddForm({ onSave }: { onSave: () => void }) {
       });
       if (result.data?.success) {
         toast.success('Root path added successfully. It will begin indexing shortly if the indexer is enabled.');
-        onSave();
+        queryClient.invalidateQueries({ queryKey: accountKeys.rootPaths() });
         setOpen(false);
         return;
       }

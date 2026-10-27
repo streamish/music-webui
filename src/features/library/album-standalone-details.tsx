@@ -6,44 +6,13 @@ import { Button } from '../../components/ui/button';
 import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { getContrastingTextColor } from '@/utils/color';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
+import { useAlbum } from '@/features/library/api/albums';
 
-function useAlbum(id: number) {
-  return useQuery({
-    queryKey: ['album', id],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/retrieve-album', {
-        params: { query: { id } },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No album returned');
-      }
-      return data.album;
-    },
-  });
-}
-
-export function AlbumStandaloneDetails({
-  albumId,
-  onClose,
-  onEdit,
-}: {
-  albumId: number;
-  onClose: () => void;
-  onEdit: () => void;
-}) {
-  const { data: album, refetch } = useAlbum(albumId);
+export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; onClose: () => void }) {
+  const { data: album } = useAlbum(albumId);
   if (!album) {
     return null;
   }
-  const handleEdit = () => {
-    refetch();
-    onEdit();
-  };
   const selectedColor = album.coverImageMuted || '#000000';
   const contrastingColor = album.coverImageDarkMuted || '#000000';
   const trackGroups = createTrackGroups(album.tracks);
@@ -80,7 +49,7 @@ export function AlbumStandaloneDetails({
       <div style={{ color: `${getContrastingTextColor(contrastingColor)}`, mixBlendMode: 'screen' }}>
         <h3 className="font-semibold text-2xl mb-0! pb-0!">
           {album.title} <span className="text-xs">{album.year}</span>
-          <AlbumEditForm album={album} onSave={handleEdit} className="mb-0" />
+          <AlbumEditForm album={album} className="mb-0" />
         </h3>
         <PlayControls
           tracks={album.tracks}
@@ -90,19 +59,12 @@ export function AlbumStandaloneDetails({
           hideQueueButtons={true}
           textLabels={true}
           className="-mx-8 mb-2"
-          onEdit={() => {}}
         />
-        <PlayControls
-          tracks={album.tracks}
-          textLabels={true}
-          onEdit={handleEdit}
-          hideRatingButtons={true}
-          className="m-0!"
-        />
+        <PlayControls tracks={album.tracks} textLabels={true} hideRatingButtons={true} className="m-0!" />
         {trackGroups.map((trackGroup, index) => (
           <div key={index}>
             {showDiscTitle && <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>}
-            <AlbumTrackList tracks={trackGroup} onEdit={handleEdit} />
+            <AlbumTrackList tracks={trackGroup} />
           </div>
         ))}
       </div>

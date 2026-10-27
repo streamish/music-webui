@@ -1,46 +1,17 @@
 import { AlbumCard } from '@/features/library/album-card';
 import { AlbumExpandedDetails } from '@/features/library/album-expanded-details';
 import { AlbumListItem } from '@/features/library/album-list-item';
-import { AlbumSortFieldEnum, SortDirectionEnum } from 'src/types/api-schema';
 import { AlbumStandaloneDetails } from '@/features/library/album-standalone-details';
 import { Fragment, useState } from 'react';
 import { useGridColumnCount } from '@/hooks/use-grid-column-count';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
-
-function useRecentlyAdded() {
-  return useQuery({
-    queryKey: ['recently-added'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-albums', {
-        params: {
-          query: {
-            sortField: AlbumSortFieldEnum.date_added,
-            sortOrder: SortDirectionEnum.desc,
-            limit: 100,
-          },
-        },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No albums returned');
-      }
-      return {
-        albums: data.albums,
-        total: data.total,
-      };
-    },
-  });
-}
+import { useRecentlyAddedAlbums } from '@/features/library/api/albums';
 
 export default function RecentlyAddedPage() {
   const { isMobile } = useIsMobile();
   const [expandedAlbumId, setExpandedAlbumId] = useState(0);
   const { listRef, columnCount } = useGridColumnCount();
-  const { data: { albums, total } = { albums: [], total: 0 }, refetch: refetchAlbums } = useRecentlyAdded();
+  const { data: { albums, total } = { albums: [], total: 0 } } = useRecentlyAddedAlbums();
   const expandedAlbum = expandedAlbumId > 0 ? (albums.find((album) => album.id === expandedAlbumId) ?? null) : null;
   const clickedIndex = albums.findIndex((item) => item.id === expandedAlbumId) ?? -1;
   let detailsInsertIndex =
@@ -66,11 +37,7 @@ export default function RecentlyAddedPage() {
               {expandedAlbumId > 0 && (
                 <li className="album-details col-span-full flex flex-col grow">
                   {expandedAlbum && (
-                    <AlbumStandaloneDetails
-                      albumId={expandedAlbumId}
-                      onClose={() => toggleAlbum(expandedAlbumId)}
-                      onEdit={() => refetchAlbums()}
-                    />
+                    <AlbumStandaloneDetails albumId={expandedAlbumId} onClose={() => toggleAlbum(expandedAlbumId)} />
                   )}
                 </li>
               )}
@@ -112,7 +79,7 @@ export default function RecentlyAddedPage() {
                     </li>
                     {shouldInsertDetails && (
                       <li className="album-details col-span-full mt-4">
-                        <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={() => refetchAlbums()} />
+                        <AlbumExpandedDetails albumId={expandedAlbumId} />
                       </li>
                     )}
                   </Fragment>

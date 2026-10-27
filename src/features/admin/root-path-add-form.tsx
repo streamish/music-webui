@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
 import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
-import { useQuery } from '@tanstack/react-query';
+import { useAccounts } from './api/admin';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
@@ -39,25 +39,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-function useListAccounts() {
-  return useQuery({
-    queryKey: ['admin', 'user-accounts'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-accounts');
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No user accounts returned');
-      }
-      return data.accounts;
-    },
-  });
-}
-
 export function RootPathAddForm() {
   const [open, setOpen] = useState(false);
-  const { data: accounts = [] } = useListAccounts();
+  const { data: accounts = [] } = useAccounts();
   const {
     control,
     formState: { errors },

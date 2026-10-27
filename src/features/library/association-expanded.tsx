@@ -26,7 +26,7 @@ export function AssociationExpanded({
         {association && (
           <>
             <FavoriteControls association={association} />
-            <AssociationEditForm association={association} associationType={associationType} onSave={() => {}} />
+            <AssociationEditForm association={association} associationType={associationType} />
           </>
         )}
       </div>

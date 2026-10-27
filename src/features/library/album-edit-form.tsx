@@ -7,6 +7,7 @@ import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useInvalidateLibrary } from './api/invalidate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
 import z from 'zod/v3';
@@ -41,7 +42,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 type Album = components['schemas']['LibraryAlbumDto'];
 
-export function AlbumEditForm({ album, onSave, className }: { album: Album; onSave: () => void; className?: string }) {
+export function AlbumEditForm({ album, className }: { album: Album; className?: string }) {
+  const invalidateLibrary = useInvalidateLibrary();
   const [open, setOpen] = useState(false);
   const {
     formState: { errors },
@@ -82,7 +84,7 @@ export function AlbumEditForm({ album, onSave, className }: { album: Album; onSa
       if (result.data?.success) {
         toast.success('Album updated successfully.');
         setOpen(false);
-        onSave();
+        invalidateLibrary();
         return;
       }
       if (result.error) {

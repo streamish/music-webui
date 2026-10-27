@@ -11,10 +11,9 @@ import { Fragment, useCallback, useRef } from 'react';
 import { IconCard } from '@/components/icon-card';
 import { TrackTable } from '@/features/library/track-table';
 import { TreeListItem } from '@/features/library/folder-list-item';
+import { useFolders } from '@/features/library/api/folders';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
 import type { components } from '@/types/api-schema';
 
 type Folder = components['schemas']['LibraryFolderDto'];
@@ -38,32 +37,10 @@ function findBreadCrumb(id: number, items: Folder[], path: Folder[] = []): Folde
   return null;
 }
 
-function useFolders(path: string) {
-  return useQuery({
-    queryKey: ['folders', path],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-folder-contents', {
-        params: {
-          query: {
-            path,
-          },
-        },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data?.folder?.children?.length) {
-        throw new Error('No folders received');
-      }
-      return data.folder.children;
-    },
-  });
-}
-
 export default function FoldersPage() {
   const navigate = useNavigate();
   const { folderId, '*': folderSlug } = useParams<{ folderId: string; '*': string }>();
-  const { data: folders = [], refetch: refetchFolders } = useFolders(`/${folderSlug || ''}`);
+  const { data: folders = [] } = useFolders(`/${folderSlug || ''}`);
   const { isMobile } = useIsMobile();
   const listRef = useRef(null);
   const expandedItemId = Number(folderId) ?? null;
@@ -146,7 +123,7 @@ export default function FoldersPage() {
                       key={`mobile-album ${item.fullPath}`}
                       aria-label={`Track item ${index + 1}`}
                     >
-                      <TreeListItem item={item} onToggle={() => toggleFolder(item)} onEdit={refetchFolders} />
+                      <TreeListItem item={item} onToggle={() => toggleFolder(item)} />
                     </li>
                   );
                 })}
@@ -180,7 +157,7 @@ export default function FoldersPage() {
         )}
         {tracks.length > 0 && (
           <div className="w-full px-4">
-            <TrackTable tracks={tracks} onEdit={refetchFolders} />
+            <TrackTable tracks={tracks} />
           </div>
         )}
       </div>

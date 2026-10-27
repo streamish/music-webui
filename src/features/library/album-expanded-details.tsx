@@ -4,30 +4,11 @@ import { AlbumTrackList } from './album-track-list';
 import { FavoriteControls } from './favorite-controls';
 import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
+import { useAlbum } from '@/features/library/api/albums';
 import { useMemo, useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
 
-function useAlbum(id: number) {
-  return useQuery({
-    queryKey: ['album', id],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/retrieve-album', {
-        params: { query: { id } },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No album returned');
-      }
-      return data.album;
-    },
-  });
-}
-
-export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onEdit: () => void }) {
-  const { data: album, refetch } = useAlbum(albumId);
+export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
+  const { data: album } = useAlbum(albumId);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const selectedColor = album?.coverImageMuted || '#000000';
   const contrastingColor = album?.coverImageDarkMuted || '#000000';
@@ -42,10 +23,6 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
       });
     }
   }
-  const handleEdit = () => {
-    refetch();
-    onEdit();
-  };
   if (!album) {
     return null;
   }
@@ -128,15 +105,9 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
             <h3 className="font-semibold text-2xl">
               {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
               <FavoriteControls album={album} />
-              <AlbumEditForm album={album} onSave={handleEdit} />
+              <AlbumEditForm album={album} />
             </h3>
-            <PlayControls
-              tracks={album.tracks}
-              album={album}
-              textLabels={true}
-              hideRatingButtons={true}
-              onEdit={handleEdit}
-            />
+            <PlayControls tracks={album.tracks} album={album} textLabels={true} hideRatingButtons={true} />
             <PlayControls
               tracks={album.tracks}
               album={album}
@@ -145,7 +116,6 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
               hideQueueButtons={true}
               textLabels={true}
               className="mb-2"
-              onEdit={() => {}}
             />
             <div className="lg:grid lg:grid-rows-2 2xl:grid-rows-none 2xl:grid-cols-2 gap-0 2xl:gap-20">
               {trackGroups.map((trackGroup, index) => {
@@ -154,7 +124,7 @@ export function AlbumExpandedDetails({ albumId, onEdit }: { albumId: number; onE
                     {showDiscTitle && (
                       <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>
                     )}
-                    <AlbumTrackList key={index} tracks={trackGroup} onEdit={handleEdit} />
+                    <AlbumTrackList key={index} tracks={trackGroup} />
                   </div>
                 );
               })}

@@ -5,7 +5,7 @@ import type { components } from '@/types/api-schema';
 
 type Track = components['schemas']['LibraryTrackDto'];
 
-export function AlbumTrackList({ tracks, onEdit }: { tracks: Track[]; onEdit: () => void }) {
+export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
   return (
     <ol>
       {tracks.map((track) => (
@@ -30,7 +30,6 @@ export function AlbumTrackList({ tracks, onEdit }: { tracks: Track[]; onEdit: ()
                 hideEditButton={true}
                 hideRatingButtons={true}
                 className="inline-block"
-                onEdit={onEdit}
               />
               <FavoriteControls track={track} />
             </span>

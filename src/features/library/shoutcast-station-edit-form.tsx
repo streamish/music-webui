@@ -7,6 +7,7 @@ import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useInvalidateLibrary } from './api/invalidate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
 import z from 'zod/v3';
@@ -30,7 +31,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 type Station = components['schemas']['LibraryShoutcastStationDto'];
 
-export function ShoutcastStationEditForm({ station, onSave }: { station: Station; onSave: () => void }) {
+export function ShoutcastStationEditForm({ station }: { station: Station }) {
+  const invalidateLibrary = useInvalidateLibrary();
   const [open, setOpen] = useState(false);
   const {
     formState: { errors },
@@ -68,7 +70,7 @@ export function ShoutcastStationEditForm({ station, onSave }: { station: Station
       if (result.data?.success) {
         toast.success('Station updated successfully.');
         setOpen(false);
-        onSave();
+        invalidateLibrary();
         return;
       }
       if (result.error) {

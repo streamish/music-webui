@@ -8,7 +8,7 @@ import type { components } from '@/types/api-schema';
 type Album = components['schemas']['LibraryAlbumWithTracksDto'];
 type Track = components['schemas']['LibraryAlbumWithTracksDto']['tracks'][number];
 
-export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; tracks?: Track[]; onEdit: () => void }) {
+export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Track[] }) {
   const { isMobile } = useIsMobile();
   const trackList = tracks || (albums?.flatMap((album) => album.tracks) ?? []);
   return (
@@ -42,7 +42,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
                 <td className="px-2 py-1 text-left">
-                  <PlayControls tracks={[track]} onEdit={onEdit} />
+                  <PlayControls tracks={[track]} />
                 </td>
               </tr>
             ))}
@@ -84,7 +84,6 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                     <FavoriteControls track={track} />
                     <PlayControls
                       tracks={[track]}
-                      onEdit={onEdit}
                       hidePlayButton={true}
                       hideQueueButtons={true}
                       hideRatingButtons={true}
@@ -133,7 +132,7 @@ export function TrackTable({ albums, tracks, onEdit }: { albums?: Album[]; track
                 <td>
                   <div className="flex flex-row">
                     <FavoriteControls track={track} />
-                    <PlayControls tracks={[track]} onEdit={onEdit} hidePlayButton={true} hideRatingButtons={true} />
+                    <PlayControls tracks={[track]} hidePlayButton={true} hideRatingButtons={true} />
                   </div>
                 </td>
               </tr>

@@ -1,27 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { DownloadIcon, LogsIcon } from 'lucide-react';
 import { memo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
-
-function useListIndexerLogs() {
-  return useQuery({
-    queryKey: ['admin', 'indexer-logs'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-user-indexer-logs');
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No indexer logs returned');
-      }
-      return data.logs;
-    },
-  });
-}
+import { useUserIndexerLogs } from './api/admin';
 
 export const IndexerLogsTable = memo(() => {
-  const { data: indexerLogs = [] } = useListIndexerLogs();
+  const { data: indexerLogs = [] } = useUserIndexerLogs();
 
   const handleViewRaw = async () => {
     let maximumDateLength = 0;

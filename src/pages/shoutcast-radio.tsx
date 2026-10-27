@@ -17,57 +17,8 @@ import { formatSlug } from '@/utils/format';
 import { memo, useCallback } from 'react';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
+import { useShoutcastFavorites, useShoutcastGenres, useShoutcastStations } from '@/features/library/api/shoutcast';
 import type { LucideIcon } from 'lucide-react';
-
-function useShoutcastGenres() {
-  return useQuery({
-    queryKey: ['shoutcast-genres'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-shoutcast-genres');
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No genres returned');
-      }
-      return data.genres;
-    },
-  });
-}
-
-function useShoutcastStations() {
-  return useQuery({
-    queryKey: ['shoutcast-stations'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-shoutcast-stations');
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No stations returned');
-      }
-      return data.stations;
-    },
-  });
-}
-
-function useFavorites() {
-  return useQuery({
-    queryKey: ['shoutcast-favorites'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-favorites');
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No favorites returned');
-      }
-      return data.favorites.filter((favorite) => favorite.shoutcastStation?.id);
-    },
-  });
-}
 
 type ContainerType = 'stations' | 'favorites' | 'genres';
 
@@ -87,9 +38,9 @@ export default memo(() => {
   const navigate = useNavigate();
   const { isMobile } = useIsMobile();
   const { container: containerParam, genreId: genreParam } = useParams<{ container: string; genreId?: string }>();
-  const { data: favorites, refetch: refetchFavorites } = useFavorites();
-  const { data: stations, refetch: refetchStations } = useShoutcastStations();
-  const { data: genres, refetch: refetchGenres } = useShoutcastGenres();
+  const { data: favorites } = useShoutcastFavorites();
+  const { data: stations } = useShoutcastStations();
+  const { data: genres } = useShoutcastGenres();
   const containers: ShoutcastContainer[] = [
     { name: 'My stations', type: 'stations', icon: Music },
     { name: 'My favorites', type: 'favorites', icon: Heart },
@@ -139,18 +90,6 @@ export default memo(() => {
         return [];
     }
   })();
-
-  const refreshData = useCallback(() => {
-    switch (expandedContainer) {
-      case 'stations':
-        return refetchStations();
-      case 'favorites':
-        return refetchFavorites();
-      case 'genres':
-      default:
-        return refetchGenres();
-    }
-  }, [expandedContainer, refetchFavorites, refetchStations, refetchGenres]);
 
   const toggleContainer = useCallback(
     (item: ShoutcastContainer) => {
@@ -237,11 +176,11 @@ export default memo(() => {
                     >
                       {expandedGenre.name}
                     </BreadcrumbLink>
-                    <ShoutcastGenreEditForm genre={expandedGenre} onSave={refreshData} />
+                    <ShoutcastGenreEditForm genre={expandedGenre} />
                   </BreadcrumbItem>
                 </BreadcrumbList>
               </Breadcrumb>
-              <ShoutcastOnlineStationsTable genreId={expandedGenreId} onEdit={refreshData} />
+              <ShoutcastOnlineStationsTable genreId={expandedGenreId} />
             </>
           )}
           {/* Container details */}
@@ -273,12 +212,7 @@ export default memo(() => {
                                 key={`mobile-shoutcast ${item.id}-${index}`}
                                 aria-label={`Shoutcast ${item.type} ${item.name}`}
                               >
-                                <ShoutcastItemListItem
-                                  icon={item.icon}
-                                  text={item.name}
-                                  allowEdit={true}
-                                  onEdit={refreshData}
-                                />
+                                <ShoutcastItemListItem icon={item.icon} text={item.name} allowEdit={true} />
                               </li>
                             );
                           })}
@@ -333,7 +267,6 @@ export default memo(() => {
                         type: ShoutcastItemTypeEnum.station,
                       };
                     })}
-                    onEdit={refreshData}
                   />
                 </>
               )}

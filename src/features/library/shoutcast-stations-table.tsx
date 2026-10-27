@@ -4,7 +4,7 @@ import type { components } from '@/types/api-schema';
 
 type Station = components['schemas']['LibraryShoutcastStationDto'];
 
-export function ShoutcastStationsTable({ stations, onEdit }: { stations: Station[]; onEdit: () => void }) {
+export function ShoutcastStationsTable({ stations }: { stations: Station[] }) {
   return (
     <table className="w-full border-collapse">
       <tbody>
@@ -17,7 +17,7 @@ export function ShoutcastStationsTable({ stations, onEdit }: { stations: Station
             <td className="px-2 py-1 text-left">
               <div className="flex flex-row">
                 <span className="text-md">{station.title}</span>
-                <PlayControls station={station} hideQueueButtons={true} onEdit={onEdit} />
+                <PlayControls station={station} hideQueueButtons={true} />
                 <FavoriteControls station={station} />
               </div>
             </td>

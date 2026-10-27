@@ -12,28 +12,11 @@ import { DownloadIcon, LogsIcon, RefreshCcwIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { formatDateToRelative } from '@/utils/format';
 import { memo } from 'react';
+import { useIndexerLogs } from './api/account';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
-
-function useListIndexerLogs() {
-  return useQuery({
-    queryKey: ['admin', 'indexer-logs'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-indexer-logs');
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No indexer logs returned');
-      }
-      return data.logs;
-    },
-  });
-}
 
 export const IndexerLogsTable = memo(() => {
-  const { data: indexerLogs = [], isLoading: indexerLogsLoading, refetch: listIndexerLogs } = useListIndexerLogs();
+  const { data: indexerLogs = [], isLoading: indexerLogsLoading, refetch: listIndexerLogs } = useIndexerLogs();
   const { isMobile } = useIsMobile();
 
   const handleRefresh = async () => {

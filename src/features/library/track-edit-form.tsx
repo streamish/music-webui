@@ -7,6 +7,7 @@ import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useInvalidateLibrary } from './api/invalidate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
 import z from 'zod/v3';
@@ -46,7 +47,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 type Track = components['schemas']['LibraryTrackDto'];
 
-export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => void }) {
+export function TrackEditForm({ track }: { track: Track }) {
+  const invalidateLibrary = useInvalidateLibrary();
   const [open, setOpen] = useState(false);
   const {
     formState: { errors },
@@ -102,7 +104,7 @@ export function TrackEditForm({ track, onSave }: { track: Track; onSave: () => v
       if (result.data?.success) {
         toast.success('Track updated successfully.');
         setOpen(false);
-        onSave();
+        invalidateLibrary();
         return;
       }
       if (result.error) {
