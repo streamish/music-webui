@@ -7,8 +7,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { accountKeys } from './api/account';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import api from '@/lib/api';
 
@@ -17,7 +19,8 @@ type RootPathDto = {
   rootPath: string;
 };
 
-export function RootPathDeleteForm({ rootPath, onSave }: { rootPath: RootPathDto; onSave: () => void }) {
+export function RootPathDeleteForm({ rootPath }: { rootPath: RootPathDto }) {
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const { handleSubmit } = useForm();
 
@@ -32,7 +35,7 @@ export function RootPathDeleteForm({ rootPath, onSave }: { rootPath: RootPathDto
       });
       if (result.data?.success) {
         toast.success('Root path deleted successfully.');
-        onSave();
+        queryClient.invalidateQueries({ queryKey: accountKeys.rootPaths() });
         setOpen(false);
         return;
       }

@@ -13,27 +13,10 @@ import { Separator } from '@/components/ui/separator';
 import { formatNumber, formatSize } from '@/utils/format';
 import { memo } from 'react';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
-
-function useListRootPaths() {
-  return useQuery({
-    queryKey: ['admin', 'root-paths'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-user-root-paths');
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No root paths returned');
-      }
-      return data.rootPaths;
-    },
-  });
-}
+import { useUserRootPaths } from './api/admin';
 
 export const RootPathTable = memo(() => {
-  const { data: rootPaths = [], isLoading } = useListRootPaths();
+  const { data: rootPaths = [], isLoading } = useUserRootPaths();
   const { isMobile } = useIsMobile();
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
   const dummyRows = [

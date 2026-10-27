@@ -21,7 +21,6 @@ export function PlayControls({
   station,
   textLabels,
   tracks,
-  onEdit,
 }: {
   album?: Album;
   className?: string;
@@ -32,7 +31,6 @@ export function PlayControls({
   station?: Station;
   textLabels?: boolean;
   tracks?: Track[];
-  onEdit?: () => void;
 }) {
   const { addToQueue, clearQueue, playStation, togglePlay } = useQueueActions();
   const [autoPlay, setAutoPlay] = useState(false);
@@ -63,14 +61,14 @@ export function PlayControls({
   const [EditForm, setEditForm] = useState<JSX.Element>(<></>);
 
   useEffect(() => {
-    if (tracks?.length && onEdit) {
-      setEditForm(<TrackEditForm track={tracks[0]} onSave={onEdit} />);
-    } else if (station && onEdit) {
-      setEditForm(<ShoutcastStationEditForm station={station} onSave={onEdit} />);
+    if (tracks?.length) {
+      setEditForm(<TrackEditForm track={tracks[0]} />);
+    } else if (station) {
+      setEditForm(<ShoutcastStationEditForm station={station} />);
     } else {
       setEditForm(<></>);
     }
-  }, [tracks, station, onEdit]);
+  }, [tracks, station]);
 
   return (
     <menu className={`opacity-75 flex flex-row ${className || ''}`}>

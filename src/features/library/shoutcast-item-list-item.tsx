@@ -5,12 +5,10 @@ export function ShoutcastItemListItem({
   text,
   icon: Icon,
   allowEdit,
-  onEdit,
 }: {
   text: string;
   icon: LucideIcon;
   allowEdit: boolean;
-  onEdit: () => void;
 }) {
   return (
     <div className="w-full p-0 m-0 border-transparent rounded-lg text-left transition-colors">
@@ -31,12 +29,7 @@ export function ShoutcastItemListItem({
         <div className="flex flex-col justify-between">
           <h3 className="text-sm text-foreground/80">{text}</h3>
           <div className="text-right">
-            <PlayControls
-              onEdit={onEdit}
-              hideEditButton={!allowEdit}
-              hideQueueButtons={true}
-              hideRatingButtons={true}
-            />
+            <PlayControls hideEditButton={!allowEdit} hideQueueButtons={true} hideRatingButtons={true} />
           </div>
         </div>
       </div>

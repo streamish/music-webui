@@ -13,6 +13,7 @@ import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useInvalidateLibrary } from './api/invalidate';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
 import z from 'zod/v3';
@@ -38,12 +39,11 @@ type Association = components['schemas']['LibraryAssociationDto'];
 export function AssociationEditForm({
   association,
   associationType,
-  onSave,
 }: {
   association: Association;
   associationType: AssociationTypeEnum;
-  onSave: () => void;
 }) {
+  const invalidateLibrary = useInvalidateLibrary();
   const [open, setOpen] = useState(false);
   const {
     formState: { errors },
@@ -79,7 +79,7 @@ export function AssociationEditForm({
       if (result.data?.success) {
         toast.success('Association updated successfully.');
         setOpen(false);
-        onSave();
+        invalidateLibrary();
         return;
       }
       if (result.error) {

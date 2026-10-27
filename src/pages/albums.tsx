@@ -6,34 +6,11 @@ import { Fragment, useCallback, useEffect } from 'react';
 import { PageHeader } from '@/layouts/user-layout';
 import { PaginationControls } from '@/components/pagination-controls';
 import { formatSlug } from '@/utils/format';
+import { useAlbums } from '@/features/library/api/albums';
 import { useGridColumnCount } from '@/hooks/use-grid-column-count';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 import { usePreferences } from '@/hooks/use-preferences';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
-import type { paths } from 'src/types/api-schema';
-
-function useAlbums(params: paths['/api/list-albums']['get']['parameters']['query']) {
-  return useQuery({
-    queryKey: ['albums', params],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-albums', {
-        params: { query: params },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No albums returned');
-      }
-      return {
-        albums: data.albums,
-        total: data.total,
-      };
-    },
-  });
-}
 
 export default function AlbumsPage() {
   const navigate = useNavigate();
@@ -48,7 +25,7 @@ export default function AlbumsPage() {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
   };
-  const { data: { albums, total } = { albums: [], total: 0 }, refetch: refetchAlbums } = useAlbums(query);
+  const { data: { albums, total } = { albums: [], total: 0 } } = useAlbums(query);
   const expandedAlbumId = albumId ? Number(albumId) : null;
   const expandedAlbum =
     expandedAlbumId !== null ? (albums.find((album) => album.id === expandedAlbumId) ?? null) : null;
@@ -120,11 +97,7 @@ export default function AlbumsPage() {
               {expandedAlbumId && (
                 <li className="album-details col-span-full flex flex-col grow">
                   {expandedAlbum && (
-                    <AlbumStandaloneDetails
-                      albumId={expandedAlbumId}
-                      onClose={() => toggleAlbum(expandedAlbumId)}
-                      onEdit={() => refetchAlbums()}
-                    />
+                    <AlbumStandaloneDetails albumId={expandedAlbumId} onClose={() => toggleAlbum(expandedAlbumId)} />
                   )}
                 </li>
               )}
@@ -166,7 +139,7 @@ export default function AlbumsPage() {
                     </li>
                     {shouldInsertDetails && (
                       <li className="album-details col-span-full mt-4">
-                        <AlbumExpandedDetails albumId={expandedAlbumId} onEdit={() => refetchAlbums()} />
+                        <AlbumExpandedDetails albumId={expandedAlbumId} />
                       </li>
                     )}
                   </Fragment>

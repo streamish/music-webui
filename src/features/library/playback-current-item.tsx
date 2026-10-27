@@ -1,29 +1,8 @@
 import { AlbumIconImage } from '@/features/library/album-icon-image';
 import { RadioIcon } from 'lucide-react';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
-import { useQuery } from '@tanstack/react-query';
+import { useCurrentPlaying } from './api/shoutcast';
 import { useQueueData, useQueuePlayback } from './queue';
-import api from '@/lib/api';
-
-export function useCurrentPlaying(shoutcastStationUrl: string) {
-  return useQuery({
-    enabled: !!shoutcastStationUrl,
-    refetchInterval: 1000 * 10,
-    queryKey: ['current-playing', shoutcastStationUrl],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/retrieve-shoutcast-playing', {
-        params: { query: { shoutcastStationUrl } },
-      });
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No album returned');
-      }
-      return data.title || 'Unknown Title';
-    },
-  });
-}
 
 export function PlaybackCurrentItem() {
   const { queue, currentIndex } = useQueueData();

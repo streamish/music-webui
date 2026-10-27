@@ -13,28 +13,11 @@ import { UserDeleteForm } from './user-delete-form';
 import { UserResetPasswordForm } from './user-reset-password-form';
 import { UserRotateSessionKeyForm } from './user-rotate-session-key-form';
 import { UserUpdateRolesForm } from './user-update-roles-form';
+import { useAccounts } from './api/admin';
 import { useIsMobile } from '@/hooks/use-is-mobile';
-import { useQuery } from '@tanstack/react-query';
-import api from '@/lib/api';
-
-function useListAccounts() {
-  return useQuery({
-    queryKey: ['admin', 'user-accounts'],
-    queryFn: async () => {
-      const { data, error } = await api.get('/api/list-accounts');
-      if (error) {
-        throw new Error(error.error);
-      }
-      if (!data) {
-        throw new Error('No user accounts returned');
-      }
-      return data.accounts;
-    },
-  });
-}
 
 export function UserTable() {
-  const { data: accounts = [], isLoading, refetch: refetchAccounts } = useListAccounts();
+  const { data: accounts = [], isLoading } = useAccounts();
   const { isMobile } = useIsMobile();
 
   const cellFiller = (opacity: number) => <span className={`bg-foreground/${opacity} h-8 w-full block`} />;
@@ -93,7 +76,7 @@ export function UserTable() {
                   {account.id > 0 ? (
                     <>
                       <UserRotateSessionKeyForm user={account} />
-                      <UserUpdateRolesForm user={account} onSave={() => refetchAccounts()} />
+                      <UserUpdateRolesForm user={account} />
                       <UserResetPasswordForm user={account} />
                       <UserDeleteForm user={account} />
                     </>
@@ -142,7 +125,7 @@ export function UserTable() {
                     {account.id > 0 ? (
                       <div className="flex gap-2 whitespace-nowrap">
                         <UserRotateSessionKeyForm user={account} className="mr-4" />
-                        <UserUpdateRolesForm user={account} onSave={() => refetchAccounts()} className="mr-4" />
+                        <UserUpdateRolesForm user={account} className="mr-4" />
                         <UserResetPasswordForm user={account} className="mr-4" />
                         <UserDeleteForm user={account} className="mr-4" />
                       </div>

@@ -13,7 +13,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { UserRoleEnum } from '@/types/api-schema';
+import { adminKeys } from './api/admin';
 import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
@@ -40,15 +42,8 @@ type AccountDto = {
   roles: UserRoleEnum[];
 };
 
-export function UserUpdateRolesForm({
-  user,
-  className,
-  onSave,
-}: {
-  user: AccountDto;
-  className?: string;
-  onSave: () => void;
-}) {
+export function UserUpdateRolesForm({ user, className }: { user: AccountDto; className?: string }) {
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const {
     control,
@@ -78,7 +73,7 @@ export function UserUpdateRolesForm({
       });
       if (result.data?.success) {
         toast.success('User roles updated successfully.');
-        onSave();
+        queryClient.invalidateQueries({ queryKey: adminKeys.accounts() });
         setOpen(false);
         return;
       }
