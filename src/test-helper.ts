@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import createClient from 'openapi-fetch';
 import type { components, paths } from './types/api-schema';
 
@@ -104,6 +105,7 @@ export class AdminApi {
 }
 
 export class TestApi {
+  // eslint-disable-next-line class-methods-use-this
   async deleteUser(accountId: number): Promise<void> {
     const { error } = await api.DELETE('/api/test/delete-test-account', {
       params: {
@@ -114,6 +116,8 @@ export class TestApi {
       throw new Error(`Failed to delete user: ${JSON.stringify(error)}`);
     }
   }
+
+  // eslint-disable-next-line class-methods-use-this
   async duplicateUser(
     username: string,
     userData: components['schemas']['DuplicateTestAccountBodyDto'],

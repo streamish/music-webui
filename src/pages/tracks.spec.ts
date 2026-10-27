@@ -1,6 +1,7 @@
-import { ADMIN_PASSWORD, ADMIN_USERNAME, TestApi, USER_PASSWORD, USER_USERNAME } from '../test-helper';
+import { ADMIN_PASSWORD, ADMIN_USERNAME, USER_PASSWORD, USER_USERNAME } from '../test-helper';
 import { Pom } from '../playwright.pom';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '../test-fixtures';
+import type { Page } from '@playwright/test';
 
 function waitForTrackRequest(page: Page, limit: number, offset: number) {
   return page.waitForResponse((response) => {
@@ -216,9 +217,8 @@ test.describe('tracks', () => {
   });
 
   test.describe('editing tracks', () => {
-    test('should update track details', async ({ page }) => {
+    test('should update track details', async ({ page, testApi }) => {
       const newUsername = `tracks-edit-track-${Date.now()}`;
-      const testApi = new TestApi();
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
         newUsername,
       });
@@ -240,14 +240,12 @@ test.describe('tracks', () => {
       await expect(
         page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
       ).toBeDefined();
-      await testApi.deleteUser(newAccountId);
     });
   });
 
   test.describe('rating tracks', () => {
-    test('should rate track', async ({ page }) => {
+    test('should rate track', async ({ page, testApi }) => {
       const newUsername = `tracks-rating-track-${Date.now()}`;
-      const testApi = new TestApi();
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
         newUsername,
       });
@@ -258,7 +256,6 @@ test.describe('tracks', () => {
       await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
       await page.waitForLoadState('networkidle');
       await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
-      await testApi.deleteUser(newAccountId);
     });
   });
 });

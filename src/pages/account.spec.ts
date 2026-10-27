@@ -1,10 +1,10 @@
 import { ADMIN_PASSWORD, ADMIN_USERNAME, AdminApi } from '../test-helper';
 import { Pom } from '../playwright.pom';
+import { UserRoleEnum } from '@/types/api-schema';
 import { expect, test } from '@playwright/test';
 import { join } from 'node:path';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { UserRoleEnum } from '@/types/api-schema';
 
 test.describe('account preferences', () => {
   const deleteUsers: number[] = [];

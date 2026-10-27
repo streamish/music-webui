@@ -1,6 +1,7 @@
-import { ADMIN_PASSWORD, ADMIN_USERNAME, TestApi, USER_PASSWORD, USER_USERNAME } from '../test-helper';
+/* eslint-disable no-await-in-loop */
+import { ADMIN_PASSWORD, ADMIN_USERNAME, USER_PASSWORD, USER_USERNAME } from '../test-helper';
 import { Pom } from '../playwright.pom';
-import { expect, test } from '@playwright/test';
+import { expect, test } from '../test-fixtures';
 
 test.describe('associations', () => {
   let jwtToken: string | undefined;
@@ -51,7 +52,8 @@ test.describe('associations', () => {
         const isResponsive = await pom.isResponsive();
         await pom.navigateToAlbumArtists();
         await page.getByLabel('Browse Artist 1').click();
-        for (const album of albums) {
+        for (let i = 0, len = albums.length; i < len; i += 1) {
+          const album = albums[i];
           await page.getByLabel(album).click();
           await page.waitForSelector(`div[aria-label="Album details:  ${album}"]`);
           await expect(page.getByLabel(`Album details:  ${album}`)).toBeDefined();
@@ -209,9 +211,8 @@ test.describe('associations', () => {
     });
 
     test.describe('editing albums', () => {
-      test('should update album details', async ({ page }) => {
+      test('should update album details', async ({ page, testApi }) => {
         const newUsername = `albums-edit-album-${Date.now()}`;
-        const testApi = new TestApi();
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
           newUsername,
         });
@@ -231,14 +232,12 @@ test.describe('associations', () => {
         await expect(
           page.getByLabel(`Album details:  Playwright-associations Album 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
-        await testApi.deleteUser(newAccountId);
       });
     });
 
     test.describe('rating albums', () => {
-      test('should rate album', async ({ page }) => {
+      test('should rate album', async ({ page, testApi }) => {
         const newUsername = `albums-rating-album-${Date.now()}`;
-        const testApi = new TestApi();
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
           newUsername,
         });
@@ -252,7 +251,6 @@ test.describe('associations', () => {
         await page.click('button[aria-label="Rate this album with 5 stars"]');
         await page.waitForLoadState('networkidle');
         await expect(page.getByLabel('Rate this album with 5 stars')).toBeDefined();
-        await testApi.deleteUser(newAccountId);
       });
     });
   });
@@ -344,9 +342,8 @@ test.describe('associations', () => {
     });
 
     test.describe('editing tracks', () => {
-      test('should update track details', async ({ page }) => {
+      test('should update track details', async ({ page, testApi }) => {
         const newUsername = `tracks-edit-track-${Date.now()}`;
-        const testApi = new TestApi();
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
           newUsername,
         });
@@ -370,14 +367,12 @@ test.describe('associations', () => {
         await expect(
           page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
-        await testApi.deleteUser(newAccountId);
       });
     });
 
     test.describe('rating tracks', () => {
-      test('should rate track', async ({ page }) => {
+      test('should rate track', async ({ page, testApi }) => {
         const newUsername = `tracks-rating-track-${Date.now()}`;
-        const testApi = new TestApi();
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
           newUsername,
         });
@@ -389,7 +384,6 @@ test.describe('associations', () => {
         await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
         await page.waitForLoadState('networkidle');
         await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
-        await testApi.deleteUser(newAccountId);
       });
     });
   });
@@ -481,9 +475,8 @@ test.describe('associations', () => {
     });
 
     test.describe('editing tracks', () => {
-      test('should update track details', async ({ page }) => {
+      test('should update track details', async ({ page, testApi }) => {
         const newUsername = `tracks-edit-track-${Date.now()}`;
-        const testApi = new TestApi();
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
           newUsername,
         });
@@ -507,14 +500,12 @@ test.describe('associations', () => {
         await expect(
           page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
-        await testApi.deleteUser(newAccountId);
       });
     });
 
     test.describe('rating tracks', () => {
-      test('should rate track', async ({ page }) => {
+      test('should rate track', async ({ page, testApi }) => {
         const newUsername = `tracks-rating-track-${Date.now()}`;
-        const testApi = new TestApi();
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
           newUsername,
         });
@@ -526,7 +517,6 @@ test.describe('associations', () => {
         await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
         await page.waitForLoadState('networkidle');
         await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
-        await testApi.deleteUser(newAccountId);
       });
     });
   });
@@ -618,9 +608,8 @@ test.describe('associations', () => {
     });
 
     test.describe('editing tracks', () => {
-      test('should update track details', async ({ page }) => {
+      test('should update track details', async ({ page, testApi }) => {
         const newUsername = `tracks-edit-track-${Date.now()}`;
-        const testApi = new TestApi();
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
           newUsername,
         });
@@ -644,14 +633,12 @@ test.describe('associations', () => {
         await expect(
           page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
         ).toBeDefined();
-        await testApi.deleteUser(newAccountId);
       });
     });
 
     test.describe('rating tracks', () => {
-      test('should rate track', async ({ page }) => {
+      test('should rate track', async ({ page, testApi }) => {
         const newUsername = `tracks-rating-track-${Date.now()}`;
-        const testApi = new TestApi();
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
           newUsername,
         });
@@ -663,7 +650,6 @@ test.describe('associations', () => {
         await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
         await page.waitForLoadState('networkidle');
         await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
-        await testApi.deleteUser(newAccountId);
       });
     });
   });

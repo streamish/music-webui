@@ -26,5 +26,12 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["vite.config.ts", "src/playwright.pom.ts", "playwright.config.ts", "src/**/*.spec.ts"]
+  "include": [
+    "vite.config.ts",
+    "playwright.config.ts",
+    "src/playwright.pom.ts",
+    "src/test-helper.ts",
+    "src/test-fixtures.ts",
+    "src/**/*.spec.ts"
+  ]
 }
