@@ -68,7 +68,7 @@ test.describe('albums', () => {
 
       const initialRequest = waitForAlbumRequest(page, 2, 2);
       await page.goto('/albums?page=2');
-      expect((await initialRequest).ok()).toBeTruthy();
+      expect((await initialRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=2$/);
       await expect(
         page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
@@ -76,7 +76,7 @@ test.describe('albums', () => {
 
       const refreshRequest = waitForAlbumRequest(page, 2, 2);
       await page.reload();
-      expect((await refreshRequest).ok()).toBeTruthy();
+      expect((await refreshRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=2$/);
       await expect(
         page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
@@ -94,7 +94,7 @@ test.describe('albums', () => {
 
       const pageRequest = waitForAlbumRequest(page, 2, 2);
       await page.goto('/albums?page=2');
-      expect((await pageRequest).ok()).toBeTruthy();
+      expect((await pageRequest).ok()).toBe(true);
 
       await page.getByLabel('Album 3 by Artist 2').click();
       await expect(page).toHaveURL(/\/albums\/\d+\/[^?]+\?page=2$/);
@@ -112,26 +112,26 @@ test.describe('albums', () => {
 
       const firstPageRequest = waitForAlbumRequest(page, 2, 0);
       await page.goto('/albums');
-      expect((await firstPageRequest).ok()).toBeTruthy();
+      expect((await firstPageRequest).ok()).toBe(true);
 
       const secondPageRequest = waitForAlbumRequest(page, 2, 2);
       await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }).click();
-      expect((await secondPageRequest).ok()).toBeTruthy();
+      expect((await secondPageRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=2$/);
 
       const thirdPageRequest = waitForAlbumRequest(page, 2, 4);
       await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '3' }).click();
-      expect((await thirdPageRequest).ok()).toBeTruthy();
+      expect((await thirdPageRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=3$/);
 
       const backRequest = waitForAlbumRequest(page, 2, 2);
       await page.goBack();
-      expect((await backRequest).ok()).toBeTruthy();
+      expect((await backRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=2$/);
 
       const forwardRequest = waitForAlbumRequest(page, 2, 4);
       await page.goForward();
-      expect((await forwardRequest).ok()).toBeTruthy();
+      expect((await forwardRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=3$/);
     });
 
@@ -153,7 +153,7 @@ test.describe('albums', () => {
 
       const pageRequest = waitForAlbumRequest(page, 100, 100);
       await page.goto('/albums?page=2');
-      expect((await pageRequest).ok()).toBeTruthy();
+      expect((await pageRequest).ok()).toBe(true);
     });
   });
 

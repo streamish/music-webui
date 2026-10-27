@@ -29,7 +29,7 @@ test.describe('tracks', () => {
 
       const initialRequest = waitForTrackRequest(page, 2, 2);
       await page.goto('/tracks?page=2');
-      expect((await initialRequest).ok()).toBeTruthy();
+      expect((await initialRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=2$/);
       await expect(
         page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
@@ -37,7 +37,7 @@ test.describe('tracks', () => {
 
       const refreshRequest = waitForTrackRequest(page, 2, 2);
       await page.reload();
-      expect((await refreshRequest).ok()).toBeTruthy();
+      expect((await refreshRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=2$/);
       await expect(
         page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
@@ -55,26 +55,26 @@ test.describe('tracks', () => {
 
       const firstPageRequest = waitForTrackRequest(page, 2, 0);
       await page.goto('/tracks');
-      expect((await firstPageRequest).ok()).toBeTruthy();
+      expect((await firstPageRequest).ok()).toBe(true);
 
       const secondPageRequest = waitForTrackRequest(page, 2, 2);
       await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }).click();
-      expect((await secondPageRequest).ok()).toBeTruthy();
+      expect((await secondPageRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=2$/);
 
       const thirdPageRequest = waitForTrackRequest(page, 2, 4);
       await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '3' }).click();
-      expect((await thirdPageRequest).ok()).toBeTruthy();
+      expect((await thirdPageRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=3$/);
 
       const backRequest = waitForTrackRequest(page, 2, 2);
       await page.goBack();
-      expect((await backRequest).ok()).toBeTruthy();
+      expect((await backRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=2$/);
 
       const forwardRequest = waitForTrackRequest(page, 2, 4);
       await page.goForward();
-      expect((await forwardRequest).ok()).toBeTruthy();
+      expect((await forwardRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=3$/);
     });
 
@@ -95,7 +95,7 @@ test.describe('tracks', () => {
       await expect(pageSize).toBe(1000);
       const pageRequest = waitForTrackRequest(page, pageSize, pageSize);
       await page.goto(`/tracks?page=2`);
-      expect((await pageRequest).ok()).toBeTruthy();
+      expect((await pageRequest).ok()).toBe(true);
     });
   });
 

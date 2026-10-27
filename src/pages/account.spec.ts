@@ -52,7 +52,7 @@ test.describe('account preferences', () => {
           await page.getByRole('list', { name: 'User accounts' });
           await page.locator('button', { hasText: 'Change password' }).click();
           await page.locator('button', { hasText: 'Set new password' }).click();
-          await expect(page.getByRole('main').filter({ hasText: 'Password is required' })).toBeTruthy();
+          await expect(page.getByRole('main').filter({ hasText: 'Password is required' })).toBeVisible();
         });
 
         test('should show error if confirmation password is blank', async ({ page }) => {
@@ -64,7 +64,7 @@ test.describe('account preferences', () => {
           await page.locator('button', { hasText: 'Change password' }).click();
           await page.locator('input[name="newPassword"]').fill('testpassword');
           await page.locator('button', { hasText: 'Set new password' }).click();
-          await expect(page.getByRole('main').filter({ hasText: 'Confirmation password is required' })).toBeTruthy();
+          await expect(page.getByRole('main').filter({ hasText: 'Confirmation password is required' })).toBeVisible();
         });
 
         test('should show error if confirmation password does not match', async ({ page }) => {
@@ -76,7 +76,7 @@ test.describe('account preferences', () => {
           await page.locator('input[name="newPassword"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('differentpassword');
           await page.locator('button', { hasText: 'Set new password' }).click();
-          await expect(page.getByRole('main').filter({ hasText: 'Passwords do not match' })).toBeTruthy();
+          await expect(page.getByRole('main').filter({ hasText: 'Passwords do not match' })).toBeVisible();
         });
       });
 
@@ -102,7 +102,7 @@ test.describe('account preferences', () => {
           await page2.locator('input[name="newPassword"]').fill('newpassword');
           await page2.locator('input[name="confirmPassword"]').fill('newpassword');
           await page2.locator('button', { hasText: 'Set new password' }).last().click();
-          await expect(page2.getByRole('main').filter({ hasText: 'Password reset successfully' })).toBeTruthy();
+          await expect(page2.getByRole('main').filter({ hasText: 'Password reset successfully' })).toBeVisible();
         });
       });
     });
@@ -132,7 +132,7 @@ test.describe('account preferences', () => {
           await page2.locator('button', { hasText: 'Save new path' }).click();
           await expect(
             page2.getByRole('main').filter({ hasText: 'The specified root path does not exist' }),
-          ).toBeTruthy();
+          ).toBeVisible();
         });
 
         test('should show error if root path already exists for account', async ({ page, browser }) => {
@@ -161,7 +161,7 @@ test.describe('account preferences', () => {
             page2
               .getByRole('main')
               .filter({ hasText: 'The specified root path has already been added to this account' }),
-          ).toBeTruthy();
+          ).toBeVisible();
         });
       });
 
@@ -188,7 +188,7 @@ test.describe('account preferences', () => {
           await page2.locator('button', { hasText: 'Add root path' }).click();
           await page2.locator('input[name="rootPath"]').fill(newPath);
           await page2.locator('button', { hasText: 'Save new path' }).click();
-          await expect(page2.getByRole('main').filter({ hasText: 'Root path added successfully' })).toBeTruthy();
+          await expect(page2.getByRole('main').filter({ hasText: 'Root path added successfully' })).toBeVisible();
         });
       });
     });
@@ -217,7 +217,7 @@ test.describe('account preferences', () => {
           await page2.locator('button', { hasText: 'End sessions' }).click();
           await expect(
             page2.getByRole('main').filter({ hasText: 'Session key regenerated successfully' }),
-          ).toBeTruthy();
+          ).toBeVisible();
         });
       });
     });
@@ -274,7 +274,7 @@ test.describe('account preferences', () => {
           await download.saveAs(join(downloadPath, download.suggestedFilename()));
           const filePath = join(downloadPath, download.suggestedFilename());
           const jsonData = JSON.parse(readFileSync(filePath, 'utf-8'));
-          expect(Array.isArray(jsonData)).toBeTruthy();
+          expect(Array.isArray(jsonData)).toBe(true);
         });
 
         test('should download logs as CSV', async ({ page, context }) => {
