@@ -4,7 +4,7 @@ type Track = components['schemas']['LibraryTrackDto'];
 
 /**
  * Splits an array of tracks into two halves.
- * @param {Track[]} tracks The array of tracks to split.
+ * @param tracks The array of tracks to split.
  * @returns An array containing two arrays each representing a half of the original tracks array.
  */
 export function splitInHalf(tracks: Track[]): Track[][] {
@@ -14,8 +14,8 @@ export function splitInHalf(tracks: Track[]): Track[][] {
 /**
  * Groups an array of tracks by their disc number if specified.  If unspecified or
  * if there is only one disc then a single group is returned.
- * @param {Track[]} tracks The array of tracks to group by disc number.
- * @returns {Track[][]} An array of track groups, each representing a disc.
+ * @param tracks The array of tracks to group by disc number.
+ * @returns An array of track-arrays grouped by disc number.
  */
 export function createTrackGroups(tracks: Track[]): Track[][] {
   if (tracks.length === 1) {
