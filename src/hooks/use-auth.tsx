@@ -1,4 +1,4 @@
-import { type ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { type ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import api from '@/lib/api';
 
 interface User {
@@ -6,19 +6,14 @@ interface User {
   roles: string[];
 }
 
-interface AuthContextType {
+interface AuthContextValue {
   user: User | null;
   loading: boolean;
-  clearSessionToken: () => void;
+  clearSessionToken: () => Promise<void>;
   login: (token: string, remember?: boolean) => void;
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  loading: true,
-  clearSessionToken: () => {},
-  login: () => {},
-});
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 function decodeToken(token: string): User | null {
   try {
@@ -51,14 +46,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(false);
   }, []);
 
-  const clearSessionToken = async () => {
+  const clearSessionToken = useCallback(async () => {
     await api.delete('/api/end-session');
     setUser(null);
     sessionStorage.removeItem('jwt-token');
     localStorage.removeItem('jwt-token');
-  };
+  }, []);
 
-  const login = (token: string, remember?: boolean) => {
+  const login = useCallback((token: string, remember?: boolean) => {
     const userData = decodeToken(token);
     if (userData) {
       setUser(userData);
@@ -76,14 +71,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         document.cookie = `token=${token}`;
       }
     }
-  };
+  }, []);
 
-  return <AuthContext.Provider value={{ user, loading, clearSessionToken, login }}>{children}</AuthContext.Provider>;
+  const value = useMemo(() => ({ user, loading, clearSessionToken, login }), [user, loading, clearSessionToken, login]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export function useAuth() {
+export function useAuth(): AuthContextValue {
   const context = useContext(AuthContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error('useAuth must be used within AuthProvider');
   }
   return context;
