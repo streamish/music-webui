@@ -7,7 +7,9 @@ type TestFixtures = {
 };
 
 export const test = base.extend<TestFixtures>({
-  testApi: async (_, use) => {
+  // Playwright requires fixture arguments to use object destructuring, even when none are needed.
+  // eslint-disable-next-line no-empty-pattern
+  testApi: async ({}, use) => {
     const api = new TestApi();
     const createdAccountIds: number[] = [];
     const testApi: TestFixtures['testApi'] = {
