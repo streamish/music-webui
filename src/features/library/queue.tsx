@@ -72,12 +72,6 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
   }, [queue]);
 
   const playTrack = useCallback((track: Track, tracks: Track[] = [track]) => {
-    // clear any radio playing
-    if (queue.length === 1 && 'url' in queue[0]) {
-      setQueue([]);
-      setCurrentIndex(-1);
-    }
-    // play the track
     const index = tracks.findIndex((item) => item.id === track.id);
     setQueue(tracks);
     setCurrentIndex(index >= 0 ? index : 0);
@@ -105,7 +99,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
         setCurrentIndex(0);
       }
     },
-    [queue.length, currentIndex],
+    [queue, currentIndex],
   );
 
   const addToQueue = useCallback((tracks: Track[], atStart = false) => {
@@ -197,23 +191,27 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isShuffling, currentIndex, queue.length, isRepeating, previousShuffledTrack]);
 
-  const seek = useCallback((seconds: number) => {
-    if (queue.length > 0 && 'url' in queue[0]) {
-      return;
-    }
-    if (audioRef.current) {
-      audioRef.current.currentTime = seconds;
-      setCurrentTime(seconds);
-    }
-  }, []);
+  const seek = useCallback(
+    (seconds: number) => {
+      if (queue.length > 0 && 'url' in queue[0]) {
+        return;
+      }
+      if (audioRef.current) {
+        audioRef.current.currentTime = seconds;
+        setCurrentTime(seconds);
+      }
+    },
+    [queue],
+  );
 
+  const currentItem = queue[currentIndex];
+
+  // Reload the source whenever the current item changes, including when the queue is replaced at the same index.
+  // isPlaying is intentionally read without being a dependency so toggling playback does not reload.
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || currentIndex < 0) {
-      return;
-    }
-    const queueItem = queue[currentIndex];
-    if (!queueItem) {
+    const queueItem = currentItem;
+    if (!audio || !queueItem) {
       return;
     }
     audio.pause();
@@ -230,15 +228,12 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
         setIsPlaying(false);
       });
     }
-  }, [currentIndex]);
+  }, [currentItem]);
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || currentIndex < 0) {
-      return;
-    }
-    const queueItem = queue[currentIndex];
-    if (!queueItem) {
+    const queueItem = currentItem;
+    if (!audio || !queueItem) {
       return;
     }
     if (isPlaying) {
@@ -251,7 +246,7 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     } else {
       audio.pause();
     }
-  }, [isPlaying, currentIndex]);
+  }, [isPlaying, currentItem]);
 
   useEffect(() => {
     const audio = audioRef.current;
