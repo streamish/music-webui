@@ -2,7 +2,7 @@ import { AlbumCard } from '@/features/library/album-card';
 import { AlbumExpandedDetails } from '@/features/library/album-expanded-details';
 import { AlbumListItem } from '@/features/library/album-list-item';
 import { AlbumStandaloneDetails } from '@/features/library/album-standalone-details';
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect } from 'react';
 import { PageHeader } from '@/layouts/user-layout';
 import { PaginationControls } from '@/components/pagination-controls';
 import { formatSlug } from '@/utils/format';
@@ -44,10 +44,10 @@ export default function AlbumsPage() {
   const { preferences } = usePreferences();
   const { pageSize } = preferences;
   const { listRef, columnCount } = useGridColumnCount();
-  const [query, setQuery] = useState({
+  const query = {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
-  });
+  };
   const { data: { albums, total } = { albums: [], total: 0 }, refetch: refetchAlbums } = useAlbums(query);
   const expandedAlbumId = albumId ? Number(albumId) : null;
   const expandedAlbum =
@@ -61,17 +61,24 @@ export default function AlbumsPage() {
     }
   }
 
-  const getAlbumUrl = (id: number) => {
-    const album = albums.find((item) => item.id === id);
-    return `/albums/${id}/${formatSlug(album?.title ?? '')}`;
-  };
+  const getAlbumUrl = useCallback(
+    (id: number) => {
+      const album = albums.find((item) => item.id === id);
+      const path = `/albums/${id}/${formatSlug(album?.title ?? '')}`;
+      return pageNumber > 1 ? `${path}?page=${pageNumber}` : path;
+    },
+    [albums, pageNumber],
+  );
 
   const toggleAlbum = useCallback(
     (id: number) => {
-      const newUrl = id === expandedAlbumId ? '/albums' : getAlbumUrl(id);
+      let newUrl = getAlbumUrl(id);
+      if (id === expandedAlbumId) {
+        newUrl = pageNumber > 1 ? `/albums?page=${pageNumber}` : '/albums';
+      }
       navigate(newUrl);
     },
-    [albums, expandedAlbumId, navigate],
+    [expandedAlbumId, getAlbumUrl, navigate, pageNumber],
   );
 
   const setPage = useCallback(
@@ -81,12 +88,6 @@ export default function AlbumsPage() {
         next.set('page', String(nextPage));
         return next;
       });
-      setQuery(() => {
-        return {
-          limit: pageSize,
-          offset: (nextPage - 1) * pageSize,
-        };
-      });
     },
     [setSearchParams],
   );
@@ -95,15 +96,12 @@ export default function AlbumsPage() {
     if (!expandedAlbum || expandedAlbumId === null) {
       return;
     }
-    let nextPath = expandedAlbumId === null ? '/track-albums' : getAlbumUrl(expandedAlbumId);
-    if (pageNumber > 1) {
-      nextPath += `?page=${pageNumber}`;
-    }
-    const currentPath = window.location.pathname;
+    const nextPath = getAlbumUrl(expandedAlbumId);
+    const currentPath = window.location.pathname + window.location.search;
     if (currentPath !== nextPath) {
       navigate(nextPath, { replace: true });
     }
-  }, [expandedAlbum, expandedAlbumId, navigate]);
+  }, [expandedAlbum, expandedAlbumId, getAlbumUrl, navigate]);
 
   return (
     <div className="relative">
