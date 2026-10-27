@@ -669,6 +669,176 @@ export type paths = {
     patch?: never;
     trace?: never;
   };
+  '/api/add-playlist-items': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description `POST` request to `/api/add-playlist-items` */
+    post: operations['ApiPlaylistsController_addPlaylistItems'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/create-playlist': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description `POST` request to `/api/create-playlist` */
+    post: operations['ApiPlaylistsController_createPlaylist'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/create-smart-playlist': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description `POST` request to `/api/create-smart-playlist` */
+    post: operations['ApiPlaylistsController_createSmartPlaylist'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/delete-playlist': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** @description `DELETE` request to `/api/delete-playlist` */
+    delete: operations['ApiPlaylistsController_deletePlaylist'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-playlist-items': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-playlist-items` */
+    get: operations['ApiPlaylistsController_listPlaylistItems'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/list-playlists': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/list-playlists` */
+    get: operations['ApiPlaylistsController_listPlaylists'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/move-playlist-item': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description `PATCH` request to `/api/move-playlist-item` */
+    patch: operations['ApiPlaylistsController_movePlaylistItem'];
+    trace?: never;
+  };
+  '/api/remove-playlist-items': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** @description `DELETE` request to `/api/remove-playlist-items` */
+    delete: operations['ApiPlaylistsController_removePlaylistItems'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/update-playlist': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description `PATCH` request to `/api/update-playlist` */
+    patch: operations['ApiPlaylistsController_updatePlaylist'];
+    trace?: never;
+  };
+  '/api/update-smart-playlist-rules': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description `PATCH` request to `/api/update-smart-playlist-rules` */
+    patch: operations['ApiPlaylistsController_updateSmartPlaylistRules'];
+    trace?: never;
+  };
   '/api/set-album-rating': {
     parameters: {
       query?: never;
@@ -1224,7 +1394,7 @@ export type paths = {
     patch: operations['ApiShoutcastController_updateStation'];
     trace?: never;
   };
-  '/cgi-bin/as_get_file_api.php': {
+  '/musicstation/api/as_get_file_api.php': {
     parameters: {
       query?: never;
       header?: never;
@@ -1246,7 +1416,7 @@ export type paths = {
     patch?: never;
     trace?: never;
   };
-  '/cgi-bin/as_localplayback.php': {
+  '/musicstation/api/as_localplayback.php': {
     parameters: {
       query?: never;
       header?: never;
@@ -1266,7 +1436,7 @@ export type paths = {
     patch?: never;
     trace?: never;
   };
-  '/cgi-bin/as_login_api.php': {
+  '/musicstation/api/as_login_api.php': {
     parameters: {
       query?: never;
       header?: never;
@@ -1312,7 +1482,7 @@ export type paths = {
     patch?: never;
     trace?: never;
   };
-  '/cgi-bin/mediacover_api.php': {
+  '/musicstation/api/mediacover_api.php': {
     parameters: {
       query?: never;
       header?: never;
@@ -1356,7 +1526,7 @@ export type paths = {
     patch?: never;
     trace?: never;
   };
-  '/cgi-bin/mediatool_api.php': {
+  '/musicstation/api/mediatool_api.php': {
     parameters: {
       query?: never;
       header?: never;
@@ -1391,6 +1561,1396 @@ export type paths = {
      *     This endpoint returns information to the QMusic iPhone app as part of the authentication process.
      */
     get: operations['QnapSysRequestController_routeRequest'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbum': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album
+     * @description Retrieve an album and its songs.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumController_getAlbum[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbum.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album
+     * @description Retrieve an album and its songs.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumController_getAlbum[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbumInfo': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album Info
+     * @description Retrieve information about a specific album.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumInfoController_getAlbumInfo[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbumInfo.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album Info
+     * @description Retrieve information about a specific album.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumInfoController_getAlbumInfo[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbumInfo2': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album Info 2
+     * @description Retrieve information about a specific album (version 2).
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumInfoController_getAlbumInfo2[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbumInfo2.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album Info 2
+     * @description Retrieve information about a specific album (version 2).
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumInfoController_getAlbumInfo2[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbumList': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album List
+     * @description Retrieve an album list using the legacy response format.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumListController_getAlbumList[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbumList.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album List
+     * @description Retrieve an album list using the legacy response format.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumListController_getAlbumList[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbumList2': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album List 2
+     * @description Retrieve an album list.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumListController_getAlbumList2[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getAlbumList2.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Album List 2
+     * @description Retrieve an album list.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicAlbumListController_getAlbumList2[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getArtist': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Artist
+     * @description Retrieve an artist and its albums.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicArtistController_getArtists[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getArtist.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Artist
+     * @description Retrieve an artist and its albums.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicArtistController_getArtists[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getArtists': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Artists
+     * @description Retrieve an indexed list of artists.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicArtistsController_getArtists[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getArtists.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Artists
+     * @description Retrieve an indexed list of artists.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicArtistsController_getArtists[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getBookmarks': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Bookmarks
+     * @description Retrieve the user bookmarks.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicBookmarksController_getBookmarks[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getBookmarks.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Bookmarks
+     * @description Retrieve the user bookmarks.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicBookmarksController_getBookmarks[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getCoverArt': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Ids are album ids, or `ar-<id>` for artists. */
+    get: operations['SubsonicCoverArtController_getCoverArt[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getCoverArt.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Ids are album ids, or `ar-<id>` for artists. */
+    get: operations['SubsonicCoverArtController_getCoverArt[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getGenres': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Genres
+     * @description Retrieve the list of music genres.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicGenresController_getGenres[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getGenres.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Genres
+     * @description Retrieve the list of music genres.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicGenresController_getGenres[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getIndexes': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Indexes
+     * @description Retrieve an indexed list of artists and albums.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicIndexesController_getIndexes[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getIndexes.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Indexes
+     * @description Retrieve an indexed list of artists and albums.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicIndexesController_getIndexes[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getInternetRadioStations': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Internet Radio Stations
+     * @description Retrieve configured internet radio stations, ranked by play count.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicInternetRadioStationsController_getInternetRadioStations[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getInternetRadioStations.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Internet Radio Stations
+     * @description Retrieve configured internet radio stations, ranked by play count.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicInternetRadioStationsController_getInternetRadioStations[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getLicense': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get License
+     * @description Retrieve the server license information.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicLicenseController_getLicense[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getLicense.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get License
+     * @description Retrieve the server license information.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicLicenseController_getLicense[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getMusicDirectory': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Music Directory
+     * @description Retrieve a music directory and its child items.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicMusicDirectoryController_getMusicDirectory[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getMusicDirectory.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Music Directory
+     * @description Retrieve a music directory and its child items.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicMusicDirectoryController_getMusicDirectory[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getMusicFolders': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Music Folders
+     * @description Retrieve the configured music folders.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicMusicFoldersController_getMusicFolders[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getMusicFolders.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Music Folders
+     * @description Retrieve the configured music folders.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicMusicFoldersController_getMusicFolders[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getNewestPodcasts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Newest Podcasts
+     * @description Retrieve the newest podcast episodes.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicNewestPodcastsController_getNewestPodcasts[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getNewestPodcasts.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Newest Podcasts
+     * @description Retrieve the newest podcast episodes.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicNewestPodcastsController_getNewestPodcasts[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getNowPlaying': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Now Playing
+     * @description Retrieve the songs currently being played.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicNowPlayingController_getNowPlaying[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getNowPlaying.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Now Playing
+     * @description Retrieve the songs currently being played.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicNowPlayingController_getNowPlaying[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/ping': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Ping
+     * @description Test connectivity with the Subsonic server.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicPingController_ping[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/ping.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Ping
+     * @description Test connectivity with the Subsonic server.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicPingController_ping[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getPlayLists': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Playlists
+     * @description Retrieve the user playlists.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicPlaylistsController_getPlayLists[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getPlayLists.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Playlists
+     * @description Retrieve the user playlists.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicPlaylistsController_getPlayLists[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getPodcasts': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Podcasts
+     * @description Retrieve the podcast subscriptions and episodes.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicPodcastsController_getPodcasts[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getPodcasts.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Podcasts
+     * @description Retrieve the podcast subscriptions and episodes.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicPodcastsController_getPodcasts[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getRandomSongs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Random Songs
+     * @description Retrieve a random collection of songs.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicRandomSongsController_getRandomSongs[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getRandomSongs.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Random Songs
+     * @description Retrieve a random collection of songs.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicRandomSongsController_getRandomSongs[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/savePlayQueue': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Save Play Queue
+     * @description Report success for a play queue save request.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSavePlayQueueController_savePlayQueue[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/savePlayQueue.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Save Play Queue
+     * @description Report success for a play queue save request.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSavePlayQueueController_savePlayQueue[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/scrobble': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Scrobble
+     * @description Report success for a scrobble request.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicScrobbleController_scrobble[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/scrobble.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Scrobble
+     * @description Report success for a scrobble request.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicScrobbleController_scrobble[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/search': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Search
+     * @description Search for artists, albums, and songs.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSearchController_search[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/search.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Search
+     * @description Search for artists, albums, and songs.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSearchController_search[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getSimilarSongs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Similar Songs
+     * @description Retrieve songs similar to the specified song.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSimilarSongsController_getSimilarSongs[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getSimilarSongs.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Similar Songs
+     * @description Retrieve songs similar to the specified song.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSimilarSongsController_getSimilarSongs[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getSong': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Song
+     * @description Retrieve a song by its identifier.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSongController_getSong[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getSong.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Song
+     * @description Retrieve a song by its identifier.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSongController_getSong[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getSongsByGenre': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Songs by Genre
+     * @description Retrieve songs matching a genre.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSongsByGenreController_getSongsByGenre[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getSongsByGenre.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Songs by Genre
+     * @description Retrieve songs matching a genre.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicSongsByGenreController_getSongsByGenre[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getStarred': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Starred
+     * @description Retrieve the starred songs, albums, and artists using the legacy response format.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicStarredController_getStarred[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getStarred.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Starred
+     * @description Retrieve the starred songs, albums, and artists using the legacy response format.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicStarredController_getStarred[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getStarred2': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Starred 2
+     * @description Retrieve the starred songs, albums, and artists.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicStarredController_getStarred2[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getStarred2.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Starred 2
+     * @description Retrieve the starred songs, albums, and artists.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicStarredController_getStarred2[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/stream': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * @description Streams the original file, with `Range` support for seeking.
+     *     Transcoding parameters such as `maxBitRate` and `format` are ignored.
+     */
+    get: operations['SubsonicStreamController_stream[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/stream.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * @description Streams the original file, with `Range` support for seeking.
+     *     Transcoding parameters such as `maxBitRate` and `format` are ignored.
+     */
+    get: operations['SubsonicStreamController_stream[1]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/download': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * @description Streams the original file, with `Range` support for seeking.
+     *     Transcoding parameters such as `maxBitRate` and `format` are ignored.
+     */
+    get: operations['SubsonicStreamController_stream[2]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/download.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * @description Streams the original file, with `Range` support for seeking.
+     *     Transcoding parameters such as `maxBitRate` and `format` are ignored.
+     */
+    get: operations['SubsonicStreamController_stream[3]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getTopSongs': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Top Songs
+     * @description Retrieve the top songs for an artist.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicTopSongsController_getTopSongs[0]'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/rest/getTopSongs.view': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Top Songs
+     * @description Retrieve the top songs for an artist.
+     *
+     *     The request must be authenticated using a valid plain password for the user provided in the URL query parameters.
+     */
+    get: operations['SubsonicTopSongsController_getTopSongs[1]'];
     put?: never;
     post?: never;
     delete?: never;
@@ -1746,7 +3306,7 @@ export type paths = {
     };
     get?: never;
     put?: never;
-    /** @description `POST` reuqest to `/api/test/create-test-account` */
+    /** @description `POST` request to `/api/test/create-test-account` */
     post: operations['ApiTestController_createTestAccount'];
     delete?: never;
     options?: never;
@@ -2189,16 +3749,22 @@ export type components = {
     LibraryAssociationDto: {
       /**
        * Format: date-time
-       * @description The date the artist was added to the library
+       * @description The date the person or group was added to the library
        */
       createdAt: string;
       /** @description The favorite data for the album if it exists */
       favoriteId?: number;
-      /** @description The internally-generated unique ID of the artist */
+      /** @description The internally-generated unique ID of the person or group */
       id: number;
-      /** @description The name of the artist. */
+      /** @description The name of the associated person or group. */
       name: string;
     };
+    /**
+     * @description The aggregate rating for the album, which is the average of the rating values
+     *     between 0 (not rated) and 5 inclusive applied to tracks.
+     * @enum {integer}
+     */
+    RatingOrUnset: RatingOrUnset;
     LibraryAlbumDto: {
       /** @description The artist for the album, aggregated from the track album artists data. */
       artists: components['schemas']['LibraryAssociationDto'][];
@@ -2206,8 +3772,12 @@ export type components = {
       composers: components['schemas']['LibraryAssociationDto'][];
       /** @description The album genres aggregated from the track genres. */
       genres: components['schemas']['LibraryAssociationDto'][];
-      /** @description The aggregate rating for the album, which is a value between 0 and 5 inclusive applied to tracks. */
-      rating: number;
+      /**
+       * @description The aggregate rating for the album, which is the average of the rating values
+       *     between 0 (not rated) and 5 inclusive applied to tracks.
+       * @default 0
+       */
+      rating: components['schemas']['RatingOrUnset'];
       /** @description A color detected in the cover art image */
       coverImageLightVibrant?: string;
       /** @description A color detected in the cover art image */
@@ -2287,8 +3857,16 @@ export type components = {
       fileType: components['schemas']['FileTypeEnum'];
       /** @description The list of genres for the track. */
       genres: components['schemas']['LibraryAssociationDto'][];
-      /** @description The rating of the track which is a value between 0 and 5 inclusive applied to the track. */
-      rating: number;
+      /**
+       * @description The number of times the track has been streamed.
+       * @default 0
+       */
+      playCount: number;
+      /**
+       * @description The rating of the track which is a value between 0 and 5 inclusive applied to the track.
+       * @default 0
+       */
+      rating: components['schemas']['RatingOrUnset'];
       /** @description The title of the album to which the track belongs. */
       albumId: number;
       /** @description The title of the album to which the track belongs. */
@@ -2328,6 +3906,8 @@ export type components = {
       fileSize: number;
       /** @description The internally-generated unique ID of the track */
       id: number;
+      /** @description The ID of the root path for the track. */
+      rootPathId: number;
       /** @description The title of the track, which is usually the name of the song or piece of music. */
       title: string;
       /** @description The track number of the track on the album or disc if there are multiple discs. */
@@ -2345,8 +3925,12 @@ export type components = {
       composers: components['schemas']['LibraryAssociationDto'][];
       /** @description The album genres aggregated from the track genres. */
       genres: components['schemas']['LibraryAssociationDto'][];
-      /** @description The aggregate rating for the album, which is a value between 0 and 5 inclusive applied to tracks. */
-      rating: number;
+      /**
+       * @description The aggregate rating for the album, which is the average of the rating values
+       *     between 0 (not rated) and 5 inclusive applied to tracks.
+       * @default 0
+       */
+      rating: components['schemas']['RatingOrUnset'];
       /** @description The list of tracks for the album */
       tracks: components['schemas']['LibraryTrackDto'][];
       /** @description A color detected in the cover art image */
@@ -2822,16 +4406,16 @@ export type components = {
     LibraryAssociationWithTracksDto: {
       /**
        * Format: date-time
-       * @description The date the artist was added to the library
+       * @description The date the person or group was added to the library
        */
       createdAt: string;
       /** @description The list of albums including tracks for the artist */
       albums: components['schemas']['LibraryAlbumWithTracksDto'][];
       /** @description The favorite data for the album if it exists */
       favoriteId?: number;
-      /** @description The internally-generated unique ID of the artist */
+      /** @description The internally-generated unique ID of the person or group */
       id: number;
-      /** @description The name of the artist. */
+      /** @description The name of the associated person or group. */
       name: string;
     };
     /** @enum {string} */
@@ -3350,7 +4934,7 @@ export type components = {
     AssociationWithCreditsDto: {
       /**
        * Format: date-time
-       * @description The date the artist was added to the library
+       * @description The date the person or group was added to the library
        */
       createdAt: string;
       albumArtistCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
@@ -3359,9 +4943,9 @@ export type components = {
       genreCredits: components['schemas']['LibraryAlbumWithTracksDto'][];
       /** @description The favorite data for the album if it exists */
       favoriteId?: number;
-      /** @description The internally-generated unique ID of the artist */
+      /** @description The internally-generated unique ID of the person or group */
       id: number;
-      /** @description The name of the artist. */
+      /** @description The name of the associated person or group. */
       name: string;
     };
     RetrieveAssociationResponseDto: {
@@ -3438,6 +5022,486 @@ export type components = {
      * @description A validation or other error occurred during the processing of the request.
      * @enum {string}
      */
+    ApiPlaylistsAddPlaylistItemsBadRequestErrors: ApiPlaylistsAddPlaylistItemsBadRequestErrors;
+    ApiPlaylistsAddPlaylistItemsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-playlist-type-error
+       */
+      message: components['schemas']['ApiPlaylistsAddPlaylistItemsBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiPlaylistsAddPlaylistItemsNotFoundErrors: ApiPlaylistsAddPlaylistItemsNotFoundErrors;
+    ApiPlaylistsAddPlaylistItemsNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default playlist-not-found-error
+       */
+      message: components['schemas']['ApiPlaylistsAddPlaylistItemsNotFoundErrors'][];
+    };
+    PlaylistItemBodyDto: {
+      /** @description The ID of a library track.  If specified the radio station fields are ignored. */
+      trackId?: number;
+      /** @description The title of a radio station, required if there is no track ID. */
+      radioStationTitle?: string;
+      /**
+       * Format: uri
+       * @description The URL of a radio station, required if there is no track ID.
+       */
+      radioStationUrl?: string;
+    };
+    AddPlaylistItemsBodyDto: {
+      /** @description The tracks and/or radio stations to add. */
+      items: components['schemas']['PlaylistItemBodyDto'][];
+      /** @description The zero-based position to insert at.  If omitted or beyond the end the items are appended. */
+      offset?: number;
+    };
+    AddPlaylistItemsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      /** @description The IDs of the created playlist items in the order they were supplied. */
+      playlistItemIds: number[];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsCreatePlaylistBadRequestErrors: ApiPlaylistsCreatePlaylistBadRequestErrors;
+    ApiPlaylistsCreatePlaylistBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-name-length-error
+       */
+      message: components['schemas']['ApiPlaylistsCreatePlaylistBadRequestErrors'][];
+    };
+    CreatePlaylistBodyDto: {
+      /** @description The name of the playlist. */
+      name: string;
+    };
+    CreatePlaylistResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      playlistId: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsCreateSmartPlaylistBadRequestErrors: ApiPlaylistsCreateSmartPlaylistBadRequestErrors;
+    ApiPlaylistsCreateSmartPlaylistBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-playlist-rules-conjugal-error
+       */
+      message: components['schemas']['ApiPlaylistsCreateSmartPlaylistBadRequestErrors'][];
+    };
+    /**
+     * @description Whether tracks must match all rules (`and`) or any rule (`or`).
+     * @enum {string}
+     */
+    SmartPlaylistConjugalEnum: SmartPlaylistConjugalEnum;
+    /**
+     * @description The track field the rule is evaluated against.
+     * @enum {string}
+     */
+    SmartPlaylistFieldEnum: SmartPlaylistFieldEnum;
+    /**
+     * @description The comparison applied between the track field and the rule value.
+     * @enum {string}
+     */
+    SmartPlaylistOperationEnum: SmartPlaylistOperationEnum;
+    /**
+     * @description The time interval for `in_the_last` and `not_in_the_last` operations.
+     * @enum {string}
+     */
+    SmartPlaylistIntervalTagEnum: SmartPlaylistIntervalTagEnum;
+    PlaylistRuleBodyDto: {
+      /** @description The track field the rule is evaluated against. */
+      field: components['schemas']['SmartPlaylistFieldEnum'];
+      /** @description The comparison applied between the track field and the rule value. */
+      operation: components['schemas']['SmartPlaylistOperationEnum'];
+      /** @description The time interval for `in_the_last` and `not_in_the_last` operations. */
+      interval?: components['schemas']['SmartPlaylistIntervalTagEnum'];
+      /** @description The value to compare against. */
+      value: string;
+    };
+    CreateSmartPlaylistBodyDto: {
+      /** @description Whether tracks must match all rules (`and`) or any rule (`or`). */
+      rulesConjugal: components['schemas']['SmartPlaylistConjugalEnum'];
+      /** @description The rules that determine which tracks belong to the playlist. */
+      rules: components['schemas']['PlaylistRuleBodyDto'][];
+      /** @description The name of the playlist. */
+      name: string;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsDeletePlaylistBadRequestErrors: ApiPlaylistsDeletePlaylistBadRequestErrors;
+    ApiPlaylistsDeletePlaylistBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-playlist-id-error
+       */
+      message: components['schemas']['ApiPlaylistsDeletePlaylistBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiPlaylistsDeletePlaylistNotFoundErrors: ApiPlaylistsDeletePlaylistNotFoundErrors;
+    ApiPlaylistsDeletePlaylistNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default playlist-not-found-error
+       */
+      message: components['schemas']['ApiPlaylistsDeletePlaylistNotFoundErrors'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsListPlaylistItemsBadRequestErrors: ApiPlaylistsListPlaylistItemsBadRequestErrors;
+    ApiPlaylistsListPlaylistItemsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-playlist-id-error
+       */
+      message: components['schemas']['ApiPlaylistsListPlaylistItemsBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiPlaylistsListPlaylistItemsNotFoundErrors: ApiPlaylistsListPlaylistItemsNotFoundErrors;
+    ApiPlaylistsListPlaylistItemsNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default playlist-not-found-error
+       */
+      message: components['schemas']['ApiPlaylistsListPlaylistItemsNotFoundErrors'][];
+    };
+    PlaylistItemDto: {
+      /** @description The library track.  This is not set for radio stations. */
+      track?: components['schemas']['LibraryTrackDto'];
+      /**
+       * @description The ID of the playlist item, used to move or remove it.  This is not set for the
+       *     tracks of smart playlists since they are not saved items.
+       */
+      id?: number;
+      /** @description The one-based position of the item in the playlist. */
+      position: number;
+      radioStationTitle?: string;
+      radioStationUrl?: string;
+    };
+    ListPlaylistItemsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      playlistItems: components['schemas']['PlaylistItemDto'][];
+      limit: number;
+      offset: number;
+      total: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsListPlaylistsBadRequestErrors: ApiPlaylistsListPlaylistsBadRequestErrors;
+    ApiPlaylistsListPlaylistsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-limit-error
+       */
+      message: components['schemas']['ApiPlaylistsListPlaylistsBadRequestErrors'][];
+    };
+    /** @enum {string} */
+    PlaylistTypeEnum: PlaylistTypeEnum;
+    PlaylistRuleDto: {
+      field: components['schemas']['SmartPlaylistFieldEnum'];
+      operation: components['schemas']['SmartPlaylistOperationEnum'];
+      interval?: components['schemas']['SmartPlaylistIntervalTagEnum'] | null;
+      id: number;
+      value: string;
+    };
+    PlaylistDto: {
+      type: components['schemas']['PlaylistTypeEnum'];
+      /** @description Whether tracks must match all rules or any rule.  Only set for smart playlists. */
+      rulesConjugal?: components['schemas']['SmartPlaylistConjugalEnum'] | null;
+      /** @description The rules of a smart playlist.  Only set for smart playlists. */
+      rules?: components['schemas']['PlaylistRuleDto'][];
+      /** Format: date-time */
+      updatedAt?: string | null;
+      id: number;
+      name: string;
+      /** Format: date-time */
+      createdAt: string;
+    };
+    ListPlaylistsResponseDto: {
+      /**
+       * Format: constant
+       * @description The success being "true" indicates that the request completed.
+       * @default true
+       */
+      success: boolean;
+      playlists: components['schemas']['PlaylistDto'][];
+      limit: number;
+      offset: number;
+      total: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsMovePlaylistItemBadRequestErrors: ApiPlaylistsMovePlaylistItemBadRequestErrors;
+    ApiPlaylistsMovePlaylistItemBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-playlist-type-error
+       */
+      message: components['schemas']['ApiPlaylistsMovePlaylistItemBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiPlaylistsMovePlaylistItemNotFoundErrors: ApiPlaylistsMovePlaylistItemNotFoundErrors;
+    ApiPlaylistsMovePlaylistItemNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default playlist-not-found-error
+       */
+      message: components['schemas']['ApiPlaylistsMovePlaylistItemNotFoundErrors'][];
+    };
+    MovePlaylistItemBodyDto: {
+      /** @description The ID of the playlist item to move. */
+      playlistItemId: number;
+      /** @description The zero-based position the item will have after the move.  Values beyond the end move the item to the end. */
+      offset: number;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsRemovePlaylistItemsBadRequestErrors: ApiPlaylistsRemovePlaylistItemsBadRequestErrors;
+    ApiPlaylistsRemovePlaylistItemsBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-playlist-id-error
+       */
+      message: components['schemas']['ApiPlaylistsRemovePlaylistItemsBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiPlaylistsRemovePlaylistItemsNotFoundErrors: ApiPlaylistsRemovePlaylistItemsNotFoundErrors;
+    ApiPlaylistsRemovePlaylistItemsNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default playlist-not-found-error
+       */
+      message: components['schemas']['ApiPlaylistsRemovePlaylistItemsNotFoundErrors'][];
+    };
+    RemovePlaylistItemsBodyDto: {
+      /** @description The IDs of the playlist items to remove. */
+      playlistItemIds: number[];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsUpdatePlaylistBadRequestErrors: ApiPlaylistsUpdatePlaylistBadRequestErrors;
+    ApiPlaylistsUpdatePlaylistBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-playlist-id-error
+       */
+      message: components['schemas']['ApiPlaylistsUpdatePlaylistBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiPlaylistsUpdatePlaylistNotFoundErrors: ApiPlaylistsUpdatePlaylistNotFoundErrors;
+    ApiPlaylistsUpdatePlaylistNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default playlist-not-found-error
+       */
+      message: components['schemas']['ApiPlaylistsUpdatePlaylistNotFoundErrors'][];
+    };
+    UpdatePlaylistBodyDto: {
+      /** @description The name of the playlist. */
+      name: string;
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
+    ApiPlaylistsUpdateSmartPlaylistRulesBadRequestErrors: ApiPlaylistsUpdateSmartPlaylistRulesBadRequestErrors;
+    ApiPlaylistsUpdateSmartPlaylistRulesBadRequestResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A validation or other error occurred during the processing of the request.
+       * @default invalid-playlist-type-error
+       */
+      message: components['schemas']['ApiPlaylistsUpdateSmartPlaylistRulesBadRequestErrors'][];
+    };
+    /**
+     * @description A resource ID was specified that does not exist or does not belong to your account.
+     * @enum {string}
+     */
+    ApiPlaylistsUpdateSmartPlaylistRulesNotFoundErrors: ApiPlaylistsUpdateSmartPlaylistRulesNotFoundErrors;
+    ApiPlaylistsUpdateSmartPlaylistRulesNotFoundResponse: {
+      /** @description General description of the error class */
+      error: string;
+      /**
+       * @description The success being "false" indicates that the request failed to complete.
+       * @default false
+       */
+      success: boolean;
+      /**
+       * @description A resource ID was specified that does not exist or does not belong to your account.
+       * @default playlist-not-found-error
+       */
+      message: components['schemas']['ApiPlaylistsUpdateSmartPlaylistRulesNotFoundErrors'][];
+    };
+    UpdateSmartPlaylistRulesBodyDto: {
+      /** @description Whether tracks must match all rules (`and`) or any rule (`or`). */
+      rulesConjugal: components['schemas']['SmartPlaylistConjugalEnum'];
+      /** @description The rules that determine which tracks belong to the playlist. */
+      rules: components['schemas']['PlaylistRuleBodyDto'][];
+    };
+    /**
+     * @description A validation or other error occurred during the processing of the request.
+     * @enum {string}
+     */
     ApiRatingsSetAlbumRatingBadRequestErrors: ApiRatingsSetAlbumRatingBadRequestErrors;
     ApiRatingsSetAlbumRatingBadRequestResponse: {
       /** @description General description of the error class */
@@ -3474,10 +5538,10 @@ export type components = {
     };
     SetAlbumRatingBodyDto: {
       /**
-       * Format: int32
        * @description The rating value to be set for the track.  If it is 0 the rating will be unset.
+       * @default 0
        */
-      rating: number;
+      rating: components['schemas']['RatingOrUnset'];
     };
     /**
      * @description A validation or other error occurred during the processing of the request.
@@ -3519,10 +5583,10 @@ export type components = {
     };
     SetTrackRatingBodyDto: {
       /**
-       * Format: int32
        * @description The rating value to be set for the track.  If it is 0 the rating will be unset.
+       * @default 0
        */
-      rating: number;
+      rating: components['schemas']['RatingOrUnset'];
     };
     /**
      * @description A validation or other error occurred during the processing of the request.
@@ -4009,6 +6073,8 @@ export type components = {
       /** @description The favorite data for the station if it exists */
       favoriteId?: number;
       id: number;
+      /** @description The number of times the station has been played. */
+      playCount: number;
       title: string;
       /**
        * Format: uri
@@ -4830,7 +6896,7 @@ export type components = {
        * Format: integer
        * @default 0
        */
-      Rating: Record<string, never>;
+      Rating: components['schemas']['RatingOrUnset'];
       Album: string;
       AlbumArtist: string;
       Artist: string;
@@ -4881,6 +6947,8 @@ export type components = {
       customFrontLogo: string;
       customLoginLogo: string;
     };
+    /** @enum {string} */
+    QnapYesNoEnum: QnapYesNoEnum;
     QnapSysRequestFirmwareDto: {
       /** Format: date */
       buildTime: string;
@@ -4978,15 +7046,364 @@ export type components = {
     };
     QnapSysRequestDto: {
       customLogo: components['schemas']['QnapSysRequestCustomLogoDto'];
+      DemoSiteSuppurt: components['schemas']['QnapYesNoEnum'];
       firmware: components['schemas']['QnapSysRequestFirmwareDto'];
       func: components['schemas']['QnapSysRequestFuncDto'];
       model: components['schemas']['QnapSysRequestModelDto'];
       authPassed: number;
-      DemoSiteSuppurt: Record<string, never>;
       hostname: string;
       rfs_bits: number;
       sleepSupport: number;
       specVersion: string;
+    };
+    SubsonicSongDto: {
+      album: string;
+      albumId: string;
+      artist: string;
+      artistId: string;
+      bitRate?: number;
+      contentType: string;
+      created?: string;
+      discNumber?: number;
+      duration: number;
+      genre?: string;
+      id: string;
+      isDir?: boolean;
+      parent: string;
+      path?: string;
+      playCount?: number;
+      size?: number;
+      suffix: string;
+      title: string;
+      track?: number;
+      type?: string;
+      year?: number;
+      starred?: string;
+    };
+    SubsonicAlbumWithTracksDto: {
+      artist: string;
+      artistId: string;
+      coverArt: string;
+      created?: string;
+      duration: number;
+      genre?: string;
+      id: string;
+      name: string;
+      playCount?: number;
+      song: components['schemas']['SubsonicSongDto'][];
+      songCount: number;
+      year?: number;
+      starred?: string;
+    };
+    SubsonicAlbumResponseDto: {
+      status: string;
+      version: string;
+      album: components['schemas']['SubsonicAlbumWithTracksDto'];
+    };
+    SubsonicAlbumResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicAlbumResponseDto'];
+    };
+    SubsonicAlbumInfoDto: {
+      notes?: string;
+      musicBrainzId?: string;
+      lastFmUrl?: string;
+      smallImageUrl?: string;
+      mediumImageUrl?: string;
+      largeImageUrl?: string;
+    };
+    SubsonicAlbumInfoResponseDto: {
+      status: string;
+      version: string;
+      albumInfo: components['schemas']['SubsonicAlbumInfoDto'];
+    };
+    SubsonicAlbumInfoResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicAlbumInfoResponseDto'];
+    };
+    /** @enum {string} */
+    SubsonicAlbumListTypeEnum: SubsonicAlbumListTypeEnum;
+    SubsonicAlbumDto: {
+      artist: string;
+      artistId: string;
+      coverArt: string;
+      created?: string;
+      duration: number;
+      genre?: string;
+      id: string;
+      name: string;
+      playCount?: number;
+      song?: components['schemas']['SubsonicSongDto'][];
+      songCount: number;
+      year?: number;
+      starred?: string;
+    };
+    SubsonicAlbumDataDto: {
+      album: components['schemas']['SubsonicAlbumDto'][];
+    };
+    SubsonicAlbumListResponseDto: {
+      status: string;
+      version: string;
+      albumList: components['schemas']['SubsonicAlbumDataDto'];
+    };
+    SubsonicAlbumListResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicAlbumListResponseDto'];
+    };
+    SubsonicAlbumList2ResponseDto: {
+      status: string;
+      version: string;
+      albumList2: components['schemas']['SubsonicAlbumDataDto'];
+    };
+    SubsonicAlbumList2ResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicAlbumList2ResponseDto'];
+    };
+    SubsonicArtistAlbumDto: {
+      id: string;
+      name: string;
+    };
+    SubsonicArtistDto: {
+      album?: components['schemas']['SubsonicArtistAlbumDto'][];
+      albumCount?: number;
+      coverArt: string;
+      id: string;
+      name: string;
+      starred?: string;
+    };
+    SubsonicArtistResponseDto: {
+      status: string;
+      version: string;
+      artist: components['schemas']['SubsonicArtistDto'];
+    };
+    SubsonicArtistResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicArtistResponseDto'];
+    };
+    SubsonicArtistsResponseDto: {
+      status: string;
+      version: string;
+      artist: {
+        [key: string]: components['schemas']['SubsonicArtistDto'][];
+      };
+    };
+    SubsonicArtistsResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicArtistsResponseDto'];
+    };
+    SubsonicBookmarksDataDto: Record<string, never>;
+    SubsonicBookmarksResponseDto: {
+      status: string;
+      version: string;
+      bookmarks: components['schemas']['SubsonicBookmarksDataDto'];
+    };
+    SubsonicBookmarksResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicBookmarksResponseDto'];
+    };
+    SubsonicGenreDto: {
+      value: string;
+    };
+    SubsonicGenresDataDto: {
+      genre: components['schemas']['SubsonicGenreDto'][];
+    };
+    SubsonicGenresResponseDto: {
+      status: string;
+      version: string;
+      genres: components['schemas']['SubsonicGenresDataDto'];
+    };
+    SubsonicGenresResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicGenresResponseDto'];
+    };
+    SubsonicIndexesResponseDto: {
+      status: string;
+      version: string;
+      indexes: {
+        [key: string]: components['schemas']['SubsonicArtistDto'][];
+      };
+    };
+    SubsonicIndexesResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicIndexesResponseDto'];
+    };
+    SubsonicInternetRadioStationDto: {
+      id: string;
+      name: string;
+      streamUrl: string;
+    };
+    SubsonicInternetRadioStationsDataDto: {
+      internetRadioStation: components['schemas']['SubsonicInternetRadioStationDto'][];
+    };
+    SubsonicInternetRadioStationsResponseDto: {
+      status: string;
+      version: string;
+      internetRadioStations: components['schemas']['SubsonicInternetRadioStationsDataDto'];
+    };
+    SubsonicInternetRadioStationsResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicInternetRadioStationsResponseDto'];
+    };
+    SubsonicLicenseDto: {
+      valid: boolean;
+      email: string;
+      licenseExpires: string;
+    };
+    SubsonicLicenseResponseDto: {
+      status: string;
+      version: string;
+      license: components['schemas']['SubsonicLicenseDto'];
+    };
+    SubsonicLicenseResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicLicenseResponseDto'];
+    };
+    SubsonicMusicDirectoryDto: {
+      id: string;
+      name: string;
+    };
+    SubsonicMusicDirectoryDataDto: {
+      musicFolder: components['schemas']['SubsonicMusicDirectoryDto'];
+    };
+    SubsonicMusicDirectoryResponseDto: {
+      status: string;
+      version: string;
+      musicDirectory: components['schemas']['SubsonicMusicDirectoryDataDto'];
+    };
+    SubsonicMusicDirectoryResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicMusicDirectoryResponseDto'];
+    };
+    SubsonicMusicFolderDto: {
+      id: string;
+      name: string;
+    };
+    SubsonicMusicFoldersDataDto: {
+      musicFolder: components['schemas']['SubsonicMusicFolderDto'][];
+    };
+    SubsonicMusicFoldersResponseDto: {
+      status: string;
+      version: string;
+      musicFolders: components['schemas']['SubsonicMusicFoldersDataDto'];
+    };
+    SubsonicMusicFoldersResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicMusicFoldersResponseDto'];
+    };
+    SubsonicNewestPodcastsDataDto: Record<string, never>;
+    SubsonicNewestPodcastsResponseDto: {
+      status: string;
+      version: string;
+      newestPodcasts: components['schemas']['SubsonicNewestPodcastsDataDto'];
+    };
+    SubsonicNewestPodcastsResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicNewestPodcastsResponseDto'];
+    };
+    SubsonicNowPlayingDataDto: {
+      entry: components['schemas']['SubsonicSongDto'][];
+    };
+    SubsonicNowPlayingResponseDto: {
+      status: string;
+      version: string;
+      nowPlaying: components['schemas']['SubsonicNowPlayingDataDto'];
+    };
+    SubsonicNowPlayingResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicNowPlayingResponseDto'];
+    };
+    SubsonicPingResponseDto: {
+      status: string;
+      version: string;
+    };
+    SubsonicPingResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicPingResponseDto'];
+    };
+    SubsonicPlaylistsDataDto: Record<string, never>;
+    SubsonicPlaylistsResponseDto: {
+      status: string;
+      version: string;
+      playlists: components['schemas']['SubsonicPlaylistsDataDto'];
+    };
+    SubsonicPlaylistsResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicPlaylistsResponseDto'];
+    };
+    SubsonicPodcastsDataDto: Record<string, never>;
+    SubsonicPodcastsResponseDto: {
+      status: string;
+      version: string;
+      podcasts: components['schemas']['SubsonicPodcastsDataDto'];
+    };
+    SubsonicPodcastsResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicPodcastsResponseDto'];
+    };
+    SubsonicSongDataDto: {
+      song: components['schemas']['SubsonicSongDto'][];
+    };
+    SubsonicRandomSongsResponseDto: {
+      status: string;
+      version: string;
+      randomSongs: components['schemas']['SubsonicSongDataDto'];
+    };
+    SubsonicRandomSongsResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicRandomSongsResponseDto'];
+    };
+    SubsonicSavePlayQueueResponseDto: {
+      status: string;
+      version: string;
+    };
+    SubsonicSavePlayQueueResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicSavePlayQueueResponseDto'];
+    };
+    SubsonicScrobbleResponseDto: {
+      status: string;
+      version: string;
+    };
+    SubsonicScrobbleResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicScrobbleResponseDto'];
+    };
+    SubsonicSearchResultDataDto: {
+      offset: number;
+      totalHits: number;
+      match: components['schemas']['SubsonicSongDto'][];
+    };
+    SubsonicSearchResponseDto: {
+      status: string;
+      version: string;
+      searchResult: components['schemas']['SubsonicSearchResultDataDto'];
+    };
+    SubsonicSearchResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicSearchResponseDto'];
+    };
+    SubsonicSimilarSongsResponseDto: {
+      status: string;
+      version: string;
+      similarSongs: components['schemas']['SubsonicSongDataDto'];
+    };
+    SubsonicSimilarSongsResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicSimilarSongsResponseDto'];
+    };
+    SubsonicSongResponseDto: {
+      status: string;
+      version: string;
+      song: components['schemas']['SubsonicSongDto'];
+    };
+    SubsonicSongResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicSongResponseDto'];
+    };
+    SubsonicSongsByGenreResponseDto: {
+      status: string;
+      version: string;
+      songsByGenre: components['schemas']['SubsonicSongDataDto'];
+    };
+    SubsonicSongsByGenreResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicSongsByGenreResponseDto'];
+    };
+    SubsonicStarredDataDto: {
+      artist?: components['schemas']['SubsonicArtistDto'][];
+      album?: components['schemas']['SubsonicAlbumDto'][];
+      song?: components['schemas']['SubsonicSongDto'][];
+    };
+    SubsonicStarredResponseDto: {
+      status: string;
+      version: string;
+      starred: components['schemas']['SubsonicStarredDataDto'];
+    };
+    SubsonicStarredResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicStarredResponseDto'];
+    };
+    SubsonicTopSongsResponseDto: {
+      status: string;
+      version: string;
+      topSongs: components['schemas']['SubsonicSongDataDto'];
+    };
+    SubsonicTopSongsResponseEnvelopeDto: {
+      'subsonic-response': components['schemas']['SubsonicTopSongsResponseDto'];
     };
     /**
      * @description Synology's API uses this value to route requests appropriately but this software has
@@ -5350,7 +7767,8 @@ export type components = {
       genre_filter: string;
     };
     SynologyAlbumAverageRatingDto: {
-      rating: number;
+      /** @default 0 */
+      rating: components['schemas']['RatingOrUnset'];
     };
     SynologyAlbumAdditionalDto: {
       avg_rating: components['schemas']['SynologyAlbumAverageRatingDto'];
@@ -5702,8 +8120,8 @@ export type components = {
     SynologyEntryPinItemDto: {
       criteria: components['schemas']['SynologyEntryPinItemCriteriaDto'];
       type: components['schemas']['SynologyPinTypeEnum'];
-      id: string;
       name: string;
+      id: string;
     };
     SynologyEntryPinsDataDto: {
       items: components['schemas']['SynologyEntryPinItemDto'][];
@@ -6122,7 +8540,8 @@ export type components = {
       frequency: number;
     };
     SynologySongRatingDto: {
-      rating: number;
+      /** @default 0 */
+      rating: components['schemas']['RatingOrUnset'];
     };
     SynologySongTagDto: {
       album: string;
@@ -6420,10 +8839,6 @@ export type components = {
        */
       success: boolean;
     };
-    /** @enum {string} */
-    PlaylistTypeEnum: PlaylistTypeEnum;
-    /** @enum {string} */
-    SmartPlaylistConjugalEnum: SmartPlaylistConjugalEnum;
     SynologyPlaylistRuleDto: {
       interval: number;
       op: number;
@@ -6930,17 +9345,6 @@ export type components = {
        */
       method: components['schemas']['SynologyMethodEnum'];
       /**
-       * @description Additional data to include in the response.  This field is ignored by the backend for now
-       *     and a fixed-payload response is returned.
-       */
-      additional: string;
-      /**
-       * @description The ID of the playlist comes in the format
-       *     `playlist_<personal|shared>_<normal|smart>/<name>`
-       *     eg `playlist_personal_normal/playlistname` or `playlist_shared_smart/playlistname`
-       */
-      id: string;
-      /**
        * @description Defines the number of results to return.  If no value is specified a default of 100,000
        *     is used to practically-ensure all results are returned.  This is a change from Synology's
        *     API which defaults to 100, but Synology's mobile clients will specify their limit.
@@ -6951,11 +9355,24 @@ export type components = {
        *     used to start at the beginning of a result set.
        */
       offset: number;
+      /**
+       * @description Additional data to include in the response.  This field is ignored by the backend for now
+       *     and a fixed-payload response is returned.
+       */
+      additional: string;
+      /**
+       * @description The ID of the playlist comes in the format
+       *     `playlist_<personal|shared>_<normal|smart>/<name>`
+       *     eg `playlist_personal_normal/playlistname` or `playlist_shared_smart/playlistname`
+       */
+      id: string;
     };
     SynologyPlaylistUpdateSmartBodyDto: {
       /** @example and */
       conj_rule: components['schemas']['SmartPlaylistConjugalEnum'];
       rules_json: components['schemas']['SynologySmartListRule'][];
+      /** @description The name of the playlist to create. */
+      name: string;
       /**
        * @description Synology's API uses this value to route requests appropriately but this software has
        *     direct endpoints for their relevant URL paths.  As such this value is ignored for now
@@ -6995,8 +9412,6 @@ export type components = {
        *     eg `playlist_personal_normal/playlistname` or `playlist_shared_smart/playlistname`
        */
       id: string;
-      /** @description The name of the playlist to create. */
-      name: string;
     };
     SynologyProxyStreamInfoResponseDto: {
       data: {
@@ -7900,6 +10315,41 @@ export type components = {
       /** @description The name of the genre */
       genre: string;
     };
+    SynologySongsByIdBodyDto: {
+      /**
+       * @description Synology's API uses this value to route requests appropriately but this software has
+       *     direct endpoints for their relevant URL paths.  As such this value is ignored for now
+       *     but defined to match the Synology API.
+       * @example SYNO.AudioStation.Song
+       */
+      api: components['schemas']['SynologyApiEnum'];
+      /**
+       * @description Synology's API uses this value to route requests appropriately but for AudioStation the
+       *     endpoints have limited functionality, all music-related endpoints `list` except cover
+       *     images.  As such this value is ignored for now but defined to match the Synology API.
+       * @example getinfo
+       */
+      method: components['schemas']['SynologyMethodEnum'];
+      /**
+       * @description Synology's API has versioned endpoints and some have at least 3 versions.  This software
+       *     currently only supports the latest version of the API for each endpoint and ignores this value
+       *     for now.
+       *
+       *     It's possible to build in support for prior versions of an endpoint but that would
+       *     require using the `debug-proxy` to capture the request and response payloads to understand the
+       *     differences between versions.
+       *
+       *     If you are running an older DSM NAS and wish to help then check
+       *     out the GitHub Issues page and submit a request to support your version of the API.
+       */
+      version: number;
+      /**
+       * @description The IDs of the track(s) to retrieve in a `music_<id>,music_<id>` format, transformed to
+       *     an array of song IDs as numbers.
+       */
+      id: number[];
+      additional: string;
+    };
     SynologySongsRateBodyDto: {
       /**
        * @description Synology's API uses this value to route requests appropriately but this software has
@@ -7936,8 +10386,11 @@ export type components = {
        *     The posted value is transformed to an array of song IDs as numbers.
        */
       id: number[];
-      /** @description The rating of the track */
-      rating: number;
+      /**
+       * @description The rating of the track
+       * @default 0
+       */
+      rating: components['schemas']['RatingOrUnset'];
     };
     /**
      * @description A validation or other error occurred during the processing of the request.
@@ -10289,6 +12742,564 @@ export interface operations {
       };
     };
   };
+  ApiPlaylistsController_addPlaylistItems: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AddPlaylistItemsBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AddPlaylistItemsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsAddPlaylistItemsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsAddPlaylistItemsNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_createPlaylist: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreatePlaylistBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreatePlaylistResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsCreatePlaylistBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_createSmartPlaylist: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateSmartPlaylistBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CreatePlaylistResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsCreateSmartPlaylistBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_deletePlaylist: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsDeletePlaylistBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsDeletePlaylistNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_listPlaylistItems: {
+    parameters: {
+      query: {
+        limit?: number;
+        offset?: number;
+        /** @description The database ID of the playlist */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListPlaylistItemsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsListPlaylistItemsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsListPlaylistItemsNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_listPlaylists: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ListPlaylistsResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsListPlaylistsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_movePlaylistItem: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['MovePlaylistItemBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsMovePlaylistItemBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsMovePlaylistItemNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_removePlaylistItems: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['RemovePlaylistItemsBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsRemovePlaylistItemsBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsRemovePlaylistItemsNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_updatePlaylist: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdatePlaylistBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsUpdatePlaylistBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsUpdatePlaylistNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiPlaylistsController_updateSmartPlaylistRules: {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateSmartPlaylistRulesBodyDto'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponseDto'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsUpdateSmartPlaylistRulesBadRequestResponse'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ApiPlaylistsUpdateSmartPlaylistRulesNotFoundResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
   ApiRatingsController_setAlbumRating: {
     parameters: {
       query: {
@@ -11604,7 +14615,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': string;
+          'text/xml': string;
         };
       };
       400: {
@@ -11612,7 +14623,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -11620,7 +14631,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -11628,7 +14639,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -11649,7 +14660,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': string;
+          'text/xml': string;
         };
       };
       400: {
@@ -11657,7 +14668,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -11665,7 +14676,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -11673,7 +14684,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -11699,7 +14710,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QnapUserAsLoginDto'];
+          'text/xml': components['schemas']['QnapUserAsLoginDto'];
         };
       };
       400: {
@@ -11707,7 +14718,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -11715,7 +14726,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -11723,7 +14734,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -11762,7 +14773,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json':
+          'text/xml':
             | components['schemas']['QnapPreauthenticateDto']
             | components['schemas']['QnapAuthLoginDto']
             | components['schemas']['QnapAuthLoginFailedDto']
@@ -11774,7 +14785,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -11782,7 +14793,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -11790,7 +14801,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -11813,7 +14824,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json':
+          'text/xml':
             | components['schemas']['QnapPreauthenticateDto']
             | components['schemas']['QnapAuthLoginDto']
             | components['schemas']['QnapAuthLoginFailedDto']
@@ -11825,7 +14836,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -11833,7 +14844,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -11841,7 +14852,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -11865,7 +14876,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': string;
+          'text/xml': string;
         };
       };
       400: {
@@ -11873,7 +14884,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -11881,7 +14892,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -11889,7 +14900,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -11908,7 +14919,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json':
+          'text/xml':
             | components['schemas']['QnapMediaListRandomQueryDto']
             | components['schemas']['QnapMediaListGeneralQueryDto']
             | components['schemas']['QnapMediaListBucketQueryDto']
@@ -11926,7 +14937,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -11934,7 +14945,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -11942,7 +14953,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -11961,7 +14972,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QnapMediaToolResponseDto'];
+          'text/xml': components['schemas']['QnapMediaToolResponseDto'];
         };
       };
       400: {
@@ -11969,7 +14980,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -11977,7 +14988,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -11985,7 +14996,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -12006,7 +15017,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QnapSysRequestDto'];
+          'text/xml': components['schemas']['QnapSysRequestDto'];
         };
       };
       400: {
@@ -12014,7 +15025,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['BadRequestResponseDto'];
+          'text/xml': components['schemas']['BadRequestResponseDto'];
         };
       };
       403: {
@@ -12022,7 +15033,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ForbiddenErrorResponseDto'];
+          'text/xml': components['schemas']['ForbiddenErrorResponseDto'];
         };
       };
       500: {
@@ -12030,7 +15041,1429 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['InternalServerErrorResponseDto'];
+          'text/xml': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumController_getAlbum[0]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumController_getAlbum[1]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumInfoController_getAlbumInfo[0]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumInfoResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumInfoResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumInfoController_getAlbumInfo[1]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumInfoResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumInfoResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumInfoController_getAlbumInfo2[0]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumInfoResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumInfoResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumInfoController_getAlbumInfo2[1]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumInfoResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumInfoResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumListController_getAlbumList[0]': {
+    parameters: {
+      query: {
+        type: components['schemas']['SubsonicAlbumListTypeEnum'];
+        size?: number;
+        offset?: number;
+        fromYear?: number;
+        toYear?: number;
+        genre?: string;
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumListResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumListResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumListController_getAlbumList[1]': {
+    parameters: {
+      query: {
+        type: components['schemas']['SubsonicAlbumListTypeEnum'];
+        size?: number;
+        offset?: number;
+        fromYear?: number;
+        toYear?: number;
+        genre?: string;
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumListResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumListResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumListController_getAlbumList2[0]': {
+    parameters: {
+      query: {
+        type: components['schemas']['SubsonicAlbumListTypeEnum'];
+        size?: number;
+        offset?: number;
+        fromYear?: number;
+        toYear?: number;
+        genre?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumList2ResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumList2ResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicAlbumListController_getAlbumList2[1]': {
+    parameters: {
+      query: {
+        type: components['schemas']['SubsonicAlbumListTypeEnum'];
+        size?: number;
+        offset?: number;
+        fromYear?: number;
+        toYear?: number;
+        genre?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicAlbumList2ResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicAlbumList2ResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicArtistController_getArtists[0]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicArtistResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicArtistResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicArtistController_getArtists[1]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicArtistResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicArtistResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicArtistsController_getArtists[0]': {
+    parameters: {
+      query?: {
+        /** @description Optionally limit artist list to a single root path */
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicArtistsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicArtistsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicArtistsController_getArtists[1]': {
+    parameters: {
+      query?: {
+        /** @description Optionally limit artist list to a single root path */
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicArtistsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicArtistsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicBookmarksController_getBookmarks[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicBookmarksResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicBookmarksResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicBookmarksController_getBookmarks[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicBookmarksResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicBookmarksResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicCoverArtController_getCoverArt[0]': {
+    parameters: {
+      query: {
+        id: string;
+        size?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': string;
+          'text/xml': string;
+        };
+      };
+    };
+  };
+  'SubsonicCoverArtController_getCoverArt[1]': {
+    parameters: {
+      query: {
+        id: string;
+        size?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': string;
+          'text/xml': string;
+        };
+      };
+    };
+  };
+  'SubsonicGenresController_getGenres[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicGenresResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicGenresResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicGenresController_getGenres[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicGenresResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicGenresResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicIndexesController_getIndexes[0]': {
+    parameters: {
+      query?: {
+        /**
+         * @description Unix timestamp in milliseconds for the last modification time of the items.  This
+         *     value is currently ignored.
+         */
+        ifModifiedSince?: number;
+        /** @description Optionally limit artist list to a single root path */
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicIndexesResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicIndexesResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicIndexesController_getIndexes[1]': {
+    parameters: {
+      query?: {
+        /**
+         * @description Unix timestamp in milliseconds for the last modification time of the items.  This
+         *     value is currently ignored.
+         */
+        ifModifiedSince?: number;
+        /** @description Optionally limit artist list to a single root path */
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicIndexesResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicIndexesResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicInternetRadioStationsController_getInternetRadioStations[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicInternetRadioStationsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicInternetRadioStationsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicInternetRadioStationsController_getInternetRadioStations[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicInternetRadioStationsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicInternetRadioStationsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicLicenseController_getLicense[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicLicenseResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicLicenseResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicLicenseController_getLicense[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicLicenseResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicLicenseResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicMusicDirectoryController_getMusicDirectory[0]': {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicMusicDirectoryResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicMusicDirectoryResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicMusicDirectoryController_getMusicDirectory[1]': {
+    parameters: {
+      query: {
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicMusicDirectoryResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicMusicDirectoryResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicMusicFoldersController_getMusicFolders[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicMusicFoldersResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicMusicFoldersResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicMusicFoldersController_getMusicFolders[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicMusicFoldersResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicMusicFoldersResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicNewestPodcastsController_getNewestPodcasts[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicNewestPodcastsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicNewestPodcastsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicNewestPodcastsController_getNewestPodcasts[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicNewestPodcastsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicNewestPodcastsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicNowPlayingController_getNowPlaying[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicNowPlayingResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicNowPlayingResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicNowPlayingController_getNowPlaying[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicNowPlayingResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicNowPlayingResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicPingController_ping[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicPingResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicPingResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicPingController_ping[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicPingResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicPingResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicPlaylistsController_getPlayLists[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicPlaylistsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicPlaylistsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicPlaylistsController_getPlayLists[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicPlaylistsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicPlaylistsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicPodcastsController_getPodcasts[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicPodcastsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicPodcastsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicPodcastsController_getPodcasts[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicPodcastsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicPodcastsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicRandomSongsController_getRandomSongs[0]': {
+    parameters: {
+      query?: {
+        size?: number;
+        genre?: string;
+        fromYear?: number;
+        toYear?: number;
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicRandomSongsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicRandomSongsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicRandomSongsController_getRandomSongs[1]': {
+    parameters: {
+      query?: {
+        size?: number;
+        genre?: string;
+        fromYear?: number;
+        toYear?: number;
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicRandomSongsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicRandomSongsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSavePlayQueueController_savePlayQueue[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSavePlayQueueResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSavePlayQueueResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSavePlayQueueController_savePlayQueue[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSavePlayQueueResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSavePlayQueueResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicScrobbleController_scrobble[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicScrobbleResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicScrobbleResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicScrobbleController_scrobble[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicScrobbleResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicScrobbleResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSearchController_search[0]': {
+    parameters: {
+      query?: {
+        artist?: string;
+        album?: string;
+        title?: string;
+        any?: string;
+        count?: number;
+        offset?: number;
+        newerThan?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSearchResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSearchResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSearchController_search[1]': {
+    parameters: {
+      query?: {
+        artist?: string;
+        album?: string;
+        title?: string;
+        any?: string;
+        count?: number;
+        offset?: number;
+        newerThan?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSearchResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSearchResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSimilarSongsController_getSimilarSongs[0]': {
+    parameters: {
+      query: {
+        id: string;
+        count?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSimilarSongsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSimilarSongsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSimilarSongsController_getSimilarSongs[1]': {
+    parameters: {
+      query: {
+        id: string;
+        count?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSimilarSongsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSimilarSongsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSongController_getSong[0]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSongResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSongResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSongController_getSong[1]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSongResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSongResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSongsByGenreController_getSongsByGenre[0]': {
+    parameters: {
+      query: {
+        genre: string;
+        count?: number;
+        offset?: number;
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSongsByGenreResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSongsByGenreResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicSongsByGenreController_getSongsByGenre[1]': {
+    parameters: {
+      query: {
+        genre: string;
+        count?: number;
+        offset?: number;
+        musicFolderId?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicSongsByGenreResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicSongsByGenreResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicStarredController_getStarred[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicStarredResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicStarredResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicStarredController_getStarred[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicStarredResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicStarredResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicStarredController_getStarred2[0]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicStarredResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicStarredResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicStarredController_getStarred2[1]': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicStarredResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicStarredResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicStreamController_stream[0]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': string;
+          'text/xml': string;
+        };
+      };
+    };
+  };
+  'SubsonicStreamController_stream[1]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': string;
+          'text/xml': string;
+        };
+      };
+    };
+  };
+  'SubsonicStreamController_stream[2]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': string;
+          'text/xml': string;
+        };
+      };
+    };
+  };
+  'SubsonicStreamController_stream[3]': {
+    parameters: {
+      query: {
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': string;
+          'text/xml': string;
+        };
+      };
+    };
+  };
+  'SubsonicTopSongsController_getTopSongs[0]': {
+    parameters: {
+      query: {
+        artist: string;
+        count?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicTopSongsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicTopSongsResponseEnvelopeDto'];
+        };
+      };
+    };
+  };
+  'SubsonicTopSongsController_getTopSongs[1]': {
+    parameters: {
+      query: {
+        artist: string;
+        count?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SubsonicTopSongsResponseEnvelopeDto'];
+          'text/xml': components['schemas']['SubsonicTopSongsResponseEnvelopeDto'];
         };
       };
     };
@@ -12825,6 +17258,7 @@ export interface operations {
           | components['schemas']['SynologySongsByComposerBodyDto']
           | components['schemas']['SynologySongsByDefaultGenreBodyDto']
           | components['schemas']['SynologySongsByGenreBodyDto']
+          | components['schemas']['SynologySongsByIdBodyDto']
           | components['schemas']['SynologySongsRateBodyDto']
           | components['schemas']['SynologySongResponseDto']
           | components['schemas']['SynologySuccessResponseDto'];
@@ -13300,6 +17734,14 @@ export enum AlbumSortFieldEnum {
   rating = 'rating',
   year = 'year',
 }
+export enum RatingOrUnset {
+  Value0 = 0,
+  Value1 = 1,
+  Value2 = 2,
+  Value3 = 3,
+  Value4 = 4,
+  Value5 = 5,
+}
 export enum ApiAlbumsListAlbumsWithTracksBadRequestErrors {
   invalid_added_after_error = 'invalid-added-after-error',
   invalid_added_before_error = 'invalid-added-before-error',
@@ -13559,9 +18001,122 @@ export enum TrackSortFieldEnum {
   genre = 'genre',
   title = 'title',
   year = 'year',
+  play_count = 'play_count',
 }
 export enum ApiTracksGetNotFoundErrors {
   file_not_found_error = 'file-not-found-error',
+}
+export enum ApiPlaylistsAddPlaylistItemsBadRequestErrors {
+  invalid_playlist_type_error = 'invalid-playlist-type-error',
+  invalid_playlist_id_error = 'invalid-playlist-id-error',
+  each_value_in_nested_property_$property_must_be_either_object_or_array = 'each value in nested property $property must be either object or array',
+  invalid_playlist_items_error = 'invalid-playlist-items-error',
+  invalid_playlist_item_offset_error = 'invalid-playlist-item-offset-error',
+}
+export enum ApiPlaylistsAddPlaylistItemsNotFoundErrors {
+  playlist_not_found_error = 'playlist-not-found-error',
+}
+export enum ApiPlaylistsCreatePlaylistBadRequestErrors {
+  invalid_name_length_error = 'invalid-name-length-error',
+  invalid_name_error = 'invalid-name-error',
+}
+export enum ApiPlaylistsCreateSmartPlaylistBadRequestErrors {
+  invalid_playlist_rules_conjugal_error = 'invalid-playlist-rules-conjugal-error',
+  each_value_in_nested_property_$property_must_be_either_object_or_array = 'each value in nested property $property must be either object or array',
+  invalid_playlist_rules_error = 'invalid-playlist-rules-error',
+  invalid_name_length_error = 'invalid-name-length-error',
+  invalid_name_error = 'invalid-name-error',
+}
+export enum SmartPlaylistConjugalEnum {
+  and = 'and',
+  or = 'or',
+}
+export enum SmartPlaylistFieldEnum {
+  album = 'album',
+  album_artist = 'album_artist',
+  artist = 'artist',
+  bit_rate = 'bit_rate',
+  composer = 'composer',
+  date_added = 'date_added',
+  file_path = 'file_path',
+  genre = 'genre',
+  rating = 'rating',
+  year = 'year',
+}
+export enum SmartPlaylistOperationEnum {
+  after = 'after',
+  before = 'before',
+  contains = 'contains',
+  does_not_contain = 'does_not_contain',
+  greater_than_or_equal_to = 'greater_than_or_equal_to',
+  in_the_last = 'in_the_last',
+  is = 'is',
+  is_not = 'is_not',
+  less_than = 'less_than',
+  not_in_the_last = 'not_in_the_last',
+}
+export enum SmartPlaylistIntervalTagEnum {
+  days = 'days',
+  weeks = 'weeks',
+  months = 'months',
+}
+export enum ApiPlaylistsDeletePlaylistBadRequestErrors {
+  invalid_playlist_id_error = 'invalid-playlist-id-error',
+}
+export enum ApiPlaylistsDeletePlaylistNotFoundErrors {
+  playlist_not_found_error = 'playlist-not-found-error',
+}
+export enum ApiPlaylistsListPlaylistItemsBadRequestErrors {
+  invalid_playlist_id_error = 'invalid-playlist-id-error',
+  invalid_limit_error = 'invalid-limit-error',
+  invalid_offset_error = 'invalid-offset-error',
+}
+export enum ApiPlaylistsListPlaylistItemsNotFoundErrors {
+  playlist_not_found_error = 'playlist-not-found-error',
+}
+export enum ApiPlaylistsListPlaylistsBadRequestErrors {
+  invalid_limit_error = 'invalid-limit-error',
+  invalid_offset_error = 'invalid-offset-error',
+}
+export enum PlaylistTypeEnum {
+  normal = 'normal',
+  smart = 'smart',
+}
+export enum ApiPlaylistsMovePlaylistItemBadRequestErrors {
+  invalid_playlist_type_error = 'invalid-playlist-type-error',
+  invalid_playlist_id_error = 'invalid-playlist-id-error',
+  invalid_playlist_item_id_error = 'invalid-playlist-item-id-error',
+  invalid_playlist_item_offset_error = 'invalid-playlist-item-offset-error',
+}
+export enum ApiPlaylistsMovePlaylistItemNotFoundErrors {
+  playlist_not_found_error = 'playlist-not-found-error',
+  playlist_items_not_found_error = 'playlist-items-not-found-error',
+}
+export enum ApiPlaylistsRemovePlaylistItemsBadRequestErrors {
+  invalid_playlist_id_error = 'invalid-playlist-id-error',
+  invalid_playlist_item_id_error = 'invalid-playlist-item-id-error',
+}
+export enum ApiPlaylistsRemovePlaylistItemsNotFoundErrors {
+  playlist_not_found_error = 'playlist-not-found-error',
+  playlist_items_not_found_error = 'playlist-items-not-found-error',
+}
+export enum ApiPlaylistsUpdatePlaylistBadRequestErrors {
+  invalid_playlist_id_error = 'invalid-playlist-id-error',
+  invalid_name_length_error = 'invalid-name-length-error',
+  invalid_name_error = 'invalid-name-error',
+}
+export enum ApiPlaylistsUpdatePlaylistNotFoundErrors {
+  playlist_not_found_error = 'playlist-not-found-error',
+}
+export enum ApiPlaylistsUpdateSmartPlaylistRulesBadRequestErrors {
+  invalid_playlist_type_error = 'invalid-playlist-type-error',
+  invalid_playlist_id_error = 'invalid-playlist-id-error',
+  invalid_playlist_rules_conjugal_error = 'invalid-playlist-rules-conjugal-error',
+  each_value_in_nested_property_$property_must_be_either_object_or_array = 'each value in nested property $property must be either object or array',
+  invalid_playlist_rules_error = 'invalid-playlist-rules-error',
+}
+export enum ApiPlaylistsUpdateSmartPlaylistRulesNotFoundErrors {
+  playlist_not_found_error = 'playlist-not-found-error',
 }
 export enum ApiRatingsSetAlbumRatingBadRequestErrors {
   invalid_album_id_error = 'invalid-album-id-error',
@@ -13712,6 +18267,22 @@ export enum ApiShoutcastUpdateStationBadRequestErrors {
 export enum ApiShoutcastUpdateStationNotFoundErrors {
   shoutcast_station_not_found_error = 'shoutcast-station-not-found-error',
 }
+export enum QnapYesNoEnum {
+  yes = 'yes',
+  no = 'no',
+}
+export enum SubsonicAlbumListTypeEnum {
+  alphabeticallyByArtist = 'alphabeticallyByArtist',
+  alphabeticallyByName = 'alphabeticallyByName',
+  byGenre = 'byGenre',
+  byYear = 'byYear',
+  frequent = 'frequent',
+  newest = 'newest',
+  highest = 'highest',
+  random = 'random',
+  recent = 'recent',
+  starred = 'starred',
+}
 export enum SynologyApiEnum {
   SYNO_AudioStation_Album = 'SYNO.AudioStation.Album',
   SYNO_AudioStation_Artist = 'SYNO.AudioStation.Artist',
@@ -13782,14 +18353,6 @@ export enum SynologyInfoDataDtoBrowse_personal_library {
   all = 'all',
   shared = 'shared',
   personal = 'personal',
-}
-export enum PlaylistTypeEnum {
-  normal = 'normal',
-  smart = 'smart',
-}
-export enum SmartPlaylistConjugalEnum {
-  and = 'and',
-  or = 'or',
 }
 export enum SynologyPlaylistDeleteBodyDtoType {
   normal = 'normal',

@@ -44,7 +44,6 @@ const router = createBrowserRouter(
         <Route path="/track-artists/:associationId/:slug/:albumId/:albumSlug" element={<AssociationsPage />} />
         <Route path="/track-composers" element={<AssociationsPage />} />
         <Route path="/track-composers/:associationId/:slug" element={<AssociationsPage />} />
-        <Route path="/track-composers/:associationId/:slug" element={<AssociationsPage />} />
         <Route path="/track-composers/:associationId/:slug/:albumId/:albumSlug" element={<AssociationsPage />} />
         <Route path="/track-genres" element={<AssociationsPage />} />
         <Route path="/track-genres/:associationId/:slug" element={<AssociationsPage />} />

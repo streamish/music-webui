@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { NavigationLink } from '@/types/navigation-link';
 
 export type Preferences = {
@@ -8,7 +8,7 @@ export type Preferences = {
   };
 };
 
-interface PreferencesContextType {
+interface PreferencesContextValue {
   preferences: Preferences;
   setPageSize: (pageSize: number) => void;
   hideItem: (id: NavigationLink) => void;
@@ -31,13 +31,7 @@ const defaultPreferences: Preferences = {
   },
 };
 
-const PreferencesContext = createContext<PreferencesContextType>({
-  preferences: defaultPreferences,
-  setPageSize: () => {},
-  hideItem: () => {},
-  showItem: () => {},
-  toggleItemVisibility: () => {},
-});
+const PreferencesContext = createContext<PreferencesContextValue | undefined>(undefined);
 
 function loadPreferences(): Preferences {
   try {
@@ -55,14 +49,14 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     localStorage.setItem('preferences', JSON.stringify(preferences));
   }, [preferences]);
 
-  function setPageSize(pageSize: number) {
+  const setPageSize = useCallback((pageSize: number) => {
     setPreferences((current) => ({
       ...current,
       pageSize,
     }));
-  }
+  }, []);
 
-  function hideItem(id: NavigationLink) {
+  const hideItem = useCallback((id: NavigationLink) => {
     setPreferences((current) => ({
       ...current,
       navigation: {
@@ -70,9 +64,9 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
         [id]: false,
       },
     }));
-  }
+  }, []);
 
-  function showItem(id: NavigationLink) {
+  const showItem = useCallback((id: NavigationLink) => {
     setPreferences((current) => ({
       ...current,
       navigation: {
@@ -80,9 +74,9 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
         [id]: true,
       },
     }));
-  }
+  }, []);
 
-  function toggleItemVisibility(id: NavigationLink, value: boolean) {
+  const toggleItemVisibility = useCallback((id: NavigationLink, value: boolean) => {
     setPreferences((current) => ({
       ...current,
       navigation: {
@@ -90,32 +84,25 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
         [id]: value,
       },
     }));
-  }
+  }, []);
 
-  return (
-    <PreferencesContext.Provider
-      value={{
-        hideItem,
-        setPageSize,
-        showItem,
-        toggleItemVisibility,
-        preferences,
-      }}
-    >
-      {children}
-    </PreferencesContext.Provider>
+  const value = useMemo(
+    () => ({
+      hideItem,
+      setPageSize,
+      showItem,
+      toggleItemVisibility,
+      preferences,
+    }),
+    [hideItem, setPageSize, showItem, toggleItemVisibility, preferences],
   );
+
+  return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
 }
 
-export function usePreferences(): {
-  preferences: Preferences;
-  setPageSize: (pageSize: number) => void;
-  hideItem: (id: NavigationLink) => void;
-  showItem: (id: NavigationLink) => void;
-  toggleItemVisibility: (id: NavigationLink, value: boolean) => void;
-} {
+export function usePreferences(): PreferencesContextValue {
   const context = useContext(PreferencesContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error('usePreferences must be used inside PreferencesProvider');
   }
   return context;
