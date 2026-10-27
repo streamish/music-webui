@@ -5,6 +5,41 @@ import { expect, test } from '@playwright/test';
 test.describe('albums', () => {
   let jwtToken: string | undefined;
 
+  test.describe('query states', () => {
+    test('shows an error when recently added albums cannot be loaded', async ({ page }) => {
+      await page.route('**/api/list-albums**', (route) =>
+        route.fulfill({
+          status: 400,
+          contentType: 'application/json',
+          body: JSON.stringify({ error: 'Album service unavailable', success: false, message: [] }),
+        }),
+      );
+      const pom = new Pom(page, jwtToken);
+      await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+      jwtToken = jwtToken || pom.jwtToken;
+
+      await expect(page.getByRole('alert')).toContainText(
+        'Unable to load recently added albums: Album service unavailable',
+        { timeout: 15000 },
+      );
+    });
+
+    test('shows an empty state when no recently added albums are available', async ({ page }) => {
+      await page.route('**/api/list-albums**', (route) =>
+        route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({ success: true, albums: [], limit: 100, offset: 0, total: 0 }),
+        }),
+      );
+      const pom = new Pom(page, jwtToken);
+      await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+      jwtToken = jwtToken || pom.jwtToken;
+
+      await expect(page.getByText('No recently added albums found.')).toBeVisible();
+    });
+  });
+
   test.describe('sidebar', () => {
     test('should turn dark mode on or off', async ({ page }) => {
       const pom = new Pom(page, jwtToken);

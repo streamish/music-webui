@@ -16,6 +16,44 @@ function waitForAlbumRequest(page: Page, limit: number, offset: number) {
 test.describe('albums', () => {
   let jwtToken: string | undefined;
 
+  test.describe('query states', () => {
+    test('shows an error when albums cannot be loaded', async ({ page }) => {
+      const pom = new Pom(page, jwtToken);
+      await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+      jwtToken = jwtToken || pom.jwtToken;
+      await page.route('**/api/list-albums**', (route) =>
+        route.fulfill({
+          status: 400,
+          contentType: 'application/json',
+          body: JSON.stringify({ error: 'Album service unavailable', success: false, message: [] }),
+        }),
+      );
+
+      await page.goto('/albums');
+
+      await expect(page.getByRole('alert')).toContainText('Unable to load albums: Album service unavailable', {
+        timeout: 15000,
+      });
+    });
+
+    test('shows an empty state when no albums are available', async ({ page }) => {
+      const pom = new Pom(page, jwtToken);
+      await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+      jwtToken = jwtToken || pom.jwtToken;
+      await page.route('**/api/list-albums**', (route) =>
+        route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({ success: true, albums: [], limit: 100, offset: 0, total: 0 }),
+        }),
+      );
+
+      await page.goto('/albums');
+
+      await expect(page.getByText('No albums found.')).toBeVisible();
+    });
+  });
+
   test.describe('pagination', () => {
     test('uses the URL page for initial load and refresh', async ({ page }) => {
       const pom = new Pom(page, jwtToken);

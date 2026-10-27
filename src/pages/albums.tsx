@@ -20,7 +20,8 @@ export default function AlbumsPage() {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
   };
-  const { data: { albums, total } = { albums: [], total: 0 } } = useAlbums(query);
+  const albumsQuery = useAlbums(query);
+  const albums = albumsQuery.data?.albums ?? [];
   const expandedAlbumId = albumId ? Number(albumId) : null;
   const expandedAlbum =
     expandedAlbumId !== null ? (albums.find((album) => album.id === expandedAlbumId) ?? null) : null;
@@ -70,16 +71,35 @@ export default function AlbumsPage() {
   return (
     <div className="relative">
       <title>Albums</title>
-      {total == null ? (
-        <p className="text-white-500">Loading…</p>
-      ) : (
+      {albumsQuery.isPending && (
+        <p className="text-white-500" role="status">
+          Loading…
+        </p>
+      )}
+      {albumsQuery.isError && (
+        <p className="text-destructive" role="alert">
+          Unable to load albums: {albumsQuery.error.message}
+        </p>
+      )}
+      {albumsQuery.isSuccess && (
         <>
-          {!isMobile && (
+          {!isMobile && albumsQuery.data.total > 0 && (
             <PageHeader>
-              <PaginationControls page={pageNumber} setPage={setPage} items={total} />
+              <PaginationControls page={pageNumber} setPage={setPage} items={albumsQuery.data.total} />
             </PageHeader>
           )}
-          <AlbumBrowser albums={albums} expandedAlbumId={expandedAlbumId} onToggleAlbum={toggleAlbum} />
+          {albumsQuery.data.albums.length === 0 && (
+            <p className="text-muted-foreground">
+              {albumsQuery.data.total === 0 ? 'No albums found.' : 'No albums found on this page.'}
+            </p>
+          )}
+          {albumsQuery.data.albums.length > 0 && (
+            <AlbumBrowser
+              albums={albumsQuery.data.albums}
+              expandedAlbumId={expandedAlbumId}
+              onToggleAlbum={toggleAlbum}
+            />
+          )}
         </>
       )}
     </div>
