@@ -59,6 +59,7 @@ const schema = z
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Passwords do not match',
+    path: ['confirmPassword'],
   });
 
 type FormData = z.infer<typeof schema>;
@@ -186,7 +187,7 @@ export function UserResetPasswordForm({ user, className }: { user: AccountDto; c
                 Cancel
               </Button>
               <Button type="submit" variant="destructive">
-                Set new password
+                Save changes
               </Button>
             </DialogFooter>
           </form>

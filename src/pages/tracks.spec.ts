@@ -17,6 +17,43 @@ function waitForTrackRequest(page: Page, limit: number, offset: number) {
 test.describe('tracks', () => {
   let jwtToken: string | undefined;
 
+  test('shows an error when tracks cannot be loaded', async ({ page }) => {
+    const pom = new Pom(page, jwtToken);
+    await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+    jwtToken = jwtToken || pom.jwtToken;
+    await page.route('**/api/list-tracks**', (route) =>
+      route.fulfill({
+        status: 400,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: 'Track service unavailable', success: false, message: [] }),
+      }),
+    );
+
+    await page.goto('/tracks');
+
+    await expect(page.getByRole('alert')).toContainText('Unable to load tracks: Track service unavailable', {
+      timeout: 15000,
+    });
+  });
+
+  test('validates stored preferences and keeps defaults for missing navigation entries', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem(
+        'preferences',
+        JSON.stringify({ pageSize: 'invalid', navigation: { Tracks: false, Albums: 'invalid' } }),
+      );
+    });
+    const pom = new Pom(page, jwtToken);
+    await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+    jwtToken = jwtToken || pom.jwtToken;
+    await pom.navigateToAccount();
+
+    await expect(page.getByRole('radio', { name: '100', exact: true })).toBeChecked();
+    await expect(page.getByRole('checkbox', { name: 'Tracks' })).not.toBeChecked();
+    await expect(page.getByRole('checkbox', { name: 'Albums' })).toBeChecked();
+    await expect(page.getByRole('checkbox', { name: 'Artists', exact: true })).toBeChecked();
+  });
+
   test.describe('pagination', () => {
     test('uses the URL page for initial load and refresh', async ({ page }) => {
       const pom = new Pom(page, jwtToken);

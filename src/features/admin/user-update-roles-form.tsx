@@ -13,9 +13,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { UserRoleEnum } from '@/types/api-schema';
-import { adminKeys } from './api/admin';
 import { toast } from 'sonner';
-import { useQueryClient } from '@tanstack/react-query';
+import { useInvalidateAccounts } from './api/admin';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
@@ -43,8 +42,8 @@ type AccountDto = {
 };
 
 export function UserUpdateRolesForm({ user, className }: { user: AccountDto; className?: string }) {
-  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
+  const invalidateAccounts = useInvalidateAccounts();
   const {
     control,
     formState: { errors },
@@ -72,8 +71,8 @@ export function UserUpdateRolesForm({ user, className }: { user: AccountDto; cla
         },
       });
       if (result.data?.success) {
+        invalidateAccounts();
         toast.success('User roles updated successfully.');
-        queryClient.invalidateQueries({ queryKey: adminKeys.accounts() });
         setOpen(false);
         return;
       }
@@ -186,7 +185,7 @@ export function UserUpdateRolesForm({ user, className }: { user: AccountDto; cla
                 Cancel
               </Button>
               <Button type="submit" variant="default">
-                Save new roles
+                Save changes
               </Button>
             </DialogFooter>
           </form>

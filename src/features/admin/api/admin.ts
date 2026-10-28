@@ -1,4 +1,5 @@
-import { queryOptions, useQuery } from '@tanstack/react-query';
+import { queryOptions, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useCallback } from 'react';
 import api from '@/lib/api';
 
 export const adminKeys = {
@@ -56,3 +57,20 @@ export const userIndexerLogsQuery = () =>
 export const useAccounts = () => useQuery(accountsQuery());
 export const useUserRootPaths = () => useQuery(userRootPathsQuery());
 export const useUserIndexerLogs = () => useQuery(userIndexerLogsQuery());
+
+export function useInvalidateAccounts() {
+  const keys = adminKeys.accounts();
+  const queryClient = useQueryClient();
+  return useCallback(
+    () => Promise.all(keys.map((key) => queryClient.invalidateQueries({ queryKey: [key] }))),
+    [queryClient, keys],
+  );
+}
+export function useInvalidateRootPaths() {
+  const keys = adminKeys.userRootPaths();
+  const queryClient = useQueryClient();
+  return useCallback(
+    () => Promise.all(keys.map((key) => queryClient.invalidateQueries({ queryKey: [key] }))),
+    [queryClient, keys],
+  );
+}

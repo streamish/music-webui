@@ -1,5 +1,5 @@
+import { type NavigationLink, navigationLinks } from '@/types/navigation-link';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import type { NavigationLink } from '@/types/navigation-link';
 
 export type Preferences = {
   pageSize: number;
@@ -18,25 +18,44 @@ interface PreferencesContextValue {
 
 const defaultPreferences: Preferences = {
   pageSize: 100,
-  navigation: {
-    Albums: true,
-    'Album Artists': true,
-    Artists: true,
-    Composers: true,
-    Folders: true,
-    Genres: true,
-    'Recently Added': true,
-    'Shoutcast Radio': true,
-    Tracks: true,
-  },
+  navigation: Object.fromEntries(navigationLinks.map((link) => [link, true])) as Preferences['navigation'],
 };
 
 const PreferencesContext = createContext<PreferencesContextValue | undefined>(undefined);
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 function loadPreferences(): Preferences {
   try {
     const saved = localStorage.getItem('preferences');
-    return saved ? { ...defaultPreferences, ...JSON.parse(saved) } : defaultPreferences;
+    if (!saved) {
+      return defaultPreferences;
+    }
+
+    const parsed: unknown = JSON.parse(saved);
+    if (!isRecord(parsed)) {
+      return defaultPreferences;
+    }
+
+    const savedNavigation = isRecord(parsed.navigation) ? parsed.navigation : {};
+    const navigation = navigationLinks.reduce<Preferences['navigation']>(
+      (result, link) => ({
+        ...result,
+        [link]:
+          typeof savedNavigation[link] === 'boolean' ? savedNavigation[link] : defaultPreferences.navigation[link],
+      }),
+      { ...defaultPreferences.navigation },
+    );
+
+    return {
+      pageSize:
+        typeof parsed.pageSize === 'number' && Number.isSafeInteger(parsed.pageSize) && parsed.pageSize >= 0
+          ? parsed.pageSize
+          : defaultPreferences.pageSize,
+      navigation,
+    };
   } catch {
     return defaultPreferences;
   }

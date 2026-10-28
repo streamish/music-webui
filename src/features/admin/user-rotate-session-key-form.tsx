@@ -108,7 +108,7 @@ export function UserRotateSessionKeyForm({ user, className }: { user: AccountDto
             <DialogTitle>Terminate sessions</DialogTitle>
             <DialogDescription>
               Terminating sessions will invalidate all existing sessions for the user by generating a new secret session
-              key. The user will need to log in again from any devices.
+              key. The user will need to log in again from all devices.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={onSubmit} className="space-y-4">
@@ -127,7 +127,7 @@ export function UserRotateSessionKeyForm({ user, className }: { user: AccountDto
                 Cancel
               </Button>
               <Button type="submit" variant="default">
-                End sessions
+                Generate new key
               </Button>
             </DialogFooter>
           </form>

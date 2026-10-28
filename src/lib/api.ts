@@ -18,6 +18,16 @@ client.use({
   },
   async onResponse({ response }) {
     if (response.status === 401) {
+      const bodyBuffer = await response.arrayBuffer();
+      const bodyText = new TextDecoder('utf-8').decode(bodyBuffer);
+      const responseJson = JSON.parse(bodyText);
+      if (responseJson.message?.[0] === 'invalid-admin-password-error') {
+        return new Response(bodyBuffer, {
+          status: response.status,
+          statusText: response.statusText,
+          headers: response.headers,
+        });
+      }
       sessionStorage.removeItem('jwt-token');
       localStorage.removeItem('jwt-token');
       if (window.location.pathname !== '/signin') {

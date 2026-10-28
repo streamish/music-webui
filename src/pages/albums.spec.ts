@@ -244,7 +244,7 @@ test.describe('albums', () => {
       const isResponsive = await pom.isResponsive();
       await pom.navigateToAlbums();
       await page.getByLabel('Album 1 by Artist 1').click();
-      await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
+      await page.waitForSelector('div[aria-label="Album details:  Album 1 by Artist 1"]');
       await page.click('button[aria-label="Play now"]');
       if (isResponsive) {
         await page.getByLabel('Back button').click();

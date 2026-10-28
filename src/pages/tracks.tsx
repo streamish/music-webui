@@ -18,7 +18,7 @@ export default function TracksPage() {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
   };
-  const { data: { tracks = [], total: totalTracks } = {} } = useTracks(query);
+  const tracksQuery = useTracks(query);
 
   const setPage = useCallback(
     (nextPage: number) => {
@@ -34,17 +34,25 @@ export default function TracksPage() {
   return (
     <>
       <title>Tracks</title>
-      {totalTracks == null ? (
-        <p className="text-white-500">Loading…</p>
-      ) : (
+      {tracksQuery.isPending && (
+        <p className="text-white-500" role="status">
+          Loading…
+        </p>
+      )}
+      {tracksQuery.isError && (
+        <p className="text-destructive" role="alert">
+          Unable to load tracks: {tracksQuery.error.message}
+        </p>
+      )}
+      {tracksQuery.isSuccess && (
         <>
           <PageHeader>
-            <PaginationControls page={pageNumber} setPage={setPage} items={totalTracks} />
+            <PaginationControls page={pageNumber} setPage={setPage} items={tracksQuery.data.total} />
           </PageHeader>
           <div className="overflow-y-auto h-[calc(100vh-9rem)]">
             {isMobile && (
               <ul className="flex grow flex-col">
-                {tracks.map((item) => (
+                {tracksQuery.data.tracks.map((item) => (
                   <li className="w-full p-2" key={item.filePath}>
                     <TrackListItem track={item} albumTitle={item.albumTitle} />
                   </li>
@@ -54,7 +62,7 @@ export default function TracksPage() {
             {!isMobile && (
               <div className="p-4">
                 <div className="flex flex-row max-w-full">
-                  <TrackTable tracks={tracks} />
+                  <TrackTable tracks={tracksQuery.data.tracks} />
                 </div>
               </div>
             )}
