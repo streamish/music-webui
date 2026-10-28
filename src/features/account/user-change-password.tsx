@@ -44,6 +44,7 @@ const schema = z
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Passwords do not match',
+    path: ['confirmPassword'],
   });
 
 type FormData = z.infer<typeof schema>;

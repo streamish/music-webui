@@ -1,6 +1,7 @@
-import { ADMIN_PASSWORD, ADMIN_USERNAME, TestApi, USER_PASSWORD, USER_USERNAME } from '../test-helper';
+import { ADMIN_PASSWORD, ADMIN_USERNAME, USER_PASSWORD, USER_USERNAME } from '../test-helper';
 import { Pom } from '../playwright.pom';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '../test-fixtures';
+import type { Page } from '@playwright/test';
 
 function waitForTrackRequest(page: Page, limit: number, offset: number) {
   return page.waitForResponse((response) => {
@@ -16,6 +17,43 @@ function waitForTrackRequest(page: Page, limit: number, offset: number) {
 test.describe('tracks', () => {
   let jwtToken: string | undefined;
 
+  test('shows an error when tracks cannot be loaded', async ({ page }) => {
+    const pom = new Pom(page, jwtToken);
+    await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+    jwtToken = jwtToken || pom.jwtToken;
+    await page.route('**/api/list-tracks**', (route) =>
+      route.fulfill({
+        status: 400,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: 'Track service unavailable', success: false, message: [] }),
+      }),
+    );
+
+    await page.goto('/tracks');
+
+    await expect(page.getByRole('alert')).toContainText('Unable to load tracks: Track service unavailable', {
+      timeout: 15000,
+    });
+  });
+
+  test('validates stored preferences and keeps defaults for missing navigation entries', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem(
+        'preferences',
+        JSON.stringify({ pageSize: 'invalid', navigation: { Tracks: false, Albums: 'invalid' } }),
+      );
+    });
+    const pom = new Pom(page, jwtToken);
+    await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+    jwtToken = jwtToken || pom.jwtToken;
+    await pom.navigateToAccount();
+
+    await expect(page.getByRole('radio', { name: '100', exact: true })).toBeChecked();
+    await expect(page.getByRole('checkbox', { name: 'Tracks' })).not.toBeChecked();
+    await expect(page.getByRole('checkbox', { name: 'Albums' })).toBeChecked();
+    await expect(page.getByRole('checkbox', { name: 'Artists', exact: true })).toBeChecked();
+  });
+
   test.describe('pagination', () => {
     test('uses the URL page for initial load and refresh', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
@@ -28,7 +66,7 @@ test.describe('tracks', () => {
 
       const initialRequest = waitForTrackRequest(page, 2, 2);
       await page.goto('/tracks?page=2');
-      expect((await initialRequest).ok()).toBeTruthy();
+      expect((await initialRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=2$/);
       await expect(
         page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
@@ -36,7 +74,7 @@ test.describe('tracks', () => {
 
       const refreshRequest = waitForTrackRequest(page, 2, 2);
       await page.reload();
-      expect((await refreshRequest).ok()).toBeTruthy();
+      expect((await refreshRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=2$/);
       await expect(
         page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
@@ -54,26 +92,26 @@ test.describe('tracks', () => {
 
       const firstPageRequest = waitForTrackRequest(page, 2, 0);
       await page.goto('/tracks');
-      expect((await firstPageRequest).ok()).toBeTruthy();
+      expect((await firstPageRequest).ok()).toBe(true);
 
       const secondPageRequest = waitForTrackRequest(page, 2, 2);
       await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }).click();
-      expect((await secondPageRequest).ok()).toBeTruthy();
+      expect((await secondPageRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=2$/);
 
       const thirdPageRequest = waitForTrackRequest(page, 2, 4);
       await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '3' }).click();
-      expect((await thirdPageRequest).ok()).toBeTruthy();
+      expect((await thirdPageRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=3$/);
 
       const backRequest = waitForTrackRequest(page, 2, 2);
       await page.goBack();
-      expect((await backRequest).ok()).toBeTruthy();
+      expect((await backRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=2$/);
 
       const forwardRequest = waitForTrackRequest(page, 2, 4);
       await page.goForward();
-      expect((await forwardRequest).ok()).toBeTruthy();
+      expect((await forwardRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/tracks\?page=3$/);
     });
 
@@ -94,7 +132,7 @@ test.describe('tracks', () => {
       await expect(pageSize).toBe(1000);
       const pageRequest = waitForTrackRequest(page, pageSize, pageSize);
       await page.goto(`/tracks?page=2`);
-      expect((await pageRequest).ok()).toBeTruthy();
+      expect((await pageRequest).ok()).toBe(true);
     });
   });
 
@@ -216,9 +254,8 @@ test.describe('tracks', () => {
   });
 
   test.describe('editing tracks', () => {
-    test('should update track details', async ({ page }) => {
+    test('should update track details', async ({ page, testApi }) => {
       const newUsername = `tracks-edit-track-${Date.now()}`;
-      const testApi = new TestApi();
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
         newUsername,
       });
@@ -240,14 +277,12 @@ test.describe('tracks', () => {
       await expect(
         page.getByLabel(`Track details:  Playwright-associations Track 1 by Playwright-associations Artist 1`),
       ).toBeDefined();
-      await testApi.deleteUser(newAccountId);
     });
   });
 
   test.describe('rating tracks', () => {
-    test('should rate track', async ({ page }) => {
+    test('should rate track', async ({ page, testApi }) => {
       const newUsername = `tracks-rating-track-${Date.now()}`;
-      const testApi = new TestApi();
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
         newUsername,
       });
@@ -258,7 +293,6 @@ test.describe('tracks', () => {
       await page.getByRole('button', { name: 'Rate this track with 5 stars' }).first().click();
       await page.waitForLoadState('networkidle');
       await expect(page.getByLabel('Rate this track with 5 stars')).toBeDefined();
-      await testApi.deleteUser(newAccountId);
     });
   });
 });

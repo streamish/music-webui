@@ -144,7 +144,7 @@ export function RootPathUpdateForm({ rootPath }: { rootPath: RootPathDto }) {
               <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
-              <Button type="submit">Save new path</Button>
+              <Button type="submit">Save changes</Button>
             </DialogFooter>
           </form>
         </DialogContent>

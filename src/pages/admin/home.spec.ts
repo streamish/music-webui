@@ -1,7 +1,7 @@
 import { ADMIN_PASSWORD, ADMIN_USERNAME, AdminApi } from '../../test-helper';
+import { type Page, expect, test } from '@playwright/test';
 import { Pom } from '../../playwright.pom';
 import { UserRoleEnum } from '@/types/api-schema';
-import { expect, test } from '@playwright/test';
 import { join } from 'node:path';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -9,6 +9,26 @@ import { tmpdir } from 'node:os';
 test.describe('admin home', () => {
   const deleteUsers: number[] = [];
   let jwtToken: string | undefined;
+
+  function waitForAccountRefresh(page: Page, withAccountUsername?: string) {
+    return page.waitForResponse(async (response) => {
+      const url = new URL(response.url());
+      if (url.pathname.endsWith('/api/list-accounts')) {
+        if (withAccountUsername) {
+          const responseData = await response.json();
+          const account = responseData.accounts.find(
+            (a: Record<string, string | number>) => a.username === withAccountUsername,
+          );
+          if (account) {
+            return true;
+          }
+        } else {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
 
   test.afterEach(async () => {
     if (!jwtToken) {
@@ -34,11 +54,10 @@ test.describe('admin home', () => {
       const pom = new Pom(page);
       await pom.signIn({ username: 'user', password: 'user' });
       await page.goto('/admin');
-      await page.waitForLoadState('networkidle');
       await expect(
-        page.getByRole('main').filter({ hasText: 'You must be signed in as an admin to access this page.' }),
-      ).toBeTruthy();
-      expect(page.url()).toBe(`${testInfo.project.use.baseURL}/`);
+        page.getByText('You must be signed in as an admin to access this page.', { exact: true }),
+      ).toBeVisible();
+      await expect(page).toHaveURL(`${testInfo.project.use.baseURL}/`);
     });
   });
 
@@ -61,9 +80,8 @@ test.describe('admin home', () => {
           jwtToken = jwtToken || pom.jwtToken;
           await pom.navigateToAdmin();
           await page.getByText('Add account').click();
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'At least one role must be selected' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
+          await expect(page.getByText('At least one role must be selected.', { exact: true })).toBeVisible();
         });
 
         test('should show error if username is blank', async ({ page }) => {
@@ -72,9 +90,8 @@ test.describe('admin home', () => {
           jwtToken = jwtToken || pom.jwtToken;
           await pom.navigateToAdmin();
           await page.getByText('Add account').click();
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Username is required' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
+          await expect(page.getByText('Username is required', { exact: true })).toBeVisible();
         });
 
         test('should show error if password is blank', async ({ page }) => {
@@ -83,9 +100,8 @@ test.describe('admin home', () => {
           jwtToken = jwtToken || pom.jwtToken;
           await pom.navigateToAdmin();
           await page.getByText('Add account').click();
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Password is required' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
+          await expect(page.getByText('Password is required', { exact: true })).toBeVisible();
         });
 
         test('should show error if confirmation password is blank', async ({ page }) => {
@@ -94,9 +110,8 @@ test.describe('admin home', () => {
           jwtToken = jwtToken || pom.jwtToken;
           await pom.navigateToAdmin();
           await page.getByText('Add account').click();
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Confirm password is required' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
+          await expect(page.getByText('Confirm password is required', { exact: true })).toBeVisible();
         });
 
         test('should show error if confirmation password does not match', async ({ page }) => {
@@ -107,9 +122,8 @@ test.describe('admin home', () => {
           await page.getByText('Add account').click();
           await page.locator('input[name="password"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('differentpassword');
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Passwords do not match' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
+          await expect(page.getByText('Passwords do not match', { exact: true })).toBeVisible();
         });
 
         test('should show error if administrator password is blank', async ({ page }) => {
@@ -121,13 +135,12 @@ test.describe('admin home', () => {
           await page.locator('input[name="password"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('differentpassword');
           await page.locator('input[name="adminPassword"]').fill('');
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Administrator password is required' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
+          await expect(page.getByText('Administrator password is required', { exact: true })).toBeVisible();
         });
 
         test('should show error if user already exists', async ({ page }) => {
-          const testUsername = `test-add-account-${Date.now()}`;
+          const testUsername = `test-duplicate-account-${Date.now()}`;
           const pom = new Pom(page, jwtToken);
           await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
           jwtToken = jwtToken || pom.jwtToken || '';
@@ -141,13 +154,13 @@ test.describe('admin home', () => {
           deleteUsers.push(testUser.id);
           await pom.navigateToAdmin();
           await page.getByText('Add account').click();
+          await page.locator('label[for="user-role"]').click();
           await page.locator('input[name="username"]').fill(testUsername);
           await page.locator('input[name="password"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('testpassword');
           await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'User already exists' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
+          await expect(page.getByText('User already exists.', { exact: true })).toBeVisible();
         });
 
         test('should show error if admin password is incorrect', async ({ page }) => {
@@ -165,13 +178,14 @@ test.describe('admin home', () => {
           deleteUsers.push(testUser.id);
           await pom.navigateToAdmin();
           await page.getByText('Add account').click();
+          await page.locator('label[for="user-role"]').click();
           await page.locator('input[name="username"]').fill(testUsername);
           await page.locator('input[name="password"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('testpassword');
           await page.locator('input[name="adminPassword"]').fill('wrong password');
-          await page.click('button[type="submit"]');
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
           await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Invalid admin password.' })).toBeTruthy();
+          await expect(page.getByText('Invalid admin password.', { exact: true })).toBeVisible();
         });
       });
 
@@ -187,13 +201,22 @@ test.describe('admin home', () => {
           await page.locator('input[name="username"]').fill(testUsername);
           await page.locator('input[name="password"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('testpassword');
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          const accountList = await page
-            .getByRole('list', { name: 'User accounts' })
-            .or(page.getByRole('table', { name: 'User accounts' }));
-          await expect(accountList.filter({ hasText: testUsername })).toBeTruthy();
-          await expect(page.getByRole('main').filter({ hasText: 'Account created successfully' })).toBeTruthy();
+          await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
+          const updateAccountList = waitForAccountRefresh(page, testUsername);
+          await page.locator('button', { hasText: 'Add new account' }).last().click();
+          await expect(page.getByText('User account created successfully.', { exact: true })).toBeVisible();
+          const response = await updateAccountList;
+          const responseData = await response.json();
+          const account = responseData.accounts.find(
+            (a: Record<string, string | number>) => a.username === testUsername,
+          );
+          deleteUsers.push(account.id);
+          await expect(
+            page
+              .getByRole('list', { name: 'User accounts' })
+              .or(page.getByRole('table', { name: 'User accounts' }))
+              .filter({ hasText: testUsername }),
+          ).toBeVisible();
         });
       });
     });
@@ -216,9 +239,8 @@ test.describe('admin home', () => {
           await pom.navigateToAdmin();
           const userRow = await page.getByRole('row', { name: `User account ${testUsername}` });
           await userRow.locator('button', { hasText: 'Reset password' }).click();
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Password is required' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('Password is required', { exact: true })).toBeVisible();
         });
 
         test('should show error if confirmation password is blank', async ({ page }) => {
@@ -238,9 +260,8 @@ test.describe('admin home', () => {
           const userRow = await page.getByRole('row', { name: `User account ${testUsername}` });
           await userRow.locator('button', { hasText: 'Reset password' }).click();
           await page.locator('input[name="newPassword"]').fill('testpassword');
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Confirmation password is required' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('Confirm password is required', { exact: true })).toBeVisible();
         });
 
         test('should show error if confirmation password does not match', async ({ page }) => {
@@ -262,9 +283,8 @@ test.describe('admin home', () => {
           await page.locator('input[name="newPassword"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('differentpassword');
           await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Passwords do not match' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('Passwords do not match', { exact: true })).toBeVisible();
         });
 
         test('should show error if administrator password is blank', async ({ page }) => {
@@ -286,9 +306,8 @@ test.describe('admin home', () => {
           await page.locator('input[name="newPassword"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('testpassword');
           await page.locator('input[name="adminPassword"]').fill('');
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Administrator password is required' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('Administrator password is required', { exact: true })).toBeVisible();
         });
 
         test('should show error if administrator password is incorrect', async ({ page }) => {
@@ -310,9 +329,8 @@ test.describe('admin home', () => {
           await page.locator('input[name="newPassword"]').fill('testpassword');
           await page.locator('input[name="confirmPassword"]').fill('testpassword');
           await page.locator('input[name="adminPassword"]').fill('wrongpassword');
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Invalid admin password.' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('Invalid admin password.', { exact: true })).toBeVisible();
         });
       });
 
@@ -336,8 +354,8 @@ test.describe('admin home', () => {
           await page.locator('input[name="newPassword"]').fill('newpassword');
           await page.locator('input[name="confirmPassword"]').fill('newpassword');
           await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
-          await page.locator('button', { hasText: 'Set new password' }).last().click();
-          await expect(page.getByRole('main').filter({ hasText: 'Password reset successfully' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('User password reset successfully.', { exact: true })).toBeVisible();
         });
       });
     });
@@ -354,15 +372,11 @@ test.describe('admin home', () => {
           expect(rowText).toContain('admin');
           await userRow.locator('button', { hasText: 'Update roles' }).click();
           await page.locator('label[for="admin-role"]').click();
-          await page.locator('label[for="user-role"]').click();
           await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
+          await page.locator('button', { hasText: 'Save changes' }).click();
           await expect(
-            page
-              .getByRole('main')
-              .filter({ hasText: 'You must create another administrator before removing this permission.' }),
-          ).toBeTruthy();
+            page.getByText('You must create another administrator before removing this permission.', { exact: true }),
+          ).toBeVisible();
         });
 
         test('should show error if administrator password is blank', async ({ page }) => {
@@ -377,9 +391,8 @@ test.describe('admin home', () => {
           await page.locator('label[for="admin-role"]').click();
           await page.locator('label[for="user-role"]').click();
           await page.locator('input[name="adminPassword"]').fill('');
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Administrator password is required' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('Administrator password is required', { exact: true })).toBeVisible();
         });
 
         test('should show error if administrator password is incorrect', async ({ page }) => {
@@ -392,11 +405,9 @@ test.describe('admin home', () => {
           expect(rowText).toContain('admin');
           await userRow.locator('button', { hasText: 'Update roles' }).click();
           await page.locator('label[for="admin-role"]').click();
-          await page.locator('label[for="user-role"]').click();
           await page.locator('input[name="adminPassword"]').fill('incorrectpassword');
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Invalid admin password.' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('Invalid admin password.', { exact: true })).toBeVisible();
         });
       });
 
@@ -423,17 +434,13 @@ test.describe('admin home', () => {
           await page.locator('label[for="admin-role"]').click();
           await page.locator('label[for="user-role"]').click();
           await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Roles updated successfully' })).toBeTruthy();
-          await page.waitForLoadState('networkidle');
-          await expect(
-            await page.getByRole('row', { name: `User account ${testUsername}` }).textContent(),
-          ).not.toContain('admin');
-          await expect(await page.getByRole('row', { name: `User account ${testUsername}` }).textContent()).toContain(
-            'user',
-          );
-          await expect(page.getByRole('main').filter({ hasText: 'Roles updated successfully' })).toBeTruthy();
+          const updateAccountList = waitForAccountRefresh(page);
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await updateAccountList;
+          await expect(page.getByText('User roles updated successfully.', { exact: true })).toBeVisible();
+          const textContent = await page.getByRole('row', { name: `User account ${testUsername}` }).textContent();
+          await expect(textContent).not.toContain('admin');
+          await expect(textContent).toContain('user');
         });
       });
     });
@@ -458,11 +465,8 @@ test.describe('admin home', () => {
           await page.locator('button', { hasText: 'Add root path' }).click();
           await page.locator('select[name="accountId"]').selectOption({ label: testUsername });
           await page.locator('input[name="rootPath"]').fill(newPath);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(
-            page.getByRole('main').filter({ hasText: 'The specified root path does not exist' }),
-          ).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new path' }).click();
+          await expect(page.getByText('The specified root path does not exist.', { exact: true })).toBeVisible();
         });
 
         test('should show error if root path already exists for account', async ({ page }) => {
@@ -485,13 +489,10 @@ test.describe('admin home', () => {
           await page.locator('button', { hasText: 'Add root path' }).click();
           await page.locator('select[name="accountId"]').selectOption({ label: testUsername });
           await page.locator('input[name="rootPath"]').fill(newPath);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
+          await page.locator('button', { hasText: 'Add new path' }).click();
           await expect(
-            page
-              .getByRole('main')
-              .filter({ hasText: 'The specified root path has already been added to this account' }),
-          ).toBeTruthy();
+            page.getByText('The specified root path has already been added to this account.', { exact: true }),
+          ).toBeVisible();
         });
       });
 
@@ -515,9 +516,8 @@ test.describe('admin home', () => {
           await page.locator('button', { hasText: 'Add root path' }).click();
           await page.locator('select[name="accountId"]').selectOption({ label: testUsername });
           await page.locator('input[name="rootPath"]').fill(newPath);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Root path added successfully' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Add new path' }).click();
+          await expect(page.getByText('Root path added successfully.')).toBeVisible();
         });
       });
     });
@@ -525,10 +525,10 @@ test.describe('admin home', () => {
     test.describe('update root path', () => {
       test.describe('errors', () => {
         test('should show error if root path does not exist', async ({ page }) => {
-          const testUsername = `test-add-account-${Date.now()}`;
-          const originalPath = join(tmpdir(), `test-root-path-${Date.now()}`);
+          const testUsername = `test-update-root-path-${Date.now()}`;
+          const originalPath = join(tmpdir(), `test-update-root-path-${Date.now()}`);
           mkdirSync(originalPath, { recursive: true });
-          const newPath = join(tmpdir(), `test-root-path-${Date.now()}`);
+          const newPath = join(tmpdir(), `now-updated-root-path-${Date.now()}`);
           const pom = new Pom(page, jwtToken);
           await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
           jwtToken = jwtToken || pom.jwtToken || '';
@@ -545,18 +545,15 @@ test.describe('admin home', () => {
           const rootPathRow = await page.getByRole('row', { name: `Root path for ${testUsername} ${originalPath}` });
           await rootPathRow.locator('button', { hasText: 'Change path' }).click();
           await page.locator('input[name="newPath"]').fill(newPath);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(
-            page.getByRole('main').filter({ hasText: 'The specified root path does not exist' }),
-          ).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('The specified root path does not exist.', { exact: true })).toBeVisible();
         });
 
         test('should show error if new path already exists for account', async ({ page }) => {
-          const testUsername = `test-add-account-${Date.now()}`;
-          const firstPath = join(tmpdir(), `test-root-path-${Date.now()}`);
+          const testUsername = `test-root-path-exists-${Date.now()}`;
+          const firstPath = join(tmpdir(), `test-update-root-path-firstroot-path-${Date.now()}`);
           mkdirSync(firstPath, { recursive: true });
-          const secondPath = join(tmpdir(), `test-root-path-${Date.now() - 2}`);
+          const secondPath = join(tmpdir(), `test-exists-second-root-path-${Date.now()}`);
           mkdirSync(secondPath, { recursive: true });
           const pom = new Pom(page, jwtToken);
           await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
@@ -575,22 +572,19 @@ test.describe('admin home', () => {
           const rootPathRow = await page.getByRole('row', { name: `Root path for ${testUsername} ${firstPath}` });
           await rootPathRow.locator('button', { hasText: 'Change path' }).click();
           await page.locator('input[name="newPath"]').fill(secondPath);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
+          await page.locator('button', { hasText: 'Save changes' }).click();
           await expect(
-            page
-              .getByRole('main')
-              .filter({ hasText: 'The specified root path has already been added to this account' }),
-          ).toBeTruthy();
+            page.getByText('The specified root path has already been added to this account.', { exact: true }),
+          ).toBeVisible();
         });
       });
 
       test.describe('success', () => {
         test('should update root path', async ({ page }) => {
           const testUsername = `test-add-account-${Date.now()}`;
-          const originalPath = join(tmpdir(), `test-root-path-${Date.now()}`);
+          const originalPath = join(tmpdir(), `test-update-root-path-${Date.now()}`);
           mkdirSync(originalPath, { recursive: true });
-          const updatedPath = join(tmpdir(), `test-root-path-${Date.now()}`);
+          const updatedPath = join(tmpdir(), `test-updated-root-path-${Date.now()}`);
           mkdirSync(updatedPath, { recursive: true });
           const pom = new Pom(page, jwtToken);
           await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
@@ -608,9 +602,8 @@ test.describe('admin home', () => {
           const rootPathRow = await page.getByRole('row', { name: `Root path for ${testUsername} ${originalPath}` });
           await rootPathRow.locator('button', { hasText: 'Change path' }).click();
           await page.locator('input[name="newPath"]').fill(updatedPath);
-          await page.click('button[type="submit"]');
-          await page.waitForLoadState('networkidle');
-          await expect(page.getByRole('main').filter({ hasText: 'Root path updated successfully' })).toBeTruthy();
+          await page.locator('button', { hasText: 'Save changes' }).click();
+          await expect(page.getByText('Root path updated successfully.')).toBeVisible();
         });
       });
     });
@@ -633,8 +626,9 @@ test.describe('admin home', () => {
           await pom.navigateToAdmin();
           const userRow = await page.getByRole('row', { name: `User account ${testUsername}` });
           await userRow.locator('button', { hasText: 'Terminate sessions' }).click();
-          await page.locator('button', { hasText: 'End sessions' }).click();
-          await expect(page.getByRole('main').filter({ hasText: 'Session key regenerated successfully' })).toBeTruthy();
+          await page.locator('input[name="adminPassword"]').fill(ADMIN_PASSWORD);
+          await page.locator('button', { hasText: 'Generate new key' }).click();
+          await expect(page.getByText('User session key rotated successfully.', { exact: true })).toBeVisible();
         });
       });
     });
@@ -694,13 +688,11 @@ test.describe('admin home', () => {
             }
             URL.createObjectURL = captureBlob;
           });
-
           const newPagePromise = context.waitForEvent('page');
           await page.getByRole('button', { name: 'View raw logs' }).click();
           // Get the new page
           const newPage = await newPagePromise;
           await newPage.waitForLoadState('domcontentloaded');
-
           // Get the captured blob content from the original page
           const blobText = await page.evaluate(async () => {
             const w = window as unknown as WindowWithCapturedBlob;
@@ -725,7 +717,7 @@ test.describe('admin home', () => {
           await download.saveAs(join(downloadPath, download.suggestedFilename()));
           const filePath = join(downloadPath, download.suggestedFilename());
           const jsonData = JSON.parse(readFileSync(filePath, 'utf-8'));
-          expect(Array.isArray(jsonData)).toBeTruthy();
+          expect(Array.isArray(jsonData)).toBe(true);
         });
 
         test('should download logs as CSV', async ({ page, context }) => {

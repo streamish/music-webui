@@ -1,6 +1,8 @@
-import { ADMIN_PASSWORD, ADMIN_USERNAME, TestApi, USER_PASSWORD, USER_USERNAME } from '../test-helper';
+/* eslint-disable no-await-in-loop */
+import { ADMIN_PASSWORD, ADMIN_USERNAME, USER_PASSWORD, USER_USERNAME } from '../test-helper';
 import { Pom } from '../playwright.pom';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '../test-fixtures';
+import type { Page } from '@playwright/test';
 
 function waitForAlbumRequest(page: Page, limit: number, offset: number) {
   return page.waitForResponse((response) => {
@@ -66,7 +68,7 @@ test.describe('albums', () => {
 
       const initialRequest = waitForAlbumRequest(page, 2, 2);
       await page.goto('/albums?page=2');
-      expect((await initialRequest).ok()).toBeTruthy();
+      expect((await initialRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=2$/);
       await expect(
         page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
@@ -74,7 +76,7 @@ test.describe('albums', () => {
 
       const refreshRequest = waitForAlbumRequest(page, 2, 2);
       await page.reload();
-      expect((await refreshRequest).ok()).toBeTruthy();
+      expect((await refreshRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=2$/);
       await expect(
         page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }),
@@ -92,7 +94,7 @@ test.describe('albums', () => {
 
       const pageRequest = waitForAlbumRequest(page, 2, 2);
       await page.goto('/albums?page=2');
-      expect((await pageRequest).ok()).toBeTruthy();
+      expect((await pageRequest).ok()).toBe(true);
 
       await page.getByLabel('Album 3 by Artist 2').click();
       await expect(page).toHaveURL(/\/albums\/\d+\/[^?]+\?page=2$/);
@@ -110,26 +112,26 @@ test.describe('albums', () => {
 
       const firstPageRequest = waitForAlbumRequest(page, 2, 0);
       await page.goto('/albums');
-      expect((await firstPageRequest).ok()).toBeTruthy();
+      expect((await firstPageRequest).ok()).toBe(true);
 
       const secondPageRequest = waitForAlbumRequest(page, 2, 2);
       await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '2' }).click();
-      expect((await secondPageRequest).ok()).toBeTruthy();
+      expect((await secondPageRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=2$/);
 
       const thirdPageRequest = waitForAlbumRequest(page, 2, 4);
       await page.getByRole('navigation', { name: 'Pagination' }).getByRole('link', { name: '3' }).click();
-      expect((await thirdPageRequest).ok()).toBeTruthy();
+      expect((await thirdPageRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=3$/);
 
       const backRequest = waitForAlbumRequest(page, 2, 2);
       await page.goBack();
-      expect((await backRequest).ok()).toBeTruthy();
+      expect((await backRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=2$/);
 
       const forwardRequest = waitForAlbumRequest(page, 2, 4);
       await page.goForward();
-      expect((await forwardRequest).ok()).toBeTruthy();
+      expect((await forwardRequest).ok()).toBe(true);
       await expect(page).toHaveURL(/\/albums\?page=3$/);
     });
 
@@ -151,7 +153,7 @@ test.describe('albums', () => {
 
       const pageRequest = waitForAlbumRequest(page, 100, 100);
       await page.goto('/albums?page=2');
-      expect((await pageRequest).ok()).toBeTruthy();
+      expect((await pageRequest).ok()).toBe(true);
     });
   });
 
@@ -205,7 +207,8 @@ test.describe('albums', () => {
         'Album 5 by Artist 3',
       ];
       const isResponsive = await pom.isResponsive();
-      for (const album of albums) {
+      for (let i = 0, len = albums.length; i < len; i += 1) {
+        const album = albums[i];
         await page.getByLabel(album).click();
         await page.waitForSelector(`div[aria-label="Album details:  ${album}"]`);
         await expect(page.getByLabel(`Album details:  ${album}`)).toBeDefined();
@@ -241,7 +244,7 @@ test.describe('albums', () => {
       const isResponsive = await pom.isResponsive();
       await pom.navigateToAlbums();
       await page.getByLabel('Album 1 by Artist 1').click();
-      await page.waitForSelector(`div[aria-label="Album details:  Album 1 by Artist 1"]`);
+      await page.waitForSelector('div[aria-label="Album details:  Album 1 by Artist 1"]');
       await page.click('button[aria-label="Play now"]');
       if (isResponsive) {
         await page.getByLabel('Back button').click();
@@ -341,9 +344,8 @@ test.describe('albums', () => {
   });
 
   test.describe('editing albums', () => {
-    test('should update album details', async ({ page }) => {
+    test('should update album details', async ({ page, testApi }) => {
       const newUsername = `albums-edit-album-${Date.now()}`;
-      const testApi = new TestApi();
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
         newUsername,
       });
@@ -362,14 +364,12 @@ test.describe('albums', () => {
       await expect(
         page.getByLabel(`Album details:  Playwright-albums Album 1 by Playwright-albums Artist 1`),
       ).toBeDefined();
-      await testApi.deleteUser(newAccountId);
     });
   });
 
   test.describe('rating albums', () => {
-    test('should rate album', async ({ page }) => {
+    test('should rate album', async ({ page, testApi }) => {
       const newUsername = `albums-rating-album-${Date.now()}`;
-      const testApi = new TestApi();
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
         newUsername,
       });
@@ -382,7 +382,6 @@ test.describe('albums', () => {
       await page.click('button[aria-label="Rate this album with 5 stars"]');
       await page.waitForLoadState('networkidle');
       await expect(page.getByLabel('Rate this album with 5 stars')).toBeDefined();
-      await testApi.deleteUser(newAccountId);
     });
   });
 });

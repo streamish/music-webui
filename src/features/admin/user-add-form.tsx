@@ -8,6 +8,7 @@ import { Plus } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { UserRoleEnum } from '@/types/api-schema';
 import { toast } from 'sonner';
+import { useInvalidateAccounts } from './api/admin';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
@@ -63,12 +64,14 @@ const schema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
+    path: ['confirmPassword'],
   });
 
 type FormData = z.infer<typeof schema>;
 
 export function UserAddForm({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
+  const invalidateAccounts = useInvalidateAccounts();
   const {
     control,
     formState: { errors },
@@ -93,7 +96,8 @@ export function UserAddForm({ className }: { className?: string }) {
         },
       });
       if (result.data?.success) {
-        toast.success('Root path updated successfully. It will begin indexing shortly if the indexer is enabled.');
+        invalidateAccounts();
+        toast.success('User account created successfully.');
         setOpen(false);
         return;
       }
@@ -233,7 +237,7 @@ export function UserAddForm({ className }: { className?: string }) {
                 Cancel
               </Button>
               <Button type="submit" variant="default">
-                Create new account
+                Add new account
               </Button>
             </DialogFooter>
           </form>

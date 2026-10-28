@@ -52,12 +52,6 @@ export class Pom {
     if (responsiveMode) {
       await this.page.getByLabel('Show queue items', { exact: true }).click();
     }
-
-    // await this.page.getByLabel('Show or hide playback queue', { exact: true }).click();
-    // const queueItemsLink = await this.page.getByLabel('Show queue items', { exact: true }).count();
-    // if (queueItemsLink) {
-    //   await this.page.getByLabel('Show queue items', { exact: true }).click();
-    // }
   }
 
   async isResponsive(): Promise<boolean> {

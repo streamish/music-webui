@@ -3,7 +3,7 @@ module.exports = {
   parserOptions: {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
-    project: ['./tsconfig.app.json'],
+    project: ['./tsconfig.app.json', './tsconfig.node.json'],
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'check-file', 'folders', 'sort-imports-es6-autofix'],
   extends: [
@@ -15,9 +15,9 @@ module.exports = {
   root: true,
   env: {
     node: true,
-    jest: true,
   },
   ignorePatterns: [
+    '.eslintrc.cjs',
     '.eslintrc.js',
     'jest.*',
     'dist',
@@ -26,9 +26,6 @@ module.exports = {
     'vite.config.ts',
     'playwright.config.ts',
     'src/components/ui/**',
-    'src/**/*.spec.ts',
-    'src/test-helper.ts',
-    'src/playwright.pom.ts',
   ],
   rules: {
     // single quotes

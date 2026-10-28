@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
 import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
-import { useAccounts } from './api/admin';
+import { useAccounts, useInvalidateRootPaths } from './api/admin';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '@/lib/api';
@@ -42,6 +42,7 @@ type FormData = z.infer<typeof schema>;
 export function RootPathAddForm() {
   const [open, setOpen] = useState(false);
   const { data: accounts = [] } = useAccounts();
+  const invalidateRootPaths = useInvalidateRootPaths();
   const {
     control,
     formState: { errors },
@@ -65,6 +66,7 @@ export function RootPathAddForm() {
         },
       });
       if (result.data?.success) {
+        invalidateRootPaths();
         toast.success('Root path added successfully. It will begin indexing shortly if the indexer is enabled.');
         setOpen(false);
         return;
@@ -159,7 +161,7 @@ export function RootPathAddForm() {
               <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
-              <Button type="submit">Save new path</Button>
+              <Button type="submit">Add new path</Button>
             </DialogFooter>
           </form>
         </DialogContent>

@@ -139,7 +139,7 @@ export function UserDeleteForm({ user, className }: { user: AccountDto; classNam
                 Cancel
               </Button>
               <Button type="submit" variant="destructive">
-                Delete user
+                Delete account
               </Button>
             </DialogFooter>
           </form>
