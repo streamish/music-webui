@@ -64,6 +64,11 @@ export const primaryLinks: NavigationItem[] = [
     icon: User,
   },
   {
+    to: '/playlists',
+    label: 'Playlists',
+    icon: Music,
+  },
+  {
     to: '/track-composers',
     label: 'Composers',
     icon: Music,

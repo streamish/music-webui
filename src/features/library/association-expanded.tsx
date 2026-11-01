@@ -1,3 +1,4 @@
+import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
 import { ArrowLeftCircle } from 'lucide-react';
 import { AssociationEditForm } from '@/features/library/association-edit-form';
 import { Button } from '../../components/ui/button';
@@ -26,6 +27,7 @@ export function AssociationExpanded({
         {association && (
           <>
             <FavoriteControls association={association} />
+            <AddToPlaylistButton association={association} />
             <AssociationEditForm association={association} associationType={associationType} />
           </>
         )}

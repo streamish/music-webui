@@ -6,6 +6,7 @@ import AdminLayout from './layouts/admin-layout';
 import AlbumsPage from './pages/albums';
 import FoldersPage from './pages/folders';
 import GuestLayout from './layouts/guest-layout';
+import PlaylistsPage from './pages/playlists';
 import RecentlyAddedPage from './pages/recently-added';
 import ShoutcastRadioPage from './pages/shoutcast-radio';
 import SignInPage from './pages/signin';
@@ -37,6 +38,8 @@ export const routes: RouteObject[] = [
       ...associationRoutes('track-genres', { withAlbums: false }),
       { path: 'folders', Component: FoldersPage },
       { path: 'folders/:folderId/*', Component: FoldersPage },
+      { path: 'playlists', Component: PlaylistsPage },
+      { path: 'playlists/:playlistId/:slug', Component: PlaylistsPage },
       { path: 'shoutcast', Component: ShoutcastRadioPage },
       { path: 'shoutcast/:container', Component: ShoutcastRadioPage },
       { path: 'shoutcast/:container/:genreId/:slug', Component: ShoutcastRadioPage },
