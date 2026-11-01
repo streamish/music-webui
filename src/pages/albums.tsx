@@ -77,7 +77,7 @@ export default function AlbumsPage() {
         </p>
       )}
       {albumsQuery.isError && (
-        <p className="text-destructive" role="alert">
+        <p className="text-destructive p-4" role="alert">
           Unable to load albums: {albumsQuery.error.message}
         </p>
       )}
@@ -89,7 +89,7 @@ export default function AlbumsPage() {
             </PageHeader>
           )}
           {albumsQuery.data.albums.length === 0 && (
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground p-4">
               {albumsQuery.data.total === 0 ? 'No albums found.' : 'No albums found on this page.'}
             </p>
           )}
