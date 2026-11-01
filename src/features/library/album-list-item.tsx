@@ -37,9 +37,7 @@ export function AlbumListItem({
           />
           <div>
             <h3 className="text-foreground/80">{album.title}</h3>
-            <p className="text-sm text-foreground/60">
-              {album.artists.map((artist) => artist.name).join(', ')}- from album list item -
-            </p>
+            <p className="text-sm text-foreground/60">{album.artists.map((artist) => artist.name).join(', ')}</p>
           </div>
         </div>
       </button>

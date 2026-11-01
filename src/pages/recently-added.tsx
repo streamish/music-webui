@@ -18,12 +18,12 @@ export default function RecentlyAddedPage() {
         </p>
       )}
       {albumsQuery.isError && (
-        <p className="text-destructive" role="alert">
+        <p className="text-destructive p-4" role="alert">
           Unable to load recently added albums: {albumsQuery.error.message}
         </p>
       )}
       {albumsQuery.isSuccess && albumsQuery.data.albums.length === 0 && (
-        <p className="text-muted-foreground">No recently added albums found.</p>
+        <p className="text-muted-foreground p-4">No recently added albums found.</p>
       )}
       {albumsQuery.isSuccess && albumsQuery.data.albums.length > 0 && (
         <AlbumBrowser albums={albumsQuery.data.albums} expandedAlbumId={expandedAlbumId} onToggleAlbum={toggleAlbum} />

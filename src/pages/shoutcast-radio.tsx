@@ -44,7 +44,7 @@ export default memo(() => {
   const containers: ShoutcastContainer[] = [
     { name: 'My stations', type: 'stations', icon: Music },
     { name: 'My favorites', type: 'favorites', icon: Heart },
-    { name: 'All genres', type: 'genres', icon: Radio },
+    { name: 'Live stations', type: 'genres', icon: Radio },
   ];
   const expandedContainer = (containerParam as ContainerType) || 'stations';
   const expandedGenreId = genreParam ? Number(genreParam) : 0;

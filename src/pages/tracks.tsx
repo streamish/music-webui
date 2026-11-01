@@ -40,7 +40,7 @@ export default function TracksPage() {
         </p>
       )}
       {tracksQuery.isError && (
-        <p className="text-destructive" role="alert">
+        <p className="text-destructive p-4" role="alert">
           Unable to load tracks: {tracksQuery.error.message}
         </p>
       )}
