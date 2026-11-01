@@ -1,7 +1,10 @@
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Fragment, useState } from 'react';
 import { PlaylistAddForm } from '@/features/library/playlist-add-form';
 import { PlaylistCard } from '@/features/library/playlist-card';
 import { PlaylistDeleteForm } from '@/features/library/playlist-delete-form';
+import { PlaylistItemsForm } from '@/features/library/playlist-items-form';
 import { PlaylistListItem } from '@/features/library/playlist-list-item';
 import { PlaylistUpdateForm } from '@/features/library/playlist-update-form';
 import { useIsMobile } from '@/hooks/use-is-mobile';
@@ -40,12 +43,25 @@ export default function PlaylistsPage() {
             <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-4rem)] md:h-[calc(100vh-9rem)]">
               {expandedPlaylistId !== null && (
                 <li className="album-details col-span-full flex flex-col grow">
-                  {/* {albums.some((album) => album.id === expandedPlaylistId) && (
-                    <AlbumStandaloneDetails
-                      albumId={expandedPlaylistId}
-                      onClose={() => onToggleAlbum(expandedPlaylistId)}
-                    />
-                  )} */}
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="mb-3 w-fit"
+                    onClick={() => setExpandedPlaylistId(null)}
+                  >
+                    <ArrowLeft /> Back to playlists
+                  </Button>
+                  {playlistQuery.data.playlists
+                    .filter((playlist) => playlist.id === expandedPlaylistId)
+                    .map((playlist) => (
+                      <div key={playlist.id} className="space-y-4">
+                        <div className="flex flex-wrap gap-2">
+                          <PlaylistUpdateForm playlist={playlist} />
+                          <PlaylistDeleteForm playlist={playlist} />
+                        </div>
+                        <PlaylistItemsForm playlist={playlist} />
+                      </div>
+                    ))}
                 </li>
               )}
               {expandedPlaylistId === null &&
@@ -96,11 +112,11 @@ export default function PlaylistsPage() {
                           <PlaylistDeleteForm playlist={playlist} />
                         </div>
                       </li>
-                      {/* {shouldInsertDetails && (
-                      <li className="album-details col-span-full mt-4">
-                        <AlbumExpandedDetails albumId={expandedPlaylistId} />
-                      </li>
-                    )} */}
+                      {isExpanded && (
+                        <li className="col-span-full w-full rounded-lg border p-4">
+                          <PlaylistItemsForm playlist={playlist} />
+                        </li>
+                      )}
                     </Fragment>
                   );
                 })}

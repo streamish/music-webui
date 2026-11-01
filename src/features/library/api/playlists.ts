@@ -48,4 +48,4 @@ export const playlistItemsQuery = (id: number) =>
   });
 
 export const usePlaylists = (params: ListPlaylistsQuery) => useQuery(playlistsQuery(params));
-export const usePlaylist = (id: number) => useQuery(playlistItemsQuery(id));
+export const usePlaylist = (id: number, enabled = true) => useQuery({ ...playlistItemsQuery(id), enabled });
