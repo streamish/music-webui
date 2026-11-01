@@ -1,6 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { FormValidationError } from '@/components/form-validation-error';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -40,7 +47,115 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function PlaylistUpdateForm({ playlist, className }: { playlist: Playlist; className?: string }) {
+const renameSchema = z.object({
+  name: z.string().trim().min(1, 'Name is required').max(255, 'Name is too long'),
+});
+
+type RenameFormData = z.infer<typeof renameSchema>;
+
+function PlaylistRenameForm({ playlist, className }: { playlist: Playlist; className?: string }) {
+  const queryClient = useQueryClient();
+  const formId = useId();
+  const [open, setOpen] = useState(false);
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+    reset,
+    setError,
+  } = useForm<RenameFormData>({
+    defaultValues: { name: playlist.name },
+    resolver: zodResolver(renameSchema),
+  });
+
+  const onSubmit = handleSubmit(async ({ name }) => {
+    try {
+      const { data, error } = await api.patch('/api/update-playlist', {
+        params: { query: { id: playlist.id } },
+        body: { name },
+      });
+      if (data?.success) {
+        toast.success('Playlist renamed successfully.');
+        await queryClient.invalidateQueries({ queryKey: playlistKeys.all });
+        setOpen(false);
+        return;
+      }
+      if (!error) {
+        toast.error('Failed to rename playlist. Please try again.');
+        return;
+      }
+      let hasUnexpectedError = false;
+      error.message.forEach((code) => {
+        switch (code as string) {
+          case 'invalid-name-error':
+            setError('name', { type: 'server', message: 'Name is required' });
+            break;
+          case 'invalid-name-length-error':
+            setError('name', { type: 'server', message: 'Name must be 255 characters or fewer' });
+            break;
+          case 'invalid-playlist-id-error':
+            toast.error('This playlist has an invalid ID. Refresh the page and try again.');
+            break;
+          case 'playlist-not-found-error':
+            toast.error('This playlist could not be found. Refresh the page and try again.');
+            break;
+          default:
+            hasUnexpectedError = true;
+            break;
+        }
+      });
+      if (hasUnexpectedError || error.message.length === 0) {
+        // eslint-disable-next-line no-console
+        console.error('Unexpected error occurred while renaming playlist:', error.error);
+        toast.error('An internal server error occurred. Please try again later.');
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Unexpected error occurred while renaming playlist:', error);
+      toast.error('An internal server error occurred. Please try again later.');
+    }
+  });
+
+  return (
+    <>
+      <Button
+        type="button"
+        className={className}
+        onClick={() => {
+          reset({ name: playlist.name });
+          setOpen(true);
+        }}
+        variant="outline"
+        aria-label={`Edit playlist ${playlist.name}`}
+      >
+        <Pencil /> Edit playlist
+      </Button>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit playlist</DialogTitle>
+            <DialogDescription>Change the name of “{playlist.name}”.</DialogDescription>
+          </DialogHeader>
+          <form onSubmit={onSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor={`${formId}-name`}>Name</Label>
+              <Input id={`${formId}-name`} {...register('name')} />
+              <FormValidationError text={errors.name?.message} />
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
+
+function SmartPlaylistUpdateForm({ playlist, className }: { playlist: Playlist; className?: string }) {
   const queryClient = useQueryClient();
   const formId = useId();
   const [open, setOpen] = useState(false);
@@ -138,10 +253,6 @@ export function PlaylistUpdateForm({ playlist, className }: { playlist: Playlist
       toast.error('An internal server error occurred. Please try again later.');
     }
   });
-
-  if (playlist.type !== PlaylistTypeEnum.smart) {
-    return null;
-  }
 
   return (
     <>
@@ -328,5 +439,13 @@ export function PlaylistUpdateForm({ playlist, className }: { playlist: Playlist
         </DialogContent>
       </Dialog>
     </>
+  );
+}
+
+export function PlaylistUpdateForm({ playlist, className }: { playlist: Playlist; className?: string }) {
+  return playlist.type === PlaylistTypeEnum.normal ? (
+    <PlaylistRenameForm playlist={playlist} className={className} />
+  ) : (
+    <SmartPlaylistUpdateForm playlist={playlist} className={className} />
   );
 }

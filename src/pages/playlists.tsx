@@ -40,7 +40,7 @@ export default function PlaylistsPage() {
       {playlistQuery.isSuccess && playlistQuery.data.playlists.length > 0 && (
         <>
           {isMobile && (
-            <ul className="flex flex-col grow overflow-y-scroll h-[calc(100vh-4rem)] md:h-[calc(100vh-9rem)]">
+            <ul className="flex flex-col grow overflow-y-scroll pb-24 h-[calc(100vh-4rem)] md:h-[calc(100vh-9rem)]">
               {expandedPlaylistId !== null && (
                 <li className="album-details col-span-full flex flex-col grow">
                   <Button
@@ -82,13 +82,13 @@ export default function PlaylistsPage() {
           )}
           {!isMobile && (
             <>
-              <PlaylistAddForm className="mb-4" />
               <ul
                 className={[
                   'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
                   'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
                   'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
                   'gap-4',
+                  'pb-24',
                   'overflow-y-scroll h-[calc(100vh-9rem)]',
                 ].join(' ')}
               >
