@@ -83,10 +83,10 @@ export function PlaylistDeleteForm({ playlist, className }: { playlist: Playlist
         type="button"
         className={className}
         onClick={() => setOpen(true)}
-        variant="destructive"
+        variant="ghost"
         aria-label={`Delete ${playlist.name}`}
       >
-        <Trash2 /> Delete
+        <Trash2 />
       </Button>
       <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogContent>

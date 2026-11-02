@@ -45,7 +45,8 @@ export function AlbumCard({
             className={[
               'w-54 lg:w-68',
               'h-54 lg:h-68',
-              'bg-accent rounded-lg p-2 shadow-sm shadow-foreground/50 dark:shadow-background',
+              'bg-accent rounded-lg p-1',
+              'shadow-sm shadow-foreground/50 dark:shadow-background',
               'hover:brightness-90 transition-colors',
               isExpanded ? 'bg-muted-foreground/80 transition-colors' : '',
             ].join(' ')}
@@ -61,11 +62,11 @@ export function AlbumCard({
             <AlbumIconImage
               albumId={album.id}
               aria-label={`Cover image for ${album.title}`}
-              className="w-50 h-50 lg:w-64 lg:h-64"
+              className="w-54 h-54 lg:w-66 lg:h-66"
               size={600}
             />
           </div>
-          <div className="p-2">
+          <div className="p-1">
             <h3 className="text-center text-sm text-foreground/80">{album.title}</h3>
             <p className="text-center text-xs text-foreground/60">
               {album.artists.map((artist) => artist.name).join(', ')}

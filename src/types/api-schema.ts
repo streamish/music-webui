@@ -5266,12 +5266,9 @@ export type components = {
       message: components['schemas']['ApiPlaylistsListPlaylistItemsNotFoundErrors'][];
     };
     PlaylistItemDto: {
-      /** @description The library track.  This is not set for radio stations. */
+      /** @description The library track. This is not set for radio stations. */
       track?: components['schemas']['LibraryTrackDto'];
-      /**
-       * @description The ID of the playlist item, used to move or remove it.  This is not set for the
-       *     tracks of smart playlists since they are not saved items.
-       */
+      /** @description The ID of the playlist item, used to move or remove it. This is not set for smart playlist tracks. */
       id?: number;
       /** @description The one-based position of the item in the playlist. */
       position: number;
@@ -5319,10 +5316,22 @@ export type components = {
       value: string;
     };
     PlaylistDto: {
+      /** @description A color detected in the first available playlist cover image. */
+      coverImageDarkMuted?: string | null;
+      /** @description A color detected in the first available playlist cover image. */
+      coverImageDarkVibrant?: string | null;
+      /** @description A color detected in the first available playlist cover image. */
+      coverImageLightMuted?: string | null;
+      /** @description A color detected in the first available playlist cover image. */
+      coverImageLightVibrant?: string | null;
+      /** @description A color detected in the first available playlist cover image. */
+      coverImageMuted?: string | null;
+      /** @description A color detected in the first available playlist cover image. */
+      coverImageVibrant?: string | null;
       type: components['schemas']['PlaylistTypeEnum'];
-      /** @description Whether tracks must match all rules or any rule.  Only set for smart playlists. */
+      /** @description Whether tracks must match all rules or any rule. Only set for smart playlists. */
       rulesConjugal?: components['schemas']['SmartPlaylistConjugalEnum'] | null;
-      /** @description The rules of a smart playlist.  Only set for smart playlists. */
+      /** @description The rules of a smart playlist. Only set for smart playlists. */
       rules?: components['schemas']['PlaylistRuleDto'][];
       /** Format: date-time */
       updatedAt?: string | null;

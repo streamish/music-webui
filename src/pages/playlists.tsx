@@ -3,10 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Fragment, useState } from 'react';
 import { PlaylistAddForm } from '@/features/library/playlist-add-form';
 import { PlaylistCard } from '@/features/library/playlist-card';
-import { PlaylistDeleteForm } from '@/features/library/playlist-delete-form';
 import { PlaylistItemsForm } from '@/features/library/playlist-items-form';
 import { PlaylistListItem } from '@/features/library/playlist-list-item';
-import { PlaylistUpdateForm } from '@/features/library/playlist-update-form';
 import { useIsMobile } from '@/hooks/use-is-mobile';
 import { usePlaylists } from '@/features/library/api/playlists';
 
@@ -54,13 +52,7 @@ export default function PlaylistsPage() {
                   {playlistQuery.data.playlists
                     .filter((playlist) => playlist.id === expandedPlaylistId)
                     .map((playlist) => (
-                      <div key={playlist.id} className="space-y-4">
-                        <div className="flex flex-wrap gap-2">
-                          <PlaylistUpdateForm playlist={playlist} />
-                          <PlaylistDeleteForm playlist={playlist} />
-                        </div>
-                        <PlaylistItemsForm playlist={playlist} />
-                      </div>
+                      <PlaylistItemsForm key={playlist.id} playlist={playlist} />
                     ))}
                 </li>
               )}
@@ -73,8 +65,6 @@ export default function PlaylistsPage() {
                         isExpanded={false}
                         onToggle={() => togglePlaylist(playlist.id)}
                       />
-                      <PlaylistUpdateForm playlist={playlist} className="w-full" />
-                      <PlaylistDeleteForm playlist={playlist} className="w-full" />
                     </div>
                   </li>
                 ))}
@@ -108,8 +98,6 @@ export default function PlaylistsPage() {
                             isExpanded={isExpanded}
                             onToggle={() => togglePlaylist(playlist.id)}
                           />
-                          <PlaylistUpdateForm playlist={playlist} />
-                          <PlaylistDeleteForm playlist={playlist} />
                         </div>
                       </li>
                       {isExpanded && (

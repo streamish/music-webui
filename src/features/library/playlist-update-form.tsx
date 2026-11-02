@@ -125,10 +125,10 @@ function PlaylistRenameForm({ playlist, className }: { playlist: Playlist; class
           reset({ name: playlist.name });
           setOpen(true);
         }}
-        variant="outline"
+        variant="ghost"
         aria-label={`Edit playlist ${playlist.name}`}
       >
-        <Pencil /> Edit playlist
+        <Pencil />
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>

@@ -192,13 +192,14 @@ test.describe('playlists', () => {
 
       await expect(page.getByRole('button', { name: `${normalName} (normal)`, exact: false })).toBeVisible();
       await expect(page.getByRole('button', { name: `${smartName} (smart)`, exact: false })).toBeVisible();
-      await expect(page.getByRole('img', { name: `Cover for playlist ${normalName}` })).toHaveAttribute(
-        'src',
-        /\/api\/playlist-cover-image\?id=\d+&size=(300|600)$/,
-      );
+      await expect(
+        page
+          .getByRole('button', { name: `${normalName} (normal)`, exact: false })
+          .locator('div[style*="playlist-cover-image"]'),
+      ).toHaveAttribute('style', /\/api\/playlist-cover-image\?id=\d+&size=(300|600)/);
 
       await openPlaylist(page, normalName, 'normal');
-      await expect(page.getByRole('heading', { name: `${normalName} items` })).toBeVisible();
+      await expect(page.locator('h2', { hasText: normalName })).toBeVisible();
       if (await pom.isResponsive()) {
         await page.getByRole('button', { name: 'Back to playlists' }).click();
       } else {
@@ -217,13 +218,14 @@ test.describe('playlists', () => {
       await (await pom.findNavigationLink('Playlists')).click();
       await page.waitForURL('/playlists');
 
+      await openPlaylist(page, playlistName, 'normal');
       await page.getByRole('button', { name: `Edit playlist ${playlistName}` }).click();
       const dialog = page.getByRole('dialog');
       await dialog.getByLabel('Name').fill(`${playlistName} updated`);
       await dialog.getByRole('button', { name: 'Save changes' }).click();
 
       await expect(page.getByText('Playlist renamed successfully.')).toBeVisible();
-      await expect(page.getByRole('button', { name: `${playlistName} updated (normal)`, exact: false })).toBeVisible();
+      await expect(page.locator('h2', { hasText: `${playlistName} updated` })).toBeVisible();
     });
 
     test('edits smart playlist rules', async ({ page, testApi }) => {
@@ -233,6 +235,7 @@ test.describe('playlists', () => {
       await (await pom.findNavigationLink('Playlists')).click();
       await page.waitForURL('/playlists');
 
+      await openPlaylist(page, playlistName, 'smart');
       await page.getByRole('button', { name: `Edit rules for ${playlistName}` }).click();
       const dialog = page.getByRole('dialog');
       await dialog.getByRole('combobox', { name: 'Match' }).click();
@@ -312,6 +315,7 @@ test.describe('playlists', () => {
       await (await pom.findNavigationLink('Playlists')).click();
       await page.waitForURL('/playlists');
 
+      await openPlaylist(page, playlistName, 'normal');
       await page.getByRole('button', { name: `Delete ${playlistName}` }).click();
       const dialog = page.getByRole('dialog');
       await expect(dialog).toContainText(`Delete “${playlistName}”?`);

@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronUp, GripVertical, LoaderCircle, Trash2 } from 'lucide-react';
+import { PlaylistDeleteForm } from './playlist-delete-form';
 import { PlaylistTypeEnum, type components } from '@/types/api-schema';
+import { PlaylistUpdateForm } from './playlist-update-form';
 import { playlistKeys, usePlaylist } from '@/features/library/api/playlists';
 import { toast } from 'sonner';
 import { useQueryClient } from '@tanstack/react-query';
@@ -21,9 +23,7 @@ export function PlaylistItemsForm({ playlist }: { playlist: Playlist }) {
   const [busyItemId, setBusyItemId] = useState<number | null>(null);
   const [draggedItemId, setDraggedItemId] = useState<number | null>(null);
 
-  if (playlist.type !== PlaylistTypeEnum.normal) {
-    return null;
-  }
+  const isNormal = playlist.type === PlaylistTypeEnum.normal;
 
   const refreshItems = async () => {
     await Promise.all([
@@ -103,15 +103,19 @@ export function PlaylistItemsForm({ playlist }: { playlist: Playlist }) {
 
   return (
     <section className="space-y-3" aria-labelledby={`playlist-items-${playlist.id}`}>
-      <h2 id={`playlist-items-${playlist.id}`} className="text-lg font-semibold">
-        {playlist.name} items
-      </h2>
-      {isPending && (
+      <div className="flex flex-wrap items-center gap-2">
+        <h2 id={`playlist-items-${playlist.id}`} className="mr-4 text-lg font-semibold">
+          {playlist.name}
+        </h2>
+        <PlaylistUpdateForm playlist={playlist} />
+        <PlaylistDeleteForm playlist={playlist} />
+      </div>
+      {isNormal && isPending && (
         <p role="status" className="flex items-center gap-2 text-muted-foreground">
           <LoaderCircle className="size-4 animate-spin" /> Loading playlist items…
         </p>
       )}
-      {isError && (
+      {isNormal && isError && (
         <div role="alert" className="space-y-2 text-destructive">
           <p>Unable to load playlist items: {error.message}</p>
           <Button type="button" variant="outline" onClick={() => refetch()}>
@@ -119,8 +123,8 @@ export function PlaylistItemsForm({ playlist }: { playlist: Playlist }) {
           </Button>
         </div>
       )}
-      {items && items.length === 0 && <p className="text-muted-foreground">This playlist is empty.</p>}
-      {items && items.length > 0 && (
+      {isNormal && items && items.length === 0 && <p className="text-muted-foreground">This playlist is empty.</p>}
+      {isNormal && items && items.length > 0 && (
         <div className="overflow-x-auto rounded-md border">
           <table className="w-full border-collapse text-sm">
             <thead>
