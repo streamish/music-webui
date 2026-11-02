@@ -1,3 +1,4 @@
+import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
 import { FavoriteControls } from './favorite-controls';
 import { PlayControls } from './play-controls';
 import type { components } from '@/types/api-schema';
@@ -18,6 +19,7 @@ export function TrackListItem({ track, albumTitle }: { track: Track; albumTitle:
         <h4 className="text-foreground/80">{albumTitle}</h4>
         <p className="text-sm text-foreground/60">{track.artists.map((artist) => artist.name).join(', ')}</p>
         <FavoriteControls track={track} />
+        <AddToPlaylistButton track={track} />
         <PlayControls tracks={[track]} />
       </div>
     </div>

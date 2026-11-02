@@ -1,3 +1,4 @@
+import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
 import { FavoriteControls } from './favorite-controls';
 import { PlayControls } from './play-controls';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
@@ -32,6 +33,7 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
                 className="inline-block"
               />
               <FavoriteControls track={track} />
+              <AddToPlaylistButton track={track} />
             </span>
             <span className="opacity-50 p-1">{secondsToMinutesAndSeconds(track.duration)}</span>
           </div>

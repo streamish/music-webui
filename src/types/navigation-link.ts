@@ -3,6 +3,7 @@ export const navigationLinks = [
   'Albums',
   'Album Artists',
   'Artists',
+  'Playlists',
   'Composers',
   'Genres',
   'Folders',

@@ -1,3 +1,4 @@
+import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
 import { FavoriteControls } from './favorite-controls';
 import { Link } from 'react-router';
 import { PlayControls } from './play-controls';
@@ -82,6 +83,7 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
                       hideRatingButtons={true}
                     />
                     <FavoriteControls track={track} />
+                    <AddToPlaylistButton track={track} />
                     <PlayControls
                       tracks={[track]}
                       hidePlayButton={true}
@@ -132,6 +134,7 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
                 <td>
                   <div className="flex flex-row">
                     <FavoriteControls track={track} />
+                    <AddToPlaylistButton track={track} />
                     <PlayControls tracks={[track]} hidePlayButton={true} hideRatingButtons={true} />
                   </div>
                 </td>

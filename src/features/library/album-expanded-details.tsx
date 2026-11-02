@@ -1,3 +1,4 @@
+import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
 import { AlbumEditForm } from '@/features/library/album-edit-form';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
@@ -105,6 +106,7 @@ export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
             <h3 className="font-semibold text-2xl">
               {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
               <FavoriteControls album={album} />
+              <AddToPlaylistButton album={album} />
               <AlbumEditForm album={album} />
             </h3>
             <PlayControls tracks={album.tracks} album={album} textLabels={true} hideRatingButtons={true} />
