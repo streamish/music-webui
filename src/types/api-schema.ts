@@ -285,6 +285,57 @@ export type paths = {
     patch: operations['ApiCustomDataController_patch'];
     trace?: never;
   };
+  '/api/album-cover-image': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/album-cover-image` */
+    get: operations['ApiCoverImageController_getAlbumCover'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/association-cover-image': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/association-cover-image` */
+    get: operations['ApiCoverImageController_getAssociationCover'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/playlist-cover-image': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description `GET` request to `/api/playlist-cover-image` */
+    get: operations['ApiCoverImageController_getPlaylistCover'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/delete-favorite': {
     parameters: {
       query?: never;
@@ -569,40 +620,6 @@ export type paths = {
     };
     /** @description `GET` request to `/api/retrieve-association` */
     get: operations['ApiAssociationsController_retrieveAssociation'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/album-cover-image': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/album-cover-image` */
-    get: operations['ApiCoverImageController_getAlbumCover'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/association-cover-image': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description `GET` request to `/api/association-cover-image` */
-    get: operations['ApiCoverImageController_getAssociationCover'];
     put?: never;
     post?: never;
     delete?: never;
@@ -4346,6 +4363,8 @@ export type components = {
        */
       year?: number;
     };
+    /** @enum {string} */
+    AssociationTypeEnum: AssociationTypeEnum;
     /**
      * @description A validation or other error occurred during the processing of the request.
      * @enum {string}
@@ -4418,8 +4437,6 @@ export type components = {
       /** @description The name of the associated person or group. */
       name: string;
     };
-    /** @enum {string} */
-    AssociationTypeEnum: AssociationTypeEnum;
     LibraryFolderDto: {
       /**
        * @example [
@@ -11460,6 +11477,176 @@ export interface operations {
       };
     };
   };
+  ApiCoverImageController_getAlbumCover: {
+    parameters: {
+      query: {
+        /** @description The width/height size of the image in pixels */
+        size: number;
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': string;
+          'image/png': string;
+          'image/webp': string;
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['BadRequestResponseDto'];
+          'image/png': components['schemas']['BadRequestResponseDto'];
+          'image/webp': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
+          'image/png': components['schemas']['InternalServerErrorResponseDto'];
+          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCoverImageController_getAssociationCover: {
+    parameters: {
+      query: {
+        /** @description The type of association */
+        type?: components['schemas']['AssociationTypeEnum'];
+        /** @description The width/height size of the image in pixels */
+        size: number;
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': string;
+          'image/png': string;
+          'image/webp': string;
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['BadRequestResponseDto'];
+          'image/png': components['schemas']['BadRequestResponseDto'];
+          'image/webp': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
+          'image/png': components['schemas']['InternalServerErrorResponseDto'];
+          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
+  ApiCoverImageController_getPlaylistCover: {
+    parameters: {
+      query: {
+        /** @description The width/height size of the image in pixels */
+        size: number;
+        /** @description The database ID of the resource */
+        id: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': string;
+          'image/png': string;
+          'image/webp': string;
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['BadRequestResponseDto'];
+          'image/png': components['schemas']['BadRequestResponseDto'];
+          'image/webp': components['schemas']['BadRequestResponseDto'];
+        };
+      };
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
+          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
+          'image/png': components['schemas']['InternalServerErrorResponseDto'];
+          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
+        };
+      };
+    };
+  };
   ApiFavoritesController_deleteFavorite: {
     parameters: {
       query: {
@@ -12404,120 +12591,6 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCoverImageController_getAlbumCover: {
-    parameters: {
-      query: {
-        /** @description The width/height size of the image in pixels */
-        size: number;
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': string;
-          'image/png': string;
-          'image/webp': string;
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['BadRequestResponseDto'];
-          'image/png': components['schemas']['BadRequestResponseDto'];
-          'image/webp': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
-          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
-          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
-          'image/png': components['schemas']['InternalServerErrorResponseDto'];
-          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
-        };
-      };
-    };
-  };
-  ApiCoverImageController_getAssociationCover: {
-    parameters: {
-      query: {
-        /** @description The type of association */
-        type?: components['schemas']['AssociationTypeEnum'];
-        /** @description The width/height size of the image in pixels */
-        size: number;
-        /** @description The database ID of the resource */
-        id: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': string;
-          'image/png': string;
-          'image/webp': string;
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['BadRequestResponseDto'];
-          'image/png': components['schemas']['BadRequestResponseDto'];
-          'image/webp': components['schemas']['BadRequestResponseDto'];
-        };
-      };
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['ForbiddenErrorResponseDto'];
-          'image/png': components['schemas']['ForbiddenErrorResponseDto'];
-          'image/webp': components['schemas']['ForbiddenErrorResponseDto'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'image/jpeg': components['schemas']['InternalServerErrorResponseDto'];
-          'image/png': components['schemas']['InternalServerErrorResponseDto'];
-          'image/webp': components['schemas']['InternalServerErrorResponseDto'];
         };
       };
     };
@@ -17850,6 +17923,11 @@ export enum ApiCustomDataPatchBadRequestErrors {
 export enum ApiCustomDataPatchNotFoundErrors {
   track_not_found_error = 'track-not-found-error',
 }
+export enum AssociationTypeEnum {
+  artist = 'artist',
+  composer = 'composer',
+  genre = 'genre',
+}
 export enum ApiFavoritesDeleteFavoriteBadRequestErrors {
   invalid_favorite_item_id_error = 'invalid-favorite-item-id-error',
 }
@@ -17859,11 +17937,6 @@ export enum ApiFavoritesDeleteFavoriteNotFoundErrors {
 export enum ApiFavoritesListFavoritesBadRequestErrors {
   invalid_limit_error = 'invalid-limit-error',
   invalid_offset_error = 'invalid-offset-error',
-}
-export enum AssociationTypeEnum {
-  artist = 'artist',
-  composer = 'composer',
-  genre = 'genre',
 }
 export enum ShoutcastItemTypeEnum {
   container = 'container',

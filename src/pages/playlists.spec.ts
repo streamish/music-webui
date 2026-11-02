@@ -192,6 +192,10 @@ test.describe('playlists', () => {
 
       await expect(page.getByRole('button', { name: `${normalName} (normal)`, exact: false })).toBeVisible();
       await expect(page.getByRole('button', { name: `${smartName} (smart)`, exact: false })).toBeVisible();
+      await expect(page.getByRole('img', { name: `Cover for playlist ${normalName}` })).toHaveAttribute(
+        'src',
+        /\/api\/playlist-cover-image\?id=\d+&size=(300|600)$/,
+      );
 
       await openPlaylist(page, normalName, 'normal');
       await expect(page.getByRole('heading', { name: `${normalName} items` })).toBeVisible();
