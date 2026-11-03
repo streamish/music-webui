@@ -125,7 +125,7 @@ export function TrackEditForm({ track, className }: { track: Track; className?: 
   return (
     <>
       <Button
-        className={`px-2 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80 ${className || ''}`}
+        className={`px-2 py-1 rounded text-xs uppercase ${className || ''}`}
         onClick={() => setOpen(true)}
         variant="ghost"
         aria-label="Edit track"
