@@ -23,15 +23,15 @@ export function AlbumCard({
         aria-label={`${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
         role="button"
         className={[
-          'w-54 lg:w-68',
-          'h-68 lg:h-82',
+          'w-34 lg:w-48',
+          'h-58 lg:h-62',
           'p-0 m-0 border-transparent rounded-lg text-left transition-colors',
         ].join(' ')}
       >
         <div
           className={[
-            'w-54 lg:w-68',
-            'h-54 lg:h-68',
+            'w-34 lg:w-48',
+            'h-34 lg:h-48',
             'rounded-lg',
             'shadow-sm shadow-foreground/50 dark:shadow-background',
             'hover:brightness-90 transition-colors',
@@ -43,8 +43,8 @@ export function AlbumCard({
         >
           <div
             className={[
-              'w-54 lg:w-68',
-              'h-54 lg:h-68',
+              'w-34 lg:w-48',
+              'h-34 lg:h-48',
               'bg-accent rounded-lg p-1',
               'shadow-sm shadow-foreground/50 dark:shadow-background',
               'hover:brightness-90 transition-colors',
@@ -62,7 +62,7 @@ export function AlbumCard({
             <AlbumIconImage
               albumId={album.id}
               aria-label={`Cover image for ${album.title}`}
-              className="w-54 h-54 lg:w-66 lg:h-66"
+              className="w-34 h-34 lg:w-46 lg:h-46"
               size={600}
             />
           </div>

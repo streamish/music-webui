@@ -1,5 +1,5 @@
 import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
-import { FavoriteControls } from './favorite-controls';
+import { FavoriteControls } from './add-to-favorite-button';
 import { PlayControls } from './play-controls';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
 import type { components } from '@/types/api-schema';
@@ -13,9 +13,9 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
         <li key={`filler-${track.id}`}>
           <div
             className={[
-              `flex flex-row text-sm justify-between`,
+              `flex flex-row text-sm items-center justify-between`,
               `border-dotted border-b border-background/25`,
-              `hover:bg-background/10 hover:rounded-md not-first:0 px-2 py-2 cursor-pointer`,
+              `hover:bg-background/10 hover:rounded-md not-first:0 p-1 cursor-pointer`,
             ].join(' ')}
             style={{
               color: track.albumCoverImageLightMuted,
@@ -23,8 +23,7 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
             }}
           >
             <span className="p-1 opacity-50 w-8 text-right inline-block">{track.trackNumber}.</span>{' '}
-            <span className="text-left w-full px-4 flex flex-row">
-              <span className="p-1">{track.title}</span>
+            <span className="text-left w-full h-full px-4 items-center flex flex-row">
               <PlayControls
                 tracks={[track]}
                 hideQueueButtons={true}
@@ -32,10 +31,11 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
                 hideRatingButtons={true}
                 className="inline-block"
               />
-              <FavoriteControls track={track} />
-              <AddToPlaylistButton track={track} />
+              <span className="w-auto">{track.title}</span>
+              <FavoriteControls track={track} className="mb-0" />
+              <AddToPlaylistButton track={track} className="mb-0" />
             </span>
-            <span className="opacity-50 p-1">{secondsToMinutesAndSeconds(track.duration)}</span>
+            <span className="opacity-50 pr-1">{secondsToMinutesAndSeconds(track.duration)}</span>
           </div>
         </li>
       ))}

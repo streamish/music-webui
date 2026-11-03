@@ -1,8 +1,14 @@
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { FormValidationError } from '@/components/form-validation-error';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { SquarePen } from 'lucide-react';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
@@ -96,14 +102,14 @@ export function ShoutcastGenreEditForm({ genre }: { genre: Genre }) {
         <SquarePen />
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="flex max-h-[calc(100%-11rem)] flex-col gap-0 overflow-hidden p-4 sm:max-w-106.25">
+        <DialogContent className="sm:max-w-106.25">
           <DialogHeader>
             <DialogTitle>Edit Genre</DialogTitle>
+            <DialogDescription>You must use a valid SHOUTcast genre name.</DialogDescription>
           </DialogHeader>
-          <form onSubmit={onSubmit} className="flex min-h-0 flex-1 flex-col">
+          <form onSubmit={onSubmit} className="space-y-4">
             <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pr-2">
               <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
                 <Input id="name" {...register('name', { required: true })} placeholder="Rock" />
                 <FormValidationError text={errors.name?.message} />
               </div>

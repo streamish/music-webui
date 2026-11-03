@@ -26,7 +26,7 @@ export function ShoutcastItemListItem({
           className="w-22 h-22 lg:w-30 lg:h-30 mr-4"
           aria-label={`Icon for ${text}`}
         />
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col items-center justify-between">
           <h3 className="text-sm text-foreground/80">{text}</h3>
           <div className="text-right">
             <PlayControls hideEditButton={!allowEdit} hideQueueButtons={true} hideRatingButtons={true} />

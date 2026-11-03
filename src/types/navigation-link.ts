@@ -1,9 +1,9 @@
 export const navigationLinks = [
   'Recently Added',
+  'Playlists',
   'Albums',
   'Album Artists',
   'Artists',
-  'Playlists',
   'Composers',
   'Genres',
   'Folders',

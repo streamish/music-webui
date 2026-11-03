@@ -238,9 +238,8 @@ export const AssociationsPage = memo(() => {
           <ul
             className={[
               'flex flex-col overflow-y-auto h-[calc(100vh-9rem)]',
-              isMobile ? '' : 'max-w-100 min-w-50',
-              'bg-accent/50',
-              'mr-2',
+              isMobile ? '' : 'w-100 min-w-50',
+              'mr-2 border-r border-r-muted-foreground/25',
             ].join(' ')}
           >
             {associations.map((item) => {

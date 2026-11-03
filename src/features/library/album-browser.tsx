@@ -53,7 +53,7 @@ export function AlbumBrowser({ albums, expandedAlbumId, onToggleAlbum }: AlbumBr
         'grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))]',
         'md:grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]',
         'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
-        'gap-4',
+        'gap-2',
         'overflow-y-scroll h-[calc(100vh-9rem)]',
       ].join(' ')}
     >

@@ -2,7 +2,7 @@ import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
 import { AlbumEditForm } from '@/features/library/album-edit-form';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
-import { FavoriteControls } from './favorite-controls';
+import { FavoriteControls } from './add-to-favorite-button';
 import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { useAlbum } from '@/features/library/api/albums';

@@ -18,12 +18,12 @@ export function ActiveSectionTitle() {
     return null;
   }
   return (
-    <>
-      <div className="h-5 w-px bg-border" />
-      <div className="flex items-center gap-2 text-sm font-medium">
+    <div className="w-full h-full flex flex-row">
+      <div className="h-5 my-4.5 w-px border-r border-r-muted-foreground/50" />
+      <div className="ml-5 flex items-center gap-2 text-sm font-medium">
         <ActiveIcon className="size-4 text-muted-foreground" />
         <span>{activeItem.label}</span>
       </div>
-    </>
+    </div>
   );
 }

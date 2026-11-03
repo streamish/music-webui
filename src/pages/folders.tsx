@@ -5,7 +5,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { FavoriteControls } from '@/features/library/favorite-controls';
+import { FavoriteControls } from '@/features/library/add-to-favorite-button';
 import { FolderIcon } from 'lucide-react';
 import { Fragment, useCallback, useRef } from 'react';
 import { IconCard } from '@/components/icon-card';

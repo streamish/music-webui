@@ -2,6 +2,7 @@ import {
   Album,
   CalendarClock,
   Folder,
+  List,
   LogOut,
   type LucideIcon,
   Moon,
@@ -14,23 +15,21 @@ import {
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { NavLink } from 'react-router';
-import { useIsMobile } from '@/hooks/use-is-mobile';
-
 import { DarkModeSwitch } from '@/features/dark-mode-switch';
+import { NavLink } from 'react-router';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 import { usePreferences } from '@/hooks/use-preferences';
 import type { NavigationLink } from '@/types/navigation-link';
 
@@ -49,6 +48,11 @@ export const primaryLinks: NavigationItem[] = [
     icon: CalendarClock,
   },
   {
+    to: '/playlists',
+    label: 'Playlists',
+    icon: List,
+  },
+  {
     to: '/albums',
     label: 'Albums',
     icon: Album,
@@ -62,11 +66,6 @@ export const primaryLinks: NavigationItem[] = [
     to: '/track-artists',
     label: 'Artists',
     icon: User,
-  },
-  {
-    to: '/playlists',
-    label: 'Playlists',
-    icon: Music,
   },
   {
     to: '/track-composers',
@@ -113,6 +112,30 @@ export const secondaryLinks: NavigationItem[] = [
   },
 ];
 
+export const MenuButton = ({
+  to,
+  label,
+  icon: Icon,
+  onClick,
+}: {
+  to: string;
+  label: NavigationLabel;
+  icon: LucideIcon;
+  onClick: () => void;
+}) => (
+  <SidebarMenuButton className="my-1">
+    <NavLink
+      to={to}
+      aria-label={label}
+      onClick={onClick}
+      className={({ isActive }) => `my-1 w-full flex flex-row items-center gap-2 ${isActive ? 'font-semibold' : ''}`}
+    >
+      <Icon />
+      <span>{label}</span>
+    </NavLink>
+  </SidebarMenuButton>
+);
+
 export function AppSidebar() {
   const { preferences } = usePreferences();
   const { setOpenMobile } = useSidebar();
@@ -130,7 +153,7 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="border-transparent">
+    <Sidebar className="border-transparent border-r border-r-muted-foreground/25">
       <SidebarHeader>
         <div className="flex items-center gap-3 px-2 py-2 cursor-default" onClick={closeMobileSidebar}>
           <div>
@@ -151,25 +174,12 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Library</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {primaryLinks
                 .filter(({ label }) => showLink(label))
                 .map(({ to, label, icon: Icon }) => (
-                  <SidebarMenuItem key={to}>
-                    <SidebarMenuButton asChild tooltip={label}>
-                      <NavLink
-                        to={to}
-                        aria-label={label}
-                        onClick={closeMobileSidebar}
-                        className={({ isActive }) => (isActive ? 'bg-primary/20 font-semibold' : '')}
-                      >
-                        <Icon />
-                        <span>{label}</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  <MenuButton to={to} label={label} icon={Icon} onClick={closeMobileSidebar} />
                 ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -178,31 +188,12 @@ export function AppSidebar() {
       <SidebarFooter className="pb-26">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <NavLink to="/account" aria-label="Account" onClick={closeMobileSidebar}>
-                <User />
-                <span>Account</span>
-              </NavLink>
-            </SidebarMenuButton>
+            <MenuButton to="/account" label="Account" icon={User} onClick={closeMobileSidebar} />
           </SidebarMenuItem>
+          <MenuButton to="/admin" label="Admin" icon={Settings} onClick={closeMobileSidebar} />
+          <MenuButton to="/signout" label="Sign out" icon={LogOut} onClick={closeMobileSidebar} />
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <NavLink to="/admin" aria-label="Admin" onClick={closeMobileSidebar}>
-                <Settings />
-                <span>Admin</span>
-              </NavLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <NavLink to="/signout" aria-label="Sign out" onClick={closeMobileSidebar}>
-                <LogOut />
-                <span>Sign out</span>
-              </NavLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton className="my-1">
               <DarkModeSwitch className="w-full justify-start" aria-label="Toggle dark mode">
                 <Moon />
                 <span>Toggle theme</span>

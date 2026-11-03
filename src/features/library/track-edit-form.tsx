@@ -47,7 +47,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 type Track = components['schemas']['LibraryTrackDto'];
 
-export function TrackEditForm({ track }: { track: Track }) {
+export function TrackEditForm({ track, className }: { track: Track; className?: string }) {
   const invalidateLibrary = useInvalidateLibrary();
   const [open, setOpen] = useState(false);
   const {
@@ -125,7 +125,7 @@ export function TrackEditForm({ track }: { track: Track }) {
   return (
     <>
       <Button
-        className="px-2 mb-4 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80"
+        className={`px-2 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80 ${className || ''}`}
         onClick={() => setOpen(true)}
         variant="ghost"
         aria-label="Edit track"
