@@ -1,6 +1,7 @@
 import { AlbumCard } from '@/features/library/album-card';
 import { AlbumExpandedDetails } from '@/features/library/album-expanded-details';
 import { AlbumListItem } from '@/features/library/album-list-item';
+import { AlbumStandaloneDetails } from '@/features/library/album-standalone-details';
 import { AssociationExpanded } from '@/features/library/association-expanded';
 import { AssociationListItem } from '@/features/library/association-list-item';
 import { AssociationTabButtons } from '@/features/library/association-tab-buttons';
@@ -281,27 +282,22 @@ export const AssociationsPage = memo(() => {
                   <>
                     {isMobile && (
                       <ul ref={listRef} className="flex flex-col grow overflow-y-scroll h-[calc(100vh-9rem)]">
-                        {albums.map((item, index) => {
-                          const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
-                          return (
-                            <>
-                              {!expandedAlbumId && (
-                                <li className="w-full p-2" key={item.id}>
-                                  <AlbumListItem
-                                    album={item}
-                                    isExpanded={expandedAlbumId === item.id}
-                                    onToggle={() => toggleAlbum(item.id)}
-                                  />
-                                </li>
-                              )}
-                              {shouldInsertDetails && (
-                                <li className="album-details col-span-full pt-4">
-                                  <AlbumExpandedDetails albumId={expandedAlbumId} />
-                                </li>
-                              )}
-                            </>
-                          );
-                        })}
+                        {expandedAlbumId !== null && (
+                          <li className="album-details col-span-full flex flex-col grow">
+                            {albums.some((album) => album.id === expandedAlbumId) && (
+                              <AlbumStandaloneDetails
+                                albumId={expandedAlbumId}
+                                onClose={() => toggleAlbum(expandedAlbumId)}
+                              />
+                            )}
+                          </li>
+                        )}
+                        {expandedAlbumId === null &&
+                          albums.map((item) => (
+                            <li className="w-full p-2" key={item.id}>
+                              <AlbumListItem album={item} isExpanded={false} onToggle={() => toggleAlbum(item.id)} />
+                            </li>
+                          ))}
                       </ul>
                     )}
                     {!isMobile && (
