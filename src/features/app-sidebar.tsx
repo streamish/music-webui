@@ -179,7 +179,7 @@ export function AppSidebar() {
               {primaryLinks
                 .filter(({ label }) => showLink(label))
                 .map(({ to, label, icon: Icon }) => (
-                  <MenuButton to={to} label={label} icon={Icon} onClick={closeMobileSidebar} />
+                  <MenuButton to={to} label={label} icon={Icon} onClick={closeMobileSidebar} key={label} />
                 ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -187,18 +187,16 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="pb-26">
         <SidebarMenu>
-          <SidebarMenuItem>
-            <MenuButton to="/account" label="Account" icon={User} onClick={closeMobileSidebar} />
-          </SidebarMenuItem>
+          <MenuButton to="/account" label="Account" icon={User} onClick={closeMobileSidebar} />
           <MenuButton to="/admin" label="Admin" icon={Settings} onClick={closeMobileSidebar} />
           <MenuButton to="/signout" label="Sign out" icon={LogOut} onClick={closeMobileSidebar} />
           <SidebarMenuItem>
-            <SidebarMenuButton className="my-1">
+            <div className="my-1 ml-3">
               <DarkModeSwitch className="w-full justify-start" aria-label="Toggle dark mode">
                 <Moon />
                 <span>Toggle theme</span>
               </DarkModeSwitch>
-            </SidebarMenuButton>
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
