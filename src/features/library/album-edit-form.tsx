@@ -104,7 +104,7 @@ export function AlbumEditForm({ album, className }: { album: Album; className?: 
   return (
     <>
       <Button
-        className={[`px-2 mb-4 py-1 rounded text-xs uppercase ${className || ''}`].join(' ')}
+        className={[`px-2 py-1 rounded text-xs uppercase ${className || ''}`].join(' ')}
         onClick={() => setOpen(true)}
         variant="ghost"
         aria-label="Edit album"

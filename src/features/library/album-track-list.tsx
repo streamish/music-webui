@@ -1,6 +1,7 @@
 import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
 import { FavoriteControls } from './add-to-favorite-button';
 import { PlayControls } from './play-controls';
+import { getTrackPalette } from '@/utils/color';
 import { secondsToMinutesAndSeconds } from '@/utils/format';
 import type { components } from '@/types/api-schema';
 
@@ -18,8 +19,7 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
               `hover:bg-background/10 hover:rounded-md not-first:0 p-1 cursor-pointer`,
             ].join(' ')}
             style={{
-              color: track.albumCoverImageLightMuted,
-              mixBlendMode: 'difference',
+              color: getTrackPalette(track).foreground,
             }}
           >
             <span className="p-1 opacity-50 w-8 text-right inline-block">{track.trackNumber}.</span>{' '}
@@ -31,7 +31,7 @@ export function AlbumTrackList({ tracks }: { tracks: Track[] }) {
                 hideRatingButtons={true}
                 className="inline-block"
               />
-              <span className="w-auto">{track.title}</span>
+              <span className="w-auto  font-normal">{track.title}</span>
               <FavoriteControls track={track} className="mb-0" />
               <AddToPlaylistButton track={track} className="mb-0" />
             </span>

@@ -5,7 +5,7 @@ import { ArrowLeftCircle } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
-import { getContrastingTextColor } from '@/utils/color';
+import { getAlbumPalette } from '@/utils/color';
 import { useAlbum } from '@/features/library/api/albums';
 
 export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; onClose: () => void }) {
@@ -13,8 +13,7 @@ export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; 
   if (!album) {
     return null;
   }
-  const selectedColor = album.coverImageMuted || '#000000';
-  const contrastingColor = album.coverImageDarkMuted || '#000000';
+  const { background: selectedColor, foreground } = getAlbumPalette(album);
   const trackGroups = createTrackGroups(album.tracks);
   const showDiscTitle = trackGroups[0][0]?.discNumber !== trackGroups[trackGroups.length - 1][0]?.discNumber;
   return (
@@ -29,8 +28,7 @@ export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; 
       <menu
         className="text-right"
         style={{
-          color: getContrastingTextColor(contrastingColor),
-          mixBlendMode: 'screen',
+          color: foreground,
         }}
       >
         <Button
@@ -46,7 +44,7 @@ export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; 
       {/* Image */}
       <AlbumFullImage albumId={album.id} size={600} className="w-full" />
       {/* Album info */}
-      <div style={{ color: `${getContrastingTextColor(contrastingColor)}`, mixBlendMode: 'screen' }}>
+      <div style={{ color: foreground }}>
         <h3 className="font-semibold text-2xl mb-0! pb-0!">
           {album.title} <span className="text-xs">{album.year}</span>
           <AlbumEditForm album={album} className="mb-0" />
