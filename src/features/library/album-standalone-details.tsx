@@ -19,7 +19,7 @@ export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; 
   return (
     <div
       aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
-      className="w-full h-full flex flex-col grow bg-muted/50 px-4 pb-20"
+      className="album-fade-in w-full h-full flex flex-col grow bg-muted/50 px-4 pb-20"
       style={{
         backgroundColor: selectedColor,
       }}

@@ -28,13 +28,17 @@ export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
     return null;
   }
   return (
-    <div aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}>
+    <div
+      className="album-details-animate"
+      aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
+    >
       <div
-        className="relative w-full min-h-120"
+        className="relative w-full"
         style={{
           backgroundColor: selectedColor,
         }}
       >
+        <div aria-hidden="true" className="float-right invisible aspect-square w-60 md:w-80 lg:w-100 xl:w-120"></div>
         {/* Image on the right */}
         <div className="absolute z-1 top-0 right-0 w-60 md:w-80 lg:w-100 xl:w-120 h-full overflow-hidden">
           <AlbumFullImage
