@@ -257,7 +257,6 @@ export default memo(() => {
                       </BreadcrumbItem>
                     </BreadcrumbList>
                   </Breadcrumb>
-                  <p>ok</p>
                   <ShoutcastStationsTable
                     stations={items.map((item: ShoutcastItem) => {
                       return {
