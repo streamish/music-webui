@@ -154,18 +154,6 @@ export const AssociationsPage = memo(() => {
     [expandedAlbumId, expandedAssociationId, getAlbumUrl, getAssociationUrl, navigate],
   );
 
-  const onBack = useCallback(() => {
-    if (albumId && expandedAssociationId != null) {
-      navigate(getAssociationUrl(expandedAssociationId));
-      return;
-    }
-    if (expandedAssociationId != null) {
-      navigate(`/${groupUrl}`);
-      return;
-    }
-    navigate(`/${groupUrl}`);
-  }, [albumId, expandedAssociationId, getAssociationUrl, groupUrl, navigate]);
-
   useEffect(() => {
     if (!expandedAssociation || expandedAssociationId === null) {
       return;
@@ -264,14 +252,13 @@ export const AssociationsPage = memo(() => {
                 className="flex flex-row justify-between items-center"
                 association={expandedAssociation}
                 associationType={associationType}
-                onBack={onBack}
               />
             )}
             {viewingGroup !== 'track-genres' && (
               <>
                 {/* Group buttons */}
                 <AssociationTabButtons
-                  className="p-1 bg-foreground/10 inline-block rounded-lg"
+                  className="p-1 bg-foreground/10 inline-block rounded-lg mb-4"
                   associationType={associationType}
                   expandedAssociation={expandedAssociation}
                   isAlbumArtists={isAlbumArtists}
