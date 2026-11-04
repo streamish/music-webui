@@ -15,6 +15,7 @@ type Entity = {
 };
 
 export function FavoriteControls({
+  className,
   album,
   association,
   folder,
@@ -26,6 +27,7 @@ export function FavoriteControls({
   folder?: Entity;
   station?: Entity;
   track?: Entity;
+  className?: string;
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const isFilled =
@@ -125,11 +127,7 @@ export function FavoriteControls({
   return (
     <Button
       aria-label={`Toggle ${album ? 'album' : 'track'} favorite`}
-      className={[
-        `px-2 mb-4 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80`,
-        album || association ? 'ml-2' : '',
-        folder ? 'mb-0' : '',
-      ].join(' ')}
+      className={[`px-2 py-1 rounded text-xs uppercase`, album || association ? 'ml-2' : '', className || ''].join(' ')}
       onClick={() => handleSubmit()}
       onMouseOver={() => setIsHovered(true)}
       onMouseOut={() => setIsHovered(false)}
@@ -137,9 +135,8 @@ export function FavoriteControls({
     >
       <Heart
         className={[
-          'h-6 w-6 lg:h-5 lg:w-5 cursor-pointer stroke-fill-background/25 dark:stroke-fill-foreground/25',
+          'h-6 w-6 lg:h-5 lg:w-5 cursor-pointer',
           isFilled && !isHovered ? 'fill-background/50! dark:fill-foreground/50!' : '',
-          isHovered ? 'fill-background! dark:fill-foreground!' : '',
         ].join(' ')}
       />
     </Button>

@@ -94,9 +94,9 @@ export function RatingControls({ track, album }: { track: Track; album?: Album }
               <Star
                 className={[
                   'h-6 w-6 lg:h-5 lg:w-5 cursor-pointer stroke-none',
-                  'fill-background/25 dark:fill-foreground/25',
-                  isFilled && !isHovered ? 'fill-background/50! dark:fill-foreground/50!' : '',
-                  isHovered ? 'fill-background! dark:fill-foreground!' : '',
+                  'fill-current/25',
+                  isFilled && !isHovered ? 'fill-current/60!' : '',
+                  isHovered ? 'fill-current!' : '',
                 ].join(' ')}
               />
             </button>

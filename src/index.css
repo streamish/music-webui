@@ -50,6 +50,42 @@ body {
   }
 }
 
+@keyframes details-expand {
+  from {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.album-details-animate {
+  display: grid;
+  grid-template-rows: 1fr;
+  animation: details-expand 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.album-details-animate > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.album-fade-in {
+  animation: fade-in 300ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .album-details-animate,
+  .album-fade-in {
+    animation: none;
+  }
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: 'Inter Variable', sans-serif;

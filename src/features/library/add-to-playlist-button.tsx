@@ -131,10 +131,7 @@ export function AddToPlaylistButton({
     <>
       <Button
         type="button"
-        className={[
-          'px-2 mb-4 py-1 rounded text-xs uppercase text-foreground/50 hover:text-foreground/80',
-          className ?? '',
-        ].join(' ')}
+        className={['px-2 py-1 rounded text-xs uppercase', className ?? ''].join(' ')}
         onClick={() => setOpen(true)}
         variant="ghost"
         aria-label={`Add ${target.name} to a playlist`}

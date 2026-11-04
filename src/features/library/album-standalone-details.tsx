@@ -5,48 +5,50 @@ import { ArrowLeftCircle } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
-import { getContrastingTextColor } from '@/utils/color';
+import { getAlbumPalette } from '@/utils/color';
 import { useAlbum } from '@/features/library/api/albums';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 
 export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; onClose: () => void }) {
   const { data: album } = useAlbum(albumId);
+  const { isMobile } = useIsMobile();
   if (!album) {
     return null;
   }
-  const selectedColor = album.coverImageMuted || '#000000';
-  const contrastingColor = album.coverImageDarkMuted || '#000000';
+  const { background: selectedColor, foreground } = getAlbumPalette(album);
   const trackGroups = createTrackGroups(album.tracks);
   const showDiscTitle = trackGroups[0][0]?.discNumber !== trackGroups[trackGroups.length - 1][0]?.discNumber;
   return (
     <div
       aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
-      className="w-full h-full flex flex-col grow bg-muted/50 px-4 pb-20"
+      className="album-fade-in w-full h-full flex flex-col grow bg-muted/50 px-4 pb-20"
       style={{
         backgroundColor: selectedColor,
       }}
     >
       {/* Navigation back to albums */}
-      <menu
-        className="text-right"
-        style={{
-          color: getContrastingTextColor(contrastingColor),
-          mixBlendMode: 'screen',
-        }}
-      >
-        <Button
-          variant="ghost"
-          onClick={onClose}
-          className="inline-flex flex-row w-fit self-start m-2"
-          aria-label="Back button"
+      {isMobile && (
+        <menu
+          className="text-right"
+          style={{
+            color: foreground,
+          }}
         >
-          <ArrowLeftCircle />
-          Back
-        </Button>
-      </menu>
+          <Button
+            variant="ghost"
+            onClick={onClose}
+            className="inline-flex flex-row w-fit self-start m-2"
+            aria-label="Back button"
+          >
+            <ArrowLeftCircle />
+            Back
+          </Button>
+        </menu>
+      )}
       {/* Image */}
       <AlbumFullImage albumId={album.id} size={600} className="w-full" />
       {/* Album info */}
-      <div style={{ color: `${getContrastingTextColor(contrastingColor)}`, mixBlendMode: 'screen' }}>
+      <div style={{ color: foreground }}>
         <h3 className="font-semibold text-2xl mb-0! pb-0!">
           {album.title} <span className="text-xs">{album.year}</span>
           <AlbumEditForm album={album} className="mb-0" />

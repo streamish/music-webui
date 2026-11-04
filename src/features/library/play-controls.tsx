@@ -75,7 +75,7 @@ export function PlayControls({
       {!hidePlayButton && (
         <Button
           variant="ghost"
-          className="w-fit self-start p-1 mx-1 px-2"
+          className="w-fit self-start p-1 mx-1 px-2 font-normal"
           aria-label="Play now"
           onClick={playImmediately}
         >
@@ -87,7 +87,7 @@ export function PlayControls({
           <Button
             variant="ghost"
             aria-label="Add to start of queue"
-            className="w-fit self-start p-1 mr-1 px-2"
+            className="w-fit self-start p-1 mr-1 px-2 font-normal"
             onClick={() => addTracksToQueue(true)}
           >
             <ListStart className="scale-x-[-1]" /> {textLabels ? <span>Queue at front</span> : null}
@@ -95,7 +95,7 @@ export function PlayControls({
           <Button
             variant="ghost"
             aria-label="Add to end of queue"
-            className="w-fit self-start p-1 px-2"
+            className="w-fit self-start p-1 px-2 font-normal"
             onClick={() => addTracksToQueue(false)}
           >
             <ListEnd /> {textLabels ? <span>Queue at end</span> : null}

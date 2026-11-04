@@ -21,14 +21,14 @@ export default function UserLayout() {
       <AppSidebar />
       <SidebarInset>
         <div className="relative w-full h-screen overflow-hidden">
-          <div className="sticky top-0 z-10 bg-linear-to-b from-background/80 to-background/40 backdrop-blur-md">
-            <header className="w-full flex h-14 shrink-0 items-center gap-2 px-4 z-1">
+          <div className="sticky top-0 z-10">
+            <header className="w-full flex h-14 shrink-0 items-center gap-2 px-4 z-1 border-b border-b-foreground/10">
               <SidebarTrigger className="opacity-50" aria-label="Toggle Sidebar" />
               <ActiveSectionTitle />
               <div ref={setHeaderContainer} className="ml-auto flex items-center gap-2" />
             </header>
           </div>
-          <main className="flex flex-col min-h-screen bg-background">
+          <main className="flex flex-col">
             <HeaderPortalContext.Provider value={headerContainer}>
               <Outlet />
             </HeaderPortalContext.Provider>

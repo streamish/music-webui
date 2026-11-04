@@ -11,7 +11,6 @@ export function AlbumIconImage({ albumId, size, style, ...props }: AlbumImagePro
   const containerRef = useRef<HTMLDivElement>(null);
   const objectUrlRef = useRef<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   // Detect whether the image is near the viewport.
   useEffect(() => {
@@ -37,36 +36,30 @@ export function AlbumIconImage({ albumId, size, style, ...props }: AlbumImagePro
   useEffect(() => {
     if (!isVisible) {
       if (objectUrlRef.current) {
-        URL.revokeObjectURL(objectUrlRef.current);
         objectUrlRef.current = null;
       }
-      setImageUrl(null);
       return undefined;
     }
     const nextUrl = `${baseUrl}/api/album-cover-image?id=${albumId}&size=${size}`;
     objectUrlRef.current = nextUrl;
-    setImageUrl(nextUrl);
     return () => {
       if (objectUrlRef.current) {
-        URL.revokeObjectURL(objectUrlRef.current);
         objectUrlRef.current = null;
       }
-      setImageUrl(null);
     };
   }, [albumId, isVisible]);
 
   return (
-    <div
-      ref={containerRef}
-      {...props}
-      className={`animate-[fade-in_300ms_ease-out] ${props.className ?? ''}`}
-      style={{
-        ...style,
-        backgroundImage: imageUrl ? `url("${imageUrl}")` : undefined,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-      }}
-    />
+    <div ref={containerRef} {...props} className={props.className}>
+      {isVisible && (
+        <img
+          src={`${baseUrl}/api/album-cover-image?id=${albumId}&size=${size}`}
+          alt=""
+          width={size}
+          height={size}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      )}
+    </div>
   );
 }

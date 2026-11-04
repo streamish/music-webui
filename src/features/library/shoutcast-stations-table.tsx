@@ -1,4 +1,4 @@
-import { FavoriteControls } from './favorite-controls';
+import { FavoriteControls } from './add-to-favorite-button';
 import { PlayControls } from './play-controls';
 import type { components } from '@/types/api-schema';
 
@@ -15,10 +15,10 @@ export function ShoutcastStationsTable({ stations }: { stations: Station[] }) {
             aria-label={`Track item ${index + 1}`}
           >
             <td className="px-2 py-1 text-left">
-              <div className="flex flex-row">
-                <span className="text-md">{station.title}</span>
+              <div className="flex flex-row items-center">
                 <PlayControls station={station} hideQueueButtons={true} />
-                <FavoriteControls station={station} />
+                <span className="text-md">{station.title} ok</span>
+                <FavoriteControls station={station} className="mb-0" />
               </div>
             </td>
           </tr>

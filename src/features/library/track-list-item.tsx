@@ -1,5 +1,5 @@
 import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
-import { FavoriteControls } from './favorite-controls';
+import { FavoriteControls } from './add-to-favorite-button';
 import { PlayControls } from './play-controls';
 import type { components } from '@/types/api-schema';
 

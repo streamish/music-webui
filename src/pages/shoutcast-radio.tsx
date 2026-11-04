@@ -132,9 +132,8 @@ export default memo(() => {
           <ul
             className={[
               'flex flex-col overflow-y-auto h-[calc(100vh-9rem)]',
-              isMobile ? '' : 'max-w-100 min-w-50',
-              'bg-accent/50',
-              'mr-2',
+              isMobile ? '' : 'w-100 min-w-50',
+              'mr-2 border-r border-r-muted-foreground/25',
             ].join(' ')}
           >
             {containers.map((item) => {
@@ -153,7 +152,7 @@ export default memo(() => {
           </ul>
         )}
         {/* Expanded genre showing online stations */}
-        <div className="pb-40 w-full overflow-y-auto h-[calc(100vh-9rem)]">
+        <div className="w-full overflow-y-auto h-[calc(100vh-9rem)]">
           {expandedGenre && (
             <>
               <Breadcrumb className="py-4">

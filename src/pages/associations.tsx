@@ -1,6 +1,7 @@
 import { AlbumCard } from '@/features/library/album-card';
 import { AlbumExpandedDetails } from '@/features/library/album-expanded-details';
 import { AlbumListItem } from '@/features/library/album-list-item';
+import { AlbumStandaloneDetails } from '@/features/library/album-standalone-details';
 import { AssociationExpanded } from '@/features/library/association-expanded';
 import { AssociationListItem } from '@/features/library/association-list-item';
 import { AssociationTabButtons } from '@/features/library/association-tab-buttons';
@@ -153,18 +154,6 @@ export const AssociationsPage = memo(() => {
     [expandedAlbumId, expandedAssociationId, getAlbumUrl, getAssociationUrl, navigate],
   );
 
-  const onBack = useCallback(() => {
-    if (albumId && expandedAssociationId != null) {
-      navigate(getAssociationUrl(expandedAssociationId));
-      return;
-    }
-    if (expandedAssociationId != null) {
-      navigate(`/${groupUrl}`);
-      return;
-    }
-    navigate(`/${groupUrl}`);
-  }, [albumId, expandedAssociationId, getAssociationUrl, groupUrl, navigate]);
-
   useEffect(() => {
     if (!expandedAssociation || expandedAssociationId === null) {
       return;
@@ -238,9 +227,8 @@ export const AssociationsPage = memo(() => {
           <ul
             className={[
               'flex flex-col overflow-y-auto h-[calc(100vh-9rem)]',
-              isMobile ? '' : 'max-w-100 min-w-50',
-              'bg-accent/50',
-              'mr-2',
+              isMobile ? '' : 'w-100 min-w-50',
+              'mr-2 border-r border-r-muted-foreground/25',
             ].join(' ')}
           >
             {associations.map((item) => {
@@ -264,14 +252,13 @@ export const AssociationsPage = memo(() => {
                 className="flex flex-row justify-between items-center"
                 association={expandedAssociation}
                 associationType={associationType}
-                onBack={onBack}
               />
             )}
             {viewingGroup !== 'track-genres' && (
               <>
                 {/* Group buttons */}
                 <AssociationTabButtons
-                  className="p-1 bg-foreground/10 inline-block rounded-lg"
+                  className="p-1 bg-foreground/10 inline-block rounded-lg mb-4"
                   associationType={associationType}
                   expandedAssociation={expandedAssociation}
                   isAlbumArtists={isAlbumArtists}
@@ -282,27 +269,22 @@ export const AssociationsPage = memo(() => {
                   <>
                     {isMobile && (
                       <ul ref={listRef} className="flex flex-col grow overflow-y-scroll h-[calc(100vh-9rem)]">
-                        {albums.map((item, index) => {
-                          const shouldInsertDetails = expandedAlbumId && detailsInsertIndex === index;
-                          return (
-                            <>
-                              {!expandedAlbumId && (
-                                <li className="w-full p-2" key={item.id}>
-                                  <AlbumListItem
-                                    album={item}
-                                    isExpanded={expandedAlbumId === item.id}
-                                    onToggle={() => toggleAlbum(item.id)}
-                                  />
-                                </li>
-                              )}
-                              {shouldInsertDetails && (
-                                <li className="album-details col-span-full pt-4">
-                                  <AlbumExpandedDetails albumId={expandedAlbumId} />
-                                </li>
-                              )}
-                            </>
-                          );
-                        })}
+                        {expandedAlbumId !== null && (
+                          <li className="album-details col-span-full flex flex-col grow">
+                            {albums.some((album) => album.id === expandedAlbumId) && (
+                              <AlbumStandaloneDetails
+                                albumId={expandedAlbumId}
+                                onClose={() => toggleAlbum(expandedAlbumId)}
+                              />
+                            )}
+                          </li>
+                        )}
+                        {expandedAlbumId === null &&
+                          albums.map((item) => (
+                            <li className="w-full p-2" key={item.id}>
+                              <AlbumListItem album={item} isExpanded={false} onToggle={() => toggleAlbum(item.id)} />
+                            </li>
+                          ))}
                       </ul>
                     )}
                     {!isMobile && (

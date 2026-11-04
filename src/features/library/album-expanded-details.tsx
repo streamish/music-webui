@@ -2,17 +2,17 @@ import { AddToPlaylistButton } from '@/features/library/add-to-playlist-button';
 import { AlbumEditForm } from '@/features/library/album-edit-form';
 import { AlbumFullImage } from './album-full-image';
 import { AlbumTrackList } from './album-track-list';
-import { FavoriteControls } from './favorite-controls';
+import { FavoriteControls } from './add-to-favorite-button';
 import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
+import { getAlbumPalette } from '@/utils/color';
 import { useAlbum } from '@/features/library/api/albums';
 import { useMemo, useRef } from 'react';
 
 export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
   const { data: album } = useAlbum(albumId);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const selectedColor = album?.coverImageMuted || '#000000';
-  const contrastingColor = album?.coverImageDarkMuted || '#000000';
+  const { background: selectedColor, foreground } = getAlbumPalette(album);
   const trackGroups = useMemo(() => createTrackGroups(album?.tracks || []), [album?.tracks]);
   const showDiscTitle = trackGroups[0]?.[0]?.discNumber !== trackGroups[trackGroups.length - 1]?.[0]?.discNumber;
   if (containerRef) {
@@ -28,13 +28,17 @@ export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
     return null;
   }
   return (
-    <div aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}>
+    <div
+      className="album-details-animate"
+      aria-label={`Album details:  ${album.title} by ${album.artists.map((artist) => artist.name).join(', ')}`}
+    >
       <div
-        className="relative w-full min-h-120"
+        className="relative w-full"
         style={{
           backgroundColor: selectedColor,
         }}
       >
+        <div aria-hidden="true" className="float-right invisible aspect-square w-60 md:w-80 lg:w-100 xl:w-120"></div>
         {/* Image on the right */}
         <div className="absolute z-1 top-0 right-0 w-60 md:w-80 lg:w-100 xl:w-120 h-full overflow-hidden">
           <AlbumFullImage
@@ -86,8 +90,8 @@ export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
           style={{
             background: `linear-gradient(
               to bottom right,
-              ${contrastingColor} 10%,
-              ${contrastingColor} 10%,
+              ${selectedColor} 10%,
+              ${selectedColor} 10%,
               transparent 100%
             )`,
           }}
@@ -98,13 +102,12 @@ export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
           <div
             className="p-4 lg:pl-8 mr-60 md:mr-80 lg:mr-100 xl:mr-120 2xl:mr-140"
             style={{
-              color: album.coverImageLightMuted,
-              mixBlendMode: 'difference',
+              color: foreground,
             }}
             ref={containerRef}
           >
-            <h3 className="font-semibold text-2xl">
-              {album.title} <span className="text-sm opacity-50 align-middle">({album.year})</span>
+            <h3 className="mb-2 text-2xl flex flex-row items-center">
+              {album.title} <span className="mx-2 text-sm opacity-50 align-middle">({album.year})</span>
               <FavoriteControls album={album} />
               <AddToPlaylistButton album={album} />
               <AlbumEditForm album={album} />
