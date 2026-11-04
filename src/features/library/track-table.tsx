@@ -57,9 +57,9 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
             <tr>
               <th className="px-2 py-1 text-left text-foreground/70">Title</th>
               <th className="px-2 py-1 text-left text-foreground/70">Time</th>
-              <th className="px-2 py-1 text-left text-foreground/70">Rating</th>
               <th className="px-2 py-1 text-left text-foreground/70">Album</th>
               <th className="px-2 py-1 text-left text-foreground/70">Artist</th>
+              <th className="px-2 py-1 text-left text-foreground/70">Rating</th>
             </tr>
           </thead>
           <tbody>
@@ -79,14 +79,8 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
                     />
                     {track.title}
                     <FavoriteControls track={track} className="mb-0" />
+                    <PlayControls tracks={[track]} hidePlayButton={true} hideRatingButtons={true} className="mb-0" />
                     <AddToPlaylistButton track={track} className="mb-0" />
-                    <PlayControls
-                      tracks={[track]}
-                      hidePlayButton={true}
-                      hideQueueButtons={true}
-                      hideRatingButtons={true}
-                      className="mb-0"
-                    />
                   </div>
                   <div className="flex flex-wrap gap-2 my-2 ml-2">
                     {track.genres.map((genre) => (
@@ -97,11 +91,9 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
                   </div>
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
-                <td>
-                  <PlayControls tracks={[track]} hideEditButton={true} hidePlayButton={true} hideQueueButtons={true} />
+                <td className="px-2 py-1 text-left text-foreground/70">
+                  <Link to={`/albums/${track.albumId}/${formatSlug(track.albumTitle)}`}>{track.albumTitle}</Link>
                 </td>
-                <td className="px-2 py-1 text-left text-foreground/70">{track.albumTitle}</td>
-
                 <td className="px-2 py-1 text-left text-foreground/70">
                   {track.artists.map((artist) => {
                     return (
@@ -110,6 +102,9 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
                       </span>
                     );
                   })}
+                </td>
+                <td>
+                  <PlayControls tracks={[track]} hideEditButton={true} hidePlayButton={true} hideQueueButtons={true} />
                 </td>
               </tr>
             ))}
