@@ -55,6 +55,7 @@ export function AlbumBrowser({ albums, expandedAlbumId, onToggleAlbum }: AlbumBr
         'lg:grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] ',
         'gap-2',
         'overflow-y-scroll h-[calc(100vh-9rem)]',
+        'pb-40',
       ].join(' ')}
     >
       {albums.map((album, index) => {
