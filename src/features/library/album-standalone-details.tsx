@@ -7,9 +7,11 @@ import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
 import { getAlbumPalette } from '@/utils/color';
 import { useAlbum } from '@/features/library/api/albums';
+import { useIsMobile } from '@/hooks/use-is-mobile';
 
 export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; onClose: () => void }) {
   const { data: album } = useAlbum(albumId);
+  const { isMobile } = useIsMobile();
   if (!album) {
     return null;
   }
@@ -25,22 +27,24 @@ export function AlbumStandaloneDetails({ albumId, onClose }: { albumId: number; 
       }}
     >
       {/* Navigation back to albums */}
-      <menu
-        className="text-right"
-        style={{
-          color: foreground,
-        }}
-      >
-        <Button
-          variant="ghost"
-          onClick={onClose}
-          className="inline-flex flex-row w-fit self-start m-2"
-          aria-label="Back button"
+      {isMobile && (
+        <menu
+          className="text-right"
+          style={{
+            color: foreground,
+          }}
         >
-          <ArrowLeftCircle />
-          Back
-        </Button>
-      </menu>
+          <Button
+            variant="ghost"
+            onClick={onClose}
+            className="inline-flex flex-row w-fit self-start m-2"
+            aria-label="Back button"
+          >
+            <ArrowLeftCircle />
+            Back
+          </Button>
+        </menu>
+      )}
       {/* Image */}
       <AlbumFullImage albumId={album.id} size={600} className="w-full" />
       {/* Album info */}
