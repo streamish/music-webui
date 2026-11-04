@@ -152,12 +152,17 @@ export function AppSidebar() {
     );
   };
 
+  let imageUrl = '/images/logo.png';
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    imageUrl = '/images/logo-dark.png';
+  }
+
   return (
     <Sidebar className="border-transparent border-r border-r-muted-foreground/25">
       <SidebarHeader>
         <div className="flex items-center gap-3 px-2 py-2 cursor-default" onClick={closeMobileSidebar}>
           <div>
-            <img src="/images/logo.png" className="w-12 h-12" />
+            <img src={imageUrl} className="w-12 h-12" />
           </div>
           <span className="font-semibold">Music Player</span>
           {isMobile && (
