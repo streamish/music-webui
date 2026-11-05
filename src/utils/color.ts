@@ -1,3 +1,31 @@
+export function hexToRgb(hex: string, alpha?: number): string {
+  const value = hex.replace('#', '');
+  const full = value.length === 3 ? [...value].map((char) => char + char).join('') : value;
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+  if (alpha !== undefined) {
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+export function colorDistance(a: string, b: string) {
+  const rgbA = hexToRgb(a);
+  const rgbB = hexToRgb(b);
+  if (!rgbA || !rgbB) {
+    return Infinity;
+  }
+  const match = rgbA.match(/rgba?\((\d+), (\d+), (\d+)/);
+  const matchB = rgbB.match(/rgba?\((\d+), (\d+), (\d+)/);
+  if (!match || !matchB) {
+    return Infinity;
+  }
+  const [rA, gA, bA] = [parseInt(match[1], 10), parseInt(match[2], 10), parseInt(match[3], 10)];
+  const [rB, gB, bB] = [parseInt(matchB[1], 10), parseInt(matchB[2], 10), parseInt(matchB[3], 10)];
+  return Math.sqrt((rA - rB) ** 2 + (gA - gB) ** 2 + (bA - bB) ** 2);
+}
+
 export function getContrastingTextColor(hexValue: string) {
   let hex = hexValue.replace(/^#/, '');
   if (hex.length === 3) {

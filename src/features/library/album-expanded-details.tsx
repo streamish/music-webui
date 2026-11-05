@@ -5,7 +5,7 @@ import { AlbumTrackList } from './album-track-list';
 import { FavoriteControls } from './add-to-favorite-button';
 import { PlayControls } from './play-controls';
 import { createTrackGroups } from '@/utils/tracks';
-import { getAlbumPalette } from '@/utils/color';
+import { getAlbumPalette, hexToRgb } from '@/utils/color';
 import { useAlbum } from '@/features/library/api/albums';
 import { useMemo, useRef } from 'react';
 
@@ -35,45 +35,29 @@ export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
       <div
         className="relative w-full"
         style={{
-          backgroundColor: selectedColor,
+          backgroundColor: hexToRgb(selectedColor, 0.25),
         }}
       >
         <div aria-hidden="true" className="float-right invisible aspect-square w-60 md:w-80 lg:w-100 xl:w-120"></div>
         {/* Image on the right */}
-        <div className="absolute z-1 top-0 right-0 w-60 md:w-80 lg:w-100 xl:w-120 h-full overflow-hidden">
-          <AlbumFullImage
-            albumId={album.id}
-            size={600}
-            className="absolute z-0 w-60 md:w-80 lg:w-100 xl:w-120 object-cover"
-          />
-          <div
-            className={[
-              'absolute top-60 md:top-80 lg:top-100 xl:top-120 right-0 z-1 h-30',
-              'w-60 md:w-80 lg:w-100 xl:w-120 overflow-hidden',
-            ].join(' ')}
-          >
-            {/* Reflected image */}
+        <div className="absolute z-1 top-0 right-0 w-60 md:w-80 lg:w-100 xl:w-120 overflow-hidden">
+          <div className="flex flex-col h-full">
+            <AlbumFullImage albumId={album.id} size={600} className="w-60 md:w-80 lg:w-100 xl:w-120 object-cover" />
+            {/* Reflection */}
             <div className="opacity-30">
               <AlbumFullImage
                 albumId={album.id}
                 size={600}
-                className="absolute z-2 w-60 md:w-80 lg:w-100 xl:w-120 scale-y-[-1]"
-              />
-              <div
-                className="absolute z-3 top-0 right-0 w-60 md:w-80 lg:w-100 xl:w-120 h-60"
+                className="w-60 md:w-80 lg:w-100 xl:w-120 object-cover scale-y-[-1]"
                 style={{
-                  background: `linear-gradient(
-                  to top,
-                  ${selectedColor} 0%,
-                  ${selectedColor} 50%,
-                  transparent 100%
-                )`,
+                  WebkitMaskImage: 'linear-gradient(to bottom, transparent, black)',
+                  maskImage: 'linear-gradient(to bottom, transparent, black)',
                 }}
-              ></div>
+              />
             </div>
           </div>
           <div
-            className="absolute z-2 top-0 -left-10 w-20 h-150"
+            className="absolute z-2 top-0 -left-10 w-20 h-full"
             style={{
               background: `linear-gradient(
                 to right,
@@ -81,6 +65,8 @@ export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
                 ${selectedColor} 50%,
                 transparent 100%
               )`,
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
             }}
           ></div>
         </div>
@@ -122,10 +108,10 @@ export function AlbumExpandedDetails({ albumId }: { albumId: number }) {
               textLabels={true}
               className="mb-2"
             />
-            <div className="lg:grid lg:grid-rows-2 2xl:grid-rows-none 2xl:grid-cols-2 gap-0 2xl:gap-20">
+            <div className="flex flex-wrap gap-x-20 gap-y-6">
               {trackGroups.map((trackGroup, index) => {
                 return (
-                  <div key={index}>
+                  <div key={index} className="max-w-40% flex-1">
                     {showDiscTitle && (
                       <h4 className="uppercase font-semibold text-xs mb-2 opacity-35">Disc {index + 1}</h4>
                     )}
