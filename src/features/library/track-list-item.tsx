@@ -18,9 +18,11 @@ export function TrackListItem({ track, albumTitle }: { track: Track; albumTitle:
         <h3 className="text-md font-semibold text-foreground/80">{track.title}</h3>
         <h4 className="text-foreground/80">{albumTitle}</h4>
         <p className="text-sm text-foreground/60">{track.artists.map((artist) => artist.name).join(', ')}</p>
-        <FavoriteControls track={track} />
-        <AddToPlaylistButton track={track} />
-        <PlayControls tracks={[track]} />
+        <div className="flex flex-row gap-2">
+          <PlayControls tracks={[track]} hideEditButton={true} hideRatingButtons={true} />
+          <FavoriteControls track={track} />
+          <AddToPlaylistButton track={track} />
+        </div>
       </div>
     </div>
   );
