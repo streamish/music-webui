@@ -2,6 +2,8 @@
 
 This software provides a responsive web interface for enjoying your music library, and managing user accounts, root folders and sessions for the [music-server](https://github.com/musiclib/music-server).
 
+The goal of this project is to provide a default web interface for managing and enjoying your users, library configuration, and music library through the music-server backend.
+
 If you are using the music-server docker image this server is set up automatically in its docker image. You can access it at `http://<your-server-ip>:8000` and log in with the default administrator account `admin` with password `admin` or whatever you set the `DEFAULT_ADMIN_USERNAME` and `DEFAULT_ADMIN_PASSWORD` environment variables in your environment settings to.
 
 ![Screenshot](https://streamish.github.io/screenshots/Screenshot%202026-11-04%20at%2012-31-49%20Albums.png)
