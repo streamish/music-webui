@@ -294,6 +294,7 @@ test.describe('associations', () => {
 
       test('should queue track at start', async ({ page }) => {
         const pom = new Pom(page, jwtToken);
+        test.skip(pom.isResponsive(), 'Queue controls are hidden on mobile layouts');
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
         await pom.navigateToArtists();
@@ -318,6 +319,7 @@ test.describe('associations', () => {
 
       test('should queue track at end', async ({ page }) => {
         const pom = new Pom(page, jwtToken);
+        test.skip(pom.isResponsive(), 'Queue controls are hidden on mobile layouts');
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
         await pom.navigateToArtists();
@@ -342,6 +344,7 @@ test.describe('associations', () => {
     });
 
     test.describe('editing tracks', () => {
+      test.skip(({ page }) => Pom.isResponsive(page), 'Track editing is hidden on mobile layouts');
       test('should update track details', async ({ page, testApi }) => {
         const newUsername = `tracks-edit-track-${Date.now()}`;
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
@@ -371,6 +374,7 @@ test.describe('associations', () => {
     });
 
     test.describe('rating tracks', () => {
+      test.skip(({ page }) => Pom.isResponsive(page), 'Track rating is hidden on mobile layouts');
       test('should rate track', async ({ page, testApi }) => {
         const newUsername = `tracks-rating-track-${Date.now()}`;
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
@@ -427,6 +431,7 @@ test.describe('associations', () => {
 
       test('should queue track at start', async ({ page }) => {
         const pom = new Pom(page, jwtToken);
+        test.skip(pom.isResponsive(), 'Queue controls are hidden on mobile layouts');
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
         await pom.navigateToComposers();
@@ -451,6 +456,7 @@ test.describe('associations', () => {
 
       test('should queue track at end', async ({ page }) => {
         const pom = new Pom(page, jwtToken);
+        test.skip(Pom.isResponsive(page), 'Queue controls are hidden on mobile layouts');
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
         await pom.navigateToComposers();
@@ -475,6 +481,7 @@ test.describe('associations', () => {
     });
 
     test.describe('editing tracks', () => {
+      test.skip(({ page }) => Pom.isResponsive(page), 'Track editing is hidden on mobile layouts');
       test('should update track details', async ({ page, testApi }) => {
         const newUsername = `tracks-edit-track-${Date.now()}`;
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
@@ -504,6 +511,7 @@ test.describe('associations', () => {
     });
 
     test.describe('rating tracks', () => {
+      test.skip(({ page }) => Pom.isResponsive(page), 'Track rating is hidden on mobile layouts');
       test('should rate track', async ({ page, testApi }) => {
         const newUsername = `tracks-rating-track-${Date.now()}`;
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
@@ -562,6 +570,7 @@ test.describe('associations', () => {
         const pom = new Pom(page, jwtToken);
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
+        test.skip(Pom.isResponsive(page), 'Queue controls are hidden on mobile layouts');
         await pom.navigateToGenres();
         await page.getByLabel('Browse Acoustic').click();
         await page.getByLabel('Play now').first().click();
@@ -584,6 +593,7 @@ test.describe('associations', () => {
 
       test('should queue track at end', async ({ page }) => {
         const pom = new Pom(page, jwtToken);
+        test.skip(Pom.isResponsive(page), 'Queue controls are hidden on mobile layouts');
         await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
         jwtToken = jwtToken || pom.jwtToken;
         await pom.navigateToGenres();
@@ -608,6 +618,7 @@ test.describe('associations', () => {
     });
 
     test.describe('editing tracks', () => {
+      test.skip(({ page }) => Pom.isResponsive(page), 'Track editing is hidden on mobile layouts');
       test('should update track details', async ({ page, testApi }) => {
         const newUsername = `tracks-edit-track-${Date.now()}`;
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
@@ -637,6 +648,7 @@ test.describe('associations', () => {
     });
 
     test.describe('rating tracks', () => {
+      test.skip(({ page }) => Pom.isResponsive(page), 'Track rating is hidden on mobile layouts');
       test('should rate track', async ({ page, testApi }) => {
         const newUsername = `tracks-rating-track-${Date.now()}`;
         const newAccountId = await testApi.duplicateUser(USER_USERNAME, {

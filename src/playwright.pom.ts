@@ -54,9 +54,13 @@ export class Pom {
     }
   }
 
-  async isResponsive(): Promise<boolean> {
-    const pageWidth = this.page.viewportSize()?.width ?? Infinity;
+  static isResponsive(page: Page): boolean {
+    const pageWidth = page.viewportSize()?.width ?? Infinity;
     return pageWidth < 641;
+  }
+
+  isResponsive(): boolean {
+    return Pom.isResponsive(this.page);
   }
 
   async navigateToAccount(): Promise<void> {
