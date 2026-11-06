@@ -1,8 +1,10 @@
-# Music Web UI
+# Streamish Music Web UI
 
 This software provides a responsive web interface for enjoying your music library, and managing user accounts, root folders and sessions for the [music-server](https://github.com/musiclib/music-server).
 
 If you are using the music-server docker image this server is set up automatically in its docker image. You can access it at `http://<your-server-ip>:8000` and log in with the default administrator account `admin` with password `admin` or whatever you set the `DEFAULT_ADMIN_USERNAME` and `DEFAULT_ADMIN_PASSWORD` environment variables in your environment settings to.
+
+![Screenshot](https://streamish.github.io/screenshots/Screenshot%202026-11-04%20at%2012-31-49%20Albums.png)
 
 ## Docker Image
 
@@ -18,6 +20,7 @@ $ docker run \
   -e DISABLE_DEFAULT_USER=true \
   -e SYNOLOGY_AUDIOSTATION_ENABLED=true \
   -e QNAP_MUSIC_STATION_ENABLED=true \
+  -e SUBSONIC_ENABLED=true \
   streamish/music
 ```
 
@@ -37,6 +40,7 @@ You can enable API compatibility:
 | ------------------------------- | ------------- | ---------------------------------------------------------------- |
 | `SYNOLOGY_AUDIOSTATION_ENABLED` | false         | Set to `true` to enable Synology Audio Station API compatibility |
 | `QNAP_MUSIC_STATION_ENABLED`    | false         | Set to `true` to enable QNAP Music Station API compatibility     |
+| `SUBSONIC_ENABLED`               | false         | Set to `true` to enable Subsonic API compatibility              |
 
 You can enable Swagger API interface for the backend APIs:
 
