@@ -44,7 +44,12 @@ export function TrackTable({ albums, tracks }: { albums?: Album[]; tracks?: Trac
                 </td>
                 <td className="px-2 py-1 text-left text-foreground/70">{secondsToMinutesAndSeconds(track.duration)}</td>
                 <td className="px-2 py-1 text-left">
-                  <PlayControls tracks={[track]} />
+                  <PlayControls
+                    tracks={[track]}
+                    hideEditButton={true}
+                    hideQueueButtons={true}
+                    hideRatingButtons={true}
+                  />
                 </td>
               </tr>
             ))}
