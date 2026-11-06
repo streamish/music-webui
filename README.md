@@ -42,7 +42,7 @@ You can enable API compatibility:
 | ------------------------------- | ------------- | ---------------------------------------------------------------- |
 | `SYNOLOGY_AUDIOSTATION_ENABLED` | false         | Set to `true` to enable Synology Audio Station API compatibility |
 | `QNAP_MUSIC_STATION_ENABLED`    | false         | Set to `true` to enable QNAP Music Station API compatibility     |
-| `SUBSONIC_ENABLED`               | false         | Set to `true` to enable Subsonic API compatibility              |
+| `SUBSONIC_ENABLED`              | false         | Set to `true` to enable Subsonic API compatibility               |
 
 You can enable Swagger API interface for the backend APIs:
 
