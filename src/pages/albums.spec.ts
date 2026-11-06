@@ -59,7 +59,7 @@ test.describe('albums', () => {
   test.describe('pagination', () => {
     test('uses the URL page for initial load and refresh', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
-      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      test.skip(pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
       await page.addInitScript(() => {
         localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
       });
@@ -85,7 +85,7 @@ test.describe('albums', () => {
 
     test('preserves the page when opening an album', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
-      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      test.skip(pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
       await page.addInitScript(() => {
         localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
       });
@@ -103,7 +103,7 @@ test.describe('albums', () => {
 
     test('keeps the query in sync with browser back and forward', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
-      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      test.skip(pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
       await page.addInitScript(() => {
         localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
       });
@@ -137,7 +137,7 @@ test.describe('albums', () => {
 
     test('uses the current page-size preference when loading a URL page', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
-      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      test.skip(pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
       await page.addInitScript(() => {
         if (!localStorage.getItem('preferences')) {
           localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));

@@ -90,6 +90,7 @@ test.describe('folders', () => {
 
     test('should queue track at start', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
+      test.skip(pom.isResponsive(), 'Queue controls are hidden on mobile layouts');
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
       await pom.navigateToFolders();
@@ -115,6 +116,7 @@ test.describe('folders', () => {
 
     test('should queue track at end', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
+      test.skip(pom.isResponsive(), 'Queue controls are hidden on mobile layouts');
       await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
       jwtToken = jwtToken || pom.jwtToken;
       await pom.navigateToFolders();
@@ -140,6 +142,7 @@ test.describe('folders', () => {
   });
 
   test.describe('editing tracks', () => {
+    test.skip(({ page }) => Pom.isResponsive(page), 'Track editing is hidden on mobile layouts');
     test('should update track details', async ({ page, testApi }) => {
       const newUsername = `folder-edit-track-${Date.now()}`;
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
@@ -168,6 +171,7 @@ test.describe('folders', () => {
   });
 
   test.describe('rating tracks', () => {
+    test.skip(({ page }) => Pom.isResponsive(page), 'Track rating is hidden on mobile layouts');
     test('should rate track', async ({ page, testApi }) => {
       const newUsername = `folder-rating-track-${Date.now()}`;
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {

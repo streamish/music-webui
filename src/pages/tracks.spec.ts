@@ -57,7 +57,7 @@ test.describe('tracks', () => {
   test.describe('pagination', () => {
     test('uses the URL page for initial load and refresh', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
-      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      test.skip(pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
       await page.addInitScript(() => {
         localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
       });
@@ -83,7 +83,7 @@ test.describe('tracks', () => {
 
     test('keeps the query in sync with browser back and forward', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
-      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      test.skip(pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
       await page.addInitScript(() => {
         localStorage.setItem('preferences', JSON.stringify({ pageSize: 2 }));
       });
@@ -117,7 +117,7 @@ test.describe('tracks', () => {
 
     test('uses the current page-size preference when loading a URL page', async ({ page }) => {
       const pom = new Pom(page, jwtToken);
-      test.skip(await pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
+      test.skip(pom.isResponsive(), 'Pagination controls are hidden on mobile layouts');
       // init scripts re-run on every navigation, so only seed when nothing is stored yet
       await page.addInitScript(() => {
         if (!localStorage.getItem('preferences')) {
@@ -254,6 +254,7 @@ test.describe('tracks', () => {
   });
 
   test.describe('editing tracks', () => {
+    test.skip(({ page }) => new Pom(page).isResponsive(), 'Track editing is hidden on mobile layouts');
     test('should update track details', async ({ page, testApi }) => {
       const newUsername = `tracks-edit-track-${Date.now()}`;
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
@@ -281,6 +282,7 @@ test.describe('tracks', () => {
   });
 
   test.describe('rating tracks', () => {
+    test.skip(({ page }) => Pom.isResponsive(page), 'Track rating is hidden on mobile layouts');
     test('should rate track', async ({ page, testApi }) => {
       const newUsername = `tracks-rating-track-${Date.now()}`;
       const newAccountId = await testApi.duplicateUser(USER_USERNAME, {
