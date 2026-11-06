@@ -4,6 +4,7 @@ import { PreferencesProvider } from './hooks/use-preferences.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { QueueProvider } from './features/library/queue.tsx';
 import { RouterProvider } from 'react-router';
+import { ThemeProvider } from './hooks/use-theme';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from './components/ui/tooltip';
 import { router } from './routes';
@@ -14,18 +15,20 @@ export default function App() {
 
   return (
     <div className="w-full min-w-32 min-h-screen overflow-auto select-none">
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <PreferencesProvider>
-            <QueueProvider>
-              <TooltipProvider>
-                <Toaster />
-                <RouterProvider router={router} />
-              </TooltipProvider>
-            </QueueProvider>
-          </PreferencesProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+      <ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <PreferencesProvider>
+              <QueueProvider>
+                <TooltipProvider>
+                  <Toaster />
+                  <RouterProvider router={router} />
+                </TooltipProvider>
+              </QueueProvider>
+            </PreferencesProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
     </div>
   );
 }
