@@ -1,54 +1,24 @@
-# Streamish Music Web UI
+# Streamish Music
 
-This software provides a responsive web interface for enjoying your music library, and managing user accounts, root folders and sessions for the [music-server](https://github.com/musiclib/music-server).
+Streamish is a self-hosted music server and browser interface that aims to provide compatibility with popular mobile music apps while allowing users to maintain control over their music library.
 
-The goal of this project is to provide a default web interface for managing and enjoying your users, library configuration, and music library through the music-server backend.
+Screenshots: https://streamish.github.io
 
-If you are using the music-server docker image this server is set up automatically in its docker image. You can access it at `http://<your-server-ip>:8000` and log in with the default administrator account `admin` with password `admin` or whatever you set the `DEFAULT_ADMIN_USERNAME` and `DEFAULT_ADMIN_PASSWORD` environment variables in your environment settings to.
+API documentation: https://streamish.github.io/api
 
-![Screenshot](https://streamish.github.io/screenshots/Screenshot%202026-11-04%20at%2012-31-49%20Albums.png)
+Server: https://github.com/streamish/music-server
 
-## Docker Image
+Web UI: https://github.com/streamish/music-webui
 
-This is the official docker image combining [music-server](https://github.com/musiclib/music-server) and [music-webui](https://github.com/musiclib/music-webui). Internally it builds the `music-server` backend and the `music-webui` frontend and uses Nginx to serve the frontend and proxy the backend off the same port.
+Docker: https://hub.docker.com/r/streamish/music
 
-```bash
-$ docker run \
-  -p 8000:8000 \
-  -v /my/music:/music:ro \
-  -v /my/data:/data:rw \
-  -e DEFAULT_ADMIN_USERNAME=admin \
-  -e DEFAULT_ADMIN_PASSWORD=admin \
-  -e DISABLE_DEFAULT_USER=true \
-  -e SYNOLOGY_AUDIOSTATION_ENABLED=true \
-  -e QNAP_MUSIC_STATION_ENABLED=true \
-  -e SUBSONIC_ENABLED=true \
-  streamish/music
-```
+# About the Music Web UI
 
-| Variable                  | Default value | Description                                                         |
-| ------------------------- | ------------- | ------------------------------------------------------------------- |
-| `DEFAULT_ADMIN_USERNAME`  | `admin`       | The username for the default administrator account                  |
-| `DEFAULT_ADMIN_PASSWORD`  | `admin`       | The password for the default administrator account                  |
-| `DEFAULT_ADMIN_ROOT_PATH` |               | Comma-separated list of paths for the default administrator account |
-| `DISABLE_DEFAULT_USER`    | false         | Set to `true` to disable creating the default normal user account   |
-| `DEFAULT_USER_USERNAME`   | `user`        | The username for the default normal user account                    |
-| `DEFAULT_USER_PASSWORD`   | `user`        | The password for the default normal user account                    |
-| `DEFAULT_USER_ROOT_PATH`  |               | Comma-separated list of paths for the default normal user account   |
+This React web app provides a responsive browser interface for enjoying your music library, and managing user accounts, root folders and sessions for the [music-server](https://github.com/musiclib/music-server).
 
-You can enable API compatibility:
+The goal of this project is to provide a default web interface for managing your users and music library, and streaming your music collection to a laptop, desktop or anywhere else you prefer a browser over smartphone apps.
 
-| Variable                        | Default value | Description                                                      |
-| ------------------------------- | ------------- | ---------------------------------------------------------------- |
-| `SYNOLOGY_AUDIOSTATION_ENABLED` | false         | Set to `true` to enable Synology Audio Station API compatibility |
-| `QNAP_MUSIC_STATION_ENABLED`    | false         | Set to `true` to enable QNAP Music Station API compatibility     |
-| `SUBSONIC_ENABLED`              | false         | Set to `true` to enable Subsonic API compatibility               |
-
-You can enable Swagger API interface for the backend APIs:
-
-| Variable          | Default value | Description                                   |
-| ----------------- | ------------- | --------------------------------------------- |
-| `SWAGGER_ENABLED` | false         | Set to `true` to enable Swagger documentation |
+If you are using the [docker image](https://hub.docker.com/r/streamish/music) this server is set up automatically.
 
 ## Manual set up
 
@@ -73,10 +43,51 @@ $ npm run build
 $ npm run start:prod
 ```
 
-## Technical details
+## Running tests
 
-The web interface is built with React using React Hook Forms, React-Router, Tanstack-Query, Shadcn components with Tailwind CSS and Lucide icons.
+The frontend uses Playwright for end-to-end testing of the web interface across different browsers and device specifications. This requires the full software to be running in test mode, including the backend music server.
 
-UI tests are performed using Playwright in Chrome, Firefox and WebKit using desktop and mobile specifications.
+Backend:
 
-It leverages the backend's OpenAPI specification for importing API type definitions and typed-API clients using `openapi-typescript` and `openapi-fetch`.
+```bash
+$ git clone https://github.com/musiclib/music-server.git
+$ cd music-server
+$ npm ci
+$ npm run start:test
+```
+
+Frontend:
+
+```bash
+$ npx playwright install --with-deps
+$ npm run build:test
+$ npm run start:test
+```
+
+When the servers have finished starting you can run the tests:
+
+```bash
+$ npm run test
+```
+
+You can test a single configuration:
+
+```bash
+$ npm run test -- --project=chromium
+$ npm run test -- --project=firefox
+$ npm run test -- --project=webkit
+$ npm run test -- --project=mobile-chrome
+$ npm run test -- --project=mobile-safari
+$ npm run test -- --project=samsung
+$ npm run test -- --project=ipad
+$ npm run test -- --project=android-tablet
+```
+
+## Linting
+
+The TypeScript configuration is deliberately strict, and the linting uses AirBNB's style guide as-is, complemented with import ordering and filename/folder naming conventions.
+
+```bash
+$ npm run lint
+$ npm run prettier
+```
