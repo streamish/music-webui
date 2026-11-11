@@ -16,7 +16,7 @@ export function PlaybackCurrentItem() {
   }
 
   const isAlbum = 'albumId' in currentItem;
-  const currentTitle = isAlbum ? currentItem.albumTitle : (currentPlayingTitle ?? 'Loading...');
+  const currentTitle = isAlbum ? currentItem.title : (currentPlayingTitle ?? 'Loading...');
   const currentAttribution = isAlbum
     ? `${currentItem.albumTitle} — ${currentItem.albumArtists.map((artist) => artist.name).join(', ')}`
     : '';
