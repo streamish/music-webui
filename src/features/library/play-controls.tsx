@@ -33,7 +33,6 @@ export function PlayControls({
   tracks?: Track[];
 }) {
   const { addToQueue, clearQueue, playStation, togglePlay } = useQueueActions();
-  const [autoPlay, setAutoPlay] = useState(false);
 
   const addTracksToQueue = (atStart = true) => {
     if (tracks?.length) {
@@ -44,19 +43,12 @@ export function PlayControls({
   const playImmediately = () => {
     clearQueue();
     if (tracks?.length) {
-      addToQueue(tracks, false);
-      setAutoPlay(true);
+      addToQueue(tracks, true);
     } else if (station) {
       playStation(station);
     }
+    togglePlay(true);
   };
-
-  useEffect(() => {
-    if (autoPlay) {
-      togglePlay(true);
-      setAutoPlay(false);
-    }
-  }, [autoPlay]);
 
   const [EditForm, setEditForm] = useState<JSX.Element>(<></>);
 
