@@ -1,6 +1,7 @@
 import { IndexerLogsTable } from '@/features/account/indexer-logs-table';
 import { RootPathTable } from '@/features/account/root-path-table';
 import { UserChangePasswordForm } from '@/features/account/user-change-password';
+import { UserChangeUsernameForm } from '@/features/account/user-change-username';
 import { UserRotateSessionKeyForm } from '@/features/account/user-rotate-session-key-form';
 import UiPreferences from '@/features/account/ui-preferences';
 
@@ -16,11 +17,10 @@ const AccountPreferencesPage = () => {
       {/* System management */}
       <section className="mb-8">
         <h2 className="font-semibold mb-2 text-foreground/60">System</h2>
-        <div className="flex flex-row space-x-2">
-          <div className="h-8">
-            <UserChangePasswordForm />
-            <UserRotateSessionKeyForm />
-          </div>
+        <div className="flex flex-col gap-2 md:flex-row lg:flex-row">
+          <UserChangePasswordForm />
+          <UserChangeUsernameForm />
+          <UserRotateSessionKeyForm />
         </div>
       </section>
       {/* Root path management */}

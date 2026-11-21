@@ -136,7 +136,7 @@ export type paths = {
     put?: never;
     /**
      * Update username
-     * @description Updates the user's username.  This will take effect the next time they sign in.
+     * @description Updates the user's username to a new value.
      *
      *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/api/create-session` endpoint.
      *
@@ -18227,8 +18227,8 @@ export enum InternalServerErrorEnum {
 }
 export enum ApiAccountsDeleteAccountBadRequestErrors {
   account_only_admin_error = 'account-only-admin-error',
-  invalid_admin_password_error = 'invalid-admin-password-error',
   invalid_account_id_error = 'invalid-account-id-error',
+  invalid_admin_password_error = 'invalid-admin-password-error',
   invalid_admin_password_length_error = 'invalid-admin-password-length-error',
 }
 export enum ApiAccountsDeleteAccountUnauthorizedErrors {

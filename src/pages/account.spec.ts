@@ -92,7 +92,7 @@ test.describe('account preferences', () => {
           await expect(page.getByText('Current password is required')).toBeVisible();
         });
 
-        test('should show error if current password does not match', async ({ page }) => {
+        test('should show error if current password is incorrect', async ({ page }) => {
           const pom = new Pom(page, jwtToken);
           await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
           jwtToken = jwtToken || pom.jwtToken || '';
@@ -130,6 +130,72 @@ test.describe('account preferences', () => {
           await page2.locator('input[name="userPassword"]').fill('testpassword');
           await page2.locator('button', { hasText: 'Set new password' }).last().click();
           await expect(page2.getByText('Password updated successfully')).toBeVisible();
+        });
+      });
+    });
+
+    test.describe('change username', () => {
+      test.describe('errors', () => {
+        test('should show error if username is blank', async ({ page }) => {
+          const pom = new Pom(page, jwtToken);
+          await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+          jwtToken = jwtToken || pom.jwtToken || '';
+          await pom.navigateToAccount();
+          await page.getByRole('list', { name: 'User accounts' });
+          await page.locator('button', { hasText: 'Change username' }).click();
+          await page.locator('button', { hasText: 'Set new username' }).click();
+          await expect(page.getByText('Username is required', { exact: true })).toBeVisible();
+        });
+
+        test('should show error if current password is blank', async ({ page }) => {
+          const pom = new Pom(page, jwtToken);
+          await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+          jwtToken = jwtToken || pom.jwtToken || '';
+          await pom.navigateToAccount();
+          await page.getByRole('list', { name: 'User accounts' });
+          await page.locator('button', { hasText: 'Change username' }).click();
+          await page.locator('input[name="newUsername"]').fill('newusername');
+          await page.locator('input[name="userPassword"]').fill('');
+          await page.locator('button', { hasText: 'Set new username' }).click();
+          await expect(page.getByText('Current password is required')).toBeVisible();
+        });
+
+        test('should show error if current password is incorrect', async ({ page }) => {
+          const pom = new Pom(page, jwtToken);
+          await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+          jwtToken = jwtToken || pom.jwtToken || '';
+          await pom.navigateToAccount();
+          await page.locator('button', { hasText: 'Change username' }).click();
+          await page.locator('input[name="newUsername"]').fill('newusername');
+          await page.locator('input[name="userPassword"]').fill('wrongpassword');
+          await page.locator('button', { hasText: 'Set new username' }).click();
+          await expect(page.getByText('The specified current password is invalid.')).toBeVisible();
+        });
+      });
+
+      test.describe('success', () => {
+        test('should change username', async ({ page, browser }) => {
+          const testUserName = `test-reset-password-${Date.now()}`;
+          const adminPom = new Pom(page, jwtToken);
+          await adminPom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+          const adminToken = adminPom.jwtToken || '';
+          const user = await new AdminApi(adminToken).createUser({
+            adminPassword: ADMIN_USERNAME,
+            username: testUserName,
+            password: 'testpassword',
+            roles: [UserRoleEnum.user],
+          });
+          deleteUsers.push(user.id);
+          const newContext = await browser.newContext();
+          const page2 = await newContext.newPage();
+          const pom = new Pom(page2);
+          await pom.signIn({ username: testUserName, password: 'testpassword' });
+          await pom.navigateToAccount();
+          await page2.locator('button', { hasText: 'Change username' }).click();
+          await page2.locator('input[name="newUsername"]').fill('newusername');
+          await page2.locator('input[name="userPassword"]').fill('testpassword');
+          await page2.locator('button', { hasText: 'Set new username' }).last().click();
+          await expect(page2.getByText('Username updated successfully')).toBeVisible();
         });
       });
     });
