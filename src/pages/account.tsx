@@ -17,12 +17,10 @@ const AccountPreferencesPage = () => {
       {/* System management */}
       <section className="mb-8">
         <h2 className="font-semibold mb-2 text-foreground/60">System</h2>
-        <div className="flex flex-row space-x-2">
-          <div className="h-8">
-            <UserChangePasswordForm />
-            <UserChangeUsernameForm />
-            <UserRotateSessionKeyForm />
-          </div>
+        <div className="flex flex-col gap-2 md:flex-row lg:flex-row">
+          <UserChangePasswordForm />
+          <UserChangeUsernameForm />
+          <UserRotateSessionKeyForm />
         </div>
       </section>
       {/* Root path management */}
