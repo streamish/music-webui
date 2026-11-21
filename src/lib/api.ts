@@ -21,7 +21,11 @@ client.use({
       const bodyBuffer = await response.arrayBuffer();
       const bodyText = new TextDecoder('utf-8').decode(bodyBuffer);
       const responseJson = JSON.parse(bodyText);
-      if (responseJson.message?.[0] === 'invalid-admin-password-error') {
+      // authorization password errors trickle up to the user
+      if (
+        responseJson.message?.[0] === 'invalid-admin-password-error' ||
+        responseJson.message?.[0] === 'invalid-user-password-error'
+      ) {
         return new Response(bodyBuffer, {
           status: response.status,
           statusText: response.statusText,

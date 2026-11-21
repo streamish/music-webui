@@ -78,6 +78,32 @@ test.describe('account preferences', () => {
           await page.locator('button', { hasText: 'Set new password' }).click();
           await expect(page.getByText('Passwords do not match')).toBeVisible();
         });
+
+        test('should show error if current password is blank', async ({ page }) => {
+          const pom = new Pom(page, jwtToken);
+          await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+          jwtToken = jwtToken || pom.jwtToken || '';
+          await pom.navigateToAccount();
+          await page.getByRole('list', { name: 'User accounts' });
+          await page.locator('button', { hasText: 'Change password' }).click();
+          await page.locator('input[name="newPassword"]').fill('testpassword');
+          await page.locator('input[name="confirmPassword"]').fill('testpassword');
+          await page.locator('button', { hasText: 'Set new password' }).click();
+          await expect(page.getByText('Current password is required')).toBeVisible();
+        });
+
+        test('should show error if current password does not match', async ({ page }) => {
+          const pom = new Pom(page, jwtToken);
+          await pom.signIn({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+          jwtToken = jwtToken || pom.jwtToken || '';
+          await pom.navigateToAccount();
+          await page.locator('button', { hasText: 'Change password' }).click();
+          await page.locator('input[name="newPassword"]').fill('testpassword');
+          await page.locator('input[name="confirmPassword"]').fill('testpassword');
+          await page.locator('input[name="userPassword"]').fill('wrongpassword');
+          await page.locator('button', { hasText: 'Set new password' }).click();
+          await expect(page.getByText('The specified current password is invalid.')).toBeVisible();
+        });
       });
 
       test.describe('success', () => {
@@ -101,6 +127,7 @@ test.describe('account preferences', () => {
           await page2.locator('button', { hasText: 'Change password' }).click();
           await page2.locator('input[name="newPassword"]').fill('newpassword');
           await page2.locator('input[name="confirmPassword"]').fill('newpassword');
+          await page2.locator('input[name="userPassword"]').fill('testpassword');
           await page2.locator('button', { hasText: 'Set new password' }).last().click();
           await expect(page2.getByText('Password updated successfully')).toBeVisible();
         });
