@@ -87,9 +87,6 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const togglePlay = useCallback((playing?: boolean) => {
-    if (stateRef.current.state.items.length === 0) {
-      return;
-    }
     setIsPlaying((previous) => playing ?? !previous);
   }, []);
 
