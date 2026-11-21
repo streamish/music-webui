@@ -41,6 +41,17 @@ const schema = z
       .refine((value) => value.length <= 255, {
         message: 'Confirm password is too long',
       }),
+    userPassword: z
+      .string()
+      .refine((value) => value.length > 0, {
+        message: 'Current password is required',
+      })
+      .refine((value) => value.length >= 1, {
+        message: 'Current password is too short',
+      })
+      .refine((value) => value.length <= 255, {
+        message: 'Current password is too long',
+      }),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'Passwords do not match',
@@ -68,6 +79,7 @@ export function UserChangePasswordForm() {
     try {
       const result = await api.post('/api/update-password', {
         body: {
+          userPassword: formData.userPassword,
           newPassword: formData.newPassword,
         },
       });
@@ -81,6 +93,12 @@ export function UserChangePasswordForm() {
         for (let i = 0; i < message.length; i += 1) {
           const errorMessage = message[i];
           switch (errorMessage) {
+            case 'invalid-user-password-error':
+              setError('userPassword', { type: 'manual', message: 'The specified current password is invalid.' });
+              break;
+            case 'invalid-user-password-length-error':
+              setError('userPassword', { type: 'manual', message: 'The current password length is invalid.' });
+              break;
             case 'invalid-password-error':
               setError('newPassword', { type: 'manual', message: 'The specified password is invalid.' });
               break;
@@ -141,6 +159,16 @@ export function UserChangePasswordForm() {
                 placeholder="Enter new password"
               />
               <FormValidationError text={errors.confirmPassword?.message} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="userPassword">Current password</Label>
+              <Input
+                id="userPassword"
+                type="password"
+                {...register('userPassword', { required: true })}
+                placeholder="Enter current password"
+              />
+              <FormValidationError text={errors.userPassword?.message} />
             </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setOpen(false)}>
