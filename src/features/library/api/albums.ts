@@ -58,8 +58,9 @@ export const recentlyAddedAlbumsQuery = () =>
     },
   });
 
-export const albumQuery = (id: number) =>
+export const albumQuery = (id: number, enabled: boolean) =>
   queryOptions({
+    enabled,
     queryKey: albumKeys.detail(id),
     queryFn: async () => {
       const { data, error } = await api.get('/api/retrieve-album', {
@@ -77,4 +78,4 @@ export const albumQuery = (id: number) =>
 
 export const useAlbums = (params: ListAlbumsQuery) => useQuery(albumsQuery(params));
 export const useRecentlyAddedAlbums = () => useQuery(recentlyAddedAlbumsQuery());
-export const useAlbum = (id: number) => useQuery(albumQuery(id));
+export const useAlbum = (id: number, enabled = true) => useQuery(albumQuery(id, enabled));
