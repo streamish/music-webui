@@ -18227,8 +18227,8 @@ export enum InternalServerErrorEnum {
 }
 export enum ApiAccountsDeleteAccountBadRequestErrors {
   account_only_admin_error = 'account-only-admin-error',
-  invalid_admin_password_error = 'invalid-admin-password-error',
   invalid_account_id_error = 'invalid-account-id-error',
+  invalid_admin_password_error = 'invalid-admin-password-error',
   invalid_admin_password_length_error = 'invalid-admin-password-length-error',
 }
 export enum ApiAccountsDeleteAccountUnauthorizedErrors {
