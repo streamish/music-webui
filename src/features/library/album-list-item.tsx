@@ -54,6 +54,7 @@ export function AlbumListItem({
             hideQueueButtons={true}
             hideEditButton={true}
             hideRatingButtons={true}
+            quickPlay={true}
             textLabels={false}
             className="p-0"
           />

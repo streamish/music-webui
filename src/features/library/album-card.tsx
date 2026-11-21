@@ -81,6 +81,7 @@ export function AlbumCard({
               hideQueueButtons={true}
               hideEditButton={true}
               hideRatingButtons={true}
+              quickPlay={true}
               textLabels={false}
               className="p-0"
             />

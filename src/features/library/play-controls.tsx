@@ -21,6 +21,7 @@ export function PlayControls({
   hideQueueButtons,
   hideRatingButtons,
   station,
+  quickPlay,
   textLabels,
   tracks,
 }: {
@@ -31,6 +32,7 @@ export function PlayControls({
   hideEditButton?: boolean;
   hidePlayButton?: boolean;
   hideRatingButtons?: boolean;
+  quickPlay?: boolean;
   station?: Station;
   textLabels?: boolean;
   tracks?: Track[];
@@ -75,7 +77,7 @@ export function PlayControls({
         <Button
           variant="ghost"
           className="w-fit self-start p-1 mx-1 px-2 font-normal"
-          aria-label="Play now"
+          aria-label={quickPlay ? 'Quick play' : 'Play now'}
           onClick={playImmediately}
           disabled={isLoadingAlbum}
         >
