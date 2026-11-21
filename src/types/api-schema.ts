@@ -136,7 +136,7 @@ export type paths = {
     put?: never;
     /**
      * Update username
-     * @description Updates the user's username.  This will take effect the next time they sign in.
+     * @description Updates the user's username to a new value.
      *
      *     The request must include a valid JWT token for the user, which can be created by authenticating via the `/api/create-session` endpoint.
      *

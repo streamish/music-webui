@@ -1,6 +1,7 @@
 import { IndexerLogsTable } from '@/features/account/indexer-logs-table';
 import { RootPathTable } from '@/features/account/root-path-table';
 import { UserChangePasswordForm } from '@/features/account/user-change-password';
+import { UserChangeUsernameForm } from '@/features/account/user-change-username';
 import { UserRotateSessionKeyForm } from '@/features/account/user-rotate-session-key-form';
 import UiPreferences from '@/features/account/ui-preferences';
 
@@ -19,6 +20,7 @@ const AccountPreferencesPage = () => {
         <div className="flex flex-row space-x-2">
           <div className="h-8">
             <UserChangePasswordForm />
+            <UserChangeUsernameForm />
             <UserRotateSessionKeyForm />
           </div>
         </div>
