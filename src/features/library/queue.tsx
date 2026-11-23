@@ -111,6 +111,34 @@ export function QueueProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: 'jump', index });
   }, []);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !('mediaSession' in navigator)) {
+      return undefined;
+    }
+    const register = (action: MediaSessionAction, handler: (event?: MediaSessionActionDetails) => void) => {
+      try {
+        navigator.mediaSession.setActionHandler(action, handler);
+      } catch {
+        // This browser may not support this action.
+      }
+    };
+    register('play', () => togglePlay(true));
+    register('pause', () => togglePlay(false));
+    register('nexttrack', nextTrack);
+    register('previoustrack', previousTrack);
+    return () => {
+      const actions: MediaSessionAction[] = ['play', 'pause', 'nexttrack', 'previoustrack'];
+      actions.forEach((action) => {
+        try {
+          navigator.mediaSession.setActionHandler(action, null);
+        } catch {
+          // This browser may not support this action.
+        }
+      });
+    };
+  }, [audioRef.current]);
+
   const dataValue = useMemo(() => ({ queue, currentIndex }), [queue, currentIndex]);
 
   const playbackValue = useMemo(
